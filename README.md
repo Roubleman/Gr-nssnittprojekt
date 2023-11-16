@@ -33,3 +33,19 @@ npm run build
 ```sh
 npm run lint
 ```
+
+
+# fuck-the-dealer
+
+Kodkonventioner:
+
+Variabler: camelCase
+
+Components: PascalCase
+
+HTML class: kebab-case
+
+HTML id: snake_case
+
+HTML type: dot.case
+
