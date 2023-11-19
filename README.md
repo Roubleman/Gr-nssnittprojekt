@@ -49,3 +49,9 @@ HTML id: snake_case
 
 HTML type: dot.case
 
+#Workflow:
+
+* Git pull
+* SKRIVA KOD
+* Git commit ()
+* Git push (Så länge koden fungerar annars stoppa vid git commit)
