@@ -23,6 +23,7 @@ Att göra lista:
 
     [] Display of room-code
     [] Display of joined participants
+    [] "click and drag" change order
     [] King hat for creator
     [] Start game button
 
