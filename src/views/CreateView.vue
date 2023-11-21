@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{ uiLabels["createHeading"] }}</h1>
     {{ uiLabels.inputGameId }}:
     <input type="text" v-model="gameId" />
     <button v-on:click="createGame">
@@ -35,7 +36,7 @@ export default {
     socket.on("pollCreated", (data) => (this.data = data));
   },
   methods: {
-    createGame: function () {},
+    createGame: function () { },
     createPoll: function () {
       socket.emit("createPoll", { gameId: this.gameId, lang: this.lang });
     },
