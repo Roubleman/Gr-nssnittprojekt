@@ -55,3 +55,4 @@ HTML type: dot.case
 * SKRIVA KOD
 * Git commit
 * Git push (Så länge koden fungerar annars stoppa vid git commit)
+* Skriva i vad som lades till och när i COMMITS.md
