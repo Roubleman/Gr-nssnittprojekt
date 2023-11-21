@@ -1,12 +1,12 @@
 {
-	"sales-pitch": "Svar. Helt. Enkelt.",
+	"salesPitch": "Bli full. Online. Enkelt.",
 	"subHeading": "Ett enkelt enkätverktyg",
 	"invite": "Bjud in deltagare med den här länken:",
-	"createPoll": "Skapa röstning",
-	"participatePoll": "Delta i röstning",
+	"joinGame": "Anslut",
 	"question": "Fråga",
 	"changeLanguage": "Change to English",
 	"about": "Om oss",
 	"createGame": "Skapa spel",
-	"inputGameId": "Lobby kod"
+	"inputGameId": "Lobby kod",
+	"rules": "Regler"
 }

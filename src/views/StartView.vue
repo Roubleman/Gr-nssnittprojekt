@@ -6,25 +6,23 @@
     ></div>
     <div class="logo">
       <img src="/img/logo.png" />
-      Polly polling tool
+      Card Guessr
       <img src="../assets/logo.svg" />
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
     <button v-on:click="switchLanguage">{{ uiLabels.changeLanguage }}</button>
-    <router-link to="/create/">{{ uiLabels.createPoll }}</router-link>
+    <router-link to="/create/">{{ uiLabels.createGame }}</router-link>
     <a href="">{{ uiLabels.about }}</a>
-    <a href="">FAQ</a>
+    <a href="">{{ uiLabels.rules }}</a>
   </ResponsiveNav>
-  <h1>{{ uiLabels["sales-pitch"] }}</h1>
+  <h1>{{ uiLabels.salesPitch }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
   <label>
-    Write poll id:
+    {{ uiLabels.inputGameId }}
     <input type="text" v-model="id" />
   </label>
-  <router-link v-bind:to="'/game/' + id">{{
-    uiLabels.participatePoll
-  }}</router-link>
+  <router-link v-bind:to="'/game/' + id">{{ uiLabels.joinGame }}</router-link>
 </template>
 
 <script>
