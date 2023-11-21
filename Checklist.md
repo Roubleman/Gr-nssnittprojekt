@@ -2,7 +2,7 @@
 
 Att göra lista:
 
-## Home view
+## Start view
 
     [] Create button
     [] Join button
@@ -10,6 +10,13 @@ Att göra lista:
     [] How to play
     [] Resize correctly
     [] Styled
+
+### Join
+
+    [] Name
+    [] Avatar (Optional)
+    [] Enter room-code
+    [] (nykterfadder)
 
 ## Create view
 
@@ -19,20 +26,13 @@ Att göra lista:
     [] Styled
     [] Resize correctly
 
-## Join lobby view
+## Lobby view
 
     [] Display of room-code
     [] Display of joined participants
     [] "click and drag" change order
     [] King hat for creator
     [] Start game button
-
-## Join view
-
-    [] Name
-    [] Avatar (Optional)
-    [] Enter room-code
-    [] (nykterfadder)
 
 ## OneCard view
 
