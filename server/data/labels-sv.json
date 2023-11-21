@@ -6,5 +6,7 @@
 	"participatePoll": "Delta i röstning",
 	"question": "Fråga",
 	"changeLanguage": "Change to English",
-	"about": "Om oss"
+	"about": "Om oss",
+	"createGame": "Skapa spel",
+	"inputGameId": "Lobby kod"
 }

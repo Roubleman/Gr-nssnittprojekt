@@ -23,6 +23,7 @@ Att göra lista:
     [] Amount of guesses setting
     [] Points setting
     [] Creator name
+    [] Start game
     [] Styled
     [] Resize correctly
 

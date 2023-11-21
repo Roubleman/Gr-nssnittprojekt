@@ -5,6 +5,7 @@ import {readFileSync} from "fs";
 // Store data in an object to keep the global namespace clean
 function Data() {
   this.polls = {};
+  this.games = {};
 }
 
 /***********************************************
@@ -18,37 +19,37 @@ Data.prototype.getUILabels = function (lang = "en") {
   return JSON.parse(labels);
 }
 
-Data.prototype.createPoll = function(pollId, lang="en") {
-  if (typeof this.polls[pollId] === "undefined") {
+Data.prototype.createPoll = function(gameId, lang="en") {
+  if (typeof this.polls[gameId] === "undefined") {
     let poll = {};
     poll.lang = lang;  
     poll.questions = [];
     poll.answers = [];
     poll.currentQuestion = 0;              
-    this.polls[pollId] = poll;
-    console.log("poll created", pollId, poll);
+    this.polls[gameId] = poll;
+    console.log("poll created", gameId, poll);
   }
-  return this.polls[pollId];
+  return this.polls[gameId];
 }
 
-Data.prototype.addQuestion = function(pollId, q) {
-  const poll = this.polls[pollId];
-  console.log("question added to", pollId, q);
+Data.prototype.addQuestion = function(gameId, q) {
+  const poll = this.polls[gameId];
+  console.log("question added to", gameId, q);
   if (typeof poll !== 'undefined') {
     poll.questions.push(q);
   }
 }
 
-Data.prototype.editQuestion = function(pollId, index, newQuestion) {
-  const poll = this.polls[pollId];
+Data.prototype.editQuestion = function(gameId, index, newQuestion) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
     poll.questions[index] = newQuestion;
   }
 }
 
-Data.prototype.getQuestion = function(pollId, qId=null) {
-  const poll = this.polls[pollId];
-  console.log("question requested for ", pollId, qId);
+Data.prototype.getQuestion = function(gameId, qId=null) {
+  const poll = this.polls[gameId];
+  console.log("question requested for ", gameId, qId);
   if (typeof poll !== 'undefined') {
     if (qId !== null) {
       poll.currentQuestion = qId;
@@ -58,9 +59,9 @@ Data.prototype.getQuestion = function(pollId, qId=null) {
   return []
 }
 
-Data.prototype.submitAnswer = function(pollId, answer) {
-  const poll = this.polls[pollId];
-  console.log("answer submitted for ", pollId, answer);
+Data.prototype.submitAnswer = function(gameId, answer) {
+  const poll = this.polls[gameId];
+  console.log("answer submitted for ", gameId, answer);
   if (typeof poll !== 'undefined') {
     let answers = poll.answers[poll.currentQuestion];
     if (typeof answers !== 'object') {
@@ -76,8 +77,8 @@ Data.prototype.submitAnswer = function(pollId, answer) {
   }
 }
 
-Data.prototype.getAnswers = function(pollId) {
-  const poll = this.polls[pollId];
+Data.prototype.getAnswers = function(gameId) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
     const answers = poll.answers[poll.currentQuestion];
     if (typeof poll.questions[poll.currentQuestion] !== 'undefined') {
