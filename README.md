@@ -52,6 +52,6 @@ HTML/CSS type: dot.case
 
 - Git pull
 - SKRIVA KOD
+- Skriva i vad som lades till och när i COMMITS.md
 - Git commit (så många du vill)
 - Git push (Så länge koden fungerar annars stoppa vid git commit)
-- Skriva i vad som lades till och när i COMMITS.md
