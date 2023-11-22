@@ -1,13 +1,12 @@
 {
-	"sales-pitch": "Simply. Great. Polling.",
+	"salesPitch": "Get drunk. Online. Easy.",
 	"subHeading": "A simple polling tool",
 	"invite": "Invite participants with this link:",
-	"createPoll": "Create poll",
-	"participatePoll": "Participate in poll",
+	"joinGame": "Join game",
 	"question": "Question",
 	"changeLanguage": "Byt till svenska",
 	"about": "About",
-	"createGame": "Create Game",
-	"inputGameId": "Lobby code"
-
+	"createHeading": "Create game",
+	"inputGameId": "Lobby code",
+	"rules" : "Rules"	
 }
