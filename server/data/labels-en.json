@@ -11,5 +11,9 @@
 	"rules" : "Rules",
 	"startGame": "Start game",
 	"inputName": "Input your player name",
-	"inputGuesses": "Amount of guesses before dealer swap"
+	"inputGuesses": "Amount of guesses before dealer swap",
+	"pointsSetting": "Points setting",
+	"easyOption": "Kind",
+	"normalOption": "Normal",
+	"hardcoreOption": "Get drunk fast"
 }

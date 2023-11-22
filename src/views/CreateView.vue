@@ -3,14 +3,17 @@
     <h1>{{ uiLabels.createHeading }}</h1>
     <section>
       <section type="create-setting">
-        {{ uiLabels.inputGuesses }}:
-        <input
-          id="guesses_input"
-          type="number"
-          min="1"
-          max="5"
-          v-model="guessesNumber"
-        />
+        {{ uiLabels.inputGuesses }}: {{ guessesNumber }}
+        <button v-on:click="this.addGuesses">+</button>
+        <button v-on:click="this.removeGuesses">-</button>
+      </section>
+      <section type="create-setting">
+        {{ uiLabels.pointsSetting }}:
+        <select v-model="pointsSetting">
+          <option v-bind:value="'easy'">{{ uiLabels.easyOption }}</option>
+          <option v-bind:value="'normal'">{{ uiLabels.normalOption }}</option>
+          <option v-bind:value="'hard'">{{ uiLabels.hardcoreOption }}</option>
+        </select>
       </section>
       <section class="create-setting">
         {{ uiLabels.inputName }}:
@@ -40,11 +43,10 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       gameId: "",
       hostName: "",
-      question: "",
-      answers: ["", ""],
       guessesNumber: 3,
       data: {},
       uiLabels: {},
+      pointsSetting: "normal",
     };
   },
   created: function () {
@@ -57,25 +59,22 @@ export default {
     socket.on("pollCreated", (data) => (this.data = data));
   },
   methods: {
-    createGame: function () {},
+    addGuesses: function () {
+      if (this.guessesNumber < 5) this.guessesNumber++;
+    },
+    removeGuesses: function () {
+      if (this.guessesNumber > 1) this.guessesNumber--;
+    },
+    createGame: function () {
+      socket.emit("createGame", {
+        gameId: this.gameId,
+        hostName: this.hostName,
+        guessesNumber: this.guessesNumber,
+        pointsSetting: this.pointsSetting,
+      });
+    },
     createPoll: function () {
       socket.emit("createPoll", { gameId: this.gameId, lang: this.lang });
-    },
-    addQuestion: function () {
-      socket.emit("addQuestion", {
-        gameId: this.gameId,
-        q: this.question,
-        a: this.answers,
-      });
-    },
-    addAnswer: function () {
-      this.answers.push("");
-    },
-    runQuestion: function () {
-      socket.emit("runQuestion", {
-        gameId: this.gameId,
-        questionNumber: this.questionNumber,
-      });
     },
   },
 };
@@ -84,6 +83,7 @@ export default {
 <style>
 .create-setting {
   height: 5em;
+  margin: 2em;
 }
 
 #guesses_input {
