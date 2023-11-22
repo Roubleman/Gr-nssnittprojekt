@@ -1,7 +1,13 @@
 <template>
   <div>
-    <p>Hej</p>
-    {{ gameId }}
+
+    {{ gameId }} <br>
+
+    <button id="playGameButton">
+      <label for="playGameButton"> {{ uiLabels.playGame }}</label>
+    </button>
+
+
     <form>
       <li v-for="player in playerList"></li>
     </form>
@@ -18,20 +24,23 @@ export default {
   name: "LobbyView",
   components: {
     QuestionComponent,
-    PlayerComponent,
   },
   data: function () {
     return {
-      question: {
-        q: "",
-        a: [],
-      },
+      lang: localStorage.getItem("lang") || "en",
+      data: {},
+      uiLabels: {},
       gameId: "inactive poll",
-      playerList: {},
     };
   },
   created: function () {
     this.gameId = this.$route.params.id;
+    socket.emit("pageLoaded", this.lang);
+    socket.on("init", (labels) => {
+      this.uiLabels = labels;
+    });
+    socket.on("dataUpdate", (data) => (this.data = data));
+
     socket.emit("joinPoll", this.gameId);
     socket.on("newQuestion", (q) => (this.question = q));
     socket.on("dataUpdate", (answers) => (this.submittedAnswers = answers));
