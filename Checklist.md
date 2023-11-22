@@ -10,6 +10,7 @@ Att göra lista:
     [] How to play
     [] Resize correctly
     [] Styled
+    [x] Skriva om hamburger css
 
 ### Join
 

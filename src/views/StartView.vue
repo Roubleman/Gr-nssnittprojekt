@@ -1,7 +1,7 @@
 <template>
   <header>
     <div
-      v-bind:class="['hamburger', { close: !hideNav }]"
+      v-bind:class="['navigation-menu', { close: !hideNav }]"
       v-on:click="toggleNav"
     ></div>
     <div class="logo">
@@ -88,7 +88,7 @@ header {
   vertical-align: bottom;
   margin-right: 0.5rem;
 }
-.hamburger {
+.navigation-menu {
   color: white;
   width: 1em;
   display: flex;
@@ -106,7 +106,7 @@ header {
   color: rgb(14, 221, 86);
   width: 6em;
   height: 1.5em;
-  padding: 0.5em 1em;
+  padding: 0.75em 1em;
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -154,7 +154,7 @@ header {
     align-items: center;
     justify-content: center;
   }
-  .hamburger::before {
+  .navigation-menu::before {
     content: "☰";
   }
   .close::before {
