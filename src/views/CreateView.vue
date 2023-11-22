@@ -61,8 +61,6 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
-    socket.on("dataUpdate", (data) => (this.data = data));
-    socket.on("pollCreated", (data) => (this.data = data));
   },
   methods: {
     checkValues: function () {
@@ -121,6 +119,8 @@ h1 {
   border-width: 1em;
   padding-top: 3%;
   background-color: rgba(29, 188, 93, 0.468);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 .input {
   font-size: 1.2em;
