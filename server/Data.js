@@ -32,7 +32,7 @@ Data.prototype.createGame = function(gameId, lang="en", pointsSetting="normal", 
     game.players = [];
     game.players.push(player);
     this.games[gameId] = game;
-    console.log("game created", gameId, games);
+    console.log("game created", gameId, game);
   }
   return this.games[gameId];
  }
