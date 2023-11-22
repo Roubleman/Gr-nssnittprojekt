@@ -19,38 +19,6 @@ Data.prototype.getUILabels = function (lang = "en") {
   return JSON.parse(labels);
 }
 
-Data.prototype.createGame = function(gameId, lang="en", pointsSetting="normal", guessesNumber=3, hostName="host") {
-  if (typeof this.games[gameId] === "undefined") {
-    let game = {};
-    let player = {};
-    game.lang = lang;
-    game.pointsSetting = pointsSetting;
-    game.guessesNumber = guessesNumber;
-    player.name = hostName;
-    player.isHost = true;
-    player.points = 0;
-    game.players = [];
-    game.players.push(player);
-    this.games[gameId] = game;
-    console.log("game created", gameId, game);
-  }
-  return this.games[gameId];
- }
-
- Data.prototype.joinGame = function(gameId, playerName) {
-  const game = this.games[gameId];
-  if (typeof game !== 'undefined') {
-    let player = {};
-    player.name = playerName;
-    player.isHost = false;
-    player.points = 0;
-    game.players.push(player);
-    console.log("player joined", gameId, player);
-    return player;
-  }
-  return {};
- }
-
 Data.prototype.createPoll = function(gameId, lang="en") {
   if (typeof this.polls[gameId] === "undefined") {
     let poll = {};
