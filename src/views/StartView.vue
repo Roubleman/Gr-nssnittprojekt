@@ -29,7 +29,7 @@
     </label>
   </div>
   <section style="padding-top: 1em">
-    <router-link class="join-button join-button2" v-bind:to="'/game/' + id">{{
+    <router-link class="join-button join-button2" v-bind:to="'/lobby/' + id">{{
       uiLabels.joinGame
     }}</router-link>
   </section>
@@ -178,10 +178,10 @@ header {
     left: -12em;
   }
   .input-fields {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>
