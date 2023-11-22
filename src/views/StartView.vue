@@ -13,7 +13,7 @@
   <ResponsiveNav v-bind:hideNav="hideNav">
     <button v-on:click="switchLanguage">{{ uiLabels.changeLanguage }}</button>
     <router-link to="/create/">{{ uiLabels.createHeading }}</router-link>
-    <a href="">{{ uiLabels.about }}</a>
+    <a href="#" @click.prevent="openAbout">{{ uiLabels.about }}</a>
     <a href="#" @click.prevent="openRules">{{ uiLabels.rules }}</a>
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
@@ -23,6 +23,13 @@
       <span class="close_popup" @click="closeRules">&times;</span>
       <h1>{{ uiLabels.rules }}:</h1>
       <p v-for="text in uiLabels.rulesText">{{ text }}</p>
+    </div>
+  </div>
+  <div class="overlay" id="about_popup">
+    <div class="popup">
+      <span class="close_popup" @click="closeAbout">&times;</span>
+      <h1>{{ uiLabels.about }}:</h1>
+      <p v-for="text in uiLabels.aboutText">{{text}}</p>
     </div>
   </div>
   <section>
@@ -110,6 +117,26 @@ export default {
       const rulesPopup = document.getElementById("rules_popup");
       if (event.target === rulesPopup) {
         this.closeRules(); // Call your existing closeRules function
+      }
+    },
+      openAbout: function () {
+      const aboutPopup = document.getElementById("about_popup");
+      aboutPopup.style.display = "flex";
+      this.removeButton = true;
+
+      aboutPopup.addEventListener("click", this.closeAboutOutside);
+    },
+    closeAbout: function () {
+      const aboutPopup = document.getElementById("about_popup");
+      aboutPopup.style.display = "none";
+
+      aboutPopup.removeEventListener("click", this.closeAboutOutside);
+      this.removeButton = false;
+    },
+    closeAboutOutside: function (event) {
+      const aboutPopup = document.getElementById("about_popup");
+      if (event.target === aboutPopup) {
+        this.closeAbout(); // Call your existing closeRules function
       }
     },
     inputChecker: function () {
