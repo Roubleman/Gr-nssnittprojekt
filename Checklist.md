@@ -11,6 +11,7 @@ Att göra lista:
     [] Resize correctly
     [] Styled
     [x] Skriva om hamburger css
+    [] Bara kunna klicka "join" om man skrivit in kod & namn
 
 ### Join
 
