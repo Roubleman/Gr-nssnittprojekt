@@ -5,9 +5,9 @@
       v-on:click="toggleNav"
     ></div>
     <div class="logo">
-      <img src="/img/logo.png" />
+      <span id="clubs"> &clubs; </span>
       Card Guessr
-      <img src="../assets/logo.svg" />
+      <span id="hearts"> &hearts; </span>
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
@@ -116,8 +116,8 @@ header {
 .join-button2 {
   text-decoration: none;
   padding: 0.5em 1em;
-  border: 1px solid rgb(14, 221, 86);
-  box-shadow: 0 0 5px rgb(14, 221, 86), 0 0 5px rgb(14, 221, 86) inset;
+  border: 1/16em solid rgb(14, 221, 86);
+  box-shadow: 0 0 0.3215em rgb(14, 221, 86), 0 0 0.3215em rgb(14, 221, 86) inset;
   z-index: 1;
 }
 
@@ -130,7 +130,7 @@ header {
   right: 0;
   z-index: -1;
   background: rgb(14, 221, 86);
-  box-shadow: 0 0 20px rgb(14, 221, 86);
+  box-shadow: 0 0 1.25em rgb(14, 221, 86);
   transition: all 0.3s ease;
 }
 
@@ -145,6 +145,14 @@ header {
 
 .join-button:active {
   top: 2px;
+}
+
+#clubs {
+  color: black;
+}
+
+#hearts {
+  color: red;
 }
 
 @media screen and (max-width: 50em) {
