@@ -8,5 +8,7 @@
 	"about": "About",
 	"createHeading": "Create game",
 	"inputGameId": "Lobby code",
-	"rules" : "Rules"	
+	"rules" : "Rules",
+	"startGame": "Start game",
+	"inputName": "Input your player name"
 }

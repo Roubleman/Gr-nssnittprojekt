@@ -1,11 +1,21 @@
 <template>
   <div>
-    <h1>{{ uiLabels["createHeading"] }}</h1>
-    {{ uiLabels.inputGameId }}:
-    <input type="text" v-model="gameId" />
-    <button v-on:click="createGame">
-      {{ uiLabels.createGame }}
-    </button>
+    <h1>{{ uiLabels.createHeading }}</h1>
+    <section>
+      <section class="create-setting">
+        {{ uiLabels.inputName }}:
+        <input type="text" v-model="hostName" />
+      </section>
+      <section class="create-setting">
+        {{ uiLabels.inputGameId }}:
+        <input type="text" v-model="gameId" />
+      </section>
+      <section class="create-setting">
+        <button id="start_game_button" v-on:click="createGame">
+          {{ uiLabels.startGame }}
+        </button>
+      </section>
+    </section>
   </div>
 </template>
 
@@ -19,6 +29,7 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       gameId: "",
+      hostName: "",
       question: "",
       answers: ["", ""],
       questionNumber: 0,
@@ -36,7 +47,7 @@ export default {
     socket.on("pollCreated", (data) => (this.data = data));
   },
   methods: {
-    createGame: function () { },
+    createGame: function () {},
     createPoll: function () {
       socket.emit("createPoll", { gameId: this.gameId, lang: this.lang });
     },
@@ -59,3 +70,21 @@ export default {
   },
 };
 </script>
+
+<style>
+.create-setting {
+  height: 5em;
+}
+
+#start_game_button {
+  width: 20%;
+  height: 50%;
+  background-color: rgb(160, 242, 37);
+  font-size: large;
+}
+
+#start_game_button:hover {
+  background-color: rgb(62, 172, 28);
+  cursor: pointer;
+}
+</style>
