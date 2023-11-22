@@ -83,6 +83,7 @@ export default {
     createGame: function () {
       socket.emit("createGame", {
         gameId: this.gameId,
+        lang: this.lang,
         hostName: this.hostName,
         guessesNumber: this.guessesNumber,
         pointsSetting: this.pointsSetting,
