@@ -8,6 +8,8 @@
 	"about": "Om oss",
 	"createHeading": "Skapa spel",
 	"inputGameId": "Lobby kod",
-	"rules": "Regler"
-	
+	"rules": "Regler",
+	"startGame": "Starta spel",
+	"inputName": "Skriv ditt spelar namn",
+	"inputGuesses": "Antal gissningar innan delare byte"
 }
