@@ -24,9 +24,15 @@
         <input type="text" v-model="gameId" />
       </section>
       <section class="create-setting">
-        <button id="start_game_button" v-on:click="createGame">
-          {{ uiLabels.startGame }}
-        </button>
+        <transition name="fade">
+          <button
+            id="start_game_button"
+            v-show="checkValues()"
+            v-on:click="createGame"
+          >
+            {{ uiLabels.startGame }}
+          </button>
+        </transition>
       </section>
     </section>
   </div>
@@ -59,6 +65,15 @@ export default {
     socket.on("pollCreated", (data) => (this.data = data));
   },
   methods: {
+    checkValues: function () {
+      if (this.gameId === "") {
+        return false;
+      } else if (this.hostName === "") {
+        return false;
+      } else {
+        return true;
+      }
+    },
     addGuesses: function () {
       if (this.guessesNumber < 5) this.guessesNumber++;
     },
@@ -72,9 +87,7 @@ export default {
         guessesNumber: this.guessesNumber,
         pointsSetting: this.pointsSetting,
       });
-    },
-    createPoll: function () {
-      socket.emit("createPoll", { gameId: this.gameId, lang: this.lang });
+      this.$router.push("/game/" + this.gameId);
     },
   },
 };
@@ -99,5 +112,14 @@ export default {
 #start_game_button:hover {
   background-color: rgb(62, 172, 28);
   cursor: pointer;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
