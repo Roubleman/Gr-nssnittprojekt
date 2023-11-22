@@ -8,10 +8,11 @@ Att göra lista:
     [x] Join button
     [x] Switch language
     [] How to play
-    [] Resize correctly
-    [] Styled
+    [x] Resize correctly
+    [x] Styled
     [x] Skriva om hamburger css
-    [] Bara kunna klicka "join" om man skrivit in kod & namn
+    [x] Bara kunna klicka "join" om man skrivit in kod & namn
+    [] ändra storlek till större?
 
 ### Join
 
