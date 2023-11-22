@@ -1,12 +1,14 @@
 <template>
   <header>
     <div
-      v-bind:class="['hamburger', { close: !hideNav }]"
+      v-bind:class="['navigation-menu', { close: !hideNav }]"
       v-on:click="toggleNav"
     ></div>
     <div class="logo">
-      <span class="clubs">&clubs;</span> Card Guessr <span class="hearts">&hearts;</span>
-    </div>  
+      <span id="clubs"> &clubs; </span>
+      Card Guessr
+      <span id="hearts"> &hearts; </span>
+    </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
     <button v-on:click="switchLanguage">{{ uiLabels.changeLanguage }}</button>
@@ -16,12 +18,18 @@
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
-  <label>
-    {{ uiLabels.inputGameId }}
-    <input type="text" v-model="id" />
-  </label>
-  <section>
-    <router-link id="join_button" v-bind:to="'/game/' + id">{{
+  <div class="input-fields">
+    <label>
+      {{ uiLabels.inputName }}
+      <input type="text" v-model="name" />
+    </label>
+    <label>
+      {{ uiLabels.inputGameId }}
+      <input type="number" v-model="id" />
+    </label>
+  </div>
+  <section style="padding-top: 1em">
+    <router-link class="join-button join-button2" v-bind:to="'/game/' + id">{{
       uiLabels.joinGame
     }}</router-link>
   </section>
@@ -86,13 +94,7 @@ header {
   vertical-align: bottom;
   margin-right: 0.5rem;
 }
-.clubs {
-  color: black;
-}
-.hearts {
-  color: red;
-}
-.hamburger {
+.navigation-menu {
   color: white;
   width: 1em;
   display: flex;
@@ -106,20 +108,58 @@ header {
   font-size: 1.5rem;
 }
 
-#join_button {
-  text-decoration: none;
+.join-button {
   color: rgb(14, 221, 86);
+  width: 6em;
+  height: 1.5em;
+  padding: 0.75em 1em;
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
   display: inline-block;
+}
+.join-button2 {
+  text-decoration: none;
   padding: 0.5em 1em;
-  border: 1px solid rgb(14, 221, 86);
-  box-shadow: 0 0 5px rgb(14, 221, 86), 0 0 5px rgb(14, 221, 86) inset;
+  border: 1/16em solid rgb(14, 221, 86);
+  box-shadow: 0 0 0.3215em rgb(14, 221, 86), 0 0 0.3215em rgb(14, 221, 86) inset;
   z-index: 1;
 }
 
+.join-button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background: rgb(14, 221, 86);
+  box-shadow: 0 0 1.25em rgb(14, 221, 86);
+  transition: all 0.3s ease;
+}
 
+.join-button:hover {
+  color: #fff;
+}
+
+.join-button:hover::after {
+  left: 0;
+  width: 100%;
+}
+
+.join-button:active {
+  top: 2px;
+}
+
+#clubs {
+  color: black;
+}
+
+#hearts {
+  color: red;
+}
 
 @media screen and (max-width: 50em) {
   .logo {
@@ -128,7 +168,7 @@ header {
     align-items: center;
     justify-content: center;
   }
-  .hamburger::before {
+  .navigation-menu::before {
     content: "☰";
   }
   .close::before {
@@ -137,5 +177,11 @@ header {
   .hide {
     left: -12em;
   }
+  .input-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 }
 </style>
