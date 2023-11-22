@@ -45,7 +45,7 @@
         join - button,
         join - button2,
         { joinButtonIsDisabled: this.inputChecker() },
-        { popupRemoveButton: this.removeButton}
+        { popupRemoveButton: this.removeButton},
       ]"
       @click="this.sendPlayerInfo()"
       >{{ uiLabels.joinGame }}</router-link
@@ -94,25 +94,24 @@ export default {
     },
     openRules: function () {
       const rulesPopup = document.getElementById("rules_popup");
-  rulesPopup.style.display = "flex";
+      rulesPopup.style.display = "flex";
       this.removeButton = true;
 
       rulesPopup.addEventListener("click", this.closeRulesOutside);
-      
     },
     closeRules: function () {
       const rulesPopup = document.getElementById("rules_popup");
-  rulesPopup.style.display = "none";
+      rulesPopup.style.display = "none";
 
-  rulesPopup.removeEventListener("click", this.closeRulesOutside);
-  this.removeButton = false;
+      rulesPopup.removeEventListener("click", this.closeRulesOutside);
+      this.removeButton = false;
     },
     closeRulesOutside: function (event) {
-  const rulesPopup = document.getElementById("rules_popup");
-  if (event.target === rulesPopup) {
-    this.closeRules(); // Call your existing closeRules function
-  }
-},
+      const rulesPopup = document.getElementById("rules_popup");
+      if (event.target === rulesPopup) {
+        this.closeRules(); // Call your existing closeRules function
+      }
+    },
     inputChecker: function () {
       if (this.name.length < 1) {
         return true;
@@ -215,7 +214,7 @@ header {
 
 .popupRemoveButton {
   opacity: 0;
-  transition:none;
+  transition: none;
 }
 
 #clubs {
@@ -227,32 +226,32 @@ header {
 }
 
 .overlay {
-  display:none;
+  display: none;
   position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
   align-items: center;
   justify-content: center;
 }
 
 .popup {
-  z-index:2;
+  z-index: 2;
   background: #fff;
   padding: 1em;
   border-radius: 0.5em;
-  box-shadow: 0 0 0.7em rgba(0,0,0,0.3);
+  box-shadow: 0 0 0.7em rgba(0, 0, 0, 0.3);
   text-align: center;
-  position:relative;
+  position: relative;
 }
 
 .close_popup {
-  cursor:pointer;
-  position:absolute;
-  top:0.5em;
-  right:0.5em;
+  cursor: pointer;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
 }
 
 @media screen and (max-width: 50em) {
