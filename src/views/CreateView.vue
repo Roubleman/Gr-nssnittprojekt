@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1>{{ uiLabels.createHeading }}</h1>
-    <section>
+    <section id="global_section">
       <section type="create-setting">
         {{ uiLabels.inputGuesses }}: {{ guessesNumber }}
-        <button v-on:click="this.addGuesses">+</button>
-        <button v-on:click="this.removeGuesses">-</button>
+        <button class="guess-button" v-on:click="this.addGuesses">+</button>
+        <button class="guess-button" v-on:click="this.removeGuesses">-</button>
       </section>
       <section type="create-setting">
         {{ uiLabels.pointsSetting }}:
@@ -87,16 +87,26 @@ export default {
         guessesNumber: this.guessesNumber,
         pointsSetting: this.pointsSetting,
       });
-      this.$router.push("/game/" + this.gameId);
+      this.$router.push("/lobby/" + this.gameId);
     },
   },
 };
 </script>
 
 <style>
+#global_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .create-setting {
+  width: 100%;
   height: 5em;
+  /* height: 5em;
   margin: 2em;
+  margin: 2em; */
 }
 
 #guesses_input {
@@ -112,6 +122,11 @@ export default {
 #start_game_button:hover {
   background-color: rgb(62, 172, 28);
   cursor: pointer;
+}
+
+.guess-button:hover {
+  cursor: pointer;
+  background-color: rgb(134, 145, 132);
 }
 
 .fade-enter-active,
