@@ -2,12 +2,14 @@
   <div class="lobbyMenu">
     {{ gameId }} <br />
 
-    <button id="playGameButton">
+    <button id="playGameButton" v-on:click="console.log(playerList)">
       <label for="playGameButton"> {{ uiLabels.playGame }}</label>
     </button>
 
     <form>
-      <li v-for="player in playerList"></li>
+      <li v-for="player in playerList">
+        {{ data.player }}
+      </li>
     </form>
   </div>
 </template>
@@ -28,7 +30,7 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       data: {},
       uiLabels: {},
-      gameId: "inactive poll",
+      gameId: "inactive game",
       playerList: [],
     };
   },
@@ -37,17 +39,13 @@ export default {
     socket.on("gameCreated", (game) => {
       (this.gameId = game.gameId), (this.playerList = game.players);
     });
-    socket.on("gameJoined", (game) => {
-      (this.gameId = game.gameId), (this.playerList = game.player);
-    });
+
+    socket.on("gameJoined", () => {});
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
     socket.on("dataUpdate", (data) => (this.data = data));
-
-    socket.emit("joinPoll", this.gameId);
-    socket.on("newQuestion", (q) => (this.question = q));
     socket.on("dataUpdate", (answers) => (this.submittedAnswers = answers));
   },
   methods: {
