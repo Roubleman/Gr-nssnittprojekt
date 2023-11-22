@@ -94,7 +94,7 @@ export default {
     },
 
     sendPlayerInfo: function () {
-      socket.emit("joinGame", this.id, this.name);
+      socket.emit("joinGame", { playerId: this.id, playerName: this.name });
     },
   },
 };
