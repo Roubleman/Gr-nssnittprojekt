@@ -46,9 +46,7 @@ Data.prototype.createGame = function(gameId, lang="en", pointsSetting="normal", 
     player.points = 0;
     game.players.push(player);
     console.log("player joined", gameId, player);
-    return player;
   }
-  return {};
  }
 
 Data.prototype.createPoll = function(gameId, lang="en") {

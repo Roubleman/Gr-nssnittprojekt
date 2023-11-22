@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1>{{ uiLabels.createHeading }}</h1>
-    <section>
+    <section id="global_section">
       <section type="create-setting">
         {{ uiLabels.inputGuesses }}: {{ guessesNumber }}
-        <button v-on:click="this.addGuesses">+</button>
-        <button v-on:click="this.removeGuesses">-</button>
+        <button class="guess-button" v-on:click="this.addGuesses">+</button>
+        <button class="guess-button" v-on:click="this.removeGuesses">-</button>
       </section>
       <section type="create-setting">
         {{ uiLabels.pointsSetting }}:
@@ -24,9 +24,15 @@
         <input type="text" v-model="gameId" />
       </section>
       <section class="create-setting">
-        <button id="start_game_button" v-on:click="createGame">
-          {{ uiLabels.startGame }}
-        </button>
+        <transition name="fade">
+          <button
+            id="start_game_button"
+            v-show="checkValues()"
+            v-on:click="createGame"
+          >
+            {{ uiLabels.startGame }}
+          </button>
+        </transition>
       </section>
     </section>
   </div>
@@ -59,6 +65,15 @@ export default {
     socket.on("pollCreated", (data) => (this.data = data));
   },
   methods: {
+    checkValues: function () {
+      if (this.gameId === "") {
+        return false;
+      } else if (this.hostName === "") {
+        return false;
+      } else {
+        return true;
+      }
+    },
     addGuesses: function () {
       if (this.guessesNumber < 5) this.guessesNumber++;
     },
@@ -72,18 +87,26 @@ export default {
         guessesNumber: this.guessesNumber,
         pointsSetting: this.pointsSetting,
       });
-    },
-    createPoll: function () {
-      socket.emit("createPoll", { gameId: this.gameId, lang: this.lang });
+      this.$router.push("/lobby/" + this.gameId);
     },
   },
 };
 </script>
 
 <style>
+#global_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .create-setting {
+  width: 100%;
   height: 5em;
+  /* height: 5em;
   margin: 2em;
+  margin: 2em; */
 }
 
 #guesses_input {
@@ -99,5 +122,19 @@ export default {
 #start_game_button:hover {
   background-color: rgb(62, 172, 28);
   cursor: pointer;
+}
+
+.guess-button:hover {
+  cursor: pointer;
+  background-color: rgb(134, 145, 132);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -9,10 +9,15 @@ const router = createRouter({
       name: 'Start',
       component: StartView
     },
-      {
+    {
       path: '/game/:id',
-      name: 'PollView',
-      component: () => import('../views/PollView.vue')
+      name:  'GameView',
+      component: () => import('../views/GameView.vue')
+    },
+      {
+      path: '/lobby/:id',
+      name: 'LobbyView',
+      component: () => import('../views/LobbyView.vue')
     },
     {
       path: '/create/',

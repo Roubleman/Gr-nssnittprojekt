@@ -33,7 +33,7 @@
   <section style="padding-top: 1em">
     <router-link
       class="join-button join-button2"
-      v-bind:to="this.inputChecker() ? '' : '/game/' + this.id"
+      v-bind:to="this.inputChecker() ? '' : '/lobby/' + this.id"
       v-bind:class="[
         join - button,
         join - button2,

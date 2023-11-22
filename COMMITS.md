@@ -8,3 +8,4 @@ Createview, tagit bort bloat
 
 22/11-23 Elias
 Createview, lagt till hostName, ändrat start knapp
+Data + socket: createGame, joinGame

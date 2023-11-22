@@ -11,6 +11,7 @@ Att göra lista:
     [] Resize correctly
     [] Styled
     [x] Skriva om hamburger css
+    [] Bara kunna klicka "join" om man skrivit in kod & namn
 
 ### Join
 
@@ -21,10 +22,12 @@ Att göra lista:
 
 ## Create view
 
-    [] Amount of guesses setting
-    [] Points setting
-    [] Creator name
-    [] Start game
+    [x] Amount of guesses setting
+    [x] Points setting
+    [x] Creator name
+    [x] Lobby code
+    [x] Start game
+    [] Back-end
     [] Styled
     [] Resize correctly
 
