@@ -1,12 +1,10 @@
 <template>
-  <div>
-
-    {{ gameId }} <br>
+  <div class="lobbyMenu">
+    {{ gameId }} <br />
 
     <button id="playGameButton">
       <label for="playGameButton"> {{ uiLabels.playGame }}</label>
     </button>
-
 
     <form>
       <li v-for="player in playerList"></li>
@@ -31,10 +29,17 @@ export default {
       data: {},
       uiLabels: {},
       gameId: "inactive poll",
+      playerList: [],
     };
   },
   created: function () {
-    this.gameId = this.$route.params.id;
+    /*this.gameId = this.$route.params.id;*/
+    socket.on("gameCreated", (game) => {
+      (this.gameId = game.gameId), (this.playerList = game.players);
+    });
+    socket.on("gameJoined", (game) => {
+      (this.gameId = game.gameId), (this.playerList = game.player);
+    });
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;
@@ -52,3 +57,8 @@ export default {
   },
 };
 </script>
+<style>
+.lobbyMenu {
+  margin: 25px;
+}
+</style>
