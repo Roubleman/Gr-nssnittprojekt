@@ -5,9 +5,9 @@
       v-on:click="toggleNav"
     ></div>
     <div class="logo">
-      <img src="/img/logo.png" />
+      <span id="clubs"> &clubs; </span>
       Card Guessr
-      <img src="../assets/logo.svg" />
+      <span id="hearts"> &hearts; </span>
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
@@ -45,7 +45,7 @@
         join - button,
         join - button2,
         { joinButtonIsDisabled: this.inputChecker() },
-        { popupRemoveButton: this.removeButton},
+        { popupRemoveButton: this.removeButton },
       ]"
       @click="this.sendPlayerInfo()"
       >{{ uiLabels.joinGame }}</router-link
