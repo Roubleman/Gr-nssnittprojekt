@@ -1,14 +1,10 @@
 <template>
   <div>
+    <p>Hej</p>
     {{ gameId }}
-    <QuestionComponent
-      v-bind:question="question"
-      v-on:answer="submitAnswer($event)"
-    />
-    <form v-for="player in playerList">
-      <input type="text" v-model="Players" />
+    <form>
+      <li v-for="player in playerList"></li>
     </form>
-    <span>{{ submittedAnswers }}</span>
   </div>
 </template>
 
@@ -19,9 +15,10 @@ import io from "socket.io-client";
 const socket = io("localhost:3000");
 
 export default {
-  name: "PollView",
+  name: "LobbyView",
   components: {
     QuestionComponent,
+    PlayerComponent,
   },
   data: function () {
     return {
@@ -30,8 +27,7 @@ export default {
         a: [],
       },
       gameId: "inactive poll",
-      submittedAnswers: {},
-      playerList,
+      playerList: {},
     };
   },
   created: function () {
