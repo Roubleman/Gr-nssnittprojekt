@@ -37,7 +37,7 @@ function sockets(io, socket, data) {
     socket.emit('newQuestion', data.getQuestion(gameId))
     socket.emit('dataUpdate', data.getAnswers(gameId));
   });
-
+  
   socket.on('runQuestion', function(d) {
     io.to(d.gameId).emit('newQuestion', data.getQuestion(d.gameId, d.questionNumber));
     io.to(d.gameId).emit('dataUpdate', data.getAnswers(d.gameId));
