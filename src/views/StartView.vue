@@ -18,10 +18,16 @@
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
-  <label>
-    {{ uiLabels.inputGameId }}
-    <input type="text" v-model="id" />
-  </label>
+  <div class="input-fields">
+    <label>
+      {{ uiLabels.inputName }}
+      <input type="text" v-model="name" />
+    </label>
+    <label>
+      {{ uiLabels.inputGameId }}
+      <input type="number" v-model="id" />
+    </label>
+  </div>
   <section style="padding-top: 1em">
     <router-link class="join-button join-button2" v-bind:to="'/game/' + id">{{
       uiLabels.joinGame
@@ -163,5 +169,11 @@ header {
   .hide {
     left: -12em;
   }
+  .input-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 }
 </style>
