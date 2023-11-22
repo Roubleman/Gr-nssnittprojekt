@@ -9,8 +9,17 @@ function sockets(io, socket, data) {
     socket.emit('init', data.getUILabels(lang));
   });
 
+  socket.on('createGame', function(d) {
+    socket.emit('gameCreated', data.createGame(d.gameId, d.lang, d.pointsSetting, d.guessesNumber, d.hostName))
+   });
+
   socket.on('createPoll', function(d) {
     socket.emit('pollCreated', data.createPoll(d.gameId, d.lang));
+  });
+
+  socket.on('joinGame', function(gameId, playerName) {
+    socket.join(gameId);
+    socket.emit('gameJoined', data.joinGame(gameId, playerName));
   });
 
   socket.on('addQuestion', function(d) {
@@ -28,7 +37,7 @@ function sockets(io, socket, data) {
     socket.emit('newQuestion', data.getQuestion(gameId))
     socket.emit('dataUpdate', data.getAnswers(gameId));
   });
-
+  
   socket.on('runQuestion', function(d) {
     io.to(d.gameId).emit('newQuestion', data.getQuestion(d.gameId, d.questionNumber));
     io.to(d.gameId).emit('dataUpdate', data.getAnswers(d.gameId));

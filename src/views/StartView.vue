@@ -5,9 +5,8 @@
       v-on:click="toggleNav"
     ></div>
     <div class="logo">
-      <img src="/img/logo.png" />
-      Card Guessr
-      <img src="../assets/logo.svg" />
+      <span class="clubs">&clubs;</span> Card Guessr
+      <span class="hearts">&hearts;</span>
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
@@ -22,8 +21,8 @@
     {{ uiLabels.inputGameId }}
     <input type="text" v-model="id" />
   </label>
-  <section style="padding-top: 1em">
-    <router-link class="join-button join-button2" v-bind:to="'/game/' + id">{{
+  <section>
+    <router-link id="join_button" v-bind:to="'/game/' + id">{{
       uiLabels.joinGame
     }}</router-link>
   </section>
@@ -88,7 +87,13 @@ header {
   vertical-align: bottom;
   margin-right: 0.5rem;
 }
-.navigation-menu {
+.clubs {
+  color: black;
+}
+.hearts {
+  color: red;
+}
+.hamburger {
   color: white;
   width: 1em;
   display: flex;
@@ -102,7 +107,8 @@ header {
   font-size: 1.5rem;
 }
 
-.join-button {
+#join_button {
+  text-decoration: none;
   color: rgb(14, 221, 86);
   width: 6em;
   height: 1.5em;
@@ -110,41 +116,11 @@ header {
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
   display: inline-block;
-}
-.join-button2 {
-  text-decoration: none;
   padding: 0.5em 1em;
   border: 1px solid rgb(14, 221, 86);
   box-shadow: 0 0 5px rgb(14, 221, 86), 0 0 5px rgb(14, 221, 86) inset;
   z-index: 1;
-}
-
-.join-button::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 100%;
-  top: 0;
-  right: 0;
-  z-index: -1;
-  background: rgb(14, 221, 86);
-  box-shadow: 0 0 20px rgb(14, 221, 86);
-  transition: all 0.3s ease;
-}
-
-.join-button:hover {
-  color: #fff;
-}
-
-.join-button:hover::after {
-  left: 0;
-  width: 100%;
-}
-
-.join-button:active {
-  top: 2px;
 }
 
 @media screen and (max-width: 50em) {
