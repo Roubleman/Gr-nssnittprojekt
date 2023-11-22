@@ -22,7 +22,11 @@
     {{ uiLabels.inputGameId }}
     <input type="text" v-model="id" />
   </label>
-  <router-link v-bind:to="'/game/' + id">{{ uiLabels.joinGame }}</router-link>
+  <section>
+    <router-link id="join_button" v-bind:to="'/game/' + id">{{
+      uiLabels.joinGame
+    }}</router-link>
+  </section>
 </template>
 
 <script>
@@ -97,6 +101,21 @@ header {
   cursor: pointer;
   font-size: 1.5rem;
 }
+
+#join_button {
+  text-decoration: none;
+  color: rgb(14, 221, 86);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  padding: 0.5em 1em;
+  border: 1px solid rgb(14, 221, 86);
+  box-shadow: 0 0 5px rgb(14, 221, 86), 0 0 5px rgb(14, 221, 86) inset;
+  z-index: 1;
+}
+
+
 
 @media screen and (max-width: 50em) {
   .logo {

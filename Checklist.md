@@ -4,9 +4,9 @@ Att göra lista:
 
 ## Start view
 
-    [] Create button
-    [] Join button
-    [] Switch language
+    [x] Create button
+    [x] Join button
+    [x] Switch language
     [] How to play
     [] Resize correctly
     [] Styled
