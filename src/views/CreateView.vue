@@ -2,6 +2,16 @@
   <div>
     <h1>{{ uiLabels.createHeading }}</h1>
     <section>
+      <section type="create-setting">
+        {{ uiLabels.inputGuesses }}:
+        <input
+          id="guesses_input"
+          type="number"
+          min="1"
+          max="5"
+          v-model="guessesNumber"
+        />
+      </section>
       <section class="create-setting">
         {{ uiLabels.inputName }}:
         <input type="text" v-model="hostName" />
@@ -32,7 +42,7 @@ export default {
       hostName: "",
       question: "",
       answers: ["", ""],
-      questionNumber: 0,
+      guessesNumber: 3,
       data: {},
       uiLabels: {},
     };
@@ -76,6 +86,9 @@ export default {
   height: 5em;
 }
 
+#guesses_input {
+  width: 2em;
+}
 #start_game_button {
   width: 20%;
   height: 50%;

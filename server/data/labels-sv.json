@@ -10,5 +10,6 @@
 	"inputGameId": "Lobby kod",
 	"rules": "Regler",
 	"startGame": "Starta spel",
-	"inputName": "Skriv ditt spelar namn"
+	"inputName": "Skriv ditt spelar namn",
+	"inputGuesses": "Antal gissningar innan delare byte"
 }

@@ -10,5 +10,6 @@
 	"inputGameId": "Lobby code",
 	"rules" : "Rules",
 	"startGame": "Start game",
-	"inputName": "Input your player name"
+	"inputName": "Input your player name",
+	"inputGuesses": "Amount of guesses before dealer swap"
 }
