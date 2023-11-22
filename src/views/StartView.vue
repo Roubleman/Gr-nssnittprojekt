@@ -14,10 +14,17 @@
     <button v-on:click="switchLanguage">{{ uiLabels.changeLanguage }}</button>
     <router-link to="/create/">{{ uiLabels.createHeading }}</router-link>
     <a href="">{{ uiLabels.about }}</a>
-    <a href="">{{ uiLabels.rules }}</a>
+    <a href="#" @click.prevent="openRules">{{ uiLabels.rules }}</a>
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
+  <div class="overlay" id="rules_popup">
+    <div class="popup">
+      <span class="close_popup" @click="closeRules">&times;</span>
+      <h1>{{ uiLabels.rules }}:</h1>
+      <p v-for="text in uiLabels.rulesText">{{ text }}</p>
+    </div>
+  </div>
   <section>
     <label>
       {{ uiLabels.inputName }}
@@ -38,6 +45,7 @@
         join - button,
         join - button2,
         { joinButtonIsDisabled: this.inputChecker() },
+        { popupRemoveButton: this.removeButton}
       ]"
       @click="this.sendPlayerInfo()"
       >{{ uiLabels.joinGame }}</router-link
@@ -62,6 +70,7 @@ export default {
       name: "",
       lang: localStorage.getItem("lang") || "en",
       hideNav: true,
+      removeButton: false,
     };
   },
   created: function () {
@@ -83,6 +92,27 @@ export default {
     toggleNav: function () {
       this.hideNav = !this.hideNav;
     },
+    openRules: function () {
+      const rulesPopup = document.getElementById("rules_popup");
+  rulesPopup.style.display = "flex";
+      this.removeButton = true;
+
+      rulesPopup.addEventListener("click", this.closeRulesOutside);
+      
+    },
+    closeRules: function () {
+      const rulesPopup = document.getElementById("rules_popup");
+  rulesPopup.style.display = "none";
+
+  rulesPopup.removeEventListener("click", this.closeRulesOutside);
+  this.removeButton = false;
+    },
+    closeRulesOutside: function (event) {
+  const rulesPopup = document.getElementById("rules_popup");
+  if (event.target === rulesPopup) {
+    this.closeRules(); // Call your existing closeRules function
+  }
+},
     inputChecker: function () {
       if (this.name.length < 1) {
         return true;
@@ -183,12 +213,46 @@ header {
   opacity: 0.5;
 }
 
+.popupRemoveButton {
+  opacity: 0;
+  transition:none;
+}
+
 #clubs {
   color: black;
 }
 
 #hearts {
   color: red;
+}
+
+.overlay {
+  display:none;
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  z-index:2;
+  background: #fff;
+  padding: 1em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.7em rgba(0,0,0,0.3);
+  text-align: center;
+  position:relative;
+}
+
+.close_popup {
+  cursor:pointer;
+  position:absolute;
+  top:0.5em;
+  right:0.5em;
 }
 
 @media screen and (max-width: 50em) {
