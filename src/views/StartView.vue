@@ -18,20 +18,30 @@
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
-  <div class="input-fields">
+  <section>
     <label>
       {{ uiLabels.inputName }}
       <input type="text" v-model="name" />
     </label>
+  </section>
+  <section style="padding-top: 1em">
     <label>
       {{ uiLabels.inputGameId }}
-      <input type="number" v-model="id" />
+      <input type="text" v-model="id" />
     </label>
-  </div>
+  </section>
   <section style="padding-top: 1em">
-    <router-link class="join-button join-button2" v-bind:to="'/game/' + id">{{
-      uiLabels.joinGame
-    }}</router-link>
+    <router-link
+      class="join-button join-button2"
+      v-bind:to="this.inputChecker() ? '' : '/game/' + this.id"
+      v-bind:class="[
+        join - button,
+        join - button2,
+        { joinButtonIsDisabled: this.inputChecker() },
+      ]"
+      @click="this.sendPlayerInfo()"
+      >{{ uiLabels.joinGame }}</router-link
+    >
   </section>
 </template>
 
@@ -49,6 +59,7 @@ export default {
     return {
       uiLabels: {},
       id: "",
+      name: "",
       lang: localStorage.getItem("lang") || "en",
       hideNav: true,
     };
@@ -71,6 +82,19 @@ export default {
     },
     toggleNav: function () {
       this.hideNav = !this.hideNav;
+    },
+    inputChecker: function () {
+      if (this.name.length < 1) {
+        return true;
+      }
+      if (this.id.length < 1) {
+        return true;
+      }
+      return false;
+    },
+
+    sendPlayerInfo: function () {
+      socket.emit("joinGame", this.id, this.name);
     },
   },
 };
@@ -153,6 +177,12 @@ header {
   top: 2px;
 }
 
+.joinButtonIsDisabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+}
+
 #clubs {
   color: black;
 }
@@ -178,10 +208,10 @@ header {
     left: -12em;
   }
   .input-fields {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>
