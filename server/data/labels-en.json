@@ -16,5 +16,6 @@
 	"easyOption": "Kind",
 	"normalOption": "Normal",
 	"hardcoreOption": "Get drunk fast",
-	"playGame": "Play game"
+	"playGame": "Play game",
+	"rulesText": ["First rule", "Second rule", "Third rule"]
 }

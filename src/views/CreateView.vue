@@ -2,14 +2,14 @@
   <div>
     <h1>{{ uiLabels.createHeading }}</h1>
     <section id="global_section">
-      <section type="create-setting">
+      <section class="create-setting">
         {{ uiLabels.inputGuesses }}: {{ guessesNumber }}
         <button class="guess-button" v-on:click="this.addGuesses">+</button>
         <button class="guess-button" v-on:click="this.removeGuesses">-</button>
       </section>
-      <section type="create-setting">
+      <section class="create-setting">
         {{ uiLabels.pointsSetting }}:
-        <select v-model="pointsSetting">
+        <select class="input" v-model="pointsSetting">
           <option v-bind:value="'easy'">{{ uiLabels.easyOption }}</option>
           <option v-bind:value="'normal'">{{ uiLabels.normalOption }}</option>
           <option v-bind:value="'hard'">{{ uiLabels.hardcoreOption }}</option>
@@ -17,13 +17,13 @@
       </section>
       <section class="create-setting">
         {{ uiLabels.inputName }}:
-        <input type="text" v-model="hostName" />
+        <input class="input" type="text" v-model="hostName" />
       </section>
       <section class="create-setting">
         {{ uiLabels.inputGameId }}:
-        <input type="text" v-model="gameId" />
+        <input class="input" type="text" v-model="gameId" />
       </section>
-      <section class="create-setting">
+      <section id="button_section">
         <transition name="fade">
           <button
             id="start_game_button"
@@ -61,8 +61,6 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
-    socket.on("dataUpdate", (data) => (this.data = data));
-    socket.on("pollCreated", (data) => (this.data = data));
   },
   methods: {
     checkValues: function () {
@@ -83,6 +81,7 @@ export default {
     createGame: function () {
       socket.emit("createGame", {
         gameId: this.gameId,
+        lang: this.lang,
         hostName: this.hostName,
         guessesNumber: this.guessesNumber,
         pointsSetting: this.pointsSetting,
@@ -94,6 +93,17 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: beige;
+  font-size: 1.3em;
+}
+
+h1 {
+  font-size: 3em;
+  margin: 0.5em;
+  margin-bottom: 0.8em;
+}
+
 #global_section {
   display: flex;
   flex-direction: column;
@@ -102,26 +112,39 @@ export default {
 }
 
 .create-setting {
-  width: 100%;
-  height: 5em;
-  /* height: 5em;
-  margin: 2em;
-  margin: 2em; */
+  width: 40em;
+  height: 4em;
+  border-style: inset;
+  border-color: rgba(255, 0, 128, 0.707);
+  border-width: 1em;
+  padding-top: 3%;
+  background-color: rgba(29, 188, 93, 0.468);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.input {
+  font-size: 1.2em;
+}
+#button_section {
+  width: 50em;
+  height: 7em;
+  padding-top: 2%;
 }
 
-#guesses_input {
-  width: 2em;
-}
 #start_game_button {
-  width: 20%;
+  width: 50%;
   height: 50%;
   background-color: rgb(160, 242, 37);
-  font-size: large;
+  font-size: 1.5em;
 }
 
 #start_game_button:hover {
   background-color: rgb(62, 172, 28);
   cursor: pointer;
+}
+.guess-button {
+  font-size: 1.2em;
+  width: 1.5em;
 }
 
 .guess-button:hover {

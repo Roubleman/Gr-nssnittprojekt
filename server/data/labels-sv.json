@@ -16,5 +16,6 @@
 	"easyOption": "Snäll",
 	"normalOption": "Normal",
 	"hardcoreOption": "Bli full snabbt",
-	"playGame": "Spela"
+	"playGame": "Spela",
+	"rulesText": ["Punkt ett", "Punkt två", "Punkt tre"]
 }
