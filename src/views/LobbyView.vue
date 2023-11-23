@@ -9,7 +9,7 @@
 
     <form>
       <li v-for="player in playerList">
-        {{ player }}
+        {{ player.name }}
       </li>
     </form>
   </div>
@@ -43,32 +43,18 @@ export default {
 
     socket.on("gameInfo", (game) => {
       console.log("Info recieved");
-      if (this.gameId == game.gameId) {
-        this.playerList = game.players;
-        this.gameSettings.pointsSetting = game.pointsSetting;
-        this.gameSettings.guessesNumber = game.guessesNumber;
-      }
+      this.playerList = game.players;
+      this.gameSettings.pointsSetting = game.pointsSetting;
+      this.gameSettings.guessesNumber = game.guessesNumber;
+      console.log(this.playerList);
     });
 
-    socket.on("test", (n) => {
-      console.log("test recieved");
-    });
-    socket.on("gameJoined", (players) => {
-      this.playerList = players;
-    });
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;
-      console.log("labels");
     });
-    socket.on("dataUpdate", (data) => (this.data = data));
-    socket.on("dataUpdate", (answers) => (this.submittedAnswers = answers));
   },
-  methods: {
-    submitAnswer: function (answer) {
-      socket.emit("submitAnswer", { gameId: this.gameId, answer: answer });
-    },
-  },
+  methods: {},
 };
 </script>
 <style>
