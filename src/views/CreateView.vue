@@ -120,7 +120,7 @@ h1 {
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 1em;
   padding-top: 3%;
-  background-color: rgba(29, 188, 93, 0.468);
+  background-color: rgb(73, 114, 73);
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
