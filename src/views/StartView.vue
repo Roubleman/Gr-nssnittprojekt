@@ -32,18 +32,20 @@
       <p v-for="text in uiLabels.aboutText">{{ text }}</p>
     </div>
   </div>
-  <section>
+  <section id="input_wrappers">
+  <section class="input-boxes">
     <label>
-      {{ uiLabels.inputName }}
+      {{ uiLabels.inputName }}:
       <input type="text" v-model="name" />
     </label>
   </section>
-  <section style="padding-top: 1em">
+  <section class="input-boxes">
     <label>
-      {{ uiLabels.inputGameId }}
+      {{ uiLabels.inputGameId }}:
       <input type="text" v-model="id" />
     </label>
   </section>
+</section>
   <section style="padding-top: 1em">
     <router-link
       class="join-button join-button2"
@@ -161,7 +163,7 @@ body {
   font-size: 1.3em;
 }
 header {
-  background-color: gray;
+  background-color: rgb(73, 114, 73);
   width: 100%;
   display: grid;
   grid-template-columns: 2em auto;
@@ -283,6 +285,26 @@ header {
   position: absolute;
   top: 0.5em;
   right: 0.5em;
+}
+
+#input_wrappers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.input-boxes {
+  color: white;
+  width: 40em;
+  height: 4em;
+  border-style: inset;
+  border-color: rgba(252, 16, 48, 0.707);
+  border-width: 1em;
+  padding-top: 3%;
+  background-color: rgb(73, 114, 73);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 @media screen and (max-width: 50em) {

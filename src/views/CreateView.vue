@@ -112,13 +112,14 @@ h1 {
 }
 
 .create-setting {
+  color: white;
   width: 40em;
   height: 4em;
   border-style: inset;
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 1em;
   padding-top: 3%;
-  background-color: rgba(11, 116, 20, 0.468);
+  background-color: rgb(73, 114, 73);
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
