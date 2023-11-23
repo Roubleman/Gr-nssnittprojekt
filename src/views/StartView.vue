@@ -157,7 +157,7 @@ export default {
 </script>
 <style scoped>
 header {
-  background-color: gray;
+  background-color: rgb(73, 114, 73);
   width: 100%;
   display: grid;
   grid-template-columns: 2em auto;
