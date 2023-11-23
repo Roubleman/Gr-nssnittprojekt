@@ -36,13 +36,13 @@
   <section class="input-boxes">
     <label>
       {{ uiLabels.inputName }}:
-      <input type="text" v-model="name" />
+      <input class="input" type="text" v-model="name" />
     </label>
   </section>
   <section class="input-boxes">
     <label>
       {{ uiLabels.inputGameId }}:
-      <input type="text" v-model="id" />
+      <input class="input" type="text" v-model="id" />
     </label>
   </section>
 </section>
