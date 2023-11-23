@@ -42,11 +42,14 @@ export default {
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
-      console.log("Info recieved");
       this.playerList = game.players;
       this.gameSettings.pointsSetting = game.pointsSetting;
       this.gameSettings.guessesNumber = game.guessesNumber;
       console.log(this.playerList);
+    });
+
+    socket.on("gameJoined", (players) => {
+      this.playerList = players;
     });
 
     socket.emit("pageLoaded", this.lang);
