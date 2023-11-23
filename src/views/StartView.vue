@@ -29,7 +29,7 @@
     <div class="popup">
       <span class="close_popup" @click="closeAbout">&times;</span>
       <h1>{{ uiLabels.about }}:</h1>
-      <p v-for="text in uiLabels.aboutText">{{text}}</p>
+      <p v-for="text in uiLabels.aboutText">{{ text }}</p>
     </div>
   </div>
   <section>
@@ -119,7 +119,7 @@ export default {
         this.closeRules(); // Call your existing closeRules function
       }
     },
-      openAbout: function () {
+    openAbout: function () {
       const aboutPopup = document.getElementById("about_popup");
       aboutPopup.style.display = "flex";
       this.removeButton = true;
@@ -155,7 +155,11 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style>
+body {
+  background-color: beige;
+  font-size: 1.3em;
+}
 header {
   background-color: rgb(73, 114, 73);
   width: 100%;
