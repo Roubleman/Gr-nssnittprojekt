@@ -6,10 +6,10 @@
     <button id="playGameButton" v-on:click="console.log(playerList)">
       <label for="playGameButton"> {{ uiLabels.playGame }}</label>
     </button>
-    {{ data.player }}
+
     <form>
       <li v-for="player in playerList">
-        {{ data.player }}
+        {{ player }}
       </li>
     </form>
   </div>
@@ -39,8 +39,9 @@ export default {
     this.gameId = this.$route.params.id;
     console.log("LobbyView created triggered");
     socket.on("gameCreated", (game) => {
+      s;
       console.log("Info recieved");
-      if ((this.gameId = game.gameId)) {
+      if (this.gameId == game.gameId) {
         this.playerList = game.players;
       }
     });
