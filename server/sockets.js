@@ -17,9 +17,12 @@ function sockets(io, socket, data) {
     socket.emit('pollCreated', data.createPoll(d.gameId, d.lang));
   });
 
-  socket.on('joinGame', function(gameId, playerName) {
-    socket.join(gameId);
-    socket.emit('gameJoined', data.joinGame(gameId, playerName));
+  socket.on('joinGame', function(d) {
+    console.log("joinGame heard in sockets.js")
+    data.joinGame(d.gameId, d.playerName);
+    socket.emit('gameJoined', data.getPlayerList(d.gameId));
+    console.log("gameJoined sent")
+    socket.join(d.gameId);
   });
 
   socket.on('addQuestion', function(d) {

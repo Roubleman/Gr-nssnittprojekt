@@ -49,6 +49,13 @@ Data.prototype.createGame = function(gameId, lang="en", pointsSetting="normal", 
   }
  }
 
+Data.prototype.getPlayerList = function(gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined') {
+    return game.players
+  }
+}
+
 Data.prototype.createPoll = function(gameId, lang="en") {
   if (typeof this.polls[gameId] === "undefined") {
     let poll = {};

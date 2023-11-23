@@ -56,7 +56,7 @@ export default {
     };
   },
   created: function () {
-    this.id = this.$route.params.id;
+    //this.id = this.$route.params.id;
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;
@@ -79,6 +79,7 @@ export default {
       if (this.guessesNumber > 1) this.guessesNumber--;
     },
     createGame: function () {
+      this.$router.push("/lobby/" + this.gameId);
       socket.emit("createGame", {
         gameId: this.gameId,
         lang: this.lang,
@@ -86,7 +87,6 @@ export default {
         guessesNumber: this.guessesNumber,
         pointsSetting: this.pointsSetting,
       });
-      this.$router.push("/lobby/" + this.gameId);
     },
   },
 };

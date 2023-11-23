@@ -35,12 +35,17 @@ export default {
     };
   },
   created: function () {
-    /*this.gameId = this.$route.params.id;*/
+    this.gameId = this.$route.params.id;
+    console.log("LobbyView created triggered");
     socket.on("gameCreated", (game) => {
-      (this.gameId = game.gameId), (this.playerList = game.players);
+      console.log("Info recieved");
+      if ((this.gameId = game.gameId)) {
+        this.playerList = game.players;
+      }
     });
-
-    socket.on("gameJoined", () => {});
+    socket.on("gameJoined", (players) => {
+      this.playerList = players;
+    });
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;
