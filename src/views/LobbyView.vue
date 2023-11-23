@@ -33,16 +33,25 @@ export default {
       uiLabels: {},
       gameId: "inactive game",
       playerList: [],
+      gameSettings: {},
     };
   },
   created: function () {
     this.gameId = this.$route.params.id;
-    console.log("LobbyView created triggered");
-    socket.on("gameCreated", (game) => {
+
+    socket.emit("getGameInfo", this.gameId);
+
+    socket.on("gameInfo", (game) => {
       console.log("Info recieved");
       if (this.gameId == game.gameId) {
         this.playerList = game.players;
+        this.gameSettings.pointsSetting = game.pointsSetting;
+        this.gameSettings.guessesNumber = game.guessesNumber;
       }
+    });
+
+    socket.on("test", (n) => {
+      console.log("test recieved");
     });
     socket.on("gameJoined", (players) => {
       this.playerList = players;
@@ -50,6 +59,7 @@ export default {
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;
+      console.log("labels");
     });
     socket.on("dataUpdate", (data) => (this.data = data));
     socket.on("dataUpdate", (answers) => (this.submittedAnswers = answers));
