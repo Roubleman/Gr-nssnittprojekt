@@ -94,8 +94,9 @@ export default {
 
 <style>
 body {
-  background-color: beige;
+  background-color: rgb(233, 233, 223);
   font-size: 1.3em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1 {
@@ -115,10 +116,10 @@ h1 {
   width: 40em;
   height: 4em;
   border-style: inset;
-  border-color: rgba(255, 0, 128, 0.707);
+  border-color: rgba(252, 16, 48, 0.707);
   border-width: 1em;
   padding-top: 3%;
-  background-color: rgba(29, 188, 93, 0.468);
+  background-color: rgba(11, 116, 20, 0.468);
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
