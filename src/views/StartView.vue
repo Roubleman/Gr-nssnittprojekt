@@ -157,7 +157,7 @@ export default {
 </script>
 <style>
 body {
-  background-color: beige;
+  background-color: rgb(233, 233, 223);
   font-size: 1.3em;
 }
 header {

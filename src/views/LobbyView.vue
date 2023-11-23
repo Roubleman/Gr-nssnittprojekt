@@ -39,7 +39,6 @@ export default {
     this.gameId = this.$route.params.id;
     console.log("LobbyView created triggered");
     socket.on("gameCreated", (game) => {
-      s;
       console.log("Info recieved");
       if (this.gameId == game.gameId) {
         this.playerList = game.players;
@@ -64,7 +63,7 @@ export default {
 </script>
 <style>
 body {
-  background-color: beige;
+  background-color: rgb(233, 233, 223);
   font-size: 1.3em;
 }
 
