@@ -283,8 +283,8 @@ header {
 .close_popup {
   cursor: pointer;
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  top: 2%;
+  right: 3.5%;
 }
 
 #input_wrappers {

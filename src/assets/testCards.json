@@ -1,0 +1,20 @@
+[
+  {
+    "value": "A",
+    "suit": "spades"
+  },
+
+  {
+    "value": "3",
+    "suit": "diams"
+  },
+  {
+    "value": "K",
+    "suit": "clubs"
+  },
+
+  {
+    "value": "8",
+    "suit": "hearts"
+  }
+]

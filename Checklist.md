@@ -13,6 +13,7 @@ Att göra lista:
     [x] Skriva om hamburger css
     [x] Bara kunna klicka "join" om man skrivit in kod & namn
     [] ändra storlek till större?
+    [] Skicka info för att kunna joina/uppdatera info. 
 
 ### Join
 
