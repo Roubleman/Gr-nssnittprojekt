@@ -78,4 +78,9 @@ body {
   background-color: rgb(160, 242, 37);
   font-size: 1.5em;
 }
+
+#playGameButton:hover {
+  background-color: rgb(62, 172, 28);
+  cursor: pointer;
+}
 </style>
