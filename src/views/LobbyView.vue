@@ -1,11 +1,12 @@
 <template>
   <div class="lobbyMenu">
-    {{ gameId }} <br />
+    <h1>{{ uiLabels.lobbyheader }} {{ gameId }}</h1>
+    <br />
 
     <button id="playGameButton" v-on:click="console.log(playerList)">
       <label for="playGameButton"> {{ uiLabels.playGame }}</label>
     </button>
-
+    {{ data.player }}
     <form>
       <li v-for="player in playerList">
         {{ data.player }}
@@ -61,7 +62,19 @@ export default {
 };
 </script>
 <style>
+body {
+  background-color: beige;
+  font-size: 1.3em;
+}
+
 .lobbyMenu {
   margin: 25px;
+}
+
+#playGameButton {
+  width: 10%;
+  height: 50%;
+  background-color: rgb(160, 242, 37);
+  font-size: 1.5em;
 }
 </style>

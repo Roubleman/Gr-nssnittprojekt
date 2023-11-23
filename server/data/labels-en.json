@@ -18,5 +18,6 @@
 	"hardcoreOption": "Get drunk fast",
 	"playGame": "Play game",
 	"rulesText": ["First rule", "Second rule", "Third rule"],
-	"aboutText": ["Here is some information", "And here might be some more"]
+	"aboutText": ["Here is some information", "And here might be some more"],
+	"lobbyheader": "Welcome to game:"
 }
