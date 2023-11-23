@@ -17,5 +17,6 @@
 	"normalOption": "Normal",
 	"hardcoreOption": "Bli full snabbt",
 	"playGame": "Spela",
-	"rulesText": ["Punkt ett", "Punkt två", "Punkt tre"]
+	"rulesText": ["Punkt ett", "Punkt två", "Punkt tre"],
+	"lobbyheader": "Välkommen till spel"
 }
