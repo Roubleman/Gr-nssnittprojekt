@@ -53,6 +53,8 @@ export default {
 .card-corner {
   margin-top: 0em;
   margin-bottom: 0em;
+  margin-left: 0.2em;
+  text-align: start;
 }
 
 .red {
