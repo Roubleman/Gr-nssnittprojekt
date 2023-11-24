@@ -13,7 +13,7 @@
     </form>
   </section>
 
-  <button id="playGameButton" v-on:click="console.log(playerList)">
+  <button id="playGameButton" v-on:click="playGame">
     <label for="playGameButton"> {{ uiLabels.playGame }}</label>
   </button>
 </template>
@@ -60,7 +60,17 @@ export default {
       this.uiLabels = labels;
     });
   },
-  methods: {},
+  methods: {
+    playGame: function () {
+      this.$router.push("/game/" + this.gameId);
+      socket.emit("playGame", {
+        guessesNumber: this.guessesNumber,
+        pointsSetting: this.pointsSetting,
+      });
+    },
+
+
+  },
 };
 </script>
 <style>
