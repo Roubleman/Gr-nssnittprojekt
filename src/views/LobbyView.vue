@@ -7,9 +7,10 @@
       <label for="playGameButton"> {{ uiLabels.playGame }}</label>
     </button>
 
-    <form>
+    <form id="playerListForm">
       <li v-for="player in playerList">
         {{ player.name }}
+        <span v-if="player.isHost">&#x1F451;</span>
       </li>
     </form>
   </div>
@@ -64,7 +65,22 @@ export default {
 body {
   background-color: rgb(233, 233, 223);
   font-size: 1.3em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+#playerListForm {
+  background-color: #f8f9fa;
+  border-radius: 0.5em;
+  padding: 2em;
+  max-width: 10%;
+  margin: 0 auto;
+}
+
+#playerListForm li {
+  margin-bottom: 1em;
+  font-size: 1.2em;
+}
+
 
 .lobbyMenu {
   margin: 25px;
