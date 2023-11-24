@@ -3,15 +3,31 @@
     <h1>{{ uiLabels.lobbyHeader }} {{ gameId }}</h1>
     <br />
   </div>
+
+
+  <!-- Måste installera 'npm install vue-draggable-next i projektet en gång'-->
   <section id="input_wrappers">
+    <h2>{{ uiLabels.formTitle }}</h2>
+    <draggable v-model="playerList" class="player-list">
+      <li v-for="(player, index) in playerList" :key="index">
+        {{ index + 1 + ". " }}{{ player.name }}
+        <span v-if="player.isHost">&#x1F451;</span>
+      </li>
+    </draggable>
+  </section>
+  <!--
+  <section id="input_wrappers">
+
     <form id="playerListForm">
-      <h2>{{ uiLabels.formTitle }}</h2>
+      
       <li v-for="player in playerList">
         {{ player.name }}
         <span v-if="player.isHost">&#x1F451;</span>
       </li>
-    </form>
+    </form> 
+
   </section>
+-->
 
   <button id="playGameButton" v-on:click="playGame">
     <label for="playGameButton"> {{ uiLabels.playGame }}</label>
@@ -20,6 +36,8 @@
 
 <script>
 // @ is an alias to /src
+
+import { VueDraggableNext } from 'vue-draggable-next';
 import QuestionComponent from "@/components/QuestionComponent.vue";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
@@ -27,6 +45,7 @@ const socket = io("localhost:3000");
 export default {
   name: "LobbyView",
   components: {
+    draggable: VueDraggableNext,
     QuestionComponent,
   },
   data: function () {
@@ -86,7 +105,7 @@ body {
   align-items: center;
 }
 
-#playerListForm {
+.player-list {
   color: white;
   width: 15em;
   border-style: inset;
@@ -99,7 +118,7 @@ body {
 
 }
 
-#playerListForm li {
+.player-list li {
   list-style-type: none;
   margin: 0.5em;
 
