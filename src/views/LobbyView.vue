@@ -1,19 +1,21 @@
 <template>
   <div class="lobbyMenu">
-    <h1>{{ uiLabels.lobbyheader }} {{ gameId }}</h1>
+    <h1>{{ uiLabels.lobbyHeader }} {{ gameId }}</h1>
     <br />
-
-    <button id="playGameButton" v-on:click="console.log(playerList)">
-      <label for="playGameButton"> {{ uiLabels.playGame }}</label>
-    </button>
-
+  </div>
+  <section id="input_wrappers">
     <form id="playerListForm">
+      <h2>{{ uiLabels.formTitle }}</h2>
       <li v-for="player in playerList">
         {{ player.name }}
         <span v-if="player.isHost">&#x1F451;</span>
       </li>
     </form>
-  </div>
+  </section>
+
+  <button id="playGameButton" v-on:click="console.log(playerList)">
+    <label for="playGameButton"> {{ uiLabels.playGame }}</label>
+  </button>
 </template>
 
 <script>
@@ -68,18 +70,31 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#input_wrappers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
 #playerListForm {
-  background-color: #f8f9fa;
-  border-radius: 0.5em;
-  padding: 2em;
-  max-width: 10%;
-  margin: 0 auto;
+  color: white;
+  width: 10em;
+  border-style: inset;
+  border-color: rgba(252, 16, 48, 0.707);
+  border-width: 1em;
+  background-color: rgb(73, 114, 73);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+
 }
 
 #playerListForm li {
-  margin-bottom: 1em;
-  font-size: 1.2em;
+  list-style-type: none;
+  margin: 0.5em;
 }
+
 
 
 .lobbyMenu {
