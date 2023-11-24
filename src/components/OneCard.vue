@@ -1,16 +1,17 @@
 <template>
-  
   <div class="card-border" @click="selectedCardTapped">
     <div class="grid-container"></div>
-    <p :class="this.isRed() ? 'red': 'black'">
+    <p :class="this.isRed() ? 'red' : 'black'" class="card-corner">
       {{ card.value }}
-      <span v-html="'&' + card.suit + ';'" ></span>
+    </p>
+    <p :class="this.isRed() ? 'red' : 'black'" class="card-corner">
+      <span v-html="'&' + card.suit + ';'"></span>
     </p>
   </div>
 </template>
 
 <script>
-import { sockets } from '../../server/sockets';
+import { sockets } from "../../server/sockets";
 
 export default {
   name: "OneCard",
@@ -30,7 +31,7 @@ export default {
       }
     },
     selectedCardTapped: function () {
-      this.$emit("selectedCard", this.card)
+      this.$emit("selectedCard", this.card);
     },
   },
 };
@@ -39,14 +40,19 @@ export default {
 <style>
 .card-border {
   height: var(--card-width);
-  width: calc(var(--card-width)*0.66);
+  width: calc(var(--card-width) * 0.66);
   border: 0.17em solid black;
   border-radius: 0.625em;
   cursor: pointer;
 }
 
-.grid-container { 
+.grid-container {
   display: grid;
+}
+
+.card-corner {
+  margin-top: 0em;
+  margin-bottom: 0em;
 }
 
 .red {
