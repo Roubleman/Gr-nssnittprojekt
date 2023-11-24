@@ -76,11 +76,9 @@ body {
   align-items: center;
 }
 
-
-
 #playerListForm {
   color: white;
-  width: 10em;
+  width: 15em;
   border-style: inset;
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 1em;
@@ -88,13 +86,14 @@ body {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 
+
 }
 
 #playerListForm li {
   list-style-type: none;
   margin: 0.5em;
-}
 
+}
 
 
 .lobbyMenu {
