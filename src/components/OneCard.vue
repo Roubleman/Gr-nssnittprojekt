@@ -44,6 +44,11 @@ export default {
   border: 0.17em solid black;
   border-radius: 0.625em;
   cursor: pointer;
+  transition: transform 0.5s 0.2s ease;
+}
+
+.card-border:hover {
+  transform: scale(1.1);
 }
 
 .grid-container {
