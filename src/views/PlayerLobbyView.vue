@@ -64,6 +64,10 @@ export default {
       this.playerList = players;
     });
 
+    socket.on("gameStarted", () => {
+      this.$router.push("/game/" + this.gameId);
+    });
+
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;

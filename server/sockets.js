@@ -44,6 +44,10 @@ function sockets(io, socket, data) {
     io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
   });
 
+  socket.on("startGame", function (gameId) {
+    io.to(gameId).emit("gameStarted");
+  });
+
   socket.on("runQuestion", function (d) {
     io.to(d.gameId).emit(
       "newQuestion",

@@ -25,7 +25,11 @@
     <button v-on:click="printPlayerList">Print Playerlist</button>
   </section>
 
-  <button id="play_game_button" v-on:click="playGame">
+  <button
+    id="play_game_button"
+    v-on:click="playGame"
+    v-bind:disabled="!allPlayersReady()"
+  >
     {{ uiLabels.playGame }}
   </button>
 </template>
@@ -81,8 +85,8 @@ export default {
       console.log(this.playerList);
     },
     playGame: function () {
+      socket.emit("startGame", this.gameId);
       this.$router.push("/game/" + this.gameId);
-      socket.emit("playGame", this.gameId);
     },
     scramblePlayerOrder: function () {
       for (let i = this.playerList.length - 1; i > 0; i--) {
@@ -93,6 +97,19 @@ export default {
         ];
       }
       this.updatePlayerListOrder();
+    },
+    allPlayersReady: function () {
+      if (this.playerList.length < 2) {
+        return false;
+      }
+      for (let player of this.playerList) {
+        if (!player.isHost) {
+          if (!player.isReady) {
+            return false;
+          }
+        }
+      }
+      return true;
     },
   },
 };
