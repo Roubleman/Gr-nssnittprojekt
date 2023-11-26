@@ -78,7 +78,7 @@ export default {
       if (this.guessesNumber > 1) this.guessesNumber--;
     },
     createGame: function () {
-      this.$router.push("/lobby/" + this.gameId);
+      this.$router.push("/host/" + this.gameId);
       socket.emit("createGame", {
         gameId: this.gameId,
         lang: this.lang,

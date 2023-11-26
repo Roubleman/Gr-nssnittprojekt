@@ -49,7 +49,7 @@
   <section style="padding-top: 1em; margin-bottom: 10em">
     <router-link
       class="join-button join-button2"
-      v-bind:to="'/lobby/' + this.id"
+      v-bind:to="'/join/' + this.id"
       v-bind:class="[
         join - button,
         join - button2,
