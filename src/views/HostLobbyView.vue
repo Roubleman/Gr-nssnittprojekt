@@ -4,41 +4,34 @@
     <br />
   </div>
 
-
-  <!-- Måste installera 'npm install vue-draggable-next i projektet en gång'-->
   <section id="input_wrappers">
     <h2>{{ uiLabels.formTitle }}</h2>
-    <draggable v-model="playerList" class="player-list">
+    <button id="scramble_button" v-on:click="scramblePlayerOrder">
+      {{ uiLabels.scramblePlayerOrder }}
+    </button>
+    <draggable
+      v-model="playerList"
+      class="player-list"
+      @end="updatePlayerListOrder"
+    >
       <li v-for="(player, index) in playerList" :key="index">
         {{ index + 1 + ". " }}{{ player.name }}
         <span v-if="player.isHost">&#x1F451;</span>
+        <span v-if="player.isReady && !player.isHost">&check;</span>
       </li>
     </draggable>
   </section>
-  <!--
-  <section id="input_wrappers">
-
-    <form id="playerListForm">
-      
-      <li v-for="player in playerList">
-        {{ player.name }}
-        <span v-if="player.isHost">&#x1F451;</span>
-      </li>
-    </form> 
-
+  <section>
+    <button v-on:click="printPlayerList">Print Playerlist</button>
   </section>
--->
 
-  <button id="playGameButton" v-on:click="playGame">
-    <label for="playGameButton"> {{ uiLabels.playGame }}</label>
+  <button id="play_game_button" v-on:click="playGame">
+    {{ uiLabels.playGame }}
   </button>
 </template>
 
 <script>
-// @ is an alias to /src
-
-import { VueDraggableNext } from 'vue-draggable-next';
-import QuestionComponent from "@/components/QuestionComponent.vue";
+import { VueDraggableNext } from "vue-draggable-next";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
@@ -46,7 +39,6 @@ export default {
   name: "LobbyView",
   components: {
     draggable: VueDraggableNext,
-    QuestionComponent,
   },
   data: function () {
     return {
@@ -67,10 +59,9 @@ export default {
       this.playerList = game.players;
       this.gameSettings.pointsSetting = game.pointsSetting;
       this.gameSettings.guessesNumber = game.guessesNumber;
-      console.log(this.playerList);
     });
 
-    socket.on("gameJoined", (players) => {
+    socket.on("playerList", (players) => {
       this.playerList = players;
     });
 
@@ -80,15 +71,29 @@ export default {
     });
   },
   methods: {
-    playGame: function () {
-      this.$router.push("/game/" + this.gameId);
-      socket.emit("playGame", {
-        guessesNumber: this.guessesNumber,
-        pointsSetting: this.pointsSetting,
+    updatePlayerListOrder: function () {
+      socket.emit("updatePlayerListOrder", {
+        playerList: this.playerList,
+        gameId: this.gameId,
       });
     },
-
-
+    printPlayerList: function () {
+      console.log(this.playerList);
+    },
+    playGame: function () {
+      this.$router.push("/game/" + this.gameId);
+      socket.emit("playGame", this.gameId);
+    },
+    scramblePlayerOrder: function () {
+      for (let i = this.playerList.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.playerList[i], this.playerList[j]] = [
+          this.playerList[j],
+          this.playerList[i],
+        ];
+      }
+      this.updatePlayerListOrder();
+    },
   },
 };
 </script>
@@ -114,29 +119,33 @@ body {
   background-color: rgb(73, 114, 73);
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-
-
 }
 
 .player-list li {
   list-style-type: none;
   margin: 0.5em;
-
 }
-
 
 .lobbyMenu {
   margin: 25px;
 }
 
-#playGameButton {
+#scramble_button {
+  width: 20%;
+  height: 50%;
+  background-color: rgb(160, 242, 37);
+  font-size: 1.5em;
+}
+
+#play_game_button {
   width: 10%;
   height: 50%;
   background-color: rgb(160, 242, 37);
   font-size: 1.5em;
 }
 
-#playGameButton:hover {
+#play_game_button:hover,
+#scramble_button:hover {
   background-color: rgb(62, 172, 28);
   cursor: pointer;
 }

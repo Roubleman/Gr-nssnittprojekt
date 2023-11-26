@@ -20,5 +20,7 @@
 	"rulesText": ["First rule", "Second rule", "Third rule"],
 	"aboutText": ["Here is some information", "And here might be some more"],
 	"lobbyHeader": "Welcome to game:",
-	"formTitle": "Player List: "
+	"formTitle": "Player List: ",
+	"scramblePlayerOrder": "Scramble order!",
+	"ready": "Ready!"
 }
