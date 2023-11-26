@@ -15,10 +15,15 @@ const router = createRouter({
       component: () => import('../views/GameView.vue')
     },
       {
-      path: '/lobby/:id',
-      name: 'LobbyView',
-      component: () => import('../views/LobbyView.vue')
+      path: '/host/:id',
+      name: 'HostLobbyView',
+      component: () => import('../views/HostLobbyView.vue')
     },
+    {
+      path: '/join/:id',
+      name: 'JoinLobbyView',
+      component: () => import('../views/PlayerLobbyView.vue')
+    }
     {
       path: '/create/',
       name: 'CreateView',

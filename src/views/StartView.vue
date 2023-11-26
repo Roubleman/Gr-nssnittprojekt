@@ -1,6 +1,9 @@
 <template>
   <header>
-    <div v-bind:class="['navigation-menu', { close: !hideNav }]" v-on:click="toggleNav"></div>
+    <div
+      v-bind:class="['navigation-menu', { close: !hideNav }]"
+      v-on:click="toggleNav"
+    ></div>
     <div class="logo">
       <span id="clubs"> &clubs; </span>
       Card Guessr
@@ -44,12 +47,18 @@
     </section>
   </section>
   <section style="padding-top: 1em">
-    <router-link class="join-button join-button2" v-bind:to="'/lobby/' + this.id" v-bind:class="[
-      join - button,
-      join - button2,
-      { joinButtonIsDisabled: this.inputChecker() },
-      { popupRemoveButton: this.removeButton },
-    ]" @click="this.sendPlayerInfo()">{{ uiLabels.joinGame }}</router-link>
+    <router-link
+      class="join-button join-button2"
+      v-bind:to="'/join/' + this.id"
+      v-bind:class="[
+        join - button,
+        join - button2,
+        { joinButtonIsDisabled: this.inputChecker() },
+        { popupRemoveButton: this.removeButton },
+      ]"
+      @click="this.sendPlayerInfo()"
+      >{{ uiLabels.joinGame }}</router-link
+    >
   </section>
 </template>
 
