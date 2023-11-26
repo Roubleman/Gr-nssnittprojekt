@@ -44,7 +44,7 @@ export default {
   border: 0.17em solid black;
   border-radius: 0.625em;
   cursor: pointer;
-  transition: transform 0.5s 0.2s ease;
+  transition: transform 0.6s ease;
 }
 
 .card-border:hover {

@@ -1,6 +1,9 @@
 <template>
   <header>
-    <div v-bind:class="['navigation-menu', { close: !hideNav }]" v-on:click="toggleNav"></div>
+    <div
+      v-bind:class="['navigation-menu', { close: !hideNav }]"
+      v-on:click="toggleNav"
+    ></div>
     <div class="logo">
       <span id="clubs"> &clubs; </span>
       Card Guessr
@@ -43,13 +46,19 @@
       </label>
     </section>
   </section>
-  <section style="padding-top: 1em">
-    <router-link class="join-button join-button2" v-bind:to="'/lobby/' + this.id" v-bind:class="[
-      join - button,
-      join - button2,
-      { joinButtonIsDisabled: this.inputChecker() },
-      { popupRemoveButton: this.removeButton },
-    ]" @click="this.sendPlayerInfo()">{{ uiLabels.joinGame }}</router-link>
+  <section style="padding-top: 1em; margin-bottom: 10em">
+    <router-link
+      class="join-button join-button2"
+      v-bind:to="'/lobby/' + this.id"
+      v-bind:class="[
+        join - button,
+        join - button2,
+        { joinButtonIsDisabled: this.inputChecker() },
+        { popupRemoveButton: this.removeButton },
+      ]"
+      @click="this.sendPlayerInfo()"
+      >{{ uiLabels.joinGame }}</router-link
+    >
   </section>
 </template>
 
@@ -190,7 +199,7 @@ header {
 }
 
 .join-button {
-  color: rgb(14, 221, 86);
+  color: rgb(73, 114, 73);
   width: 6em;
   height: 1.5em;
   padding: 0.75em 1em;
@@ -204,8 +213,8 @@ header {
 .join-button2 {
   text-decoration: none;
   padding: 0.5em 1em;
-  border: 1px solid rgb(14, 221, 86);
-  box-shadow: 0 0 5px rgb(14, 221, 86), 0 0 5px rgb(14, 221, 86) inset;
+  border: 1px solid rgb(73, 114, 73);
+  box-shadow: 0 0 5px rgb(73, 114, 73), 0 0 5px rgb(73, 114, 73) inset;
   z-index: 1;
 }
 
@@ -217,8 +226,8 @@ header {
   top: 0;
   right: 0;
   z-index: -1;
-  background: rgb(14, 221, 86);
-  box-shadow: 0 0 20px rgb(14, 221, 86);
+  background: rgb(73, 114, 73);
+  box-shadow: 0 0 20px rgb(73, 114, 73);
   transition: all 0.3s ease;
 }
 
