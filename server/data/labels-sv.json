@@ -19,5 +19,6 @@
 	"playGame": "Spela",
 	"rulesText": ["Punkt ett", "Punkt två", "Punkt tre"],
 	"aboutText": ["Här har vi lite info", "Och kanske lite mer här"],
-	"lobbyHeader": "Välkommen till spel"
+	"lobbyHeader": "Välkommen till spel:",
+	"formTitle": "Spelarlista: "
 }

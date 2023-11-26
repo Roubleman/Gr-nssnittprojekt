@@ -1,9 +1,6 @@
 <template>
   <header>
-    <div
-      v-bind:class="['navigation-menu', { close: !hideNav }]"
-      v-on:click="toggleNav"
-    ></div>
+    <div v-bind:class="['navigation-menu', { close: !hideNav }]" v-on:click="toggleNav"></div>
     <div class="logo">
       <span id="clubs"> &clubs; </span>
       Card Guessr
@@ -33,32 +30,26 @@
     </div>
   </div>
   <section id="input_wrappers">
-  <section class="input-boxes">
-    <label>
-      {{ uiLabels.inputName }}:
-      <input class="input" type="text" v-model="name" />
-    </label>
+    <section class="input-boxes">
+      <label>
+        {{ uiLabels.inputName }}:
+        <input class="input" type="text" v-model="name" />
+      </label>
+    </section>
+    <section class="input-boxes">
+      <label>
+        {{ uiLabels.inputGameId }}:
+        <input class="input" type="text" v-model="id" />
+      </label>
+    </section>
   </section>
-  <section class="input-boxes">
-    <label>
-      {{ uiLabels.inputGameId }}:
-      <input class="input" type="text" v-model="id" />
-    </label>
-  </section>
-</section>
   <section style="padding-top: 1em">
-    <router-link
-      class="join-button join-button2"
-      v-bind:to="'/lobby/' + this.id"
-      v-bind:class="[
-        join - button,
-        join - button2,
-        { joinButtonIsDisabled: this.inputChecker() },
-        { popupRemoveButton: this.removeButton },
-      ]"
-      @click="this.sendPlayerInfo()"
-      >{{ uiLabels.joinGame }}</router-link
-    >
+    <router-link class="join-button join-button2" v-bind:to="'/lobby/' + this.id" v-bind:class="[
+      join - button,
+      join - button2,
+      { joinButtonIsDisabled: this.inputChecker() },
+      { popupRemoveButton: this.removeButton },
+    ]" @click="this.sendPlayerInfo()">{{ uiLabels.joinGame }}</router-link>
   </section>
 </template>
 
@@ -162,12 +153,14 @@ body {
   background-color: rgb(233, 233, 223);
   font-size: 1.3em;
 }
+
 header {
   background-color: rgb(73, 114, 73);
   width: 100%;
   display: grid;
   grid-template-columns: 2em auto;
 }
+
 .logo {
   text-transform: uppercase;
   letter-spacing: 0.25em;
@@ -175,11 +168,13 @@ header {
   color: white;
   padding-top: 0.2em;
 }
+
 .logo img {
   height: 2.5rem;
   vertical-align: bottom;
   margin-right: 0.5rem;
 }
+
 .navigation-menu {
   color: white;
   width: 1em;
@@ -205,6 +200,7 @@ header {
   position: relative;
   display: inline-block;
 }
+
 .join-button2 {
   text-decoration: none;
   padding: 0.5em 1em;
@@ -314,12 +310,15 @@ header {
     align-items: center;
     justify-content: center;
   }
+
   .navigation-menu::before {
     content: "☰";
   }
+
   .close::before {
     content: "✕";
   }
+
   .hide {
     left: -12em;
   }
