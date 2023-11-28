@@ -13,13 +13,13 @@ Att göra lista:
     [x] Skriva om hamburger css
     [x] Bara kunna klicka "join" om man skrivit in kod & namn
     [] ändra storlek till större?
-    [] Skicka info för att kunna joina/uppdatera info.
+    [x] Skicka info för att kunna joina/uppdatera info.
 
 ### Join
 
-    [] Name
+    [x] Name
     [] Avatar (Optional)
-    [] Enter room-code
+    [x] Enter room-code
     [] (nykterfadder)
 
 ## Create view
@@ -29,17 +29,17 @@ Att göra lista:
     [x] Creator name
     [x] Lobby code
     [x] Start game
-    [] Back-end
+    [x] Back-end
     [] Styled
     [] Resize correctly
 
 ## Lobby view
 
-    [] Display of room-code
-    [] Display of joined participants
-    [] "click and drag" change order
-    [] King hat for creator
-    [] Start game button
+    [x] Display of room-code
+    [x] Display of joined participants
+    [x] "click and drag" change order
+    [x] King hat for creator
+    [x] Start game button
 
 ## OneCard view
 
@@ -48,7 +48,7 @@ Att göra lista:
     [] IF WE HAVE TIME, style exactly like real cards
     [] Lägga till rotation för andra hälften av valörerna + special stylea vissa av dem.
 
-## Fucker view
+## Fucker view (component)
 
     [] 2 rows of cards to guess from
     [] "Your turn" pop up
@@ -59,7 +59,7 @@ Att göra lista:
     [] Display of points (pop up alert)
     [] Store points (for user object)
 
-## Dealer view
+## Dealer view (component)
 
     [] Stack of cards, flip the highest back and forth
     [] Say "higher or lower" (one is unclickable if not bluffing implemented)

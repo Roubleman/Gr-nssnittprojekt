@@ -44,8 +44,18 @@ function sockets(io, socket, data) {
   });
 
   socket.on("playerIsReady", function (d) {
-    data.playerIsReady(d.gameId, d.player);
+    data.playerIsReady(d.gameId, d.playerName);
     io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
+  });
+
+  socket.on("playerLeft", function (d) {
+    data.removePlayer(d.gameId, d.playerName);
+    io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
+  });
+
+  socket.on("hostLeft", function (gameId) {
+    data.removeGame(gameId);
+    io.to(gameId).emit("gameEnded");
   });
 
   socket.on("startGame", function (gameId) {
