@@ -1,7 +1,7 @@
 <template>
     <header id="dealer_header"></header>
     <section class="dealer-stack">
-        <div class="card-back" v-if="cardIsUp===false" @click="flipCard">
+        <div class="top-card" id="card_back" v-if="cardIsUp===false" @click="flipCard">
             Fuck you Dealer.
             <br>
             Swap me for a picture :)
@@ -62,9 +62,7 @@ width: 20em;
 height: 30em;
 }
 
-.card-back {
-    width: 20em;
-    height: 30em;
+#card_back {
     background-color: aquamarine;
     color:black;
     text-align: center;
