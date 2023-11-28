@@ -9,6 +9,7 @@
       v-on:selectedCard="cardIsSelected($event)"
       width="8em"
       height="8em"
+      class="no-selection"
     >
     </OneCard>
   </section>
@@ -51,18 +52,23 @@ export default {
   align-items: center;
 }
 
+.no-selection {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
+
 .card-flex {
   display: flex;
   width: 100%;
   flex-flow: row wrap;
   justify-content: flex-start;
   gap: 1em 0.7em;
-  padding-top: 1em;
-  padding-left: 1em;
+  padding: 1em;
 }
 
 .card-flex {
   --card-width: 8em;
-  --card-height: 8em;
 }
 </style>

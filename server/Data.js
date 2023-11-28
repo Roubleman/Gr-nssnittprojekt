@@ -67,6 +67,7 @@ Data.prototype.getGame = function (gameId) {
 Data.prototype.getPlayerList = function (gameId) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
+    console.log("PlayerList updated");
     return game.players;
   }
 };
