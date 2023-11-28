@@ -22,5 +22,6 @@
 	"lobbyHeader": "Välkommen till spel:",
 	"formTitle": "Spelarlista: ",
 	"scramblePlayerOrder": "Slumpa ordning!",
-	"ready": "Klar!"
+	"ready": "Klar!",
+	"dealerHeader": "Du är dealer!"
 }

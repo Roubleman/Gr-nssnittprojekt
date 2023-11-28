@@ -1,7 +1,7 @@
 <template>
   <header id="header-style">Cards</header>
 
-  <section class="card-flex">
+  <!-- <section class="card-flex">
     <OneCard
       v-for="card in this.playingCards"
       v-bind:card="card"
@@ -13,21 +13,27 @@
     >
     </OneCard>
   </section>
+  <hr> -->
+  <section id="dealer_view">
+    <Dealer ></Dealer>
+  </section>
 </template>
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-import testCards from "@/assets/testCards.json";
+import DeckOfCards from "@/assets/DeckOfCards.json";
+import Dealer from '../components/DealerComponent.vue'
 
 export default {
   name: "GameView",
   components: {
     OneCard,
+    Dealer
   },
 
   data: function () {
     return {
-      playingCards: testCards,
+      playingCards: DeckOfCards,
       selectedCard: {},
     };
   },
@@ -70,5 +76,15 @@ export default {
 
 .card-flex {
   --card-width: 8em;
+}
+
+#dealer_view {
+  width: 100vw;
+  height: 100vh;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0em;
 }
 </style>

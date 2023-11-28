@@ -22,5 +22,6 @@
 	"lobbyHeader": "Welcome to game:",
 	"formTitle": "Player List: ",
 	"scramblePlayerOrder": "Scramble order!",
-	"ready": "Ready!"
+	"ready": "Ready!",
+	"dealerHeader": "You are the dealer!"
 }
