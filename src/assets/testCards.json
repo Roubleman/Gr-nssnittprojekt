@@ -1,20 +1,25 @@
 [
   {
-    "value": "A",
+    "value": "7",
     "suit": "spades"
   },
 
   {
-    "value": "3",
+    "value": "8",
     "suit": "diams"
   },
   {
-    "value": "K",
+    "value": "9",
     "suit": "clubs"
   },
 
   {
-    "value": "8",
+    "value": "10",
     "suit": "hearts"
+  },
+
+  {
+    "value": "J",
+    "suit": "clubs"
   }
 ]

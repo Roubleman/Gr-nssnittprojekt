@@ -13,7 +13,7 @@ Att göra lista:
     [x] Skriva om hamburger css
     [x] Bara kunna klicka "join" om man skrivit in kod & namn
     [] ändra storlek till större?
-    [] Skicka info för att kunna joina/uppdatera info. 
+    [] Skicka info för att kunna joina/uppdatera info.
 
 ### Join
 
@@ -43,9 +43,10 @@ Att göra lista:
 
 ## OneCard view
 
-    [] Template for number, suit
-    [] Styling for "card" look
+    [x] Template for number, suit
+    [x] Styling for "card" look
     [] IF WE HAVE TIME, style exactly like real cards
+    [] Lägga till rotation för andra hälften av valörerna + special stylea vissa av dem.
 
 ## Fucker view
 
