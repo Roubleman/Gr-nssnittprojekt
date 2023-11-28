@@ -47,7 +47,10 @@
     </section>
   </section>
   <section style="padding-top: 1em; margin-bottom: 10em">
-    <router-link
+    <button v-on:click="tryToJoin" v-show="inputChecker()">
+      {{ uiLabels.joinGame }}
+    </button>
+    <!-- <router-link
       class="join-button join-button2"
       v-bind:to="'/join/' + this.id"
       v-bind:class="[
@@ -58,7 +61,7 @@
       ]"
       @click="this.sendPlayerInfo()"
       >{{ uiLabels.joinGame }}</router-link
-    >
+    > -->
   </section>
 </template>
 
@@ -80,12 +83,18 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       hideNav: true,
       removeButton: false,
+      valuesAccepted: false,
     };
   },
   created: function () {
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;
+    });
+    socket.on("gameValuesChecked", (checkBool) => {
+      console.log("game values accepted");
+      this.valuesAccepted = checkBool;
+      this.sendPlayerInfo();
     });
   },
   methods: {
@@ -143,16 +152,29 @@ export default {
     },
     inputChecker: function () {
       if (this.name.length < 1) {
-        return true;
+        return false;
       }
       if (this.id.length < 1) {
-        return true;
+        return false;
       }
-      return false;
+      return true;
+    },
+
+    tryToJoin: function () {
+      socket.emit("checkGameValues", {
+        gameId: this.id,
+        playerName: this.name,
+      });
     },
 
     sendPlayerInfo: function () {
-      socket.emit("joinGame", { gameId: this.id, playerName: this.name });
+      if (!this.valuesAccepted) {
+        alert(this.uiLabels.inputError);
+      } else {
+        localStorage.setItem("playerName", this.playerName);
+        socket.emit("joinGame", { gameId: this.id, playerName: this.name });
+        this.$router.push("/join/" + this.id);
+      }
     },
   },
 };

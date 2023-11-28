@@ -9,6 +9,13 @@ function sockets(io, socket, data) {
     socket.emit("init", data.getUILabels(lang));
   });
 
+  socket.on("checkGameValues", function (d) {
+    socket.emit(
+      "gameValuesChecked",
+      data.checkGameValues(d.gameId, d.playerName)
+    );
+  });
+
   socket.on("createGame", function (d) {
     data.createGame(
       d.gameId,
@@ -62,17 +69,8 @@ function sockets(io, socket, data) {
     io.to(gameId).emit("gameStarted");
   });
 
-  socket.on("runQuestion", function (d) {
-    io.to(d.gameId).emit(
-      "newQuestion",
-      data.getQuestion(d.gameId, d.questionNumber)
-    );
-    io.to(d.gameId).emit("dataUpdate", data.getAnswers(d.gameId));
-  });
-
-  socket.on("submitAnswer", function (d) {
-    data.submitAnswer(d.gameId, d.answer);
-    io.to(d.gameId).emit("dataUpdate", data.getAnswers(d.gameId));
+  socket.on("gameStarted", function (gameId) {
+    data.setupGameStart(gameId);
   });
 
   socket.on("resetAll", () => {

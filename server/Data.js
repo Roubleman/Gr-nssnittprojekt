@@ -44,6 +44,20 @@ Data.prototype.createGame = function (
   return this.games[gameId];
 };
 
+Data.prototype.checkGameValues = function (gameId, playerName) {
+  console.log("checking game values", gameId, playerName);
+  if (typeof this.games[gameId] === "undefined") {
+    return false;
+  }
+  for (let i = 0; i < this.games[gameId].players.length; i++) {
+    if (this.games[gameId].players[i].name === playerName) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
 Data.prototype.joinGame = function (gameId, playerName) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
