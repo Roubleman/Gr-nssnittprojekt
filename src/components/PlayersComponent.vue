@@ -1,36 +1,64 @@
 <template>
-    <header id="player_header"> Your turn!</header>
-    <div class="player">
-        <OneCard :card="currentCard" width="8em" height="8em" />
-        <button @click="guess('higher')">Higher</button>
-        <button @click="guess('lower')">Lower</button>
-    </div>
+    <h1>Your turn!</h1>
+    <section id="cardSelection">
+
+
+        <OneCard v-for="card in everyFourthCard" v-bind:card="card" v-bind:key="card.value"
+            v-on:selectedCard="cardIsSelected($event)" width="8em" height="8em" class="no-selection">
+        </OneCard>
+
+    </section>
 </template>
   
 <script>
 import OneCard from "@/components/OneCard.vue";
+import deckOfCards from '@/assets/DeckOfCards.json'
 
 export default {
     name: "Player",
     components: {
         OneCard,
+
+    },
+    data() {
+        return {
+            isPlayerTurn: true,
+            deckOfCards // Two rows of cards
+        };
     },
     props: {
-        currentCard: {
-            type: Object,
+        isPlayerTurn: {
+            type: Boolean,
             required: true,
         },
     },
     methods: {
-        guess(direction) {
-            this.$emit('guess', direction);
-        },
+
     },
-};
+    computed: {
+        everyFourthCard() {
+            return this.deckOfCards.filter((card, index) => index % 4 === 0);
+        },
+    }
+}
 </script>
 <style>
-#player_header {
-    background-color: beige;
-    margin-bottom: 3em;
+#cardSelection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    --card-width: 8em;
 }
 </style>
+
+#cardSelection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}

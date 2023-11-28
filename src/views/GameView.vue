@@ -1,23 +1,21 @@
 <template>
   <header id="header-style">Cards</header>
-
+  <!--
   <section class="card-flex">
-    <OneCard
-      v-for="card in this.playingCards"
-      v-bind:card="card"
-      v-bind:key="card.value"
-      v-on:selectedCard="cardIsSelected($event)"
-      width="8em"
-      height="8em"
-      class="no-selection"
-    >
+    <OneCard v-for="card in this.playingCards" v-bind:card="card" v-bind:key="card.value"
+      v-on:selectedCard="cardIsSelected($event)" width="8em" height="8em" class="no-selection">
     </OneCard>
+  </section>
+  -->
+  <section class="player_view">
+    <Player></Player>
   </section>
 </template>
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-import testCards from "@/assets/testCards.json";
+import DeckOfCards from '@/assets/DeckOfCards.json'
+import Player from "@/components/PlayersComponent.vue";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
@@ -25,12 +23,13 @@ export default {
   name: "GameView",
   components: {
     OneCard,
+    Player,
   },
 
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
-      playingCards: testCards,
+      playingCards: DeckOfCards,
       selectedCard: {},
       gameID: "inactive game",
       playerList: [],
@@ -106,3 +105,4 @@ export default {
   --card-width: 8em;
 }
 </style>
+
