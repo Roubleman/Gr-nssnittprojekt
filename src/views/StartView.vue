@@ -312,6 +312,10 @@ header {
   margin-bottom: 0.5em;
 }
 
+.input {
+  font-size: 1.2em;
+}
+
 @media screen and (max-width: 50em) {
   .logo {
     font-size: 5vw;
