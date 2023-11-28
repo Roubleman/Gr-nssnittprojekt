@@ -59,6 +59,8 @@ export default {
 
     socket.emit("getGameInfo", this.gameId);
 
+    socket.emit("joinSocket", this.gameId);
+
     socket.on("gameInfo", (game) => {
       this.playerList = game.players;
       this.gameSettings.pointsSetting = game.pointsSetting;
@@ -67,6 +69,7 @@ export default {
 
     socket.on("playerList", (players) => {
       this.playerList = players;
+      console.log("players", players);
     });
 
     socket.emit("pageLoaded", this.lang);

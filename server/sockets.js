@@ -31,10 +31,14 @@ function sockets(io, socket, data) {
 
   socket.on("joinGame", function (d) {
     data.joinGame(d.gameId, d.playerName);
-    socket.join(d.gameId);
+  });
+
+  socket.on("joinSocket", function (gameId) {
+    socket.join(gameId);
   });
 
   socket.on("lobbyJoined", function (gameId) {
+    socket.join(gameId);
     console.log("lobbyJoined recieved");
     io.to(gameId).emit("playerList", data.getPlayerList(gameId));
   });
