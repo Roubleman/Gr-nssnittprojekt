@@ -18,6 +18,8 @@
 <script>
 import OneCard from "@/components/OneCard.vue";
 import testCards from "@/assets/testCards.json";
+import io from "socket.io-client";
+const socket = io("localhost:3000");
 
 export default {
   name: "GameView",
