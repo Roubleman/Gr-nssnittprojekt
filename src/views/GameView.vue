@@ -1,8 +1,5 @@
 <template>
-  <header id="header-style"
-  >
-    Cards
-  </header>
+  <header id="header-style">Cards</header>
 
   <section class="card-flex">
     <OneCard
@@ -12,6 +9,7 @@
       v-on:selectedCard="cardIsSelected($event)"
       width="8em"
       height="8em"
+      class="no-selection"
     >
     </OneCard>
   </section>
@@ -44,26 +42,33 @@ export default {
 </script>
 
 <style>
-
 #header-style {
-    font-size: 1.5rem; 
-    font-weight: bolder; 
-    padding-top: 2em; 
-    padding-bottom: 1em;
-    width:100%;
-    justify-content: center;
-    align-items: center;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  padding-top: 2em;
+  padding-bottom: 1em;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-selection {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
 }
 
 .card-flex {
-    display: flex;
-    width: 100%;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
+  display: flex;
+  width: 100%;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  gap: 1em 0.7em;
+  padding: 1em;
 }
 
 .card-flex {
   --card-width: 8em;
-  --card-height: 8em;
 }
 </style>
