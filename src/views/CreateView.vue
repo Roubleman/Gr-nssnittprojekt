@@ -7,7 +7,7 @@
         <button class="guess-button" v-on:click="this.addGuesses">+</button>
         <button class="guess-button" v-on:click="this.removeGuesses">-</button>
       </section>
-      <section class="input-boxes">
+      <section class="create-setting">
         {{ uiLabels.pointsSetting }}:
         <select class="input" v-model="pointsSetting">
           <option v-bind:value="'easy'">{{ uiLabels.easyOption }}</option>
