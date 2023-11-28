@@ -1,12 +1,11 @@
 <template>
-    <h1>Your turn!</h1>
+    <h1>It's your turn! Guess a Card</h1>
     <section id="cardSelection">
 
 
         <OneCard v-for="card in everyFourthCard" v-bind:card="card" v-bind:key="card.value"
             v-on:selectedCard="cardIsSelected($event)" width="8em" height="8em" class="no-selection">
         </OneCard>
-
     </section>
 </template>
   
@@ -22,7 +21,7 @@ export default {
     },
     data() {
         return {
-            isPlayerTurn: true,
+
             deckOfCards // Two rows of cards
         };
     },
@@ -33,7 +32,10 @@ export default {
         },
     },
     methods: {
-
+        cardIsSelected(card) {
+            this.$emit("selectedCard", card);
+            console.log(card);
+        },
     },
     computed: {
         everyFourthCard() {
@@ -44,21 +46,13 @@ export default {
 </script>
 <style>
 #cardSelection {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
+    grid-auto-rows: var(--card-width);
+    gap: 1em;
     justify-content: center;
     --card-width: 8em;
+    margin-left: 2em;
+
 }
 </style>
-
-#cardSelection {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
