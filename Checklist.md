@@ -45,8 +45,8 @@ Att göra lista:
 
     [x] Template for number, suit
     [x] Styling for "card" look
-    [] IF WE HAVE TIME, style exactly like real cards
-    [] Lägga till rotation för andra hälften av valörerna + special stylea vissa av dem.
+    [x] IF WE HAVE TIME, style exactly like real cards
+    [x] Lägga till rotation för andra hälften av valörerna + special stylea vissa av dem.
 
 ## Fucker view (component)
 
