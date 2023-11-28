@@ -44,6 +44,20 @@ Data.prototype.createGame = function (
   return this.games[gameId];
 };
 
+Data.prototype.checkGameValues = function (gameId, playerName) {
+  console.log("checking game values", gameId, playerName);
+  if (typeof this.games[gameId] === "undefined") {
+    return false;
+  }
+  for (let i = 0; i < this.games[gameId].players.length; i++) {
+    if (this.games[gameId].players[i].name === playerName) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
 Data.prototype.joinGame = function (gameId, playerName) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
@@ -80,9 +94,8 @@ Data.prototype.updatePlayerList = function (playerList, gameId) {
   console.log("playerList updated", gameId, playerList);
 };
 
-Data.prototype.playerIsReady = function (gameId, player) {
+Data.prototype.playerIsReady = function (gameId, playerName) {
   const game = this.games[gameId];
-  const playerName = player.name;
   if (typeof game !== "undefined") {
     for (let i = 0; i < game.players.length; i++) {
       if (game.players[i].name === playerName) {
@@ -91,6 +104,22 @@ Data.prototype.playerIsReady = function (gameId, player) {
       }
     }
   }
+};
+
+Data.prototype.removePlayer = function (gameId, playerName) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    for (let i = 0; i < game.players.length; i++) {
+      if (game.players[i].name === playerName) {
+        game.players.splice(i, 1);
+        console.log("player removed", gameId, playerName);
+      }
+    }
+  }
+};
+Data.prototype.removeGame = function (gameId) {
+  delete this.games[gameId];
+  console.log("game removed", gameId);
 };
 
 Data.prototype.createPoll = function (gameId, lang = "en") {

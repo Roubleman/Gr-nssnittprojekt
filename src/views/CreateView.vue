@@ -78,6 +78,7 @@ export default {
       if (this.guessesNumber > 1) this.guessesNumber--;
     },
     createGame: function () {
+      localStorage.setItem("playerName", this.hostName);
       this.$router.push("/host/" + this.gameId);
       socket.emit("createGame", {
         gameId: this.gameId,

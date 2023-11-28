@@ -9,6 +9,13 @@ function sockets(io, socket, data) {
     socket.emit("init", data.getUILabels(lang));
   });
 
+  socket.on("checkGameValues", function (d) {
+    socket.emit(
+      "gameValuesChecked",
+      data.checkGameValues(d.gameId, d.playerName)
+    );
+  });
+
   socket.on("createGame", function (d) {
     data.createGame(
       d.gameId,
@@ -44,25 +51,26 @@ function sockets(io, socket, data) {
   });
 
   socket.on("playerIsReady", function (d) {
-    data.playerIsReady(d.gameId, d.player);
+    data.playerIsReady(d.gameId, d.playerName);
     io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
+  });
+
+  socket.on("playerLeft", function (d) {
+    data.removePlayer(d.gameId, d.playerName);
+    io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
+  });
+
+  socket.on("hostLeft", function (gameId) {
+    data.removeGame(gameId);
+    io.to(gameId).emit("gameEnded");
   });
 
   socket.on("startGame", function (gameId) {
     io.to(gameId).emit("gameStarted");
   });
 
-  socket.on("runQuestion", function (d) {
-    io.to(d.gameId).emit(
-      "newQuestion",
-      data.getQuestion(d.gameId, d.questionNumber)
-    );
-    io.to(d.gameId).emit("dataUpdate", data.getAnswers(d.gameId));
-  });
-
-  socket.on("submitAnswer", function (d) {
-    data.submitAnswer(d.gameId, d.answer);
-    io.to(d.gameId).emit("dataUpdate", data.getAnswers(d.gameId));
+  socket.on("gameStarted", function (gameId) {
+    data.setupGameStart(gameId);
   });
 
   socket.on("resetAll", () => {
