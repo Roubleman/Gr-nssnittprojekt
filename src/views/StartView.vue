@@ -33,23 +33,23 @@
     </div>
   </div>
   <section id="input_wrappers">
-  <section class="input-boxes">
-    <label>
-      {{ uiLabels.inputName }}:
-      <input class="input" type="text" v-model="name" />
-    </label>
+    <section class="input-boxes">
+      <label>
+        {{ uiLabels.inputName }}:
+        <input class="input" type="text" v-model="name" />
+      </label>
+    </section>
+    <section class="input-boxes">
+      <label>
+        {{ uiLabels.inputGameId }}:
+        <input class="input" type="text" v-model="id" />
+      </label>
+    </section>
   </section>
-  <section class="input-boxes">
-    <label>
-      {{ uiLabels.inputGameId }}:
-      <input class="input" type="text" v-model="id" />
-    </label>
-  </section>
-</section>
-  <section style="padding-top: 1em">
+  <section style="padding-top: 1em; margin-bottom: 10em">
     <router-link
       class="join-button join-button2"
-      v-bind:to="'/lobby/' + this.id"
+      v-bind:to="'/join/' + this.id"
       v-bind:class="[
         join - button,
         join - button2,
@@ -162,12 +162,14 @@ body {
   background-color: rgb(233, 233, 223);
   font-size: 1.3em;
 }
+
 header {
   background-color: rgb(73, 114, 73);
   width: 100%;
   display: grid;
   grid-template-columns: 2em auto;
 }
+
 .logo {
   text-transform: uppercase;
   letter-spacing: 0.25em;
@@ -175,11 +177,13 @@ header {
   color: white;
   padding-top: 0.2em;
 }
+
 .logo img {
   height: 2.5rem;
   vertical-align: bottom;
   margin-right: 0.5rem;
 }
+
 .navigation-menu {
   color: white;
   width: 1em;
@@ -195,7 +199,7 @@ header {
 }
 
 .join-button {
-  color: rgb(14, 221, 86);
+  color: rgb(73, 114, 73);
   width: 6em;
   height: 1.5em;
   padding: 0.75em 1em;
@@ -205,11 +209,12 @@ header {
   position: relative;
   display: inline-block;
 }
+
 .join-button2 {
   text-decoration: none;
   padding: 0.5em 1em;
-  border: 1px solid rgb(14, 221, 86);
-  box-shadow: 0 0 5px rgb(14, 221, 86), 0 0 5px rgb(14, 221, 86) inset;
+  border: 1px solid rgb(73, 114, 73);
+  box-shadow: 0 0 5px rgb(73, 114, 73), 0 0 5px rgb(73, 114, 73) inset;
   z-index: 1;
 }
 
@@ -221,8 +226,8 @@ header {
   top: 0;
   right: 0;
   z-index: -1;
-  background: rgb(14, 221, 86);
-  box-shadow: 0 0 20px rgb(14, 221, 86);
+  background: rgb(73, 114, 73);
+  box-shadow: 0 0 20px rgb(73, 114, 73);
   transition: all 0.3s ease;
 }
 
@@ -314,12 +319,15 @@ header {
     align-items: center;
     justify-content: center;
   }
+
   .navigation-menu::before {
     content: "☰";
   }
+
   .close::before {
     content: "✕";
   }
+
   .hide {
     left: -12em;
   }

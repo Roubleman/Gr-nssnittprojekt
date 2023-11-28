@@ -35,6 +35,7 @@ Data.prototype.createGame = function (
     player.name = hostName;
     player.isHost = true;
     player.points = 0;
+    player.isReady = true;
     game.players = [];
     game.players.push(player);
     this.games[gameId] = game;
@@ -50,6 +51,7 @@ Data.prototype.joinGame = function (gameId, playerName) {
     player.name = playerName;
     player.isHost = false;
     player.points = 0;
+    player.isReady = false;
     game.players.push(player);
     console.log("player joined", gameId, player);
   }
@@ -67,6 +69,27 @@ Data.prototype.getPlayerList = function (gameId) {
   if (typeof game !== "undefined") {
     console.log("PlayerList updated");
     return game.players;
+  }
+};
+
+Data.prototype.updatePlayerList = function (playerList, gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    game.players = playerList;
+  }
+  console.log("playerList updated", gameId, playerList);
+};
+
+Data.prototype.playerIsReady = function (gameId, player) {
+  const game = this.games[gameId];
+  const playerName = player.name;
+  if (typeof game !== "undefined") {
+    for (let i = 0; i < game.players.length; i++) {
+      if (game.players[i].name === playerName) {
+        game.players[i].isReady = true;
+        console.log("player is ready", gameId, playerName);
+      }
+    }
   }
 };
 

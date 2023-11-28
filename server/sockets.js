@@ -17,36 +17,35 @@ function sockets(io, socket, data) {
       d.guessesNumber,
       d.hostName
     );
+    socket.join(d.gameId);
   });
 
   socket.on("getGameInfo", function (gameId) {
     socket.emit("gameInfo", data.getGame(gameId));
   });
 
-  socket.on("createPoll", function (d) {
-    socket.emit("pollCreated", data.createPoll(d.gameId, d.lang));
+  socket.on("updatePlayerListOrder", function (d) {
+    data.updatePlayerList(d.playerList, d.gameId);
+    io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
   });
 
   socket.on("joinGame", function (d) {
     data.joinGame(d.gameId, d.playerName);
-    socket.emit("gameJoined", data.getPlayerList(d.gameId));
     socket.join(d.gameId);
   });
 
-  socket.on("addQuestion", function (d) {
-    data.addQuestion(d.gameId, { q: d.q, a: d.a });
-    socket.emit("dataUpdate", data.getAnswers(d.gameId));
+  socket.on("lobbyJoined", function (gameId) {
+    console.log("lobbyJoined recieved");
+    io.to(gameId).emit("playerList", data.getPlayerList(gameId));
   });
 
-  socket.on("editQuestion", function (d) {
-    data.editQuestion(d.gameId, d.index, { q: d.q, a: d.a });
-    socket.emit("questionEdited", data.getAllQuestions(d.gameId));
+  socket.on("playerIsReady", function (d) {
+    data.playerIsReady(d.gameId, d.player);
+    io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
   });
 
-  socket.on("joinPoll", function (gameId) {
-    socket.join(gameId);
-    socket.emit("newQuestion", data.getQuestion(gameId));
-    socket.emit("dataUpdate", data.getAnswers(gameId));
+  socket.on("startGame", function (gameId) {
+    io.to(gameId).emit("gameStarted");
   });
 
   socket.on("runQuestion", function (d) {
