@@ -66,6 +66,12 @@ Att göra lista:
     [] Display of points
     [] Bluffing?
 
+## Result view
+
+    [#] Show playername and points allocated for each player
+    []  Show who lost
+    []  Button for the player who lost to åka buss?
+
 ## Åka buss view
 
 ## Spectator view
