@@ -1,211 +1,263 @@
 [
   {
     "value": "2",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 2
   },
   {
     "value": "2",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 2
   },
   {
     "value": "2",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 2
   },
   {
     "value": "2",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 2
   },
   {
     "value": "3",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 3
   },
   {
     "value": "3",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 3
   },
   {
     "value": "3",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 3
   },
   {
     "value": "3",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 3
   },
 
   {
     "value": "4",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 4
   },
   {
     "value": "4",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 4
   },
   {
     "value": "4",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 4
   },
   {
     "value": "4",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 4
   },
   {
     "value": "5",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 5
   },
   {
     "value": "5",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 5
   },
   {
     "value": "5",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 5
   },
   {
     "value": "5",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 5
   },
   {
     "value": "6",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 6
   },
   {
     "value": "6",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 6
   },
   {
     "value": "6",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 6
   },
   {
     "value": "6",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 6
   },
   {
     "value": "7",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 7
   },
   {
     "value": "7",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 7
   },
   {
     "value": "7",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 7
   },
   {
     "value": "7",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 7
   },
   {
     "value": "8",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 8
   },
   {
     "value": "8",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 8
   },
   {
     "value": "8",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 8
   },
   {
     "value": "8",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 8
   },
   {
     "value": "9",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 9
   },
   {
     "value": "9",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 9
   },
   {
     "value": "9",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 9
   },
   {
     "value": "9",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 9
   },
   {
     "value": "10",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 10
   },
   {
     "value": "10",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 10
   },
   {
     "value": "10",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 10
   },
   {
     "value": "10",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 10
   },
   {
     "value": "J",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 11
   },
   {
     "value": "J",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 11
   },
   {
     "value": "J",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 11
   },
   {
     "value": "J",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 11
   },
   {
     "value": "Q",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 12
   },
   {
     "value": "Q",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 12
   },
   {
     "value": "Q",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 12
   },
   {
     "value": "Q",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 12
   },
   {
     "value": "K",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 13
   },
   {
     "value": "K",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 13
   },
   {
     "value": "K",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 13
   },
   {
     "value": "K",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 13
   },
   {
     "value": "A",
-    "suit": "hearts"
+    "suit": "hearts",
+    "points": 1
   },
   {
     "value": "A",
-    "suit": "diams"
+    "suit": "diams",
+    "points": 1
   },
   {
     "value": "A",
-    "suit": "spades"
+    "suit": "spades",
+    "points": 1
   },
   {
     "value": "A",
-    "suit": "clubs"
+    "suit": "clubs",
+    "points": 1
   }
 ]
