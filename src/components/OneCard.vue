@@ -151,6 +151,7 @@ export default {
   border-radius: 0.4em;
   cursor: pointer;
   transition: transform 0.6s ease;
+  background-color: white;
 }
 
 .card-border:hover {

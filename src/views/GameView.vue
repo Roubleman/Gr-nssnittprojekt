@@ -7,8 +7,6 @@
       v-bind:card="card"
       v-bind:key="card.value"
       v-on:selectedCard="cardIsSelected($event)"
-      width="8em"
-      height="8em"
       class="no-selection"
     >
     </OneCard>
@@ -17,7 +15,7 @@
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-import testCards from "@/assets/testCards.json";
+import deckCards from "@/assets/DeckOfCards.json";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
@@ -30,7 +28,7 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
-      playingCards: testCards,
+      playingCards: deckCards,
       selectedCard: {},
       gameID: "inactive game",
       playerList: [],

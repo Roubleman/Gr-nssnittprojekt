@@ -70,7 +70,7 @@ function sockets(io, socket, data) {
   });
 
   socket.on("gameStarted", function (gameId) {
-    data.setupGameStart(gameId);
+    //data.setupGameStart(gameId);
   });
 
   socket.on("resetAll", () => {
