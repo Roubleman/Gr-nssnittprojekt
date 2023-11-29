@@ -2,6 +2,7 @@
   <header id="dealer_header"></header>
 
   <div class="deck-container">
+
     <div class="top-card backside-border" v-if="!cardIsUp" @click="flipCard">
       <img src="../../public/img/cardback.png" alt="card back" id="card_back" />
     </div>
@@ -13,7 +14,7 @@
         @click="flipCard"
         class="top-card">
         </OneCard>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -60,9 +61,16 @@ export default {
   border-radius: 0.4em;
 }
 
+.deck-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .top-card {
-width: 20em;
-height: 30em;
+width: 13.2em;
+height: 20em;
 }
 
 #card_back {
@@ -70,13 +78,16 @@ height: 30em;
     color:black;
     text-align: center;
     cursor:pointer;
+    height: inherit;
+    width: inherit;
 }
 
 .dealer-stack{
     width: 20em;
     color: white;
 }
-.dealer-stack .grid-container {
+
+.grid-container {
     width: 100%;
     height: 100%;
 }
