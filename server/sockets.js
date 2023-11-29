@@ -73,10 +73,6 @@ function sockets(io, socket, data) {
     io.to(gameId).emit("gameStarted");
   });
 
-  socket.on("gameStarted", function (gameId) {
-    data.setupGameStart(gameId);
-  });
-
   socket.on("resetAll", () => {
     data = new Data();
     data.initializeData();
