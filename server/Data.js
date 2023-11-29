@@ -4,7 +4,6 @@ import { readFileSync } from "fs";
 
 // Store data in an object to keep the global namespace clean
 function Data() {
-  this.polls = {};
   this.games = {};
 }
 
@@ -24,14 +23,22 @@ Data.prototype.createGame = function (
   lang = "en",
   pointsSetting = "normal",
   guessesNumber = 3,
-  hostName = "host"
+  hostName = "host",
+  deckOfCards
 ) {
   if (typeof this.games[gameId] === "undefined") {
     let game = {};
     let player = {};
     game.lang = lang;
-    game.pointsSetting = pointsSetting;
+    if (pointsSetting === "normal") {
+      game.pointsMultiplier = 1;
+    } else if (pointsSetting === "easy") {
+      game.pointsMultiplier = 0.5;
+    } else if (pointsSetting === "hard") {
+      game.pointsMultiplier = 2;
+    }
     game.guessesNumber = guessesNumber;
+    game.deckOfCards = deckOfCards;
     player.name = hostName;
     player.isHost = true;
     player.points = 0;
@@ -130,69 +137,105 @@ Data.prototype.removeGame = function (gameId) {
   console.log("game removed", gameId);
 };
 
-Data.prototype.createPoll = function (gameId, lang = "en") {
-  if (typeof this.polls[gameId] === "undefined") {
-    let poll = {};
-    poll.lang = lang;
-    poll.questions = [];
-    poll.answers = [];
-    poll.currentQuestion = 0;
-    this.polls[gameId] = poll;
-    console.log("poll created", gameId, poll);
-  }
-  return this.polls[gameId];
-};
-
-Data.prototype.addQuestion = function (gameId, q) {
-  const poll = this.polls[gameId];
-  console.log("question added to", gameId, q);
-  if (typeof poll !== "undefined") {
-    poll.questions.push(q);
+Data.prototype.initializeGame = function (gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    game.dealerIndex = 0;
+    game.guesserIndex = 1;
+    game.errorsRemaining = game.guessesNumber;
+    game.currentCardIndex = 0;
+    game.players.forEach((player) => {
+      delete player.isReady;
+      delete player.isHost;
+      player.isDealer = false;
+      player.isGuesser = false;
+    });
+    game.players[game.dealerIndex].isDealer = true;
+    game.players[game.guesserIndex].isGuesser = true;
   }
 };
 
-Data.prototype.editQuestion = function (gameId, index, newQuestion) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== "undefined") {
-    poll.questions[index] = newQuestion;
-  }
-};
-
-Data.prototype.getQuestion = function (gameId, qId = null) {
-  const poll = this.polls[gameId];
-  console.log("question requested for ", gameId, qId);
-  if (typeof poll !== "undefined") {
-    if (qId !== null) {
-      poll.currentQuestion = qId;
+Data.prototype.guessCard = function (gameId, playerName, card) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    if (game.deckOfCards[game.currentCardIndex] === card) {
+      return true;
+    } else {
+      return false;
     }
-    return poll.questions[poll.currentQuestion];
-  }
-  return [];
-};
-
-Data.prototype.submitAnswer = function (gameId, answer) {
-  const poll = this.polls[gameId];
-  console.log("answer submitted for ", gameId, answer);
-  if (typeof poll !== "undefined") {
-    let answers = poll.answers[poll.currentQuestion];
-    if (typeof answers !== "object") {
-      answers = {};
-      answers[answer] = 1;
-      poll.answers.push(answers);
-    } else if (typeof answers[answer] === "undefined") answers[answer] = 1;
-    else answers[answer] += 1;
-    console.log("answers looks like ", answers, typeof answers);
+    console.log("card guessed", gameId, playerName, card);
   }
 };
 
-Data.prototype.getAnswers = function (gameId) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== "undefined") {
-    const answers = poll.answers[poll.currentQuestion];
-    if (typeof poll.questions[poll.currentQuestion] !== "undefined") {
-      return { q: poll.questions[poll.currentQuestion].q, a: answers };
+Data.prototype.nextCard = function (gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    game.currentCardIndex++;
+  }
+};
+
+Data.prototype.swapDealer = function (gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    game.players[game.dealerIndex].isDealer = false;
+    game.dealerIndex++;
+    if (game.dealerIndex >= game.players.length) {
+      game.dealerIndex = 0;
+    }
+    game.players[game.dealerIndex].isDealer = true;
+    game.errorsRemaining = game.guessesNumber;
+  }
+};
+
+Data.prototype.shuffleDeck = function (gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    for (let i = game.deckOfCards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [game.deckOfCards[i], game.deckOfCards[j]] = [
+        game.deckOfCards[j],
+        game.deckOfCards[i],
+      ];
     }
   }
-  return {};
+};
+
+Data.prototype.swapGuesser = function (gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    game.players[game.guesserIndex].isGuesser = false;
+    game.guesserIndex++;
+    if (game.guesserIndex >= game.players.length) {
+      game.guesserIndex = 0;
+    }
+    if (game.players[game.guesserIndex].isDealer) {
+      game.guesserIndex++;
+    }
+    if (game.guesserIndex >= game.players.length) {
+      game.guesserIndex = 0;
+    }
+    game.players[game.guesserIndex].isGuesser = true;
+  }
+};
+
+Data.prototype.increasePoints = function (gameId, playerName, pointsIncrease) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    for (let i = 0; i < game.players.length; i++) {
+      if (game.players[i].name === playerName) {
+        game.players[i].points += pointsIncrease;
+        console.log("points increased", gameId, playerName, pointsIncrease);
+      }
+    }
+  }
+};
+
+Data.prototype.getLeaderboard = function (gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    let leaderboard = [...game.players]; // coPilot code
+    leaderboard.sort((a, b) => a.points - b.points);
+    return leaderboard;
+  }
 };
 export { Data };
