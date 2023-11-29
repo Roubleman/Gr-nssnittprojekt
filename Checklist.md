@@ -15,7 +15,7 @@ Att göra lista:
     [] ändra storlek till större?
     [x] Skicka info för att kunna joina/uppdatera info.
 
-### Join
+## Join
 
     [x] Name
     [] Avatar (Optional)
