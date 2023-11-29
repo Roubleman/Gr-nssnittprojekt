@@ -30,7 +30,7 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
-      playingCards: testCards,
+      playingCards: DeckOfCards,
       selectedCard: {},
       gameID: "inactive game",
       playerList: [],
@@ -44,8 +44,6 @@ export default {
     this.gameId = this.$route.params.id;
 
     socket.emit("joinSocket", this.gameId);
-
-    socket.emit("gameStarted", this.gameId);
 
     socket.emit("getGameInfo", this.gameId);
 

@@ -46,6 +46,7 @@
 <script>
 import io from "socket.io-client";
 const socket = io("localhost:3000");
+import DeckOfCards from "@/assets/DeckOfCards.json";
 
 export default {
   name: "CreateView",
@@ -59,6 +60,7 @@ export default {
       uiLabels: {},
       pointsSetting: "normal",
       gameIdAvailable: false,
+      playingCards: DeckOfCards,
     };
   },
   created: function () {
@@ -104,6 +106,7 @@ export default {
           hostName: this.hostName,
           guessesNumber: this.guessesNumber,
           pointsSetting: this.pointsSetting,
+          deckOfCards: this.playingCards,
         });
       }
     },

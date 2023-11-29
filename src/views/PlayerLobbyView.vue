@@ -39,7 +39,6 @@ export default {
       uiLabels: {},
       gameId: "inactive game",
       playerList: [],
-      gameSettings: {},
       playerName: "",
     };
   },
@@ -50,8 +49,6 @@ export default {
 
     socket.on("gameInfo", (game) => {
       this.playerList = game.players;
-      this.gameSettings.pointsSetting = game.pointsSetting;
-      this.gameSettings.guessesNumber = game.guessesNumber;
       this.player = this.playerList[this.playerList.length - 1];
       this.playerName = this.player.name;
       console.log(this.playerList);

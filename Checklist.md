@@ -66,6 +66,16 @@ Att göra lista:
     [] Display of points
     [] Bluffing?
 
+# Back end game (data, socket görs allt eftersom)
+
+    [x] Swap dealer
+    [x] Swap guesser
+    [x] increasePoints
+    [] Set current card
+    [] Guess card
+    []
+    []
+
 ## Åka buss view
 
 ## Spectator view

@@ -27,6 +27,7 @@ function sockets(io, socket, data) {
       d.pointsSetting,
       d.guessesNumber,
       d.hostName
+      d.deckOfCards
     );
     socket.join(d.gameId);
   });
@@ -71,6 +72,15 @@ function sockets(io, socket, data) {
 
   socket.on("startGame", function (gameId) {
     io.to(gameId).emit("gameStarted");
+    data.initializeGame(gameId);
+  });
+
+  socket.on("getLeaderboard", function (gameId) {
+    io.to(gameId).emit("leaderboard", data.getLeaderboard(gameId));
+  });
+
+  socket.on("swapDealer", function (gameId) {
+    io.to(gameId).emit("dealerSwapped", data.swapDealer(gameId));
   });
 
   socket.on("resetAll", () => {
