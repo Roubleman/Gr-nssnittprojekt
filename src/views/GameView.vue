@@ -15,7 +15,7 @@
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-import deckCards from "@/assets/DeckOfCards.json";
+import DeckOfCards from "@/assets/DeckOfCards.json";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
