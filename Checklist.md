@@ -14,6 +14,10 @@ Att göra lista:
     [x] Bara kunna klicka "join" om man skrivit in kod & namn
     [] ändra storlek till större?
     [x] Skicka info för att kunna joina/uppdatera info.
+    [] Byta till flaggsymbol på datorn
+    [] Göra om CSS lägga till svg animationer på startsida??
+    [] Uppladning av avatar bilder.
+    [] Effekter på navigation menu
 
 ## Join
 
@@ -40,6 +44,7 @@ Att göra lista:
     [x] "click and drag" change order
     [x] King hat for creator
     [x] Start game button
+    [] Lägga till effekter för att se tydligare vilken som är vilken och hur man kan dra i elementen
 
 ## OneCard view
 

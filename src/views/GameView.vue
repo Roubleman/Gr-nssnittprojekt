@@ -96,9 +96,6 @@ export default {
   justify-content: flex-start;
   gap: 1em 0.7em;
   padding: 1em;
-}
-
-.card-flex {
   --card-height: 8em;
 }
 </style>

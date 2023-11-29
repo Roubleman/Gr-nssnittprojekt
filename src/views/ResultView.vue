@@ -10,6 +10,7 @@
         <span v-if="player.isDealer">&#x1f68c; &#128640; &#128640;</span>
       </li>
     </section>
+    <button></button>
   </section>
 </template>
 
