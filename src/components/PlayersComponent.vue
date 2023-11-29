@@ -1,11 +1,16 @@
 <template>
     <h1>It's your turn! Guess a Card</h1>
     <section id="cardSelection">
+        <div class="card-grid">
+            <div v-for="(group, value) in cardGroups" :key="value">
+                <OneCard v-for="(card, index) in group" :card="card" :key="card.suit"
+                    :style="{ transform: `translateY(${index * -155}px)` }" v-on:selectedCard="cardIsSelected($event)"
+                    width="8em" height="8em" class="no-selection">
+                </OneCard>
+            </div>
 
+        </div>
 
-        <OneCard v-for="card in everyFourthCard" v-bind:card="card" v-bind:key="card.value"
-            v-on:selectedCard="cardIsSelected($event)" width="8em" height="8em" class="no-selection">
-        </OneCard>
     </section>
 </template>
   
@@ -22,7 +27,8 @@ export default {
     data() {
         return {
 
-            deckOfCards // Two rows of cards
+            deckOfCards, // Two rows of cards
+            selectedCard: [],
         };
     },
     props: {
@@ -33,26 +39,50 @@ export default {
     },
     methods: {
         cardIsSelected(card) {
-            this.$emit("selectedCard", card);
-            console.log(card);
+            return this.selectedCard.some(c => c.value === card.value && c.suit === card.suit);
+
         },
+        toggleCardSelection(card) {
+            const index = this.selectedCard.findIndex(c => c.value === card.value && c.suit === card.suit);
+            if (index !== -1) {
+                this.selectedCard.splice(index, 1);
+            } else {
+                this.selectedCard.push(card);
+            }
+        }
     },
     computed: {
-        everyFourthCard() {
-            return this.deckOfCards.filter((card, index) => index % 4 === 0);
-        },
-    }
+
+
+    },
 }
+
 </script>
 <style>
 #cardSelection {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
-    grid-auto-rows: var(--card-width);
+
     gap: 1em;
     justify-content: center;
     --card-width: 8em;
     margin-left: 2em;
+}
 
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1em;
+    row-gap: -10em;
+}
+
+.card-grid>* {
+    position: relative;
+
+
+}
+
+card.selected {
+    background-color: grey;
 }
 </style>
