@@ -1,14 +1,17 @@
 <template>
     <h1>It's your turn! Guess a Card</h1>
     <section id="cardSelection">
+
+
+
+
         <div class="card-grid">
             <div v-for="(group, value) in cardGroups" :key="value">
                 <OneCard v-for="(card, index) in group" :card="card" :key="card.suit"
-                    :style="{ transform: `translateY(${index * -155}px)` }" v-on:selectedCard="cardIsSelected($event)"
-                    width="8em" height="8em" class="no-selection">
-                </OneCard>
-            </div>
+                    :style="{ transform: `translateY(${index * -155}px)` }" v-on:selectedCard="selectCard($event)"
+                    :class="{ 'selected-card': isSelected(card) }" width="8em" height="8em" class="no-selection"></OneCard>
 
+            </div>
         </div>
 
     </section>
@@ -38,31 +41,38 @@ export default {
         },
     },
     methods: {
-        cardIsSelected(card) {
-            return this.selectedCard.some(c => c.value === card.value && c.suit === card.suit);
+        selectCard(card) {
+            this.selectedCard.push(card);
+            console.log(this.selectedCard);
+
+
 
         },
-        toggleCardSelection(card) {
-            const index = this.selectedCard.findIndex(c => c.value === card.value && c.suit === card.suit);
-            if (index !== -1) {
-                this.selectedCard.splice(index, 1);
-            } else {
-                this.selectedCard.push(card);
-            }
-        }
-    },
+        isSelected(card) {
+            return this.selectedCard.some(c => c.value === card.value && c.suit === card.suit);
+        },
+
+    }
+    ,
     computed: {
+        cardGroups() {
+            return this.deckOfCards.reduce((groups, card) => {
+                if (!groups[card.value]) {
+                    groups[card.value] = [];
+                }
+                groups[card.value].push(card);
+                return groups;
 
-
+            }, {});
+        },
     },
 }
 
 </script>
-<style>
+<style scoped>
 #cardSelection {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
-
     gap: 1em;
     justify-content: center;
     --card-width: 8em;
@@ -82,7 +92,7 @@ export default {
 
 }
 
-card.selected {
+.selected-card {
     background-color: grey;
 }
 </style>
