@@ -26,7 +26,7 @@ function sockets(io, socket, data) {
       d.lang,
       d.pointsSetting,
       d.guessesNumber,
-      d.hostName
+      d.hostName,
       d.deckOfCards
     );
     socket.join(d.gameId);
