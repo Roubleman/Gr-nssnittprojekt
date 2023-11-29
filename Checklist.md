@@ -71,6 +71,22 @@ Att göra lista:
     [] Display of points
     [] Bluffing?
 
+## Result view
+
+    [#] Show playername and points allocated for each player
+    []  Show who lost
+    []  Button for the player who lost to åka buss?
+
+# Back end game (data, socket görs allt eftersom)
+
+    [x] Swap dealer
+    [x] Swap guesser
+    [x] increasePoints
+    [] Set current card
+    [] Guess card
+    []
+    []
+
 ## Åka buss view
 
 ## Spectator view

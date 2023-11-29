@@ -1,9 +1,16 @@
 <template>
-  <div>
+  <div class="resultMenu">
     <h1>{{ uiLabels.gameResult }}: {{ gameId }}</h1>
   </div>
-  <section>
-    <li v-for="player in playerList">{{ player.name }} {{ player.points }}</li>
+  <section id="input_wrappers">
+    <section class="playerList">
+      <li v-for="player in playerList">
+        {{ player.name }}: {{ uiLabels.numberOfPoints }}
+        {{ player.points }}
+        <span v-if="player.isDealer">&#x1f68c; &#128640; &#128640;</span>
+      </li>
+    </section>
+    <button></button>
   </section>
 </template>
 
@@ -50,8 +57,38 @@ export default {
       this.uiLabels = labels;
     });
   },
-  methods: {
-    sortByPoints: function () {},
-  },
 };
 </script>
+
+<style>
+body {
+  background-color: rgb(233, 233, 223);
+  font-size: 1.3em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#input_wrappers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.playerList {
+  color: white;
+  width: 15em;
+  border-style: inset;
+  border-color: rgba(252, 16, 48, 0.707);
+  border-width: 1em;
+  background-color: rgb(73, 114, 73);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.playerList li {
+  list-style-type: none;
+  margin: 0.5em;
+}
+.lobbyMenu {
+  margin: 25px;
+}
+</style>
