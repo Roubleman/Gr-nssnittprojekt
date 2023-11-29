@@ -26,5 +26,6 @@
   "gameClosed": "Game closed due to host leaving, try joining another or creating a new game",
   "inputError": "Game Lobby does not exist or name is taken, please try again",
   "gameResult": "Score",
-  "numberOfPoints": "Points"
+  "numberOfPoints": "Points",
+  "selectAvatar": "Select your avatar"
 }

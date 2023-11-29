@@ -45,6 +45,21 @@
         <input class="input" type="text" v-model="id" />
       </label>
     </section>
+    <section class="input-boxes">
+      <section id="avatar_popup">
+        <span class="close_popup">&times;</span>
+        <p>{{ uiLabels.selectAvatar }}</p>
+        <section class="avatars">
+          <img
+            class="avatar-picture"
+            v-for="(avatar, index) in avatars"
+            :key="index"
+            :src="avatar"
+            @click="selectAvatar(index)"
+          />
+        </section>
+      </section>
+    </section>
   </section>
   <section style="padding-top: 1em; margin-bottom: 10em">
     <button v-on:click="tryToJoin" v-show="inputChecker()">
@@ -80,10 +95,23 @@ export default {
       uiLabels: {},
       id: "",
       name: "",
+      avatar: "",
       lang: localStorage.getItem("lang") || "en",
       hideNav: true,
       removeButton: false,
       valuesAccepted: false,
+      avatars: [
+        "public/img/Avatars/alienAvatar.png",
+        "public/img/Avatars/clownAvatar.png",
+        "public/img/Avatars/cowAvatar.png",
+        "public/img/Avatars/devilAvatar.png",
+        "public/img/Avatars/nerdAvatar.png",
+        "public/img/Avatars/octopusAvatar.png",
+        "public/img/Avatars/penguinAvatar.png",
+        "public/img/Avatars/robotAvatar.png",
+        "public/img/Avatars/santaAvatar.png",
+        "public/img/Avatars/sunglassesAvatar.png",
+      ],
     };
   },
   created: function () {
@@ -109,6 +137,10 @@ export default {
     },
     toggleNav: function () {
       this.hideNav = !this.hideNav;
+    },
+    selectAvatar(index) {
+      this.avatar = this.avatars[index];
+      console.log(this.avatar);
     },
     openRules: function () {
       const rulesPopup = document.getElementById("rules_popup");
@@ -220,6 +252,16 @@ header {
   font-size: 1.5rem;
 }
 
+.avatar-picture {
+  width: 2 em;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.avatar-picture:hover {
+  transform: scale(1.1);
+}
 .join-button {
   color: rgb(73, 114, 73);
   width: 6em;
@@ -312,6 +354,10 @@ header {
   position: absolute;
   top: 2%;
   right: 3.5%;
+}
+
+.avatars {
+  size: 0.2em;
 }
 
 #input_wrappers {

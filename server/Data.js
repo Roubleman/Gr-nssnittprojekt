@@ -155,10 +155,10 @@ Data.prototype.initializeGame = function (gameId) {
   }
 };
 
-Data.prototype.guessCard = function (gameId, playerName, card) {
+Data.prototype.guessCard = function (gameId, playerName, cardPoint) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
-    if (game.deckOfCards[game.currentCardIndex] === card) {
+    if (game.deckOfCards[game.currentCardIndex].points === cardPoint) {
       return true;
     } else {
       return false;
@@ -218,9 +218,12 @@ Data.prototype.swapGuesser = function (gameId) {
   }
 };
 
-Data.prototype.increasePoints = function (gameId, playerName, pointsIncrease) {
+Data.prototype.increasePoints = function (gameId, playerName, cardPoint) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
+    pointsIncrease =
+      Math.abs(cardPoint - game.deckOfCards[game.currentCardIndex].points) *
+      game.pointsMultiplier;
     for (let i = 0; i < game.players.length; i++) {
       if (game.players[i].name === playerName) {
         game.players[i].points += pointsIncrease;
