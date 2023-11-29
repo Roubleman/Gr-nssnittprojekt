@@ -13,7 +13,7 @@
   <ResponsiveNav v-bind:hideNav="hideNav">
     <button v-on:click="switchLanguage">{{ uiLabels.changeLanguage }}</button>
     <router-link to="/create/">{{ uiLabels.createHeading }}</router-link>
-    <a href="#" @click.prevent="openAbout">{{ uiLabels.about }}</a>
+    <a class="hover-link" href="#" @click.prevent="openAbout">{{ uiLabels.about }}</a>
     <a href="#" @click.prevent="openRules">{{ uiLabels.rules }}</a>
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
@@ -46,9 +46,7 @@
       </label>
     </section>
     <section class="input-boxes">
-      <section id="avatar_popup">
-        <span class="close_popup">&times;</span>
-        <p>{{ uiLabels.selectAvatar }}</p>
+        {{ uiLabels.selectAvatar }}
         <section class="avatars">
           <img
             class="avatar-picture"
@@ -56,16 +54,16 @@
             :key="index"
             :src="avatar"
             @click="selectAvatar(index)"
+            :class="this.selectedAvatar === index ? 'high-light-selected' : ''"
           />
         </section>
-      </section>
     </section>
   </section>
   <section style="padding-top: 1em; margin-bottom: 10em">
     <button
       class="join-button join-button2"
       v-on:click="tryToJoin"
-      v-show="inputChecker()"
+      :class="{ joinButtonIsDisabled: !inputChecker(), popupRemoveButton: this.removeButton }"
     >
       {{ uiLabels.joinGame }}
     </button>
@@ -116,6 +114,7 @@ export default {
         "public/img/Avatars/santaAvatar.png",
         "public/img/Avatars/sunglassesAvatar.png",
       ],
+      selectedAvatar: 0,
     };
   },
   created: function () {
@@ -143,7 +142,9 @@ export default {
       this.hideNav = !this.hideNav;
     },
     selectAvatar(index) {
-      this.avatar = this.avatars[index];
+      this.selectedAvatar = index;
+      this.avatar = this.avatars[this.selectedAvatar];
+      
       console.log(this.avatar);
     },
     openRules: function () {
@@ -261,6 +262,7 @@ header {
   height: 2em;
   padding-left: 0.5em;
   padding-right: 0.5em;
+  cursor:pointer;
 }
 
 .avatar-picture:hover {
@@ -282,8 +284,8 @@ header {
 .join-button2 {
   text-decoration: none;
   padding: 0.5em 1em;
-  border: 1px solid rgb(73, 114, 73);
-  box-shadow: 0 0 5px rgb(73, 114, 73), 0 0 5px rgb(73, 114, 73) inset;
+  border: 1px solid rgba(252, 16, 48, 0.707);
+  box-shadow: 0 0 5px rgba(252, 16, 48, 0.707), 0 0 5px rgba(252, 16, 48, 0.707) inset;
   z-index: 1;
 }
 
@@ -362,7 +364,8 @@ header {
 }
 
 .avatars {
-  size: 0.2em;
+  height: 100%;
+  width: 100%;
 }
 
 #input_wrappers {
@@ -387,6 +390,11 @@ header {
 
 .input {
   font-size: 1.2em;
+}
+
+.high-light-selected{
+  border: 0.1em solid black;
+  border-radius: 10em;
 }
 
 @media screen and (max-width: 50em) {
