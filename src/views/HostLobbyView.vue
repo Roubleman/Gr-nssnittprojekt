@@ -21,9 +21,6 @@
       </li>
     </draggable>
   </section>
-  <section>
-    <button v-on:click="printPlayerList">Print Playerlist</button>
-  </section>
 
   <button
     id="play_game_button"
@@ -76,16 +73,22 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
+    window.addEventListener("beforeunload", () => {
+      this.hostLeaving();
+    });
+  },
+  beforeDestroy() {
+    window.removeEventListener("beforeunload", this.hostLeaving());
   },
   methods: {
+    hostLeaving: function () {
+      socket.emit("hostLeft", this.gameId);
+    },
     updatePlayerListOrder: function () {
       socket.emit("updatePlayerListOrder", {
         playerList: this.playerList,
         gameId: this.gameId,
       });
-    },
-    printPlayerList: function () {
-      console.log(this.playerList);
     },
     playGame: function () {
       socket.emit("startGame", this.gameId);

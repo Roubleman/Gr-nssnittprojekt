@@ -42,7 +42,7 @@ export default {
       gameId: "inactive game",
       playerList: [],
       gameSettings: {},
-      player: {},
+      playerName: "",
     };
   },
   created: function () {
@@ -55,6 +55,7 @@ export default {
       this.gameSettings.pointsSetting = game.pointsSetting;
       this.gameSettings.guessesNumber = game.guessesNumber;
       this.player = this.playerList[this.playerList.length - 1];
+      this.playerName = this.player.name;
       console.log(this.playerList);
     });
 
@@ -62,6 +63,15 @@ export default {
 
     socket.on("playerList", (players) => {
       this.playerList = players;
+      for (let i = 0; i < this.playerList.length; i++) {
+        if (this.playerList[i].name === this.playerName) {
+          this.player = this.playerList[i];
+        }
+      }
+    });
+
+    socket.on("gameEnded", () => {
+      this.gameClosed();
     });
 
     socket.on("gameStarted", () => {
@@ -72,12 +82,30 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
+
+    window.addEventListener("beforeunload", () => {
+      this.playerLeaving();
+    });
+  },
+  beforeDestroy() {
+    window.removeEventListener("beforeunload", this.playerLeaving());
   },
   methods: {
+    gameClosed: function () {
+      alert(this.uiLabels.gameClosed);
+      this.$router.push("/");
+    },
     playerIsReady: function () {
       socket.emit("playerIsReady", {
         gameId: this.gameId,
-        player: this.player,
+        playerName: this.playerName,
+      });
+    },
+
+    playerLeaving: function () {
+      socket.emit("playerLeft", {
+        gameId: this.gameId,
+        playerName: this.playerName,
       });
     },
   },

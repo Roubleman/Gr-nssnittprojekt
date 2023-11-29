@@ -11,7 +11,23 @@
       </section>
 
       <section class="suit-flex" v-if="card.value >= 2 && card.value <= 10">
-        <div v-for="(row, i) in cardSuits" :key="i" class="suit-row">
+        <div
+          v-for="(row, i) in cardSuits"
+          :key="i"
+          class="suit-row"
+          :class="[
+            (Number(card.value) == 2 && i == 1) ||
+            (Number(card.value) == 3 && i == 2) ||
+            (Number(card.value) == 4 && i == 1) ||
+            (Number(card.value) <= 6 && i == 2) ||
+            (Number(card.value) == 7 && i == 3) ||
+            (Number(card.value) >= 8 && i > 3)
+              ? 'rotate-suit'
+              : '',
+
+            row.length == 1 ? 'suit-row single-suit' : '',
+          ]"
+        >
           <span v-for="(suit, j) in row" :key="j">
             <span
               v-html="'&' + this.card.suit + ';'"
@@ -52,51 +68,34 @@ export default {
   computed: {
     cardSuits() {
       if (this.card.value == "2") {
-        return [
-          [false, true, false],
-          [false, false, false],
-          [false, true, false],
-        ];
+        return [[true], [true]];
       }
 
       if (this.card.value == "3") {
-        return [
-          [false, true, false],
-          [false, true, false],
-          [false, true, false],
-        ];
+        return [[true], [true], [true]];
       }
 
       if (this.card.value == "4") {
         return [
-          [true, false, true],
-          [false, false, false],
-          [true, false, true],
+          [true, true],
+          [true, true],
         ];
       }
 
       if (this.card.value == "5") {
-        return [
-          [true, false, true],
-          [false, true, false],
-          [true, false, true],
-        ];
+        return [[true, true], [true], [true, true]];
       }
 
       if (this.card.value == "6") {
         return [
-          [true, false, true],
-          [true, false, true],
-          [true, false, true],
+          [true, true],
+          [true, true],
+          [true, true],
         ];
       }
 
       if (this.card.value == "7") {
-        return [
-          [true, true, true],
-          [true, false, true],
-          [true, false, true],
-        ];
+        return [[true, true], [true], [true, true], [true, true]];
       }
 
       if (this.card.value == "8") {
@@ -109,20 +108,19 @@ export default {
       }
 
       if (this.card.value == "9") {
-        return [
-          [true, false, true],
-          [true, true, true],
-          [true, false, true],
-          [true, false, true],
-        ];
+        return [[true, true], [true, true], [true], [true, true], [true, true]];
       }
 
       if (this.card.value == "10") {
+        // TVÅ FÖRSLAG PÅ 10.
+
         return [
-          [true, false, true],
-          [true, true, true],
-          [true, true, true],
-          [true, false, true],
+          [true, true],
+          [true],
+          [true, true],
+          [true, true],
+          [true],
+          [true, true],
         ];
       }
 
@@ -149,7 +147,7 @@ export default {
 .card-border {
   height: var(--card-width);
   width: calc(var(--card-width) * 0.66);
-  border: 0.07em solid black;
+  border: 0.07em solid rgb(95, 95, 95);
   border-radius: 0.4em;
   cursor: pointer;
   transition: transform 0.6s ease;
@@ -190,6 +188,13 @@ export default {
   align-items: center;
   flex-grow: 1;
   width: 50%;
+}
+.suit-row.single-suit {
+  justify-content: center;
+}
+
+.rotate-suit {
+  rotate: 180deg;
 }
 
 .red {

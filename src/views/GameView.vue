@@ -18,6 +18,8 @@
 <script>
 import OneCard from "@/components/OneCard.vue";
 import testCards from "@/assets/testCards.json";
+import io from "socket.io-client";
+const socket = io("localhost:3000");
 
 export default {
   name: "GameView",
@@ -27,9 +29,41 @@ export default {
 
   data: function () {
     return {
+      lang: localStorage.getItem("lang") || "en",
       playingCards: testCards,
       selectedCard: {},
+      gameID: "inactive game",
+      playerList: [],
+      gameSettings: {},
+      player: {},
+      playerName: localStorage.getItem("playerName"),
     };
+  },
+
+  created: function () {
+    this.gameId = this.$route.params.id;
+
+    socket.emit("joinSocket", this.gameId);
+
+    socket.emit("gameStarted", this.gameId);
+
+    socket.emit("getGameInfo", this.gameId);
+
+    socket.on("gameInfo", (game) => {
+      this.playerList = game.players;
+      this.gameSettings.pointsSetting = game.pointsSetting;
+      this.gameSettings.guessesNumber = game.guessesNumber;
+      for (let i = 0; i < this.playerList.length; i++) {
+        if (this.playerList[i].name === this.playerName) {
+          this.player = this.playerList[i];
+        }
+      }
+    });
+
+    socket.emit("pageLoaded", this.lang);
+    socket.on("init", (labels) => {
+      this.uiLabels = labels;
+    });
   },
 
   methods: {
