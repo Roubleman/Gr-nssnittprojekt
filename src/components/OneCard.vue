@@ -145,7 +145,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .card-border {
   height: var(--card-width);
   width: calc(var(--card-width) * 0.66);
