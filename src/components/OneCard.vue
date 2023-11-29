@@ -112,14 +112,11 @@ export default {
       }
 
       if (this.card.value == "10") {
-        // TVÅ FÖRSLAG PÅ 10.
-
         return [
           [true, true],
-          [true],
           [true, true],
           [true, true],
-          [true],
+          [true, true],
           [true, true],
         ];
       }

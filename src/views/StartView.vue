@@ -47,7 +47,11 @@
     </section>
   </section>
   <section style="padding-top: 1em; margin-bottom: 10em">
-    <button v-on:click="tryToJoin" v-show="inputChecker()">
+    <button
+      class="join-button join-button2"
+      v-on:click="tryToJoin"
+      v-show="inputChecker()"
+    >
       {{ uiLabels.joinGame }}
     </button>
     <!-- <router-link
@@ -222,14 +226,15 @@ header {
 
 .join-button {
   color: rgb(73, 114, 73);
-  width: 6em;
-  height: 1.5em;
+  width: 9em;
+  height: 3em;
   padding: 0.75em 1em;
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   display: inline-block;
+  font-size: 1.5em;
 }
 
 .join-button2 {
