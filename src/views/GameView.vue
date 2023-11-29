@@ -14,8 +14,8 @@
     </OneCard>
   </section>
   <hr> -->
-  <section id="dealer_view">
-    <Dealer ></Dealer>
+  <section class="dealer-view">
+    <Dealer></Dealer>
   </section>
 </template>
 
@@ -78,13 +78,7 @@ export default {
   --card-width: 8em;
 }
 
-#dealer_view {
-  width: 100vw;
-  height: 100vh;
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0em;
+.dealer-view {
+  --card-width: 20em;
 }
 </style>
