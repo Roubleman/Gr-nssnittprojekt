@@ -16,6 +16,10 @@ function sockets(io, socket, data) {
     );
   });
 
+  socket.on("checkGameId", function (gameId) {
+    socket.emit("gameIdChecked", data.checkGameId(gameId));
+  });
+
   socket.on("createGame", function (d) {
     data.createGame(
       d.gameId,
@@ -67,10 +71,6 @@ function sockets(io, socket, data) {
 
   socket.on("startGame", function (gameId) {
     io.to(gameId).emit("gameStarted");
-  });
-
-  socket.on("gameStarted", function (gameId) {
-    //data.setupGameStart(gameId);
   });
 
   socket.on("resetAll", () => {

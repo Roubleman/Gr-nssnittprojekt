@@ -58,6 +58,14 @@ Data.prototype.checkGameValues = function (gameId, playerName) {
   return true;
 };
 
+Data.prototype.checkGameId = function (gameId) {
+  console.log("checking game id", gameId);
+  if (typeof this.games[gameId] === "undefined") {
+    return true;
+  }
+  return false;
+};
+
 Data.prototype.joinGame = function (gameId, playerName) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
