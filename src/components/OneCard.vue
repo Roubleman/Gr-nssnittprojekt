@@ -145,8 +145,8 @@ export default {
 
 <style>
 .card-border {
-  height: var(--card-width);
-  width: calc(var(--card-width) * 0.66);
+  height: var(--card-height);
+  width: calc(var(--card-height) * 0.66);
   border: 0.07em solid rgb(95, 95, 95);
   border-radius: 0.4em;
   cursor: pointer;

@@ -101,6 +101,6 @@ export default {
 }
 
 .card-flex {
-  --card-width: 8em;
+  --card-height: 8em;
 }
 </style>
