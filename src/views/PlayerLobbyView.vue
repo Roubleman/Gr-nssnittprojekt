@@ -15,8 +15,6 @@
     </section>
   </section>
 
-  <button v-on:click="console.log(this.player)">Print Player</button>
-
   <button v-if="!player.isReady" id="ready_button" v-on:click="playerIsReady">
     {{ uiLabels.ready }}
   </button>

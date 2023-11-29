@@ -16,6 +16,10 @@ function sockets(io, socket, data) {
     );
   });
 
+  socket.on("checkGameId", function (gameId) {
+    socket.emit("gameIdChecked", data.checkGameId(gameId));
+  });
+
   socket.on("createGame", function (d) {
     data.createGame(
       d.gameId,

@@ -21,7 +21,12 @@
       </section>
       <section class="create-setting">
         {{ uiLabels.inputGameId }}:
-        <input class="input" type="text" v-model="gameId" />
+        <input
+          class="input"
+          type="text"
+          v-model="gameId"
+          v-on:input="checkId()"
+        />
       </section>
       <section id="button_section">
         <transition name="fade">
@@ -53,6 +58,7 @@ export default {
       data: {},
       uiLabels: {},
       pointsSetting: "normal",
+      gameIdAvailable: false,
     };
   },
   created: function () {
@@ -60,8 +66,16 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
+    socket.on("gameIdChecked", (gameIdAvailable) => {
+      this.gameIdAvailable = gameIdAvailable;
+    });
   },
   methods: {
+    checkId: function () {
+      if (this.gameId.length > 0) {
+        socket.emit("checkGameId", this.gameId);
+      }
+    },
     checkValues: function () {
       if (this.gameId === "") {
         return false;
@@ -78,15 +92,20 @@ export default {
       if (this.guessesNumber > 1) this.guessesNumber--;
     },
     createGame: function () {
-      localStorage.setItem("playerName", this.hostName);
-      this.$router.push("/host/" + this.gameId);
-      socket.emit("createGame", {
-        gameId: this.gameId,
-        lang: this.lang,
-        hostName: this.hostName,
-        guessesNumber: this.guessesNumber,
-        pointsSetting: this.pointsSetting,
-      });
+      if (!this.gameIdAvailable) {
+        alert("Game ID already taken");
+        return;
+      } else {
+        localStorage.setItem("playerName", this.hostName);
+        this.$router.push("/host/" + this.gameId);
+        socket.emit("createGame", {
+          gameId: this.gameId,
+          lang: this.lang,
+          hostName: this.hostName,
+          guessesNumber: this.guessesNumber,
+          pointsSetting: this.pointsSetting,
+        });
+      }
     },
   },
 };
