@@ -34,6 +34,11 @@ const router = createRouter({
       name: "ResultView",
       component: () => import("../views/ResultView.vue"),
     },
+    {
+      path: "/bus/:id",
+      name: "BusView",
+      component: () => import("../views/BusView.vue")
+    },
   ],
 });
 
