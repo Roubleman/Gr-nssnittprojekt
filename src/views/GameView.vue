@@ -7,8 +7,6 @@
       v-bind:card="card"
       v-bind:key="card.value"
       v-on:selectedCard="cardIsSelected($event)"
-      width="8em"
-      height="8em"
       class="no-selection"
     >
     </OneCard>
@@ -17,7 +15,7 @@
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-import DeckOfCards from "@/assets/DeckOfCards.json";
+import deckCards from "@/assets/DeckOfCards.json";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
@@ -101,6 +99,6 @@ export default {
 }
 
 .card-flex {
-  --card-width: 8em;
+  --card-height: 8em;
 }
 </style>

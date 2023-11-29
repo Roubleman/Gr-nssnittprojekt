@@ -24,5 +24,7 @@
   "scramblePlayerOrder": "Slumpa ordning!",
   "ready": "Klar!",
   "gameClosed": "Spelet stängde på grund av att värden lämnade, pröva att gå med i ett nytt eller skapa ett eget",
-  "inputError": "Spelet finns inte eller namnet är upptaget, pröva igen"
+  "inputError": "Spelet finns inte eller namnet är upptaget, pröva igen",
+  "gameResult": "Resultat",
+  "numberOfPoints": "Poäng"
 }

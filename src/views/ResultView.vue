@@ -1,40 +1,93 @@
 <template>
-  <div>
-    {{ question }}
+  <div class="resultMenu">
+    <h1>{{ uiLabels.gameResult }}: {{ gameId }}</h1>
   </div>
-  <BarsComponent v-bind:data="submittedAnswers" />
-
-  <span>{{ submittedAnswers }}</span>
+  <section id="input_wrappers">
+    <section class="playerList">
+      <li v-for="player in playerList">
+        {{ player.name }}: {{ uiLabels.numberOfPoints }}
+        {{ player.points }}
+        <span v-if="player.isDealer">&#x1f68c; &#128640; &#128640;</span>
+      </li>
+    </section>
+  </section>
 </template>
 
 <script>
 // @ is an alias to /src
-import BarsComponent from "@/components/BarsComponent.vue";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
 export default {
   name: "ResultView",
-  components: {
-    BarsComponent,
-  },
   data: function () {
     return {
-      question: "",
-      submittedAnswers: {},
+      lang: localStorage.getItem("lang") || "en",
+      gameId: "inactive game",
+      uiLabels: {},
+      playerList: {},
     };
   },
   created: function () {
     this.gameId = this.$route.params.id;
-    socket.emit("joinPoll", this.gameId);
-    socket.on("dataUpdate", (update) => {
-      this.submittedAnswers = update.a;
-      this.question = update.q;
+    socket.emit("getGameInfo", this.gameId);
+
+    socket.emit("joinGame", this.gameId);
+    socket.on("gameInfo", (game) => {
+      this.playerList = game.players;
+      this.gameSettings.pointsSetting = game.pointsSetting;
+      this.player = this.playerList[this.playerList.length - 1];
+      this.playerName = this.player.name;
+      console.log(this.playerList);
     });
-    socket.on("newQuestion", (update) => {
-      this.question = update.q;
-      this.data = {};
+
+    socket.emit("lobbyJoined", this.gameId);
+
+    socket.on("playerList", (players) => {
+      this.playerList = players;
+      for (let i = 0; i < this.playerList.length; i++) {
+        if (this.playerList[i].name === this.playerName) {
+          this.player = this.playerList[i];
+        }
+      }
+    });
+    socket.emit("pageLoaded", this.lang);
+    socket.on("init", (labels) => {
+      this.uiLabels = labels;
     });
   },
 };
 </script>
+
+<style>
+body {
+  background-color: rgb(233, 233, 223);
+  font-size: 1.3em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#input_wrappers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.playerList {
+  color: white;
+  width: 15em;
+  border-style: inset;
+  border-color: rgba(252, 16, 48, 0.707);
+  border-width: 1em;
+  background-color: rgb(73, 114, 73);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.playerList li {
+  list-style-type: none;
+  margin: 0.5em;
+}
+.lobbyMenu {
+  margin: 25px;
+}
+</style>
