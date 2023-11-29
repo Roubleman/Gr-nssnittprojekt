@@ -1,19 +1,19 @@
 <template>
-  <header id="dealer_header"></header>
+    <header id="dealer_header"></header>
+    <div class="scene">
+        <!-- 1 -->
+        <div class="deck-container">
+            <!-- 2 -->
 
-  <div class="deck-container">
+            <div class="card card-back" v-if="!cardIsUp" :style="{ transform: cardIsUp ? 'rotateY(180deg)' : 'rotateY(0deg)' }" @click="flipCard">
+                <!-- 3 -->
+                <img src="../../public/img/cardback.png" alt="card back" class="card-image" />
+            </div>
 
-    <div class="top-card backside-border" v-if="!cardIsUp" @click="flipCard">
-      <img src="../../public/img/cardback.png" alt="card back" id="card_back" />
-    </div>
-
-        <OneCard 
-        v-if="topCard && cardIsUp"
-        v-bind:card="topCard"
-        v-bind:key="topCard.value"
-        @click="flipCard"
-        class="top-card">
-        </OneCard>
+            <OneCard v-if="topCard && cardIsUp" v-bind:card="topCard" v-bind:key="topCard.value" @click="flipCard"
+                class="card card-front">
+            </OneCard>
+        </div>
     </div>
 </template>
 
@@ -21,11 +21,13 @@
 import { sockets } from "../../server/sockets";
 import deckOfCards from "@/assets/DeckOfCards.json";
 import OneCard from "../components/OneCard.vue";
+import { VueFlip } from 'vue-flip';
 
 export default {
-  components: {
-    OneCard,
-  },
+    components: {
+        OneCard,
+        'vue-flip': VueFlip
+    },
 
     data() {
         return {
@@ -39,9 +41,9 @@ export default {
         this.topCard = this.cards[0];
     },
     methods: {
-        flipCard: function() {
+        flipCard: function () {
             this.cardIsUp = !this.cardIsUp;
-            
+
         },
         shuffleCards: function (deck) {
             const shuffledDeck = [...deck];
@@ -56,35 +58,39 @@ export default {
 </script>
 
 <style>
-.backside-border {
-  border: 0.07em solid black;
-  border-radius: 0.4em;
+.scene {
+    width: 13.2em;
+    height: 20em;
+    perspective: 600px; /*fix this*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .deck-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+    width: 100%;
+    height: 100%;
+    position:relative;
+    transform-style: preserve-3d;
+    transition: transform 1s;
 }
 
-.top-card {
-width: 13.2em;
-height: 20em;
+.card {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#card_back {
-    background-color: aquamarine;
-    color:black;
-    text-align: center;
-    cursor:pointer;
+.card-image {
+    border: 0.07em solid black;
+    border-radius: 0.4em;
+    cursor: pointer;
     height: inherit;
     width: inherit;
-}
-
-.dealer-stack{
-    width: 20em;
-    color: white;
 }
 
 .grid-container {

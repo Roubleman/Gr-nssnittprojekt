@@ -16,6 +16,7 @@
     "socket.io-client": "^4.7.2",
     "vue": "^3.3.4",
     "vue-draggable-next": "^2.2.1",
+    "vue-flip": "^3.0.2",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
