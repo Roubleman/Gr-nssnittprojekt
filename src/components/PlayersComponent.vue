@@ -10,9 +10,10 @@
 
             <OneCard v-for="card in cards" :card="card" :key="card.suit + card.value"
                 :style="{ 'grid-row-start': getRow(card.value), 'grid-column-start': getColumn(card.value), 'z-index': getZIndex(card.suit) }"
-                v-on:selectedCard="selectCard($event)"
-                :class="{ 'selected-card': isSelected(card), 'blur': isSelected(card) && !isCorrect, 'correct': isSelected(card) && checkCard(card), 'cardsOutOfPlay': cardsOutOfPlay }"
-                width="8em" height="8em" class="no-selection"></OneCard>
+                v-on:selectedCard="selectCard($event)" :class="{ 'selected': selectedCard === card }" width="8em"
+                height="8em" class="no-selection">
+
+            </OneCard>
 
 
 
@@ -28,9 +29,16 @@
         </div>
 
     </section>
-    <div v-if="showPopup" class="popup">
+    <section>
+        <button @click="confirmSelection(card)" id="confirm-button">Confirm</button>
+    </section>
+    <div v-if="correctPopup" class="popup">
         <p>You selected the correct card!</p>
-        <button @click="showPopup = false">Close</button>
+        <button @click="correctPopup = false">Close</button>
+    </div>
+    <div v-if="wrongPopup" class="popup">
+        <p>You selected the wrong card! One more chance</p>
+        <button @click="wrongPopup = false">Close</button>
     </div>
 </template>
   
@@ -50,8 +58,9 @@ export default {
             selectedCard: [],
             cards: [],
             correctvalue: "4",
-            cardsOutOfPlay: [{ "value": "7", "suit": "spades" }],
-            showPopup: false,
+            cardsOutOfPlay: [],
+            correctPopup: false,
+            wrongPopup: false,
         };
     },
     props: {
@@ -83,23 +92,37 @@ export default {
     },
     methods: {
         selectCard(card) {
-
-            this.selectedCard = card;
-            if (!this.isCorrect) {
-                console.log("Wrong Card");
-            } else {
-                this.cardsOutOfPlay.push(card);
-                this.showPopup = true;
-                console.log(this.cardsOutOfPlay);
+            if (this.isConfirmed) {
+                console.log("Selection already confirmed");
+                return;
             }
 
-
+            this.selectedCard = card;
         },
+
+        confirmSelection() {
+            if (this.selectedCard) {
+                this.isConfirmed = true;
+                console.log("Confirmed selection:", this.selectedCard);
+
+                if (!this.isCorrect) {
+                    console.log("wrong card");
+                    this.wrongPopup = true;
+                } else {
+                    this.cardsOutOfPlay.push(this.selectedCard);
+                    this.correctPopup = true;
+                    console.log("correct card");
+                    console.log(this.cardsOutOfPlay);
+
+                }
+            } else {
+                console.log("No card selected");
+            }
+        },
+
         checkCard(card) {
             return card.value === this.correctvalue;
-        },
-        isSelected(card) {
-            return this.selectedCard && this.selectedCard.value === card.value && this.selectedCard.suit === card.suit;
+
         },
         getColumn(value) {
             const positions = {
@@ -192,6 +215,24 @@ export default {
     filter: none;
 
 
+}
+
+#confirm-button {
+    background-color: #4CAF50;
+    border: 2px solid black;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.selected {
+    border: 2px solid red;
 }
 
 .OneCard {
