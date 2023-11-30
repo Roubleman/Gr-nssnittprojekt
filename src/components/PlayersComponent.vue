@@ -1,5 +1,9 @@
 <template>
-    <h1>It's your turn! Guess a Card</h1>
+    <!--<div class="yourturn">
+        <p>It's your turn!</p>
+        <button @click="showPopup = false">Close</button>
+    </div>-->
+    <h1>Your turn</h1>
     <section id="cardSelection">
 
         <div class="card-grid">
@@ -7,8 +11,8 @@
             <OneCard v-for="card in cards" :card="card" :key="card.suit + card.value"
                 :style="{ 'grid-row-start': getRow(card.value), 'grid-column-start': getColumn(card.value), 'z-index': getZIndex(card.suit) }"
                 v-on:selectedCard="selectCard($event)"
-                :class="{ 'selected-card': isSelected(card), 'blur': isSelected(card) && !isCorrect }" width="8em"
-                height="8em" class="no-selection"></OneCard>
+                :class="{ 'selected-card': isSelected(card), 'blur': isSelected(card) && !isCorrect, 'correct': isSelected(card) && checkCard(card), 'cardsOutOfPlay': cardsOutOfPlay }"
+                width="8em" height="8em" class="no-selection"></OneCard>
 
 
 
@@ -24,6 +28,10 @@
         </div>
 
     </section>
+    <div v-if="showPopup" class="popup">
+        <p>You selected the correct card!</p>
+        <button @click="showPopup = false">Close</button>
+    </div>
 </template>
   
 <script>
@@ -42,7 +50,8 @@ export default {
             selectedCard: [],
             cards: [],
             correctvalue: "4",
-            correctCards: [],
+            cardsOutOfPlay: [{ "value": "7", "suit": "spades" }],
+            showPopup: false,
         };
     },
     props: {
@@ -55,6 +64,23 @@ export default {
     created() {
         this.cards = (this.shuffleCards(deckOfCards));
     },
+    computed: {
+        isCorrect() {
+            return this.selectedCard && this.selectedCard.value === this.correctvalue;
+        },
+
+        /*
+                cardGroups() {
+                    return this.deckOfCards.reduce((groups, card) => {
+                        if (!groups[card.value]) {
+                            groups[card.value] = [];
+                        }
+                        groups[card.value].push(card);
+                        return groups;
+        
+                    }, {});
+                },*/
+    },
     methods: {
         selectCard(card) {
 
@@ -62,11 +88,15 @@ export default {
             if (!this.isCorrect) {
                 console.log("Wrong Card");
             } else {
-                console.log("Correct Card");
-                this.correctCards.push(card);
+                this.cardsOutOfPlay.push(card);
+                this.showPopup = true;
+                console.log(this.cardsOutOfPlay);
             }
 
 
+        },
+        checkCard(card) {
+            return card.value === this.correctvalue;
         },
         isSelected(card) {
             return this.selectedCard && this.selectedCard.value === card.value && this.selectedCard.suit === card.suit;
@@ -127,22 +157,7 @@ export default {
 
         },
     },
-    computed: {
-        isCorrect() {
-            return this.selectedCard && this.selectedCard.value === this.correctvalue;
-        },
 
-        cardGroups() {
-            return this.deckOfCards.reduce((groups, card) => {
-                if (!groups[card.value]) {
-                    groups[card.value] = [];
-                }
-                groups[card.value].push(card);
-                return groups;
-
-            }, {});
-        },
-    },
 }
 
 </script>
@@ -186,5 +201,24 @@ export default {
 
 .blur {
     filter: blur(2px);
+}
+
+.correct {
+    filter: none;
+    background-color: white;
+    border: 0.07em solid rgb(95, 95, 95);
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 10px;
+    z-index: 1000;
+    text-align: center;
 }
 </style>
