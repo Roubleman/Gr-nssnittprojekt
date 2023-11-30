@@ -4,7 +4,7 @@ import { Server } from "socket.io";
 const httpServer = createServer();
 const io = new Server(httpServer, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: "*", // För att gå till sidan: <datorns IP>:5173
       methods: ["GET"],
       credentials: true
   }
