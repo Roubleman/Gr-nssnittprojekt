@@ -61,7 +61,7 @@ export default {
       pointsSetting: "normal",
       gameIdAvailable: false,
       playingCards: DeckOfCards,
-      hostAvatar: "img/crownAvatar.png",
+      hostAvatar: "/img/crownAvatar.png",
     };
   },
   created: function () {
