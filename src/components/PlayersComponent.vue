@@ -1,13 +1,14 @@
 <template>
     <h1>It's your turn! Guess a Card</h1>
-
-
     <section id="cardSelection">
+
         <div class="card-grid">
 
             <OneCard v-for="card in cards" :card="card" :key="card.suit + card.value"
-                :style="{ 'grid-row-start': getRow(card.value), 'grid-column-start': getColumn(card.value), 'z-index': getZIndex(card.suit) }">
-            </OneCard>
+                :style="{ 'grid-row-start': getRow(card.value), 'grid-column-start': getColumn(card.value), 'z-index': getZIndex(card.suit) }"
+                v-on:selectedCard="selectCard($event)"
+                :class="{ 'selected-card': isSelected(card), 'blur': isSelected(card) && !isCorrect }" width="8em"
+                height="8em" class="no-selection"></OneCard>
 
 
 
@@ -38,9 +39,10 @@ export default {
     data() {
         return {
 
-            deckOfCards, // Two rows of cards
             selectedCard: [],
             cards: [],
+            correctvalue: "4",
+            correctCards: [],
         };
     },
     props: {
@@ -55,14 +57,19 @@ export default {
     },
     methods: {
         selectCard(card) {
-            this.selectedCard.push(card);
-            console.log(this.selectedCard);
 
+            this.selectedCard = card;
+            if (!this.isCorrect) {
+                console.log("Wrong Card");
+            } else {
+                console.log("Correct Card");
+                this.correctCards.push(card);
+            }
 
 
         },
         isSelected(card) {
-            return this.selectedCard.some(c => c.value === card.value && c.suit === card.suit);
+            return this.selectedCard && this.selectedCard.value === card.value && this.selectedCard.suit === card.suit;
         },
         getColumn(value) {
             const positions = {
@@ -121,6 +128,10 @@ export default {
         },
     },
     computed: {
+        isCorrect() {
+            return this.selectedCard && this.selectedCard.value === this.correctvalue;
+        },
+
         cardGroups() {
             return this.deckOfCards.reduce((groups, card) => {
                 if (!groups[card.value]) {
@@ -151,10 +162,21 @@ export default {
     display: contents;
 }
 
-
+.card-border {
+    background-color: lightgray;
+    border: 2px dotted grey;
+}
 
 .selected-card {
-    background-color: grey;
+    background-color: white;
+    border: 0.07em solid rgb(95, 95, 95);
+    border-radius: 0.4em;
+    cursor: pointer;
+    transition: transform 0.6s ease;
+    background-color: white;
+    filter: none;
+
+
 }
 
 .OneCard {
@@ -162,8 +184,7 @@ export default {
 
 }
 
-.card-border {
-    background-color: lightgray;
-    border: 2px solid grey;
+.blur {
+    filter: blur(2px);
 }
 </style>
