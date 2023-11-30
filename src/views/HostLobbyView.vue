@@ -17,7 +17,7 @@
       <li v-for="(player, index) in playerList" :key="index">
         {{ index + 1 + ". " }}{{ player.name }}
         <!-- <span v-if="player.isHost">&#x1F451;</span> -->
-        <img :src="player.avatar" alt="" />
+        <img :src="player.avatar" class="avatar" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
       </li>
     </draggable>
@@ -168,5 +168,10 @@ body {
 #scramble_button:hover {
   background-color: rgb(62, 172, 28);
   cursor: pointer;
+}
+
+.avatar {
+  width: 1.5em;
+  height: auto;
 }
 </style>

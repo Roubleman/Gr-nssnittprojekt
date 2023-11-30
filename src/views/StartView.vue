@@ -48,7 +48,7 @@
       </label>
     </section>
     <section class="input-boxes">
-      {{ uiLabels.selectAvatar }}
+      <p id="avatar_select">{{ uiLabels.selectAvatar }}</p>
       <section class="avatars">
         <img
           class="avatar-picture"
@@ -274,6 +274,10 @@ header {
 
 .avatar-picture:hover {
   transform: scale(1.1);
+}
+
+#avatar_select {
+  margin-top: -1em;
 }
 .join-button {
   color: rgb(73, 114, 73);

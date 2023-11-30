@@ -9,7 +9,7 @@
     <section class="player-list">
       <li v-for="(player, index) in playerList" :key="index">
         {{ index + 1 + ". " }}{{ player.name }}
-        <img :src="player.avatar" alt="" />
+        <img :src="player.avatar" class="avatar" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
       </li>
     </section>
@@ -150,5 +150,10 @@ body {
 #ready_button:hover {
   background-color: rgb(62, 172, 28);
   cursor: pointer;
+}
+
+.avatar {
+  width: 1.5em;
+  height: auto;
 }
 </style>
