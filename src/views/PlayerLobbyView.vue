@@ -9,7 +9,7 @@
     <section class="player-list">
       <li v-for="(player, index) in playerList" :key="index">
         {{ index + 1 + ". " }}{{ player.name }}
-        <span v-if="player.isHost">&#x1F451;</span>
+        <img :src="player.avatar" alt="" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
       </li>
     </section>
@@ -40,6 +40,7 @@ export default {
       gameId: "inactive game",
       playerList: [],
       playerName: "",
+      player: {},
     };
   },
   created: function () {

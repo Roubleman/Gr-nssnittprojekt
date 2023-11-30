@@ -27,9 +27,9 @@ function sockets(io, socket, data) {
       d.pointsSetting,
       d.guessesNumber,
       d.hostName,
-      d.deckOfCards
+      d.deckOfCards,
+      d.hostAvatar
     );
-    socket.join(d.gameId);
   });
 
   socket.on("getGameInfo", function (gameId) {
@@ -42,7 +42,7 @@ function sockets(io, socket, data) {
   });
 
   socket.on("joinGame", function (d) {
-    data.joinGame(d.gameId, d.playerName);
+    data.joinGame(d.gameId, d.playerName, d.avatar);
   });
 
   socket.on("joinSocket", function (gameId) {

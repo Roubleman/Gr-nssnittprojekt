@@ -24,7 +24,8 @@ Data.prototype.createGame = function (
   pointsSetting = "normal",
   guessesNumber = 3,
   hostName = "host",
-  deckOfCards
+  deckOfCards,
+  hostAvatar
 ) {
   if (typeof this.games[gameId] === "undefined") {
     let game = {};
@@ -43,6 +44,7 @@ Data.prototype.createGame = function (
     player.isHost = true;
     player.points = 0;
     player.isReady = true;
+    player.avatar = hostAvatar;
     game.players = [];
     game.players.push(player);
     this.games[gameId] = game;
@@ -73,7 +75,7 @@ Data.prototype.checkGameId = function (gameId) {
   return false;
 };
 
-Data.prototype.joinGame = function (gameId, playerName) {
+Data.prototype.joinGame = function (gameId, playerName, avatar) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
     let player = {};
@@ -81,6 +83,7 @@ Data.prototype.joinGame = function (gameId, playerName) {
     player.isHost = false;
     player.points = 0;
     player.isReady = false;
+    player.avatar = avatar;
     game.players.push(player);
     console.log("player joined", gameId, player);
   }

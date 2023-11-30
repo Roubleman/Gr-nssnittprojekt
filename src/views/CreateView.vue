@@ -61,6 +61,7 @@ export default {
       pointsSetting: "normal",
       gameIdAvailable: false,
       playingCards: DeckOfCards,
+      hostAvatar: "img/crownAvatar.png",
     };
   },
   created: function () {
@@ -107,6 +108,7 @@ export default {
           guessesNumber: this.guessesNumber,
           pointsSetting: this.pointsSetting,
           deckOfCards: this.playingCards,
+          hostAvatar: this.hostAvatar,
         });
       }
     },

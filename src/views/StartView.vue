@@ -13,7 +13,9 @@
   <ResponsiveNav v-bind:hideNav="hideNav">
     <button v-on:click="switchLanguage">{{ uiLabels.changeLanguage }}</button>
     <router-link to="/create/">{{ uiLabels.createHeading }}</router-link>
-    <a class="hover-link" href="#" @click.prevent="openAbout">{{ uiLabels.about }}</a>
+    <a class="hover-link" href="#" @click.prevent="openAbout">{{
+      uiLabels.about
+    }}</a>
     <a href="#" @click.prevent="openRules">{{ uiLabels.rules }}</a>
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
@@ -46,24 +48,27 @@
       </label>
     </section>
     <section class="input-boxes">
-        {{ uiLabels.selectAvatar }}
-        <section class="avatars">
-          <img
-            class="avatar-picture"
-            v-for="(avatar, index) in avatars"
-            :key="index"
-            :src="avatar"
-            @click="selectAvatar(index)"
-            :class="this.selectedAvatar === index ? 'high-light-selected' : ''"
-          />
-        </section>
+      {{ uiLabels.selectAvatar }}
+      <section class="avatars">
+        <img
+          class="avatar-picture"
+          v-for="(avatar, index) in avatars"
+          :key="index"
+          :src="avatar"
+          @click="selectAvatar(index)"
+          :class="this.selectedAvatar === index ? 'high-light-selected' : ''"
+        />
+      </section>
     </section>
   </section>
   <section style="padding-top: 1em; margin-bottom: 10em">
     <button
       class="join-button join-button2"
       v-on:click="tryToJoin"
-      :class="{ joinButtonIsDisabled: !inputChecker(), popupRemoveButton: this.removeButton }"
+      :class="{
+        joinButtonIsDisabled: !inputChecker(),
+        popupRemoveButton: this.removeButton,
+      }"
     >
       {{ uiLabels.joinGame }}
     </button>
@@ -97,24 +102,24 @@ export default {
       uiLabels: {},
       id: "",
       name: "",
-      avatar: "",
       lang: localStorage.getItem("lang") || "en",
       hideNav: true,
       removeButton: false,
       valuesAccepted: false,
       avatars: [
-        "public/img/Avatars/alienAvatar.png",
-        "public/img/Avatars/clownAvatar.png",
-        "public/img/Avatars/cowAvatar.png",
-        "public/img/Avatars/devilAvatar.png",
-        "public/img/Avatars/nerdAvatar.png",
-        "public/img/Avatars/octopusAvatar.png",
-        "public/img/Avatars/penguinAvatar.png",
-        "public/img/Avatars/robotAvatar.png",
-        "public/img/Avatars/santaAvatar.png",
-        "public/img/Avatars/sunglassesAvatar.png",
+        "img/Avatars/alienAvatar.png",
+        "img/Avatars/clownAvatar.png",
+        "img/Avatars/cowAvatar.png",
+        "img/Avatars/devilAvatar.png",
+        "img/Avatars/nerdAvatar.png",
+        "img/Avatars/octopusAvatar.png",
+        "img/Avatars/penguinAvatar.png",
+        "img/Avatars/robotAvatar.png",
+        "img/Avatars/santaAvatar.png",
+        "img/Avatars/sunglassesAvatar.png",
       ],
       selectedAvatar: 0,
+      avatar: "public/img/Avatars/alienAvatar.png",
     };
   },
   created: function () {
@@ -144,8 +149,6 @@ export default {
     selectAvatar(index) {
       this.selectedAvatar = index;
       this.avatar = this.avatars[this.selectedAvatar];
-      
-      console.log(this.avatar);
     },
     openRules: function () {
       const rulesPopup = document.getElementById("rules_popup");
@@ -209,7 +212,11 @@ export default {
         alert(this.uiLabels.inputError);
       } else {
         localStorage.setItem("playerName", this.playerName);
-        socket.emit("joinGame", { gameId: this.id, playerName: this.name });
+        socket.emit("joinGame", {
+          gameId: this.id,
+          playerName: this.name,
+          avatar: this.avatar,
+        });
         this.$router.push("/join/" + this.id);
       }
     },
@@ -258,11 +265,11 @@ header {
 }
 
 .avatar-picture {
-  width: 2 em;
-  height: 2em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  cursor:pointer;
+  width: 2em;
+  height: auto;
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+  cursor: pointer;
 }
 
 .avatar-picture:hover {
@@ -285,7 +292,8 @@ header {
   text-decoration: none;
   padding: 0.5em 1em;
   border: 1px solid rgba(252, 16, 48, 0.707);
-  box-shadow: 0 0 5px rgba(252, 16, 48, 0.707), 0 0 5px rgba(252, 16, 48, 0.707) inset;
+  box-shadow: 0 0 5px rgba(252, 16, 48, 0.707),
+    0 0 5px rgba(252, 16, 48, 0.707) inset;
   z-index: 1;
 }
 
@@ -392,9 +400,10 @@ header {
   font-size: 1.2em;
 }
 
-.high-light-selected{
-  border: 0.1em solid black;
-  border-radius: 10em;
+.high-light-selected {
+  scale: calc(1.8);
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 @media screen and (max-width: 50em) {

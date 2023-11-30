@@ -16,7 +16,8 @@
     >
       <li v-for="(player, index) in playerList" :key="index">
         {{ index + 1 + ". " }}{{ player.name }}
-        <span v-if="player.isHost">&#x1F451;</span>
+        <!-- <span v-if="player.isHost">&#x1F451;</span> -->
+        <img :src="player.avatar" alt="" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
       </li>
     </draggable>
@@ -63,7 +64,6 @@ export default {
 
     socket.on("playerList", (players) => {
       this.playerList = players;
-      console.log("players", players);
     });
 
     socket.emit("pageLoaded", this.lang);
