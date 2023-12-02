@@ -29,11 +29,18 @@
         />
       </section>
       <section id="button_section">
+
+        <button class = "back-button back-button2" @click="this.$router.push({path: '/'})">
+
+          {{ uiLabels.backToHomepage }}
+
+        </button>
+
         <transition name="fade">
           <button
-            id="start_game_button"
-            v-show="checkValues()"
+            class="start-button"
             v-on:click="createGame"
+            :class="{startButtonIsDisabled: !this.checkValues()}"
           >
             {{ uiLabels.startGame }}
           </button>
@@ -155,6 +162,9 @@ h1 {
   width: 50em;
   height: 7em;
   padding-top: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #start_game_button {
@@ -168,6 +178,106 @@ h1 {
   background-color: rgb(62, 172, 28);
   cursor: pointer;
 }
+
+.start-button {
+  width: 40%;
+  color: black;
+  padding-top: 2%;
+  background: rgb(73, 114, 73);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  font-size: 1.5em;
+  padding: 0.5em 1em;
+  z-index: 1;
+}
+
+.start-button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background: rgb(2, 102, 49);
+  box-shadow: 0 0 20px rgb(207, 207, 207);
+  transition: all 0.3s ease;
+}
+
+.start-button:hover {
+  color: whitesmoke;
+  border: 1px solid rgb(6, 75, 6);
+  box-shadow: 0 0 5px rgb(160, 242, 37),
+              0 0 5px rgb(160, 242, 37) inset
+}
+
+.start-button:hover::after {
+  left: 0;
+  width: 100%;
+}
+
+.start-button:active {
+  top: 2px;
+}
+
+.startButtonIsDisabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+}
+
+.back-button {
+  text-decoration: none;
+  padding: 0.5em 1em;
+  z-index: 1;
+}
+
+.back-button {
+  width: 40%;
+  color: black;
+  padding-top: 2%;
+  background: rgb(73, 114, 73);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  font-size: 1.5em;
+  padding: 0.5em 1em;
+  z-index: 1;
+}
+
+.back-button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  z-index: -1;
+  background: rgb(2,102,49);
+  box-shadow: 0 0 20px rgb(207,207,207);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  color: whitesmoke;
+  border: 1px solid rgb(6,75,6);
+  box-shadow: 0 0 5px rgb(160, 242, 37),
+              0 0 5px rgb(160, 242, 37);
+}
+
+.back-button:hover::after {
+  left:0;
+  width:100%;
+}
+
+.back-button:active {
+  top: 2px;
+}
+
+
 .guess-button {
   font-size: 1.2em;
   width: 1.5em;

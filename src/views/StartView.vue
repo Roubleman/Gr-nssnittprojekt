@@ -11,8 +11,10 @@
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
-    <button v-on:click="switchLanguage">{{ uiLabels.changeLanguage }}</button>
-    <router-link to="/create/">{{ uiLabels.createHeading }}</router-link>
+    <button v-on:click="switchLanguage">
+      <img class="language-flag" :src=" uiLabels.changeLanguageFlag " :alt=" uiLabels.changeLanguage">
+     </button>
+    <router-link to="/create/"> {{ uiLabels.createHeading }}</router-link>
     <a class="hover-link" href="#" @click.prevent="openAbout">{{
       uiLabels.about
     }}</a>
@@ -223,7 +225,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 body {
   background-color: rgb(233, 233, 223);
   font-size: 1.3em;
@@ -270,6 +272,7 @@ header {
   margin-left: 0.2em;
   margin-right: 0.2em;
   cursor: pointer;
+  transition: ease-in-out 0.2s
 }
 
 .avatar-picture:hover {
@@ -408,6 +411,12 @@ header {
   scale: calc(1.8);
   margin-left: 1em;
   margin-right: 1em;
+}
+
+.language-flag {
+  height: 100%;
+  object-fit: contain;
+  transition: ease-in 0.2s;
 }
 
 @media screen and (max-width: 50em) {

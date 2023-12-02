@@ -5,6 +5,7 @@
   "joinGame": "Join game",
   "question": "Question",
   "changeLanguage": "Byt till svenska",
+  "changeLanguageFlag": "/img/Flag_of_Sweden.svg",
   "about": "About",
   "createHeading": "Create game",
   "inputGameId": "Lobby code",
@@ -27,5 +28,6 @@
   "inputError": "Game Lobby does not exist or name is taken, please try again",
   "gameResult": "Score",
   "numberOfPoints": "Points",
-  "selectAvatar": "Select your avatar"
+  "selectAvatar": "Select your avatar",
+  "backToHomepage": "Back to homepage"
 }
