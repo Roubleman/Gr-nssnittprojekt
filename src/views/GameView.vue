@@ -1,7 +1,7 @@
 <template>
   <header id="header-style">Cards</header>
 
-  <!-- <section class="card-flex">
+  <section class="card-flex">
     <OneCard
       v-for="card in this.playingCards"
       v-bind:card="card"
@@ -13,7 +13,7 @@
     >
     </OneCard>
   </section>
-  <hr> -->
+  <hr>
   <section class="dealer-view">
     <Dealer></Dealer>
   </section>
