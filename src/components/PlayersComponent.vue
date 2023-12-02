@@ -10,41 +10,31 @@
 
             <OneCard v-for="card in cards" :card="card" :key="card.suit + card.value"
                 :style="{ 'grid-row-start': getRow(card.value), 'grid-column-start': getColumn(card.value), 'z-index': getZIndex(card.suit) }"
-                v-on:selectedCard="selectCard($event)" :class="{ 'selected': selectedCard === card }" width="8em"
-                height="8em" class="no-selection">
+                v-on:selectedCard="selectCard($event)"
+                :class="{ 'selected': selectedCard === card, 'blur': shouldBlur && card === firstGuessedCard, 'selected-card': cardsOutOfPlay.includes(card) }"
+                width="8em" height="8em" class="no-selection">
 
             </OneCard>
 
 
 
 
-            <!--
-            <div v-for="(group, value) in cardGroups" :key="value">
-                <OneCard v-for="(card, index) in group" :card="card" :key="card.suit"
-                    :style="{ transform: `translateY(${index * -155}px)` }" v-on:selectedCard="selectCard($event)"
-                    :class="{ 'selected-card': isSelected(card) }" width="8em" height="8em" class="no-selection"></OneCard>
-
-            </div>
-            -->
         </div>
 
     </section>
     <section>
         <button @click="confirmSelection(card)" id="confirm-button">Confirm</button>
     </section>
-    <div v-if="correctPopup" class="popup">
-        <p>You selected the correct card!</p>
-        <button @click="correctPopup = false">Close</button>
-    </div>
-    <div v-if="wrongPopup" class="popup">
-        <p>You selected the wrong card! One more chance</p>
-        <button @click="wrongPopup = false">Close</button>
+    <div v-if="popup.isVisible" class="popup" :class="popup.type">
+        <p>{{ popup.message }}</p>
+        <button @click="closePopup">Close</button>
     </div>
 </template>
   
 <script>
 import OneCard from "@/components/OneCard.vue";
 import deckOfCards from '@/assets/DeckOfCards.json'
+
 
 export default {
     name: "Player",
@@ -54,13 +44,20 @@ export default {
     },
     data() {
         return {
-
             selectedCard: [],
             cards: [],
             correctvalue: "4",
             cardsOutOfPlay: [],
-            correctPopup: false,
-            wrongPopup: false,
+            wrongGuesses: 0,
+            popup: {
+                isVisible: false,
+                message: '',
+                type: ''
+            },
+            gameResult: null,
+            firstGuessedCard: null,
+            isConfirmed: false,
+            shouldBlur: false,
         };
     },
     props: {
@@ -78,25 +75,16 @@ export default {
             return this.selectedCard && this.selectedCard.value === this.correctvalue;
         },
 
-        /*
-                cardGroups() {
-                    return this.deckOfCards.reduce((groups, card) => {
-                        if (!groups[card.value]) {
-                            groups[card.value] = [];
-                        }
-                        groups[card.value].push(card);
-                        return groups;
-        
-                    }, {});
-                },*/
     },
     methods: {
         selectCard(card) {
-            if (this.isConfirmed) {
+            if (this.wrongGuesses >= 2 || this.gameResult === 'win' || this.gameResult === 'lose') {
                 console.log("Selection already confirmed");
                 return;
             }
-
+            if (!this.firstGuessedCard && !this.isCorrect) {
+                this.firstGuessedCard = card;
+            }
             this.selectedCard = card;
         },
 
@@ -106,20 +94,42 @@ export default {
                 console.log("Confirmed selection:", this.selectedCard);
 
                 if (!this.isCorrect) {
-                    console.log("wrong card");
-                    this.wrongPopup = true;
+                    this.showPopup('wrong', 'You selected the wrong card! One more chance');
+                    this.isConfirmed = false;
+                    this.shouldBlur = true;
+                    this.firstGuessedCard = this.selectedCard
+
+                    this.wrongGuesses++;
+                    if (this.wrongGuesses >= 2) {
+                        this.gameResult = 'lose'
+                        this.firstGuessedCard = null;
+                        console.log(this.gameResult);
+                        this.showPopup('lose', 'You lose!');
+
+
+                    }
                 } else {
                     this.cardsOutOfPlay.push(this.selectedCard);
-                    this.correctPopup = true;
-                    console.log("correct card");
-                    console.log(this.cardsOutOfPlay);
+                    this.showPopup('correct', 'You selected the correct card!');
+                    this.gameResult = 'win'
+                    this.selectedCard = null;
+                    this.firstGuessedCard = null;
+
 
                 }
+
             } else {
                 console.log("No card selected");
             }
         },
-
+        showPopup(type, message) {
+            this.popup.isVisible = true;
+            this.popup.type = type;
+            this.popup.message = message;
+        },
+        closePopup() {
+            this.popup.isVisible = false;
+        },
         checkCard(card) {
             return card.value === this.correctvalue;
 
@@ -181,13 +191,13 @@ export default {
         },
     },
 
-}
+};
+
 
 </script>
 <style scoped>
 #cardSelection {
     display: grid;
-
     grid-template-columns: repeat(11, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 2em;
