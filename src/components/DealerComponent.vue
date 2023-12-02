@@ -1,19 +1,17 @@
 <template>
     <header id="dealer_header"></header>
+    <!-- Got help from mr GPT-3.5 -->
     <div class="scene">
-        <!-- 1 -->
-        <div class="deck-container">
-            <!-- 2 -->
-
-            <div class="card card-back" v-if="!cardIsUp" :style="{ transform: cardIsUp ? 'rotateY(180deg)' : 'rotateY(0deg)' }" @click="flipCard">
-                <!-- 3 -->
-                <img src="../../public/img/cardback.png" alt="card back" class="card-image" />
-            </div>
-
-            <OneCard v-if="topCard && cardIsUp" v-bind:card="topCard" v-bind:key="topCard.value" @click="flipCard"
-                class="card card-front">
-            </OneCard>
-        </div>
+        <vue-flip active-click class="flip-card" :width="cardWidth" :height="cardHeight">
+            <!-- This is the back side of the card -->
+            <template v-slot:front class="card">
+                <img src="../../public/img/cardback.png" alt="Front of the card" class="card-image" />
+            </template>
+            <!-- This is the front side of the card -->
+            <template v-slot:back class="card">
+                <OneCard class="card-facing-up" v-bind:card="topCard" v-bind:key="topCard.value" />
+            </template>
+        </vue-flip>
     </div>
 </template>
 
@@ -33,7 +31,8 @@ export default {
         return {
             cards: [],
             topCard: null,
-            cardIsUp: false,
+            cardWidth: '13.2em',
+            cardHeight: '20em'
         };
     },
     created() {
@@ -41,10 +40,6 @@ export default {
         this.topCard = this.cards[0];
     },
     methods: {
-        flipCard: function () {
-            this.cardIsUp = !this.cardIsUp;
-
-        },
         shuffleCards: function (deck) {
             const shuffledDeck = [...deck];
             for (let i = shuffledDeck.length - 1; i > 0; i--) {
@@ -59,21 +54,11 @@ export default {
 
 <style>
 .scene {
-    width: 13.2em;
-    height: 20em;
-    perspective: 600px; /*fix this*/
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.deck-container {
-    width: 100%;
-    height: 100%;
-    position:relative;
-    transform-style: preserve-3d;
-    transition: transform 1s;
-}
 
 .card {
     width: 100%;
@@ -102,4 +87,23 @@ export default {
     background-color: beige;
     margin-bottom: 3em;
 }
+
+.flip-card {
+    width: inherit;
+    height: inherit;
+    border: 0.08em solid black;
+    border-radius: 0.5em;
+    background-image: url("../../public/img/cardback.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+}
+
+.card-facing-up {
+    background-color: white;
+    z-index: 3;
+    transition: none !important;
+    transform: none !important;
+}
+
 </style>
