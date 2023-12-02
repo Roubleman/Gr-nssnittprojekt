@@ -71,8 +71,8 @@ export default {
 }
 
 .card-image {
-    border: 0.07em solid black;
-    border-radius: 0.4em;
+    border: 0.08em solid black;
+    border-radius: 0.5em;
     cursor: pointer;
     height: inherit;
     width: inherit;
@@ -89,13 +89,14 @@ export default {
 }
 
 .flip-card {
-    width: inherit;
-    height: inherit;
+    width: 100%;
+    height: 100%;
     border: 0.08em solid black;
     border-radius: 0.5em;
     background-image: url("../../public/img/cardback.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
+    background-position: center;
     z-index: 1;
 }
 
