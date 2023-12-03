@@ -1,26 +1,15 @@
 <template>
   <header id="header-style">Cards</header>
-  <!--
-  <section class="card-flex">
-    <OneCard
-      v-for="card in this.playingCards"
-      v-bind:card="card"
-      v-bind:key="card.value"
-      v-on:selectedCard="cardIsSelected($event)"
-      width="8em"
-      height="8em"
-      class="no-selection"
-    >
-    </OneCard>
-  </section>
-  -->
+  
   <section class="dealer-view"> 
     <Dealer>
 
     </Dealer>
   </section>
   <section class="player_view">
+    <Player>
 
+    </Player>
   </section>
 </template>
 

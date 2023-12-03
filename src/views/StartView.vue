@@ -11,7 +11,7 @@
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
-    <button v-on:click="switchLanguage">
+    <button v-on:click="switchLanguage" class="switch-language-button">
       <img class="language-flag" :src=" uiLabels.changeLanguageFlag " :alt=" uiLabels.changeLanguage">
      </button>
     <router-link to="/create/"> {{ uiLabels.createHeading }}</router-link>
@@ -264,6 +264,18 @@ header {
   height: 2rem;
   cursor: pointer;
   font-size: 1.5rem;
+  z-index: 100;
+}
+
+.switch-language-button {
+  width: 80%;
+  object-fit: cover;
+}
+
+.language-flag{
+   height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .avatar-picture {
@@ -417,6 +429,7 @@ header {
   height: 100%;
   object-fit: contain;
   transition: ease-in 0.2s;
+  width: inherit;
 }
 
 @media screen and (max-width: 50em) {
