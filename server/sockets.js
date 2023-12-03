@@ -75,12 +75,33 @@ function sockets(io, socket, data) {
     data.initializeGame(gameId);
   });
 
+  socket.on("guessCard", function (d) {
+    io.to(d.gameId).emit(
+      "cardGuessed",
+      data.guessCard(d.gameId, d.playerName, d.cardPoint)
+    );
+  });
+
   socket.on("getLeaderboard", function (gameId) {
     io.to(gameId).emit("leaderboard", data.getLeaderboard(gameId));
   });
 
   socket.on("swapDealer", function (gameId) {
     io.to(gameId).emit("dealerSwapped", data.swapDealer(gameId));
+  });
+
+  socket.on("fuckTheDealer", function (d) {
+    data.fuckTheDealer(d.gameId, d.secondGuess);
+    io.to(d.gameId).emit("gameInfo", data.getGame(d.gameId));
+  });
+
+  socket.on("roundOver", function (gameId) {
+    let gameStillGoing = data.nextRound(gameId);
+    if (gameStillGoing) {
+      io.to(gameId).emit("gameInfo", data.getGame(gameId));
+    } else {
+      io.to(gameId).emit("gameEnded");
+    }
   });
 
   socket.on("resetAll", () => {

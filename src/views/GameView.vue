@@ -15,6 +15,7 @@ import DeckOfCards from "@/assets/DeckOfCards.json";
 import io from "socket.io-client";
 import Dealer from "@/components/DealerComponent.vue";
 import Player from "@/components/PlayersComponent.vue";
+import { SocketAddress } from "net";
 const socket = io("localhost:3000");
 
 export default {
@@ -32,9 +33,13 @@ export default {
       selectedCard: {},
       gameID: "inactive game",
       playerList: [],
-      gameSettings: {},
+      leaderBoard: [],
+      gameInfo: {},
       player: {},
+      isDealer: false,
       playerName: localStorage.getItem("playerName"),
+      dealer: {},
+      guesser: {},
     };
   },
 
@@ -47,13 +52,23 @@ export default {
 
     socket.on("gameInfo", (game) => {
       this.playerList = game.players;
-      this.gameSettings.pointsSetting = game.pointsSetting;
-      this.gameSettings.guessesNumber = game.guessesNumber;
+      this.gameInfo.errorsRemaining = game.errorsRemaining;
+      this.gameInfo.currentCardIndex = game.currentCardIndex;
+      this.gameInfo.dealerIndex = game.dealerIndex;
+      this.gameInfo.guesserIndex = game.guesserIndex;
       for (let i = 0; i < this.playerList.length; i++) {
         if (this.playerList[i].name === this.playerName) {
           this.player = this.playerList[i];
         }
       }
+      this.dealer = this.playerList[this.gameInfo.dealerIndex];
+      this.guesser = this.playerList[this.gameInfo.guesserIndex];
+    });
+
+    socket.on("cardGuessed", (guessedCorrectly) => {
+      // Om guessedCorrectly => fuckTheDealer med secondGuess = false eller true
+      // Om !guessedCorrectly men första gissning => andra gissning
+      // om !guessedCorrectly men andra gissning => pointsIncrease och nextRound
     });
 
     socket.emit("pageLoaded", this.lang);
@@ -67,6 +82,14 @@ export default {
       this.selectedCard = event;
       console.log(this.selectedCard);
     },
+    guessCard: function (cardPoint) {
+      socket.emit("guessCard", {
+        cardPoint: cardPoint,
+        gameId: this.gameId,
+        playerName: this.playerName,
+      });
+    },
+    }
   },
 };
 </script>
