@@ -29,5 +29,7 @@
   "gameResult": "Score",
   "numberOfPoints": "Points",
   "selectAvatar": "Select your avatar",
-  "backToHomepage": "Back to homepage"
+  "backToHomepage": "Back to homepage",
+  "lower": "Lower",
+  "higher": "Higher"
 }

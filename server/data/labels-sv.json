@@ -29,5 +29,7 @@
   "gameResult": "Resultat",
   "numberOfPoints": "Poäng",
   "selectAvatar": "Välj din avatar",
-  "backToHomepage": "Tillbaka till startsidan"
+  "backToHomepage": "Tillbaka till startsidan",
+  "lower": "Lägre",
+  "higher": "Högre"
 }

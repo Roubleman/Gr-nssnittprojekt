@@ -2,6 +2,9 @@
     <header id="dealer_header"></header>
     <!-- Got help from mr GPT-3.5 -->
     <div class="scene">
+        <button :on-click="guessLower" class="guess-button">
+            {{ uiLabels.lower }}
+        </button>
         <vue-flip active-click class="flip-card" :width="cardWidth" :height="cardHeight">
             <!-- This is the back side of the card -->
             <template v-slot:front class="card">
@@ -12,6 +15,9 @@
                 <OneCard class="card-facing-up" v-bind:card="topCard" v-bind:key="topCard.value" />
             </template>
         </vue-flip>
+        <button :on-click="guessHigher" class="guess-button">
+            {{ uiLabels.higher }}
+        </button>
     </div>
 </template>
 
@@ -27,18 +33,27 @@ export default {
         'vue-flip': VueFlip
     },
 
-    data() {
+    data: function () {
         return {
+            lang: localStorage.getItem("lang") || "en",
+            uiLabels: {},
             cards: [],
             topCard: null,
             cardWidth: '13.2em',
-            cardHeight: '20em'
+            cardHeight: '20em',
+            isHigher: false,
+            isLower: false
         };
     },
-    created() {
+    created: function () {
         this.cards = this.shuffleCards(deckOfCards);
         this.topCard = this.cards[0];
+        socket.emit("pageLoaded", this.lang);
+        socket.on("init", (labels) => {
+        this.uiLabels = labels;
+    });
     },
+    
     methods: {
         shuffleCards: function (deck) {
             const shuffledDeck = [...deck];
@@ -47,6 +62,13 @@ export default {
                 [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
             }
             return shuffledDeck;
+        },
+        guessLower: function (event) {
+
+        },
+
+        guessHigher: function (event) {
+
         }
     }
 }
@@ -60,7 +82,6 @@ export default {
     align-items: center;
 }
 
-
 .card {
     width: 100%;
     height: 100%;
@@ -69,6 +90,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.guess-button {
+    height: 4em;
+    width: 10em;
+    margin-left: 5em;
+    margin-right: 5em;  
 }
 
 .card-image {
