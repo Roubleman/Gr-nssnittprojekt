@@ -89,7 +89,6 @@ export default {
         playerName: this.playerName,
       });
     },
-    }
   },
 };
 </script>
