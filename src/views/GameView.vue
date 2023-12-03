@@ -1,23 +1,20 @@
 <template>
-  <header id="header-style">Cards</header>
-  
-  <section class="dealer-view"> 
-    <Dealer>
+  <!-- <header id="header-style">Cards</header>
 
-    </Dealer>
+  <section class="dealer-view">
+    <Dealer> </Dealer>
   </section>
   <section class="player_view">
-    <Player>
-
-    </Player>
-  </section>
+    <Player> </Player>
+  </section> -->
 </template>
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-import testCards from "@/assets/testCards.json";
+import DeckOfCards from "@/assets/DeckOfCards.json";
 import io from "socket.io-client";
-import Dealer from "../components/DealerComponent.vue"
+import Dealer from "@/components/DealerComponent.vue";
+import Player from "@/components/PlayersComponent.vue";
 const socket = io("localhost:3000");
 
 export default {
@@ -25,7 +22,7 @@ export default {
   components: {
     OneCard,
     Player,
-    Dealer
+    Dealer,
   },
 
   data: function () {
@@ -106,4 +103,3 @@ export default {
   --card-width: 20em;
 }
 </style>
-
