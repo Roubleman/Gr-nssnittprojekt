@@ -1,10 +1,10 @@
 <template>
-  <!-- <header id="header-style">Cards</header>
+  <header id="header-style">Cards</header>
 
   <section class="dealer-view">
     <Dealer> </Dealer>
   </section>
-  <section class="player_view">
+  <!-- <section class="player_view">
     <Player> </Player>
   </section> -->
 </template>
@@ -103,6 +103,7 @@ export default {
   width: 100%;
   justify-content: center;
   align-items: center;
+  background-color: rgb(73, 114, 73);
 }
 
 .no-selection {
