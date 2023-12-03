@@ -8,7 +8,7 @@
   </section>
   -->
   <section class="player_view">
-    <Player></Player>
+
   </section>
 </template>
 
