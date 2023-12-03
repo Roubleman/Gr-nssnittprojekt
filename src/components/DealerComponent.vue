@@ -53,6 +53,7 @@ export default {
 </script>
 
 <style>
+
 .scene {
     display: flex;
     justify-content: center;
@@ -105,6 +106,8 @@ export default {
     z-index: 3;
     transition: none !important;
     transform: none !important;
+    height: 100% !important;
+    width: 100% !important;
 }
 
 </style>

@@ -7,6 +7,11 @@
     </OneCard>
   </section>
   -->
+  <section class="dealer-view"> 
+    <Dealer>
+
+    </Dealer>
+  </section>
   <section class="player_view">
 
   </section>
@@ -17,6 +22,7 @@ import OneCard from "@/components/OneCard.vue";
 import DeckOfCards from '@/assets/DeckOfCards.json'
 import Player from "@/components/PlayersComponent.vue";
 import io from "socket.io-client";
+import Dealer from "../components/DealerComponent.vue"
 const socket = io("localhost:3000");
 
 export default {
@@ -24,6 +30,7 @@ export default {
   components: {
     OneCard,
     Player,
+    Dealer
   },
 
   data: function () {
