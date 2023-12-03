@@ -5,7 +5,7 @@
   "joinGame": "Join game",
   "question": "Question",
   "changeLanguage": "Byt till svenska",
-  "changeLanguageFlag": "/img/Flag_of_Sweden.svg",
+  "changeLanguageFlag": "img/Flags/Flag_of_Sweden.svg",
   "about": "About",
   "createHeading": "Create game",
   "inputGameId": "Lobby code",

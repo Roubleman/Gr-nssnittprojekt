@@ -88,6 +88,7 @@ export default {
       });
     },
     playGame: function () {
+      console.log("play game");
       socket.emit("startGame", this.gameId);
       this.$router.push("/game/" + this.gameId);
     },

@@ -11,28 +11,20 @@
       </section>
 
       <section class="suit-flex" v-if="card.value >= 2 && card.value <= 10">
-        <div
-          v-for="(row, i) in cardSuits"
-          :key="i"
-          class="suit-row"
-          :class="[
-            (Number(card.value) == 2 && i == 1) ||
+        <div v-for="(row, i) in cardSuits" :key="i" class="suit-row" :class="[
+          (Number(card.value) == 2 && i == 1) ||
             (Number(card.value) == 3 && i == 2) ||
             (Number(card.value) == 4 && i == 1) ||
             (Number(card.value) <= 6 && i == 2) ||
             (Number(card.value) == 7 && i == 3) ||
             (Number(card.value) >= 8 && i > 3)
-              ? 'rotate-suit'
-              : '',
+            ? 'rotate-suit'
+            : '',
 
-            row.length == 1 ? 'suit-row single-suit' : '',
-          ]"
-        >
+          row.length == 1 ? 'suit-row single-suit' : '',
+        ]">
           <span v-for="(suit, j) in row" :key="j">
-            <span
-              v-html="'&' + this.card.suit + ';'"
-              v-if="suit == true"
-            ></span>
+            <span v-html="'&' + this.card.suit + ';'" v-if="suit == true"></span>
           </span>
         </div>
       </section>
@@ -140,7 +132,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .card-border {
   height: var(--card-height);
   width: calc(var(--card-height) * 0.66);
@@ -159,6 +151,7 @@ export default {
 .grid-container {
   display: grid;
   grid-template-columns: 0.3em 1fr 0.3em;
+
 }
 
 .card-corner-left {
@@ -187,6 +180,7 @@ export default {
   flex-grow: 1;
   width: 50%;
 }
+
 .suit-row.single-suit {
   justify-content: center;
 }
@@ -198,6 +192,7 @@ export default {
 .red {
   color: red;
 }
+
 .black {
   color: black;
 }

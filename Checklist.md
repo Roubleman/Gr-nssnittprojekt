@@ -66,7 +66,7 @@ Att göra lista:
 
 ## Dealer view (component)
 
-    [] Stack of cards, flip the highest back and forth
+    [x] Stack of cards, flip the highest back and forth
     [] Say "higher or lower" (one is unclickable if not bluffing implemented)
     [] Display of points
     [] Bluffing?

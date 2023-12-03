@@ -10,10 +10,14 @@
       <span id="hearts"> &hearts; </span>
     </div>
   </header>
-  <ResponsiveNav v-bind:hideNav="hideNav">
+  <ResponsiveNav class="on-top" v-bind:hideNav="hideNav">
     <button v-on:click="switchLanguage">
-      <img class="language-flag" :src=" uiLabels.changeLanguageFlag " :alt=" uiLabels.changeLanguage">
-     </button>
+      <img
+        class="language-flag"
+        :src="uiLabels.changeLanguageFlag"
+        :alt="uiLabels.changeLanguage"
+      />
+    </button>
     <router-link to="/create/"> {{ uiLabels.createHeading }}</router-link>
     <a class="hover-link" href="#" @click.prevent="openAbout">{{
       uiLabels.about
@@ -68,7 +72,7 @@
       class="join-button join-button2"
       v-on:click="tryToJoin"
       :class="{
-        joinButtonIsDisabled: !inputChecker(),
+        joinButtonIsDisabled: !this.inputChecker(),
         popupRemoveButton: this.removeButton,
       }"
     >
@@ -264,6 +268,18 @@ header {
   height: 2rem;
   cursor: pointer;
   font-size: 1.5rem;
+  z-index: 100;
+}
+
+.switch-language-button {
+  width: 80%;
+  object-fit: cover;
+}
+
+.language-flag {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .avatar-picture {
@@ -272,7 +288,7 @@ header {
   margin-left: 0.2em;
   margin-right: 0.2em;
   cursor: pointer;
-  transition: ease-in-out 0.2s
+  transition: ease-in-out 0.2s;
 }
 
 .avatar-picture:hover {
@@ -417,6 +433,16 @@ header {
   height: 100%;
   object-fit: contain;
   transition: ease-in 0.2s;
+}
+
+.switch-language-button {
+  height: 90%;
+  border: none;
+  background-color: transparent;
+}
+
+.on-top {
+  z-index: 100;
 }
 
 @media screen and (max-width: 50em) {
