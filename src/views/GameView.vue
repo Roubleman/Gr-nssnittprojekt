@@ -104,5 +104,9 @@ export default {
 .card-flex {
   --card-width: 8em;
 }
+
+.dealer-view {
+  --card-width: 20em;
+}
 </style>
 
