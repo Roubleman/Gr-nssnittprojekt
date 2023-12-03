@@ -63,7 +63,6 @@ Data.prototype.checkGameValues = function (gameId, playerName) {
       return false;
     }
   }
-
   return true;
 };
 
@@ -135,6 +134,7 @@ Data.prototype.removePlayer = function (gameId, playerName) {
     }
   }
 };
+
 Data.prototype.removeGame = function (gameId) {
   delete this.games[gameId];
   console.log("game removed", gameId);
@@ -155,6 +155,7 @@ Data.prototype.initializeGame = function (gameId) {
     });
     game.players[game.dealerIndex].isDealer = true;
     game.players[game.guesserIndex].isGuesser = true;
+    this.shuffleDeck(gameId);
   }
 };
 
@@ -166,7 +167,21 @@ Data.prototype.guessCard = function (gameId, playerName, cardPoint) {
     } else {
       return false;
     }
-    console.log("card guessed", gameId, playerName, card);
+  }
+};
+
+Data.prototype.nextRound = function (gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    if (game.currentCardIndex < game.deckOfCards.length - 1) {
+      this.nextCard(gameId);
+    } else {
+      return false;
+    }
+    if (game.errorsRemaining == 0) {
+      this.swapDealer(gameId);
+    }
+    this.swapGuesser(gameId);
   }
 };
 
@@ -236,6 +251,19 @@ Data.prototype.increasePoints = function (gameId, playerName, cardPoint) {
   }
 };
 
+Data.prototype.fuckTheDealer = function (gameId, secondGuess) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    pointsIncrease = (secondGuess ? 3 : 5) * game.pointsMultiplier;
+    for (let i = 0; i < game.players.length; i++) {
+      if (game.players[i].isDealer) {
+        game.players[i].points += pointsIncrease;
+      }
+    }
+    game.errorsRemaining = game.guessesNumber;
+  }
+};
+
 Data.prototype.getLeaderboard = function (gameId) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
@@ -244,4 +272,5 @@ Data.prototype.getLeaderboard = function (gameId) {
     return leaderboard;
   }
 };
+
 export { Data };
