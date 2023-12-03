@@ -1,28 +1,42 @@
 <template>
   <header id="header-style">Cards</header>
-
+  <!--
   <section class="card-flex">
     <OneCard
       v-for="card in this.playingCards"
       v-bind:card="card"
       v-bind:key="card.value"
       v-on:selectedCard="cardIsSelected($event)"
+      width="8em"
+      height="8em"
       class="no-selection"
     >
     </OneCard>
+  </section>
+  -->
+  <section class="dealer-view"> 
+    <Dealer>
+
+    </Dealer>
+  </section>
+  <section class="player_view">
+
   </section>
 </template>
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-import DeckOfCards from "@/assets/DeckOfCards.json";
+import testCards from "@/assets/testCards.json";
 import io from "socket.io-client";
+import Dealer from "../components/DealerComponent.vue"
 const socket = io("localhost:3000");
 
 export default {
   name: "GameView",
   components: {
     OneCard,
+    Player,
+    Dealer
   },
 
   data: function () {
@@ -98,4 +112,9 @@ export default {
   padding: 1em;
   --card-height: 8em;
 }
+
+.dealer-view {
+  --card-width: 20em;
+}
 </style>
+
