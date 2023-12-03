@@ -229,7 +229,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style>
 body {
   background-color: rgb(233, 233, 223);
   font-size: 1.3em;
@@ -431,6 +431,7 @@ header {
 
 .language-flag {
   height: 100%;
+  width:auto;
   object-fit: contain;
   transition: ease-in 0.2s;
 }
