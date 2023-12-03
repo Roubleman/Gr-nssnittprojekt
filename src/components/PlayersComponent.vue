@@ -9,15 +9,12 @@
         <div class="card-grid">
 
             <OneCard v-for="card in cards" :card="card" :key="card.suit + card.value"
-                :style="{ 'grid-row-start': getRow(card.value), 'grid-column-start': getColumn(card.value), 'z-index': getZIndex(card.suit) }"
+                :style="{ 'grid-row-start': getRow(card.value), 'grid-column-start': getColumn(card.value), 'z-index': card.zIndex }"
                 v-on:selectedCard="selectCard($event)"
                 :class="{ 'selected': selectedCard === card, 'blur': shouldBlur && card === firstGuessedCard, 'selected-card': cardsOutOfPlay.includes(card) }"
                 width="8em" height="8em" class="no-selection">
 
             </OneCard>
-
-
-
 
         </div>
 
@@ -35,7 +32,6 @@
 import OneCard from "@/components/OneCard.vue";
 import deckOfCards from '@/assets/DeckOfCards.json'
 
-
 export default {
     name: "Player",
     components: {
@@ -46,8 +42,9 @@ export default {
         return {
             selectedCard: [],
             cards: [],
-            correctvalue: "4",
+            correctvalue: "7",
             cardsOutOfPlay: [],
+            stackIndices: {},
             wrongGuesses: 0,
             popup: {
                 isVisible: false,
@@ -68,7 +65,15 @@ export default {
     },
 
     created() {
-        this.cards = (this.shuffleCards(deckOfCards));
+        const shuffledDeck = this.shuffleCards(deckOfCards);
+
+        this.cards = shuffledDeck.map((card) => {
+            const randomZIndex = Math.floor(Math.random() * 4) + 1;
+            return {
+                ...card,
+                zIndex: randomZIndex,
+            };
+        });
     },
     computed: {
         isCorrect() {
@@ -170,6 +175,9 @@ export default {
             };
             return positions[value];
         },
+        getZIndex(card) {
+            return card.zIndex;
+        },
         shuffleCards: function (deck) {
             const shuffledDeck = [...deck];
             for (let i = shuffledDeck.length - 1; i > 0; i--) {
@@ -178,31 +186,21 @@ export default {
             }
             return shuffledDeck;
         },
-        getZIndex(suit) {
-            const suits = {
-                "hearts": 1,
-                "diamonds": 2,
-                "clubs": 3,
-                "spades": 4,
-            };
-            return suits[suit];
 
-
-        },
     },
-
-};
+}
 
 
 </script>
 <style scoped>
 #cardSelection {
     display: grid;
-    grid-template-columns: repeat(11, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 2em;
+    gap: 1em;
     position: relative;
     margin-left: 10em;
+    width: calc(100% - 20em);
 
 }
 
