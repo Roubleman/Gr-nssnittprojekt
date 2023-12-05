@@ -146,7 +146,7 @@ export default {
             this.showPopup("lose", "You lose!");
           }
         } else {
-          this.cardsOutOfPlay.push(this.selectedCard);
+          this.cardsOutOfPlay.push(this.selectedCard); //change so that cardsoutofplay is slice of cardindex to current card in deck.
           this.showPopup("correct", "You selected the correct card!");
           this.gameResult = "win";
           this.selectedCard = null;
@@ -206,15 +206,8 @@ export default {
     getZIndex(card) {
       return card.zIndex;
     },
-    shuffleCards: function (deck) {
-      const shuffledDeck = [...deck];
-      for (let i = shuffledDeck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
-      }
-      return shuffledDeck;
-    },
   },
+
 };
 </script>
 <style scoped>
