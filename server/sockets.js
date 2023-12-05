@@ -96,6 +96,13 @@ function sockets(io, socket, data) {
     }
   });
 
+  socket.on("cardGuessed", function (d) {
+    if (!d.secondGuess) {
+      io.to(d.gameId).emit("wrongGuess", d.card);
+    } else {
+    }
+  });
+
   socket.on("dealerCheck", (gameId) => {
     io.to(gameId).emit("dealerHasChecked");
   });
