@@ -41,6 +41,7 @@ export default {
     data() {
         return {
             selectedCard: [],
+            cards: [],
             correctvalue: "2",
             cardsOutOfPlay: [],
             stackIndices: {},
@@ -62,8 +63,8 @@ export default {
         currentCardIndex: Number,
     },
     created() {
-        ;
-        this.playingCards.map((card) => {
+
+        playingCards = this.playingCards.map((card) => {
             const randomZIndex = Math.floor(Math.random() * 4) + 1;
             return {
                 ...card,
@@ -78,6 +79,7 @@ export default {
     },
     methods: {
         selectCard(card) {
+            this.$emit("selectedCard", card);
             if (
                 this.wrongGuesses >= 2 ||
                 this.gameResult === "win" ||
