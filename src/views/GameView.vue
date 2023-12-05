@@ -20,17 +20,14 @@
 </template>
 
 <script>
-import OneCard from "@/components/OneCard.vue";
 import io from "socket.io-client";
 import Dealer from "@/components/DealerComponent.vue";
 import Player from "@/components/PlayersComponent.vue";
-// import { SocketAddress } from "net";
 const socket = io("localhost:3000");
 
 export default {
   name: "GameView",
   components: {
-    OneCard,
     Player,
     Dealer,
   },
@@ -38,7 +35,7 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
-      playingCards: {},
+      playingCards: [],
       currentCardIndex: 0,
       selectedCard: {},
       gameID: "inactive game",

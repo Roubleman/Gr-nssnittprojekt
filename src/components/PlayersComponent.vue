@@ -41,7 +41,6 @@
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-import deckOfCards from "@/assets/DeckOfCards.json";
 
 export default {
   name: "Player",
@@ -68,30 +67,28 @@ export default {
     };
   },
   props: {
-    isPlayerTurn: {
-      type: Boolean,
-      required: true,
-    },
+    isGuesser: Boolean,
+    playingCards: Array,
+    currentCardIndex: Number,
   },
 
-  created() {
-    const shuffledDeck = this.shuffleCards(deckOfCards);
-
-    this.cards = shuffledDeck.map((card) => {
-      const randomZIndex = Math.floor(Math.random() * 4) + 1;
-      return {
-        ...card,
-        zIndex: randomZIndex,
-      };
-    });
-  },
   computed: {
     isCorrect() {
       return this.selectedCard && this.selectedCard.value === this.correctvalue;
     },
+    styledPlayingCards() {
+      return this.playingCards.map((card) => {
+        const randomZIndex = Math.floor(Math.random() * 4) + 1;
+        return {
+          ...card,
+          zIndex: randomZIndex,
+        };
+      });
+    },
   },
   methods: {
     selectCard(card) {
+      this.$emit("selectedCard", card);
       if (
         this.wrongGuesses >= 2 ||
         this.gameResult === "win" ||
@@ -219,14 +216,6 @@ export default {
     getZIndex(card) {
       return card.zIndex;
     },
-    shuffleCards: function (deck) {
-      const shuffledDeck = [...deck];
-      for (let i = shuffledDeck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
-      }
-      return shuffledDeck;
-    },
   },
 };
 </script>
@@ -251,6 +240,17 @@ export default {
 }
 
 #confirm-button {
+  background-color: #4caf50;
+  border: 2px solid black;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
   background-color: #4caf50;
   border: 2px solid black;
   color: white;
