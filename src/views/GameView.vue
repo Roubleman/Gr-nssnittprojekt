@@ -3,14 +3,15 @@
 
   <section class="dealer-view">
     <Dealer
+      :on="selectedCard"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.currentCardIndex"
     >
     </Dealer>
   </section>
-  <!-- <section class="player_view">
-    <Player> </Player>
-  </section> -->
+  <section class="player_view">
+    <Player v-on:selectedCard="cardIsSelected($event)"> </Player>
+  </section>
 </template>
 
 <script>

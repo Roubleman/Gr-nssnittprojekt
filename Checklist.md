@@ -14,10 +14,11 @@ Att göra lista:
     [x] Bara kunna klicka "join" om man skrivit in kod & namn
     [] ändra storlek till större?
     [x] Skicka info för att kunna joina/uppdatera info.
-    [] Byta till flaggsymbol på datorn
+    [x] Byta till flaggsymbol på datorn
     [] Göra om CSS lägga till svg animationer på startsida??
-    [] Uppladning av avatar bilder.
+    [x] Uppladning av avatar bilder.
     [] Effekter på navigation menu
+    []
 
 ## Join
 
