@@ -49,10 +49,10 @@ export default {
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
+      console.log(localStorage.getItem("playerName"));
       this.playerList = game.players;
       this.player = this.playerList[this.playerList.length - 1];
       this.playerName = this.player.name;
-      console.log(this.playerList);
     });
 
     socket.emit("lobbyJoined", this.gameId);

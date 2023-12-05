@@ -58,7 +58,7 @@ export default {
       playerIndex: 0,
       isDealer: false,
       isGuesser: false,
-      playerName: localStorage.getItem("playerName"),
+      playerName: "",
       higherLower: false,
       dealerChecked: false,
       secondGuess: false,
@@ -73,6 +73,8 @@ export default {
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
+      console.log(localStorage.getItem("playerName"));
+      this.playerName = localStorage.getItem("playerName");
       this.playerList = game.players;
       this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;
