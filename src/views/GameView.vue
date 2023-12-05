@@ -6,6 +6,7 @@
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
       v-bind:higherLower="this.higherLower"
+      v-bind:uiLabels="this.uiLabels"
       v-on:dealerCheck="dealerHasChecked()"
     >
     </Dealer>
@@ -19,11 +20,14 @@
       v-bind:currentCardIndex="this.currentCardIndex"
       v-bind:dealerChecked="this.dealerChecked"
       v-bind:guessedCard="this.cardGuessed"
+      v-bind:uiLabels="this.uiLabels"
     >
     </Player>
   </section>
   <section class="leaderboard">
-    {{ this.leaderboard }}
+    <li v-for="player in leaderboard">
+      {{ player.name }}: {{ player.points }}
+    </li>
   </section>
 </template>
 
@@ -43,6 +47,7 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
+      uiLabels: {},
       playingCards: [],
       cardGuessed: {},
       gameId: "inactive game",
@@ -80,10 +85,12 @@ export default {
         if (this.playerList[i].name === this.playerName) {
           this.playerIndex = i;
           this.player = this.playerList[playerIndex];
+          console.log(this.player);
         }
       }
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
+      console.log(this.isGuesser, this.isDealer);
     });
 
     socket.on("gameUpdate", (game) => {
