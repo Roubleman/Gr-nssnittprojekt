@@ -217,7 +217,7 @@ export default {
       if (!this.valuesAccepted) {
         alert(this.uiLabels.inputError);
       } else {
-        localStorage.setItem("playerName", this.playerName);
+        sessionStorage.setItem("playerName", this.name);
         socket.emit("joinGame", {
           gameId: this.id,
           playerName: this.name,

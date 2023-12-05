@@ -29,18 +29,18 @@
         />
       </section>
       <section id="button_section">
-
-        <button class = "back-button back-button2" @click="this.$router.push({path: '/'})">
-
+        <button
+          class="back-button back-button2"
+          @click="this.$router.push({ path: '/' })"
+        >
           {{ uiLabels.backToHomepage }}
-
         </button>
 
         <transition name="fade">
           <button
             class="start-button"
             v-on:click="createGame"
-            :class="{startButtonIsDisabled: !this.checkValues()}"
+            :class="{ startButtonIsDisabled: !this.checkValues() }"
           >
             {{ uiLabels.startGame }}
           </button>
@@ -106,7 +106,7 @@ export default {
         alert("Game ID already taken");
         return;
       } else {
-        localStorage.setItem("playerName", this.hostName);
+        sessionStorage.setItem("playerName", this.hostName);
         this.$router.push("/host/" + this.gameId);
         socket.emit("createGame", {
           gameId: this.gameId,
@@ -209,8 +209,7 @@ h1 {
 .start-button:hover {
   color: whitesmoke;
   border: 1px solid rgb(6, 75, 6);
-  box-shadow: 0 0 5px rgb(160, 242, 37),
-              0 0 5px rgb(160, 242, 37) inset
+  box-shadow: 0 0 5px rgb(160, 242, 37), 0 0 5px rgb(160, 242, 37) inset;
 }
 
 .start-button:hover::after {
@@ -256,27 +255,25 @@ h1 {
   top: 0;
   left: 50%;
   z-index: -1;
-  background: rgb(2,102,49);
-  box-shadow: 0 0 20px rgb(207,207,207);
+  background: rgb(2, 102, 49);
+  box-shadow: 0 0 20px rgb(207, 207, 207);
   transition: all 0.3s ease;
 }
 
 .back-button:hover {
   color: whitesmoke;
-  border: 1px solid rgb(6,75,6);
-  box-shadow: 0 0 5px rgb(160, 242, 37),
-              0 0 5px rgb(160, 242, 37);
+  border: 1px solid rgb(6, 75, 6);
+  box-shadow: 0 0 5px rgb(160, 242, 37), 0 0 5px rgb(160, 242, 37);
 }
 
 .back-button:hover::after {
-  left:0;
-  width:100%;
+  left: 0;
+  width: 100%;
 }
 
 .back-button:active {
   top: 2px;
 }
-
 
 .guess-button {
   font-size: 1.2em;

@@ -59,7 +59,7 @@ export default {
     socket.emit("joinSocket", this.gameId);
 
     socket.on("gameInfo", (game) => {
-      console.log(localStorage.getItem("playerName"));
+      console.log(sessionStorage.getItem("playerName"));
       this.playerList = game.players;
     });
 
