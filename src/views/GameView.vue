@@ -10,15 +10,15 @@
     >
     </Dealer>
   </section>
-  <section class="player-view">
+  <section class="player-view" v-if="!isDealer">
     <Player
-      v-on:firstGuess="guessFirstCard($event)"
-      v-on:secondGuess="guessSecondCard($event)"
-      v-on:guessCorrect="correctGuess($event)"
+      v-on:wrongGuess="guessCard($event)"
+      v-on:guessCorrect="correctGuess()"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.currentCardIndex"
       v-bind:dealerChecked="this.dealerChecked"
+      v-bind:guessedCard="this.cardGuessed"
     >
     </Player>
   </section>
@@ -53,6 +53,7 @@ export default {
       playerName: localStorage.getItem("playerName"),
       higherLower: false,
       dealerChecked: false,
+      secondGuess: false,
     };
   },
 
@@ -97,6 +98,7 @@ export default {
       this.dealer = this.playerList[this.gameInfo.dealerIndex];
       this.guesser = this.playerList[this.gameInfo.guesserIndex];
       this.player = this.playerList[this.playerIndex];
+      this.secondGuess = false;
       if (this.playerIndex === this.gameInfo.dealerIndex) {
         this.isDealer = true;
       } else {
@@ -125,20 +127,20 @@ export default {
   },
 
   methods: {
-    guessFirstCard: function (card) {
+    guessCard: function (card) {
       socket.emit("cardGuessed", {
         card: card,
         gameId: this.gameId,
         playerName: this.playerName,
-        secondGuess: false,
+        secondGuess: this.secondGuess,
       });
+      this.secondGuess = !this.secondGuess;
     },
-    guessSecondCard: function (card) {
-      socket.emit("cardGuessed", {
-        card: card,
+    correctGuess: function () {
+      socket.emit("correctGuess", {
         gameId: this.gameId,
         playerName: this.playerName,
-        secondGuess: true,
+        secondGuess: this.secondGuess,
       });
     },
     cardIsSelected: function (event) {
