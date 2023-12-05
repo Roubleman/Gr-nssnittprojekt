@@ -82,14 +82,6 @@ function sockets(io, socket, data) {
     );
   });
 
-  socket.on("getLeaderboard", function (gameId) {
-    io.to(gameId).emit("leaderboard", data.getLeaderboard(gameId));
-  });
-
-  socket.on("swapDealer", function (gameId) {
-    io.to(gameId).emit("dealerSwapped", data.swapDealer(gameId));
-  });
-
   socket.on("fuckTheDealer", function (d) {
     data.fuckTheDealer(d.gameId, d.secondGuess);
     io.to(d.gameId).emit("gameInfo", data.getGame(d.gameId));
@@ -98,7 +90,7 @@ function sockets(io, socket, data) {
   socket.on("roundOver", function (gameId) {
     let gameStillGoing = data.nextRound(gameId);
     if (gameStillGoing) {
-      io.to(gameId).emit("gameInfo", data.getGame(gameId));
+      io.to(gameId).emit("gameUpdate", data.getGame(gameId));
     } else {
       io.to(gameId).emit("gameEnded");
     }
