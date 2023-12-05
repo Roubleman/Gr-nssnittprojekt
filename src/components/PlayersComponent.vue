@@ -4,23 +4,26 @@
         <button @click="showPopup = false">Close</button>
     </div>-->
   <h1>Your turn</h1>
-  <section id="cardSelection">
-    <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
-    <div class="card-grid">
-      <OneCard v-for="card in styledPlayingCards" :card="card" :key="card.suit + card.value" :isClickable="isGuesser"
-        :style="{
-          'grid-row-start': getRow(card.value),
-          'grid-column-start': getColumn(card.value),
-          'z-index': card.zIndex + 1,
-          ...getCardStyle(card),
-        }" v-on:selectedCard="selectCard($event)" :class="{
-  selected: selectedCard === card,
-  blur: shouldBlur && card === firstGuessedCard,
-  'selected-card': cardsOutOfPlay.includes(card),
-}" width="8em" height="8em" class="no-selection">
-      </OneCard>
-    </div>
-  </section>
+  <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
+  <div class="card-flex">
+    <OneCard
+      v-for="card in styledPlayingCards"
+      :card="card"
+      :key="card.suit + card.value"
+      :isClickable="isGuesser"
+      v-on:selectedCard="selectCard($event)"
+      :class="{
+        selected: selectedCard === card,
+        blur: shouldBlur && card === firstGuessedCard,
+        'selected-card': cardsOutOfPlay.includes(card),
+      }"
+      width="8em"
+      height="8em"
+      class="no-selection"
+    >
+    </OneCard>
+  </div>
+
   <section>
     <button @click="confirmSelection(card)" id="confirm-button">Confirm</button>
   </section>
@@ -32,7 +35,6 @@
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-
 
 export default {
   name: "Player",
@@ -207,29 +209,9 @@ export default {
       return card.zIndex;
     },
   },
-
 };
 </script>
 <style scoped>
-#cardSelection {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 1em;
-  position: relative;
-  margin-left: 10em;
-  width: calc(100% - 20em);
-}
-
-.card-grid {
-  display: contents;
-}
-
-.card-border {
-  background-color: lightgray;
-  border: 2px dotted grey;
-}
-
 .selected-card {
   background-color: white;
   border: 0.07em solid rgb(95, 95, 95);
@@ -254,12 +236,18 @@ export default {
   transition-duration: 0.4s;
 }
 
-.selected {
-  border: 2px solid red;
+.card-flex {
+  display: flex;
+  width: 100%;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  gap: 1em 0.7em;
+  padding: 1em;
+  --card-height: 8em;
 }
 
-.OneCard {
-  position: absolute;
+.selected {
+  border: 2px solid red;
 }
 
 .blur {
@@ -283,5 +271,28 @@ export default {
   border-radius: 10px;
   z-index: 1000;
   text-align: center;
+}
+
+#cardSelection {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1em;
+  position: relative;
+  margin-left: 10em;
+  width: calc(100% - 20em);
+}
+
+.card-grid {
+  display: contents;
+}
+
+.card-border {
+  background-color: lightgray;
+  border: 2px dotted grey;
+}
+
+.OneCard {
+  position: absolute;
 }
 </style>
