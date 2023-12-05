@@ -5,7 +5,7 @@
   "joinGame": "Anslut",
   "question": "Fråga",
   "changeLanguage": "Change to English",
-  "changeLanguageFlag": "../../public/img/UK-Flag.png",
+  "changeLanguageFlag": "img/Flags/Flag_of_the_United_Kingdom.svg",
   "about": "Om oss",
   "createHeading": "Skapa spel",
   "inputGameId": "Lobby kod",
@@ -29,7 +29,5 @@
   "gameResult": "Resultat",
   "numberOfPoints": "Poäng",
   "selectAvatar": "Välj din avatar",
-  "backToHomepage": "Tillbaka till startsidan",
-  "lower": "Lägre",
-  "higher": "Högre"
-}
+  "backToHomepage": "Tillbaka till startsidan"
+} 
