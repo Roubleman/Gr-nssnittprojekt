@@ -7,7 +7,7 @@
       <li v-for="player in playerList">
         {{ player.name }}: {{ uiLabels.numberOfPoints }}
         {{ player.points }}
-        <span v-if="player.isDealer">&#x1f68c; &#128640; &#128640;</span>
+        <span v-if="player.isGuesser">&#x1f68c; &#128640; &#128640;</span>
       </li>
     </section>
     <button v-on:click="startBus">
@@ -18,6 +18,7 @@
 
 <script>
 // @ is an alias to /src
+
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
@@ -34,7 +35,7 @@ export default {
   created: function () {
     this.gameId = this.$route.params.id;
     socket.emit("getGameInfo", this.gameId);
-
+    console.log("result playerlist")
     socket.emit("joinGame", this.gameId);
     socket.on("gameInfo", (game) => {
       this.playerList = game.players;
@@ -46,14 +47,7 @@ export default {
 
     socket.emit("lobbyJoined", this.gameId);
 
-    socket.on("playerList", (players) => {
-      this.playerList = players;
-      for (let i = 0; i < this.playerList.length; i++) {
-        if (this.playerList[i].name === this.playerName) {
-          this.player = this.playerList[i];
-        }
-      }
-    });
+  
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;
@@ -61,7 +55,12 @@ export default {
   },
   methods: {
     startBus: function () {
-      this.$router.push("/game/" + this.gameId);
+      this.$router.push("/bus/" + this.gameId);
+      for (player in this.playerList){
+        if (player.isGuesser){
+          this.$router.push("/bus/" + this.gameId);
+        }
+      }
       }
     }
 };
