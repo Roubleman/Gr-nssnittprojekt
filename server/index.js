@@ -23,6 +23,6 @@ io.on('connection', function (socket) {
 });
 
 const PORT = process.env.PORT || 3000;
-httpServer.listen(PORT, function() {
+httpServer.listen(PORT, "0.0.0.0", function() {
     console.log("Socket.io server running on http://localhost:" + PORT);
 });
