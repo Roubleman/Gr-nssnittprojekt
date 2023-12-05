@@ -1,9 +1,9 @@
 <template>
-  <header id="dealer_header"></header>
+  <header id="dealer_header"> </header>
   <!-- Got help from mr GPT-3.5 -->
   <div class="scene">
     <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
-      It's Lower
+     {{ uiLabels.lower }}
     </button>
     <vue-flip
       active-click
@@ -28,7 +28,7 @@
       </template>
     </vue-flip>
     <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
-      It's Higher
+      {{ uiLabels.higher }}
     </button> 
   </div>
 </template>
@@ -43,6 +43,7 @@ export default {
     playingCards: Array,
     currentCardIndex: Number,
     higherLower: Boolean,
+    uiLabels: Object,
   },
   components: {
     OneCard,
@@ -55,7 +56,7 @@ export default {
     },
   },
 
-  data() {
+  data() {  
     return {
       cards: [],
       topCard: null,
@@ -108,7 +109,9 @@ export default {
 }
 
 #dealer_header {
-  background-color: beige;
+  font-size: inherit;
+  font-weight: bolder;
+  text-align: center;
   margin-bottom: 3em;
 }
 

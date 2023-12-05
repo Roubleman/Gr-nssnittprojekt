@@ -7,7 +7,7 @@
   <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
   <div class="card-flex">
     <OneCard
-      v-for="card in styledPlayingCards"
+      v-for="card in displayableDeck"
       :card="card"
       :key="card.suit + card.value"
       :isClickable="isGuesser"
@@ -22,6 +22,8 @@
       class="no-selection"
     >
     </OneCard>
+
+    <!-- HÄR FYLLER VI I HUR MÅNGA KORT KVAR -->
   </div>
 
   <section>
@@ -35,6 +37,7 @@
 
 <script>
 import OneCard from "@/components/OneCard.vue";
+import displayableDeck from "@/assets/playerComponentDeck.json";
 
 export default {
   name: "Player",
@@ -57,6 +60,7 @@ export default {
       firstGuessedCard: null,
       isConfirmed: false,
       shouldBlur: false,
+      displayableDeck: displayableDeck,
     };
   },
   props: {

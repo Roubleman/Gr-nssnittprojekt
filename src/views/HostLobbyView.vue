@@ -19,6 +19,8 @@
         <!-- <span v-if="player.isHost">&#x1F451;</span> -->
         <img :src="player.avatar" class="avatar" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
+        <span id="hamburger_icon">&#9776;</span>
+        <hr v-if="index !== playerList.length - 1">
       </li>
     </draggable>
   </section>
@@ -119,6 +121,11 @@ export default {
 };
 </script>
 <style>
+#hamburger_icon {
+  cursor: pointer;
+  margin-left: 1em;
+}
+
 body {
   background-color: rgb(233, 233, 223);
   font-size: 1.3em;

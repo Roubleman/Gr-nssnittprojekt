@@ -19,7 +19,7 @@
   "hardcoreOption": "Bli full snabbt",
   "playGame": "Spela",
   "rulesText": ["Punkt ett", "Punkt två", "Punkt tre"],
-  "aboutText": ["Här har vi lite info", "Och kanske lite mer här"],
+  "aboutText": ["Det här är ett spel som går ut på att supa jävel!", "Bli inte dealer, om du inte vill bli helt väck!"],
   "lobbyHeader": "Välkommen till spel:",
   "formTitle": "Spelarlista: ",
   "scramblePlayerOrder": "Slumpa ordning!",
@@ -29,5 +29,8 @@
   "gameResult": "Resultat",
   "numberOfPoints": "Poäng",
   "selectAvatar": "Välj din avatar",
-  "backToHomepage": "Tillbaka till startsidan"
+  "backToHomepage": "Tillbaka till startsidan",
+  "lower": "Lägre",
+  "higher": "Högre",
+  "youAreTheDealer": "Du är dealer!"
 } 
