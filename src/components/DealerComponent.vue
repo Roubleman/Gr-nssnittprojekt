@@ -2,6 +2,9 @@
   <header id="dealer_header"></header>
   <!-- Got help from mr GPT-3.5 -->
   <div class="scene">
+    <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
+      It's Lower
+    </button>
     <vue-flip
       active-click
       class="flip-card"
@@ -20,24 +23,36 @@
       <template v-slot:back class="card">
         <OneCard
           class="card-facing-up"
-          v-bind:card="topCard"
-          v-bind:key="topCard.value"
+          v-bind:card="playingCards[currentCardIndex]"
         />
       </template>
     </vue-flip>
+    <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
+      It's Higher
+    </button> 
   </div>
 </template>
 
 <script>
 import { sockets } from "../../server/sockets";
-import deckOfCards from "@/assets/DeckOfCards.json";
 import OneCard from "../components/OneCard.vue";
 import { VueFlip } from "vue-flip";
 
 export default {
+  props: {
+    playingCards: Array,
+    currentCardIndex: Number,
+    higherLower: Boolean,
+  },
   components: {
     OneCard,
     "vue-flip": VueFlip,
+  },
+
+  methods: {
+    emitHigherLower() {
+      this.$emit("dealerCheck");
+    },
   },
 
   data() {
@@ -47,20 +62,6 @@ export default {
       cardWidth: "13.2em",
       cardHeight: "20em",
     };
-  },
-  created() {
-    this.cards = this.shuffleCards(deckOfCards);
-    this.topCard = this.cards[0];
-  },
-  methods: {
-    shuffleCards: function (deck) {
-      const shuffledDeck = [...deck];
-      for (let i = shuffledDeck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
-      }
-      return shuffledDeck;
-    },
   },
 };
 </script>
@@ -80,6 +81,17 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.dealer-button {
+    height: 4em;
+    width: 10em;
+    margin-left: 5em;
+    margin-right: 5em;  
+    border-radius: 1.2em;
+    border-color: rgb(193, 220, 224);
+    cursor: pointer;
+    background-color: rgb(73, 114, 73);
 }
 
 .card-image {

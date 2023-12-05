@@ -1,22 +1,33 @@
 <template>
   <header id="header-style">Cards</header>
 
-  <section class="dealer-view" v-if="isDealer">
+  <section class="dealer-view" v-if="this.isDealer">
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-bind:higherLower="this.higherLower"
+      v-bind:uiLabels="this.uiLabels"
+      v-on:dealerCheck="dealerHasChecked()"
     >
     </Dealer>
   </section>
-  <section class="player-view">
+  <section class="player-view" v-else>
     <Player
-      v-on:firstGuess="guessFirstCard($event)"
-      v-on:secondGuess="guessSecondCard($event)"
+      v-on:wrongGuess="guessCard($event)"
+      v-on:guessCorrect="correctGuess()"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.currentCardIndex"
+      v-bind:dealerChecked="this.dealerChecked"
+      v-bind:guessedCard="this.cardGuessed"
+      v-bind:uiLabels="this.uiLabels"
     >
     </Player>
+  </section>
+  <section class="leaderboard">
+    <li v-for="player in leaderboard">
+      {{ player.name }}: {{ player.points }}
+    </li>
   </section>
 </template>
 
@@ -36,19 +47,21 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
+      uiLabels: {},
       playingCards: [],
-      selectedCard: {},
-      gameID: "inactive game",
+      cardGuessed: {},
+      gameId: "inactive game",
       playerList: [],
-      leaderBoard: [],
+      leaderboard: [],
       gameInfo: {},
       player: {},
       playerIndex: 0,
       isDealer: false,
       isGuesser: false,
       playerName: localStorage.getItem("playerName"),
-      dealer: {},
-      guesser: {},
+      higherLower: false,
+      dealerChecked: false,
+      secondGuess: false,
     };
   },
 
@@ -61,6 +74,7 @@ export default {
 
     socket.on("gameInfo", (game) => {
       this.playerList = game.players;
+      this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;
       this.gameInfo.currentCardIndex = game.currentCardIndex;
       this.gameInfo.dealerIndex = game.dealerIndex;
@@ -70,24 +84,17 @@ export default {
         if (this.playerList[i].name === this.playerName) {
           this.playerIndex = i;
           this.player = this.playerList[playerIndex];
+          console.log(this.player);
         }
       }
-      this.dealer = this.playerList[this.gameInfo.dealerIndex];
-      this.guesser = this.playerList[this.gameInfo.guesserIndex];
-      if (this.playerIndex === this.gameInfo.dealerIndex) {
-        this.isDealer = true;
-      } else {
-        this.isDealer = false;
-      }
-      if (this.playerIndex === this.gameInfo.guesserIndex) {
-        this.isGuesser = true;
-      } else {
-        this.isGuesser = false;
-      }
+      this.isGuesser = this.player.isGuesser;
+      this.isDealer = this.player.isDealer;
+      console.log(this.isGuesser, this.isDealer);
     });
 
     socket.on("gameUpdate", (game) => {
       this.playerList = game.players;
+      this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;
       this.gameInfo.currentCardIndex = game.currentCardIndex;
       this.gameInfo.dealerIndex = game.dealerIndex;
@@ -95,22 +102,18 @@ export default {
       this.dealer = this.playerList[this.gameInfo.dealerIndex];
       this.guesser = this.playerList[this.gameInfo.guesserIndex];
       this.player = this.playerList[this.playerIndex];
-      if (this.playerIndex === this.gameInfo.dealerIndex) {
-        this.isDealer = true;
-      } else {
-        this.isDealer = false;
-      }
-      if (this.playerIndex === this.gameInfo.guesserIndex) {
-        this.isGuesser = true;
-      } else {
-        this.isGuesser = false;
-      }
+      this.isGuesser = this.player.isGuesser;
+      this.isDealer = this.player.isDealer;
+      this.secondGuess = false;
     });
 
-    socket.on("cardGuessed", (guessedCorrectly) => {
-      // Om guessedCorrectly => fuckTheDealer med secondGuess = false eller true
-      // Om !guessedCorrectly men första gissning => andra gissning
-      // om !guessedCorrectly men andra gissning => pointsIncrease och nextRound
+    socket.on("dealerHasChecked", () => {
+      this.dealerChecked = true;
+    });
+
+    socket.on("wrongGuess", (card) => {
+      this.higherLower = true;
+      this.cardGuessed = card;
     });
 
     socket.emit("pageLoaded", this.lang);
@@ -120,17 +123,32 @@ export default {
   },
 
   methods: {
+    guessCard: function (card) {
+      socket.emit("cardGuessed", {
+        card: card,
+        gameId: this.gameId,
+        playerName: this.playerName,
+        secondGuess: this.secondGuess,
+      });
+      this.secondGuess = !this.secondGuess;
+    },
+    correctGuess: function () {
+      socket.emit("correctGuess", {
+        gameId: this.gameId,
+        secondGuess: this.secondGuess,
+      });
+    },
     cardIsSelected: function (event) {
       this.selectedCard = event;
       console.log(this.selectedCard);
     },
-    guessCard: function (card) {
-      cardPoint = card.points;
-      socket.emit("guessCard", {
-        cardPoint: cardPoint,
-        gameId: this.gameId,
-        playerName: this.playerName,
-      });
+    dealerHasChecked: function () {
+      socket.emit("dealerCheck", this.gameId);
+    },
+    getLeaderboard: function () {
+      let leaderboard = [...this.playerList]; // coPilot code
+      leaderboard.sort((a, b) => a.points - b.points);
+      return leaderboard;
     },
   },
 };

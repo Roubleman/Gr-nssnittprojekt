@@ -145,6 +145,8 @@ export default {
       if (this.isClickable) {
         this.$emit("selectedCard", this.card);
       }
+      console.log("Card tapped");
+      console.log(this.isClickable);
     },
   },
 };

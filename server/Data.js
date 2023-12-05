@@ -265,13 +265,4 @@ Data.prototype.fuckTheDealer = function (gameId, secondGuess) {
   }
 };
 
-Data.prototype.getLeaderboard = function (gameId) {
-  const game = this.games[gameId];
-  if (typeof game !== "undefined") {
-    let leaderboard = [...game.players]; // coPilot code
-    leaderboard.sort((a, b) => a.points - b.points);
-    return leaderboard;
-  }
-};
-
 export { Data };
