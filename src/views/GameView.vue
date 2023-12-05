@@ -1,7 +1,7 @@
 <template>
   <header id="header-style">Cards</header>
 
-  <section class="dealer-view" v-if="isDealer">
+  <section class="dealer-view" v-if="this.isDealer">
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
@@ -10,7 +10,7 @@
     >
     </Dealer>
   </section>
-  <section class="player-view" v-if="!isDealer">
+  <section class="player-view" v-else>
     <Player
       v-on:wrongGuess="guessCard($event)"
       v-on:guessCorrect="correctGuess()"
@@ -68,7 +68,6 @@ export default {
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
-      console.log(game);
       this.playerList = game.players;
       this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;
