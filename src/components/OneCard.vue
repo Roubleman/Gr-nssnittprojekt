@@ -1,5 +1,12 @@
 <template>
-  <div class="card-border" @click="selectedCardTapped">
+  <div
+    class="card-border"
+    :class="[
+      isClickable ? 'cursor: pointer' : '',
+      isClickable ? '' : 'card-border[disabled]:hover',
+    ]"
+    @click="selectedCardTapped"
+  >
     <div class="grid-container" :class="this.isRed() ? 'red' : 'black'">
       <section class="card-corner-left">
         <p style="margin-block: 0em">
@@ -60,6 +67,7 @@ export default {
   name: "OneCard",
   props: {
     card: Object,
+    isClickable: Boolean,
   },
   data: function () {
     return {};
@@ -134,7 +142,9 @@ export default {
       }
     },
     selectedCardTapped: function () {
-      this.$GameView.$emit("selectedCard", this.card);
+      if (this.isClickable) {
+        this.$emit("selectedCard", this.card);
+      }
     },
   },
 };
@@ -146,7 +156,6 @@ export default {
   width: calc(var(--card-height) * 0.66);
   border: 0.07em solid rgb(95, 95, 95);
   border-radius: 0.4em;
-  cursor: pointer;
   transition: transform 0.6s ease;
   background-color: white;
 }
