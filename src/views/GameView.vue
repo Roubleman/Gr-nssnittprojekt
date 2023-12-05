@@ -4,13 +4,14 @@
   <section class="dealer-view" v-if="isDealer">
     <Dealer
       v-bind:playingCards="this.playingCards"
-      v-bind:currentCardIndex="this.currentCardIndex"
+      v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
     >
     </Dealer>
   </section>
   <section class="player-view">
     <Player
-      v-on:selectedCard="cardIsSelected($event)"
+      v-on:firstGuess="guessFirstCard($event)"
+      v-on:secondGuess="guessSecondCard($event)"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.currentCardIndex"
@@ -36,7 +37,6 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       playingCards: [],
-      currentCardIndex: 0,
       selectedCard: {},
       gameID: "inactive game",
       playerList: [],
