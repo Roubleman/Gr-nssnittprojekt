@@ -5,6 +5,7 @@
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-on:dealerCheck=""
     >
     </Dealer>
   </section>
@@ -120,6 +121,22 @@ export default {
   },
 
   methods: {
+    guessFirstCard: function (card) {
+      socket.emit("cardGuessed", {
+        card: card,
+        gameId: this.gameId,
+        playerName: this.playerName,
+        secondGuess: false,
+      });
+    },
+    guessSecondCard: function (card) {
+      socket.emit("cardGuessed", {
+        card: card,
+        gameId: this.gameId,
+        playerName: this.playerName,
+        secondGuess: true,
+      });
+    },
     cardIsSelected: function (event) {
       this.selectedCard = event;
       console.log(this.selectedCard);
