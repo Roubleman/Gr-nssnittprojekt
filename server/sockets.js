@@ -103,6 +103,13 @@ function sockets(io, socket, data) {
     }
   });
 
+  socket.on("correctGuess", function (d) {
+    io.to(d.gameId).emit("correctGuess");
+    data.fuckTheDealer(d.gameId, d.secondGuess);
+    data.nextRound(d.gameId);
+    io.to(d.gameId).emit("gameUpdate", data.getGame(d.gameId));
+  });
+
   socket.on("dealerCheck", (gameId) => {
     io.to(gameId).emit("dealerHasChecked");
   });

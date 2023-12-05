@@ -10,17 +10,20 @@
     >
     </Dealer>
   </section>
-  <section class="player-view">
+  <section class="player-view" v-if="!isDealer">
     <Player
-      v-on:firstGuess="guessFirstCard($event)"
-      v-on:secondGuess="guessSecondCard($event)"
-      v-on:guessCorrect="correctGuess($event)"
+      v-on:wrongGuess="guessCard($event)"
+      v-on:guessCorrect="correctGuess()"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.currentCardIndex"
       v-bind:dealerChecked="this.dealerChecked"
+      v-bind:guessedCard="this.cardGuessed"
     >
     </Player>
+  </section>
+  <section class="leaderboard">
+    {{ this.leaderboard }}
   </section>
 </template>
 
@@ -42,9 +45,9 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       playingCards: [],
       cardGuessed: {},
-      gameID: "inactive game",
+      gameId: "inactive game",
       playerList: [],
-      leaderBoard: [],
+      leaderboard: [],
       gameInfo: {},
       player: {},
       playerIndex: 0,
@@ -53,6 +56,7 @@ export default {
       playerName: localStorage.getItem("playerName"),
       higherLower: false,
       dealerChecked: false,
+      secondGuess: false,
     };
   },
 
@@ -64,7 +68,9 @@ export default {
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
+      console.log(game);
       this.playerList = game.players;
+      this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;
       this.gameInfo.currentCardIndex = game.currentCardIndex;
       this.gameInfo.dealerIndex = game.dealerIndex;
@@ -76,20 +82,13 @@ export default {
           this.player = this.playerList[playerIndex];
         }
       }
-      if (this.playerIndex === this.gameInfo.dealerIndex) {
-        this.isDealer = true;
-      } else {
-        this.isDealer = false;
-      }
-      if (this.playerIndex === this.gameInfo.guesserIndex) {
-        this.isGuesser = true;
-      } else {
-        this.isGuesser = false;
-      }
+      this.isGuesser = this.player.isGuesser;
+      this.isDealer = this.player.isDealer;
     });
 
     socket.on("gameUpdate", (game) => {
       this.playerList = game.players;
+      this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;
       this.gameInfo.currentCardIndex = game.currentCardIndex;
       this.gameInfo.dealerIndex = game.dealerIndex;
@@ -97,16 +96,9 @@ export default {
       this.dealer = this.playerList[this.gameInfo.dealerIndex];
       this.guesser = this.playerList[this.gameInfo.guesserIndex];
       this.player = this.playerList[this.playerIndex];
-      if (this.playerIndex === this.gameInfo.dealerIndex) {
-        this.isDealer = true;
-      } else {
-        this.isDealer = false;
-      }
-      if (this.playerIndex === this.gameInfo.guesserIndex) {
-        this.isGuesser = true;
-      } else {
-        this.isGuesser = false;
-      }
+      this.isGuesser = this.player.isGuesser;
+      this.isDealer = this.player.isDealer;
+      this.secondGuess = false;
     });
 
     socket.on("dealerHasChecked", () => {
@@ -125,20 +117,19 @@ export default {
   },
 
   methods: {
-    guessFirstCard: function (card) {
+    guessCard: function (card) {
       socket.emit("cardGuessed", {
         card: card,
         gameId: this.gameId,
         playerName: this.playerName,
-        secondGuess: false,
+        secondGuess: this.secondGuess,
       });
+      this.secondGuess = !this.secondGuess;
     },
-    guessSecondCard: function (card) {
-      socket.emit("cardGuessed", {
-        card: card,
+    correctGuess: function () {
+      socket.emit("correctGuess", {
         gameId: this.gameId,
-        playerName: this.playerName,
-        secondGuess: true,
+        secondGuess: this.secondGuess,
       });
     },
     cardIsSelected: function (event) {
@@ -147,6 +138,11 @@ export default {
     },
     dealerHasChecked: function () {
       socket.emit("dealerCheck", this.gameId);
+    },
+    getLeaderboard: function () {
+      let leaderboard = [...this.playerList]; // coPilot code
+      leaderboard.sort((a, b) => a.points - b.points);
+      return leaderboard;
     },
   },
 };
