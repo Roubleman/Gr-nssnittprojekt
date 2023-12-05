@@ -5,6 +5,7 @@
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-bind:higherLower="this.higherLower"
       v-on:dealerCheck="dealerHasChecked()"
     >
     </Dealer>
@@ -50,6 +51,7 @@ export default {
       playerName: localStorage.getItem("playerName"),
       dealer: {},
       guesser: {},
+      higherLower: false,
     };
   },
 
@@ -108,7 +110,9 @@ export default {
       }
     });
 
-    socket.on("dealerHasChecked", () => {});
+    socket.on("dealerHasChecked", () => {
+      this.higherLower = true;
+    });
 
     socket.on("cardGuessed", (guessedCorrectly) => {
       // Om guessedCorrectly => fuckTheDealer med secondGuess = false eller true
