@@ -7,12 +7,13 @@
   <section id="cardSelection">
     <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
     <div class="card-grid">
-      <OneCard v-for="card in cards" :card="card" :key="card.suit + card.value" :isClickable="isGuesser" :style="{
-        'grid-row-start': getRow(card.value),
-        'grid-column-start': getColumn(card.value),
-        'z-index': card.zIndex + 1,
-        ...getCardStyle(card),
-      }" v-on:selectedCard="selectCard($event)" :class="{
+      <OneCard v-for="card in styledPlayingCards" :card="card" :key="card.suit + card.value" :isClickable="isGuesser"
+        :style="{
+          'grid-row-start': getRow(card.value),
+          'grid-column-start': getColumn(card.value),
+          'z-index': card.zIndex + 1,
+          ...getCardStyle(card),
+        }" v-on:selectedCard="selectCard($event)" :class="{
   selected: selectedCard === card,
   blur: shouldBlur && card === firstGuessedCard,
   'selected-card': cardsOutOfPlay.includes(card),
@@ -41,7 +42,6 @@ export default {
   data() {
     return {
       selectedCard: [],
-      cards: [],
       correctvalue: "2",
       cardsOutOfPlay: [],
       stackIndices: {},
@@ -62,20 +62,19 @@ export default {
     playingCards: Array,
     currentCardIndex: Number,
   },
-  created() {
-    const shuffledDeck = this.shuffleCards(deckOfCards);
 
-    this.cards = shuffledDeck.map((card) => {
-      const randomZIndex = Math.floor(Math.random() * 4) + 1;
-      return {
-        ...card,
-        zIndex: randomZIndex,
-      };
-    });
-  },
   computed: {
     isCorrect() {
       return this.selectedCard && this.selectedCard.value === this.correctvalue;
+    },
+    styledPlayingCards() {
+      return this.playingCards.map((card) => {
+        const randomZIndex = Math.floor(Math.random() * 4) + 1;
+        return {
+          ...card,
+          zIndex: randomZIndex,
+        };
+      });
     },
   },
   methods: {
@@ -147,7 +146,7 @@ export default {
             this.showPopup("lose", "You lose!");
           }
         } else {
-          this.cardsOutOfPlay.push(this.selectedCard);
+          this.cardsOutOfPlay.push(this.selectedCard); //change so that cardsoutofplay is slice of cardindex to current card in deck.
           this.showPopup("correct", "You selected the correct card!");
           this.gameResult = "win";
           this.selectedCard = null;
@@ -207,15 +206,8 @@ export default {
     getZIndex(card) {
       return card.zIndex;
     },
-    shuffleCards: function (deck) {
-      const shuffledDeck = [...deck];
-      for (let i = shuffledDeck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
-      }
-      return shuffledDeck;
-    },
   },
+
 };
 </script>
 <style scoped>
