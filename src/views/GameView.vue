@@ -2,7 +2,11 @@
   <header id="header-style">Cards</header>
 
   <section class="dealer-view">
-    <Dealer> </Dealer>
+    <Dealer
+      v-bind:playingCards="this.playingCards"
+      v-bind:currentCardIndex="this.currentCardIndex"
+    >
+    </Dealer>
   </section>
   <!-- <section class="player_view">
     <Player> </Player>
@@ -11,7 +15,6 @@
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-import DeckOfCards from "@/assets/DeckOfCards.json";
 import io from "socket.io-client";
 import Dealer from "@/components/DealerComponent.vue";
 import Player from "@/components/PlayersComponent.vue";
@@ -29,14 +32,17 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
-      playingCards: DeckOfCards,
+      playingCards: {},
+      currentCardIndex: 0,
       selectedCard: {},
       gameID: "inactive game",
       playerList: [],
       leaderBoard: [],
       gameInfo: {},
       player: {},
+      playerIndex: 0,
       isDealer: false,
+      isGuesser: false,
       playerName: localStorage.getItem("playerName"),
       dealer: {},
       guesser: {},
@@ -56,13 +62,46 @@ export default {
       this.gameInfo.currentCardIndex = game.currentCardIndex;
       this.gameInfo.dealerIndex = game.dealerIndex;
       this.gameInfo.guesserIndex = game.guesserIndex;
+      this.playingCards = game.deckOfCards;
       for (let i = 0; i < this.playerList.length; i++) {
         if (this.playerList[i].name === this.playerName) {
-          this.player = this.playerList[i];
+          this.playerIndex = i;
+          this.player = this.playerList[playerIndex];
         }
       }
       this.dealer = this.playerList[this.gameInfo.dealerIndex];
       this.guesser = this.playerList[this.gameInfo.guesserIndex];
+      if (this.playerIndex === this.gameInfo.dealerIndex) {
+        this.isDealer = true;
+      } else {
+        this.isDealer = false;
+      }
+      if (this.playerIndex === this.gameInfo.guesserIndex) {
+        this.isGuesser = true;
+      } else {
+        this.isGuesser = false;
+      }
+    });
+
+    socket.on("gameUpdate", (game) => {
+      this.playerList = game.players;
+      this.gameInfo.errorsRemaining = game.errorsRemaining;
+      this.gameInfo.currentCardIndex = game.currentCardIndex;
+      this.gameInfo.dealerIndex = game.dealerIndex;
+      this.gameInfo.guesserIndex = game.guesserIndex;
+      this.dealer = this.playerList[this.gameInfo.dealerIndex];
+      this.guesser = this.playerList[this.gameInfo.guesserIndex];
+      this.player = this.playerList[this.playerIndex];
+      if (this.playerIndex === this.gameInfo.dealerIndex) {
+        this.isDealer = true;
+      } else {
+        this.isDealer = false;
+      }
+      if (this.playerIndex === this.gameInfo.guesserIndex) {
+        this.isGuesser = true;
+      } else {
+        this.isGuesser = false;
+      }
     });
 
     socket.on("cardGuessed", (guessedCorrectly) => {
@@ -82,7 +121,8 @@ export default {
       this.selectedCard = event;
       console.log(this.selectedCard);
     },
-    guessCard: function (cardPoint) {
+    guessCard: function (card) {
+      cardPoint = card.points;
       socket.emit("guessCard", {
         cardPoint: cardPoint,
         gameId: this.gameId,
