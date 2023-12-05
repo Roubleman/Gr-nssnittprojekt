@@ -22,6 +22,9 @@
     >
     </Player>
   </section>
+  <section class="leaderboard">
+    {{ this.leaderboard }}
+  </section>
 </template>
 
 <script>
@@ -44,7 +47,7 @@ export default {
       cardGuessed: {},
       gameID: "inactive game",
       playerList: [],
-      leaderBoard: [],
+      leaderboard: [],
       gameInfo: {},
       player: {},
       playerIndex: 0,
@@ -66,6 +69,7 @@ export default {
 
     socket.on("gameInfo", (game) => {
       this.playerList = game.players;
+      this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;
       this.gameInfo.currentCardIndex = game.currentCardIndex;
       this.gameInfo.dealerIndex = game.dealerIndex;
@@ -91,6 +95,7 @@ export default {
 
     socket.on("gameUpdate", (game) => {
       this.playerList = game.players;
+      this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;
       this.gameInfo.currentCardIndex = game.currentCardIndex;
       this.gameInfo.dealerIndex = game.dealerIndex;
@@ -139,7 +144,6 @@ export default {
     correctGuess: function () {
       socket.emit("correctGuess", {
         gameId: this.gameId,
-        playerName: this.playerName,
         secondGuess: this.secondGuess,
       });
     },
@@ -149,6 +153,11 @@ export default {
     },
     dealerHasChecked: function () {
       socket.emit("dealerCheck", this.gameId);
+    },
+    getLeaderboard: function () {
+      let leaderboard = [...this.playerList]; // coPilot code
+      leaderboard.sort((a, b) => a.points - b.points);
+      return leaderboard;
     },
   },
 };
