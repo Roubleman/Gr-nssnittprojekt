@@ -20,7 +20,7 @@
         <img :src="player.avatar" class="avatar" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
         <span id="hamburger_icon">&#9776;</span>
-        <hr v-if="index !== playerList.length - 1">
+        <hr v-if="index !== playerList.length - 1" />
       </li>
     </draggable>
   </section>
@@ -61,7 +61,6 @@ export default {
     socket.emit("joinSocket", this.gameId);
 
     socket.on("gameInfo", (game) => {
-      console.log(sessionStorage.getItem("playerName"));
       this.playerList = game.players;
     });
 

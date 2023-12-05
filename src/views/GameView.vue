@@ -17,7 +17,7 @@
       v-on:guessCorrect="correctGuess()"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
-      v-bind:currentCardIndex="this.currentCardIndex"
+      v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
       v-bind:dealerChecked="this.dealerChecked"
       v-bind:guessedCard="this.cardGuessed"
       v-bind:uiLabels="this.uiLabels"
@@ -73,7 +73,6 @@ export default {
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
-      console.log(sessionStorage.getItem("playerName"));
       this.playerName = sessionStorage.getItem("playerName");
       this.playerList = game.players;
       this.leaderboard = this.getLeaderboard();
@@ -85,13 +84,11 @@ export default {
       for (let i = 0; i < this.playerList.length; i++) {
         if (this.playerList[i].name === this.playerName) {
           this.playerIndex = i;
-          this.player = this.playerList[playerIndex];
-          console.log(this.player);
+          this.player = this.playerList[this.playerIndex];
         }
       }
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
-      console.log(this.isGuesser, this.isDealer);
     });
 
     socket.on("gameUpdate", (game) => {

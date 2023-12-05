@@ -11,7 +11,7 @@
         {{ index + 1 + ". " }}{{ player.name }}
         <img :src="player.avatar" class="avatar" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
-        <hr v-if="index !== playerList.length - 1">
+        <hr v-if="index !== playerList.length - 1" />
       </li>
     </section>
   </section>
@@ -50,7 +50,6 @@ export default {
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
-      console.log(sessionStorage.getItem("playerName"));
       this.playerList = game.players;
       this.player = this.playerList[this.playerList.length - 1];
       this.playerName = this.player.name;
