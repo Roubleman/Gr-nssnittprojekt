@@ -182,6 +182,7 @@ Data.prototype.nextRound = function (gameId) {
       this.swapDealer(gameId);
     }
     this.swapGuesser(gameId);
+    return true;
   }
 };
 

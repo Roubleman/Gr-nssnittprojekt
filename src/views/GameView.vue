@@ -15,7 +15,7 @@ import DeckOfCards from "@/assets/DeckOfCards.json";
 import io from "socket.io-client";
 import Dealer from "@/components/DealerComponent.vue";
 import Player from "@/components/PlayersComponent.vue";
-import { SocketAddress } from "net";
+// import { SocketAddress } from "net";
 const socket = io("localhost:3000");
 
 export default {

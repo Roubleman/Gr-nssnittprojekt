@@ -10,7 +10,9 @@
         <span v-if="player.isDealer">&#x1f68c; &#128640; &#128640;</span>
       </li>
     </section>
-    <button></button>
+    <button v-on:click="startBus">
+      <label> {{uiLabels.startGame}}</label>
+    </button>
   </section>
 </template>
 
@@ -57,6 +59,11 @@ export default {
       this.uiLabels = labels;
     });
   },
+  methods: {
+    startBus: function () {
+      this.$router.push("/game/" + this.gameId);
+      }
+    }
 };
 </script>
 
