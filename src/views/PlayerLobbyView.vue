@@ -11,6 +11,7 @@
         {{ index + 1 + ". " }}{{ player.name }}
         <img :src="player.avatar" class="avatar" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
+        <hr v-if="index !== playerList.length - 1">
       </li>
     </section>
   </section>
