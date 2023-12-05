@@ -2,12 +2,14 @@
   <header id="header-style">Cards</header>
 
   <section class="dealer-view" v-if="isDealer">
-    <Dealer v-bind:playingCards="this.playingCards" v-bind:currentCardIndex="this.currentCardIndex">
+    <Dealer v-bind:playingCards="this.playingCards" v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-on:dealerCheck="">
     </Dealer>
   </section>
   <section class="player-view">
-    <Player v-on:selectedCard="cardIsSelected($event)" v-bind:isGuesser="this.isGuesser"
-      v-bind:playingCards="this.playingCards" v-bind:currentCardIndex="this.currentCardIndex">
+    <Player v-on:firstGuess="guessFirstCard($event)" v-on:secondGuess="guessSecondCard($event)"
+      v-bind:isGuesser="this.isGuesser" v-bind:playingCards="this.playingCards"
+      v-bind:currentCardIndex="this.currentCardIndex">
     </Player>
   </section>
 </template>
@@ -30,7 +32,6 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       playingCards: [],
-      currentCardIndex: 0,
       selectedCard: {},
       gameID: "inactive game",
       playerList: [],
@@ -114,6 +115,22 @@ export default {
   },
 
   methods: {
+    guessFirstCard: function (card) {
+      socket.emit("cardGuessed", {
+        card: card,
+        gameId: this.gameId,
+        playerName: this.playerName,
+        secondGuess: false,
+      });
+    },
+    guessSecondCard: function (card) {
+      socket.emit("cardGuessed", {
+        card: card,
+        gameId: this.gameId,
+        playerName: this.playerName,
+        secondGuess: true,
+      });
+    },
     cardIsSelected: function (event) {
       this.selectedCard = event;
       console.log(this.selectedCard);
