@@ -96,6 +96,10 @@ function sockets(io, socket, data) {
     }
   });
 
+  socket.on("dealerCheck", (gameId) => {
+    io.to(gameId).emit("dealerHasChecked");
+  });
+
   socket.on("resetAll", () => {
     data = new Data();
     data.initializeData();

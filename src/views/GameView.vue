@@ -5,7 +5,7 @@
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
-      v-on:dealerCheck=""
+      v-on:dealerCheck="dealerHasChecked()"
     >
     </Dealer>
   </section>
@@ -108,6 +108,8 @@ export default {
       }
     });
 
+    socket.on("dealerHasChecked", () => {});
+
     socket.on("cardGuessed", (guessedCorrectly) => {
       // Om guessedCorrectly => fuckTheDealer med secondGuess = false eller true
       // Om !guessedCorrectly men första gissning => andra gissning
@@ -148,6 +150,9 @@ export default {
         gameId: this.gameId,
         playerName: this.playerName,
       });
+    },
+    dealerHasChecked: function () {
+      socket.emit("dealerCheck", this.gameId);
     },
   },
 };
