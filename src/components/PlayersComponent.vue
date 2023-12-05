@@ -64,7 +64,7 @@ export default {
     },
     created() {
 
-        playingCards = this.playingCards.map((card) => {
+        this.playingCards.map((card) => {
             const randomZIndex = Math.floor(Math.random() * 4) + 1;
             return {
                 ...card,
