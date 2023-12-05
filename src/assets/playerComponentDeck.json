@@ -1,0 +1,80 @@
+[
+
+    {
+        "value": "A",
+        "suit": "",
+        "points" : 1
+    },
+
+    {
+        "value" : "2",
+        "suit" : "",
+        "points" : 2
+    },
+
+    {
+        "value" : "3",
+        "suit" : "",
+        "points" : 3
+    },
+
+    {
+        "value" : "4",
+        "suit" : "",
+        "points" : 4
+    },
+
+    {
+        "value" : "5",
+        "suit" : "",
+        "points" : 5
+    },
+
+    {
+        "value" : "6",
+        "suit" : "",
+        "points" : 6
+    },
+    {
+        "value" : "7",
+        "suit" : "",
+        "points" : 7
+    },
+
+    {
+        "value" : "8",
+        "suit" : "",
+        "points" : 8
+    },
+
+    {
+        "value" : "9",
+        "suit" : "",
+        "points" : 9
+    },
+
+    {
+        "value" : "10",
+        "suit" : "",
+        "points" : 10
+    },
+
+    {
+        "value" : "J",
+        "suit" : "",
+        "points" : 11
+    },
+
+    {
+        "value" : "Q",
+        "suit" : "",
+        "points" : 12
+    },
+
+    {
+        "value" : "K",
+        "suit" : "",
+        "points" : 13
+    }
+
+]

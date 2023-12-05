@@ -13,47 +13,58 @@
           {{ card.value }}
         </p>
         <p style="margin-block: -0.3em">
-          <span v-html="'&' + card.suit + ';'"></span>
+          <span
+            v-html="'&' + card.suit + ';'"
+            v-if="!(card.suit === '')"
+          ></span>
         </p>
       </section>
 
-      <section class="suit-flex" v-if="card.value >= 2 && card.value <= 10">
-        <div
-          v-for="(row, i) in cardSuits"
-          :key="i"
-          class="suit-row"
-          :class="[
-            (Number(card.value) == 2 && i == 1) ||
-            (Number(card.value) == 3 && i == 2) ||
-            (Number(card.value) == 4 && i == 1) ||
-            (Number(card.value) <= 6 && i == 2) ||
-            (Number(card.value) == 7 && i == 3) ||
-            (Number(card.value) >= 8 && i > 3)
-              ? 'rotate-suit'
-              : '',
+      <section v-if="!(card.suit === '')">
+        <section class="suit-flex" v-if="card.value >= 2 && card.value <= 10">
+          <div
+            v-for="(row, i) in cardSuits"
+            :key="i"
+            class="suit-row"
+            :class="[
+              (Number(card.value) == 2 && i == 1) ||
+              (Number(card.value) == 3 && i == 2) ||
+              (Number(card.value) == 4 && i == 1) ||
+              (Number(card.value) <= 6 && i == 2) ||
+              (Number(card.value) == 7 && i == 3) ||
+              (Number(card.value) >= 8 && i > 3)
+                ? 'rotate-suit'
+                : '',
 
-            row.length == 1 ? 'suit-row single-suit' : '',
-          ]"
-        >
-          <span v-for="(suit, j) in row" :key="j">
-            <span
-              v-html="'&' + this.card.suit + ';'"
-              v-if="suit == true"
-            ></span>
-          </span>
-        </div>
+              row.length == 1 ? 'suit-row single-suit' : '',
+            ]"
+          >
+            <span v-for="(suit, j) in row" :key="j">
+              <span
+                v-html="'&' + this.card.suit + ';'"
+                v-if="suit == true"
+              ></span>
+            </span>
+          </div>
+        </section>
+
+        <section v-else>
+          <span id="ace" v-html="'&' + card.suit + ';'"></span>
+        </section>
       </section>
 
-      <section v-else>
-        <span id="ace" v-html="'&' + card.suit + ';'"></span>
-      </section>
-
-      <section class="card-corner-right">
+      <section
+        class="card-corner-right"
+        :class="card.suit === '' ? 'no-suit-right' : ''"
+      >
         <p style="margin-block: 0em">
           {{ card.value }}
         </p>
         <p style="margin-block: 0em; margin-top: -0.3em">
-          <span v-html="'&' + card.suit + ';'"></span>
+          <span
+            v-html="'&' + card.suit + ';'"
+            v-if="!(card.suit === '')"
+          ></span>
         </p>
       </section>
     </div>
@@ -213,6 +224,10 @@ export default {
 
 .black {
   color: black;
+}
+
+.no-suit-right {
+  margin-right: -4em;
 }
 
 #ace {
