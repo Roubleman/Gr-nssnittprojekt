@@ -82,16 +82,8 @@ export default {
           this.player = this.playerList[playerIndex];
         }
       }
-      if (this.playerIndex === this.gameInfo.dealerIndex) {
-        this.isDealer = true;
-      } else {
-        this.isDealer = false;
-      }
-      if (this.playerIndex === this.gameInfo.guesserIndex) {
-        this.isGuesser = true;
-      } else {
-        this.isGuesser = false;
-      }
+      this.isGuesser = this.player.isGuesser;
+      this.isDealer = this.player.isDealer;
     });
 
     socket.on("gameUpdate", (game) => {
@@ -104,17 +96,9 @@ export default {
       this.dealer = this.playerList[this.gameInfo.dealerIndex];
       this.guesser = this.playerList[this.gameInfo.guesserIndex];
       this.player = this.playerList[this.playerIndex];
+      this.isGuesser = this.player.isGuesser;
+      this.isDealer = this.player.isDealer;
       this.secondGuess = false;
-      if (this.playerIndex === this.gameInfo.dealerIndex) {
-        this.isDealer = true;
-      } else {
-        this.isDealer = false;
-      }
-      if (this.playerIndex === this.gameInfo.guesserIndex) {
-        this.isGuesser = true;
-      } else {
-        this.isGuesser = false;
-      }
     });
 
     socket.on("dealerHasChecked", () => {
