@@ -1,16 +1,21 @@
 <template>
   <header id="header-style">Cards</header>
 
-  <section class="dealer-view">
+  <section class="dealer-view" v-if="isDealer">
     <Dealer
-      :on="selectedCard"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.currentCardIndex"
     >
     </Dealer>
   </section>
-  <section class="player_view">
-    <Player v-on:selectedCard="cardIsSelected($event)"> </Player>
+  <section class="player-view">
+    <Player
+      v-on:selectedCard="cardIsSelected($event)"
+      v-bind:isGuesser="this.isGuesser"
+      v-bind:playingCards="this.playingCards"
+      v-bind:currentCardIndex="this.currentCardIndex"
+    >
+    </Player>
   </section>
 </template>
 
