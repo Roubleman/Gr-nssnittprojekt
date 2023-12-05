@@ -7,27 +7,16 @@
   <section id="cardSelection">
     <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
     <div class="card-grid">
-      <OneCard
-        v-for="card in cards"
-        :card="card"
-        :key="card.suit + card.value"
-        :isClickable="isGuesser"
-        :style="{
-          'grid-row-start': getRow(card.value),
-          'grid-column-start': getColumn(card.value),
-          'z-index': card.zIndex + 1,
-          ...getCardStyle(card),
-        }"
-        v-on:selectedCard="selectCard($event)"
-        :class="{
-          selected: selectedCard === card,
-          blur: shouldBlur && card === firstGuessedCard,
-          'selected-card': cardsOutOfPlay.includes(card),
-        }"
-        width="8em"
-        height="8em"
-        class="no-selection"
-      >
+      <OneCard v-for="card in cards" :card="card" :key="card.suit + card.value" :isClickable="isGuesser" :style="{
+        'grid-row-start': getRow(card.value),
+        'grid-column-start': getColumn(card.value),
+        'z-index': card.zIndex + 1,
+        ...getCardStyle(card),
+      }" v-on:selectedCard="selectCard($event)" :class="{
+  selected: selectedCard === card,
+  blur: shouldBlur && card === firstGuessedCard,
+  'selected-card': cardsOutOfPlay.includes(card),
+}" width="8em" height="8em" class="no-selection">
       </OneCard>
     </div>
   </section>
@@ -42,7 +31,7 @@
 
 <script>
 import OneCard from "@/components/OneCard.vue";
-import deckOfCards from "@/assets/DeckOfCards.json";
+
 
 export default {
   name: "Player",
