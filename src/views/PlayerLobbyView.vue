@@ -52,7 +52,6 @@ export default {
       this.playerList = game.players;
       this.player = this.playerList[this.playerList.length - 1];
       this.playerName = this.player.name;
-      console.log(this.playerList);
     });
 
     socket.emit("lobbyJoined", this.gameId);
