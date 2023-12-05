@@ -125,7 +125,7 @@ export default {
         "/img/Avatars/sunglassesAvatar.png",
       ],
       selectedAvatar: 0,
-      avatar: "public/img/Avatars/alienAvatar.png",
+      avatar: "/img/Avatars/alienAvatar.png",
     };
   },
   created: function () {
@@ -431,7 +431,7 @@ header {
 
 .language-flag {
   height: 100%;
-  width:auto;
+  width: auto;
   object-fit: contain;
   transition: ease-in 0.2s;
 }

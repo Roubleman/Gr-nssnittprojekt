@@ -91,6 +91,7 @@ export default {
   },
   methods: {
     selectCard(card) {
+      this.$emit("selectedCard", card);
       if (
         this.wrongGuesses >= 2 ||
         this.gameResult === "win" ||
