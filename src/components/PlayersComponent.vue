@@ -7,7 +7,7 @@
     <section id="cardSelection">
         <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
         <div class="card-grid">
-            <OneCard v-for="card in playingCards" :card="card" :key="card.suit + card.value" :isClickable="isGuesser"
+            <OneCard v-for="card in styledPlayingCards" :card="card" :key="card.suit + card.value" :isClickable="isGuesser"
                 :style="{
                     'grid-row-start': getRow(card.value),
                     'grid-column-start': getColumn(card.value),
@@ -62,19 +62,19 @@ export default {
         playingCards: Array,
         currentCardIndex: Number,
     },
-    created() {
 
-        this.playingCards.map((card) => {
-            const randomZIndex = Math.floor(Math.random() * 4) + 1;
-            return {
-                ...card,
-                zIndex: randomZIndex,
-            };
-        });
-    },
     computed: {
         isCorrect() {
             return this.selectedCard && this.selectedCard.value === this.correctvalue;
+        },
+        styledPlayingCards() {
+            return this.playingCards.map((card) => {
+                const randomZIndex = Math.floor(Math.random() * 4) + 1;
+                return {
+                    ...card,
+                    zIndex: randomZIndex,
+                };
+            });
         },
     },
     methods: {
