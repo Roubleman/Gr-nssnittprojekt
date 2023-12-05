@@ -35,7 +35,7 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
-      playingCards: {},
+      playingCards: [],
       currentCardIndex: 0,
       selectedCard: {},
       gameID: "inactive game",
