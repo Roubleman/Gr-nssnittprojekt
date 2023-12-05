@@ -5,6 +5,8 @@
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-bind:higherLower="this.higherLower"
+      v-on:dealerCheck="dealerHasChecked()"
     >
     </Dealer>
   </section>
@@ -12,9 +14,11 @@
     <Player
       v-on:firstGuess="guessFirstCard($event)"
       v-on:secondGuess="guessSecondCard($event)"
+      v-on:guessCorrect="correctGuess($event)"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.currentCardIndex"
+      v-bind:dealerChecked="this.dealerChecked"
     >
     </Player>
   </section>
@@ -37,7 +41,7 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       playingCards: [],
-      selectedCard: {},
+      cardGuessed: {},
       gameID: "inactive game",
       playerList: [],
       leaderBoard: [],
@@ -47,8 +51,8 @@ export default {
       isDealer: false,
       isGuesser: false,
       playerName: localStorage.getItem("playerName"),
-      dealer: {},
-      guesser: {},
+      higherLower: false,
+      dealerChecked: false,
     };
   },
 
@@ -72,8 +76,6 @@ export default {
           this.player = this.playerList[playerIndex];
         }
       }
-      this.dealer = this.playerList[this.gameInfo.dealerIndex];
-      this.guesser = this.playerList[this.gameInfo.guesserIndex];
       if (this.playerIndex === this.gameInfo.dealerIndex) {
         this.isDealer = true;
       } else {
@@ -107,10 +109,13 @@ export default {
       }
     });
 
-    socket.on("cardGuessed", (guessedCorrectly) => {
-      // Om guessedCorrectly => fuckTheDealer med secondGuess = false eller true
-      // Om !guessedCorrectly men första gissning => andra gissning
-      // om !guessedCorrectly men andra gissning => pointsIncrease och nextRound
+    socket.on("dealerHasChecked", () => {
+      this.dealerChecked = true;
+    });
+
+    socket.on("wrongGuess", (card) => {
+      this.higherLower = true;
+      this.cardGuessed = card;
     });
 
     socket.emit("pageLoaded", this.lang);
@@ -120,17 +125,28 @@ export default {
   },
 
   methods: {
+    guessFirstCard: function (card) {
+      socket.emit("cardGuessed", {
+        card: card,
+        gameId: this.gameId,
+        playerName: this.playerName,
+        secondGuess: false,
+      });
+    },
+    guessSecondCard: function (card) {
+      socket.emit("cardGuessed", {
+        card: card,
+        gameId: this.gameId,
+        playerName: this.playerName,
+        secondGuess: true,
+      });
+    },
     cardIsSelected: function (event) {
       this.selectedCard = event;
       console.log(this.selectedCard);
     },
-    guessCard: function (card) {
-      cardPoint = card.points;
-      socket.emit("guessCard", {
-        cardPoint: cardPoint,
-        gameId: this.gameId,
-        playerName: this.playerName,
-      });
+    dealerHasChecked: function () {
+      socket.emit("dealerCheck", this.gameId);
     },
   },
 };
