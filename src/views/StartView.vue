@@ -434,6 +434,7 @@ header {
   width: auto;
   object-fit: contain;
   transition: ease-in 0.2s;
+  cursor: pointer;
 }
 
 .switch-language-button {
