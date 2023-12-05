@@ -45,7 +45,7 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       playingCards: [],
       cardGuessed: {},
-      gameID: "inactive game",
+      gameId: "inactive game",
       playerList: [],
       leaderboard: [],
       gameInfo: {},
@@ -68,6 +68,7 @@ export default {
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
+      console.log(game);
       this.playerList = game.players;
       this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;
