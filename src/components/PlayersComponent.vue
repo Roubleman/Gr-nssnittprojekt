@@ -11,6 +11,7 @@
         v-for="card in cards"
         :card="card"
         :key="card.suit + card.value"
+        :isClickable="isGuesser"
         :style="{
           'grid-row-start': getRow(card.value),
           'grid-column-start': getColumn(card.value),
@@ -41,6 +42,7 @@
 
 <script>
 import OneCard from "@/components/OneCard.vue";
+import deckOfCards from "@/assets/DeckOfCards.json";
 
 export default {
   name: "Player",
@@ -71,24 +73,24 @@ export default {
     playingCards: Array,
     currentCardIndex: Number,
   },
+  created() {
+    const shuffledDeck = this.shuffleCards(deckOfCards);
 
+    this.cards = shuffledDeck.map((card) => {
+      const randomZIndex = Math.floor(Math.random() * 4) + 1;
+      return {
+        ...card,
+        zIndex: randomZIndex,
+      };
+    });
+  },
   computed: {
     isCorrect() {
       return this.selectedCard && this.selectedCard.value === this.correctvalue;
     },
-    styledPlayingCards() {
-      return this.playingCards.map((card) => {
-        const randomZIndex = Math.floor(Math.random() * 4) + 1;
-        return {
-          ...card,
-          zIndex: randomZIndex,
-        };
-      });
-    },
   },
   methods: {
     selectCard(card) {
-      this.$emit("selectedCard", card);
       if (
         this.wrongGuesses >= 2 ||
         this.gameResult === "win" ||
@@ -216,6 +218,14 @@ export default {
     getZIndex(card) {
       return card.zIndex;
     },
+    shuffleCards: function (deck) {
+      const shuffledDeck = [...deck];
+      for (let i = shuffledDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
+      }
+      return shuffledDeck;
+    },
   },
 };
 </script>
@@ -237,6 +247,16 @@ export default {
 .card-border {
   background-color: lightgray;
   border: 2px dotted grey;
+}
+
+.selected-card {
+  background-color: white;
+  border: 0.07em solid rgb(95, 95, 95);
+  border-radius: 0.4em;
+  cursor: pointer;
+  transition: transform 0.6s ease;
+  background-color: white;
+  filter: none;
 }
 
 #confirm-button {
