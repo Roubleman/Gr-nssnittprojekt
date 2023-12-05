@@ -26,8 +26,8 @@
                         class="card-facing-up"
                         v-bind:card="topCard1"
                         v-bind:key="topCard1.value"
+                        v-on:click="addToCompare(topCard1)"
                   />
-
                 </div>
             </template>
         </vue-flip>
@@ -52,6 +52,7 @@
                         class="card-facing-up"
                         v-bind:card="topCard2"
                         v-bind:key="topCard2.value"
+                        v-on:click="addToCompare(topCard2)"
                   />
 
                 </div>
@@ -78,6 +79,7 @@
                         class="card-facing-up"
                         v-bind:card="topCard3"
                         v-bind:key="topCard3.value"
+                        v-on:click="addToCompare(topCard3)"
                   />
 
                 </div>
@@ -104,12 +106,14 @@
                         class="card-facing-up"
                         v-bind:card="topCard4"
                         v-bind:key="topCard4.value"
+                        v-on:click="addToCompare(topCard4)"
                   />
 
                 </div>
             </template>
 
         </vue-flip>
+        <button v-on:click="console.log(this.selectedCard)"></button>
     </section>
     </div>
     
@@ -130,6 +134,7 @@ export default{
   },
     data: function () {
     return {
+        isDone: false,
         cards: [],
         pile1: [],
         pile2: [],
@@ -140,6 +145,7 @@ export default{
         topCard3: null,
         topCard4: null,
         piles: [],
+        selectedCard: [],
         cardWidth: "13.2em",
         cardHeight: "20em",
         lang: localStorage.getItem("lang") || "en",
@@ -166,7 +172,6 @@ export default{
     this.topCard2 = this.piles[1][0]
     this.topCard3 = this.piles[2][0]
     this.topCard4 = this.piles[3][0]
-    console.log(this.topCard1)
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
@@ -182,7 +187,33 @@ export default{
         }
         return shuffledDeck;
       },
-  }, 
+      addToCompare: function(card){
+        if(!this.selectedCard.includes(card)){
+            this.selectedCard.push(card)
+        }
+      },
+      compare: function(){
+        for (let i = 0; i < this.selectedCard.length - 1; i++){
+            if (this.selectedCard[i].value > this.selectedCardValues[i +1].value){
+                this.piles.forEach(pile => {
+                    this.selectedCard.forEach(card => {
+                        if(pile.includes(card)){
+                            pile.shift();
+                            card = pile[0][0]
+                        }
+                    })
+                    
+                });
+            }
+            else if (this.selectedCardValues.length == 4){
+                isDone = true
+            }
+            else {
+                return
+            }
+        }
+      }
+  },
 }
 
 </script>

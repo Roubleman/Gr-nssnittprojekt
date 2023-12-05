@@ -73,6 +73,7 @@ export default {
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
+      console.log(localStorage.getItem("playerName"));
       this.playerName = localStorage.getItem("playerName");
       this.playerList = game.players;
       this.leaderboard = this.getLeaderboard();
