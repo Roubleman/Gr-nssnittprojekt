@@ -21,6 +21,7 @@ function sockets(io, socket, data) {
   });
 
   socket.on("createTestGame", function (playingCards) {
+    //ta bort sen när vi inte behöver testa
     data.createTestGame(playingCards);
   });
 

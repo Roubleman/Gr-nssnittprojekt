@@ -49,7 +49,7 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       uiLabels: {},
-      playingCards: DeckOfCards,
+      playingCards: DeckOfCards, // ta bort sen när vi inte behöver testa
       cardGuessed: {},
       gameId: "inactive game",
       playerList: [],
@@ -70,6 +70,7 @@ export default {
     this.gameId = this.$route.params.id;
 
     if (
+      // ta bort sen när vi inte behöver testa
       this.gameId === "test1" ||
       this.gameId === "test2" ||
       this.gameId === "test3"

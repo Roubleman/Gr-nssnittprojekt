@@ -266,6 +266,7 @@ Data.prototype.fuckTheDealer = function (gameId, secondGuess) {
 };
 
 Data.prototype.createTestGame = function (playingCards) {
+  //ta bort sen när vi inte behöver testa
   this.createGame(
     "test",
     "en",
