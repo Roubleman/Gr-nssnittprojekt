@@ -265,4 +265,19 @@ Data.prototype.fuckTheDealer = function (gameId, secondGuess) {
   }
 };
 
+Data.prototype.createTestGame = function (playingCards) {
+  this.createGame(
+    "test",
+    "en",
+    "normal",
+    3,
+    "player1",
+    playingCards,
+    "/img/crownAvatar.png"
+  );
+  this.joinGame("test", "player2", "/img/Avatars/alienAvatar.png");
+  this.joinGame("test", "player3", "/img/Avatars/alienAvatar.png");
+  this.initializeGame("test");
+};
+
 export { Data };

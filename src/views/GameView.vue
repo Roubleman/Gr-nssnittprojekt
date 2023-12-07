@@ -35,6 +35,7 @@
 import io from "socket.io-client";
 import Dealer from "@/components/DealerComponent.vue";
 import Player from "@/components/PlayersComponent.vue";
+import DeckOfCards from "@/assets/DeckOfCards.json";
 const socket = io("localhost:3000");
 
 export default {
@@ -48,7 +49,7 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       uiLabels: {},
-      playingCards: [],
+      playingCards: DeckOfCards,
       cardGuessed: {},
       gameId: "inactive game",
       playerList: [],
@@ -58,7 +59,7 @@ export default {
       playerIndex: 0,
       isDealer: false,
       isGuesser: false,
-      playerName: "",
+      playerName: sessionStorage.getItem("playerName"),
       higherLower: false,
       dealerChecked: false,
       secondGuess: false,
@@ -68,12 +69,23 @@ export default {
   created: function () {
     this.gameId = this.$route.params.id;
 
+    if (
+      this.gameId === "test1" ||
+      this.gameId === "test2" ||
+      this.gameId === "test3"
+    ) {
+      this.playerName = "player" + this.gameId.slice(-1);
+      if (this.gameId === "test1") {
+        socket.emit("createTestGame", this.playingCards);
+      }
+      this.gameId = "test";
+    }
+
     socket.emit("joinSocket", this.gameId);
 
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
-      this.playerName = sessionStorage.getItem("playerName");
       this.playerList = game.players;
       this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;

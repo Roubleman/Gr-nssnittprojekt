@@ -20,6 +20,10 @@ function sockets(io, socket, data) {
     socket.emit("gameIdChecked", data.checkGameId(gameId));
   });
 
+  socket.on("createTestGame", function (playingCards) {
+    data.createTestGame(playingCards);
+  });
+
   socket.on("createGame", function (d) {
     data.createGame(
       d.gameId,
