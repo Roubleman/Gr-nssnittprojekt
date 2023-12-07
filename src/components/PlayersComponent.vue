@@ -4,13 +4,10 @@
         <button @click="showPopup = false">Close</button>
     </div>-->
   <h1>Your turn</h1>
-  <div class="card-flex" 
-  >
-  <section v-for=" value in displayableDeck"
-  :key = "value.cardValue"
-  >
+  <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
+  <div class="card-flex">
     <OneCard
-      v-for="card in value.cards"
+      v-for="card in displayableDeck"
       :card="card"
       :key="card.suit + card.value"
       :isClickable="isGuesser"
@@ -18,17 +15,18 @@
       :class="{
         selected: selectedCard === card,
         blur: shouldBlur && card === firstGuessedCard,
-        'selected-card': cardsOutOfPlay.includes(card), 
-        //[ShowCardOnTop(card)]: true,
+        'selected-card': cardsOutOfPlay.includes(card),
       }"
       width="8em"
       height="8em"
-      class="no-selection OneCard"
+      class="no-selection"
     >
     </OneCard>
-  </section>
+
+
     <!-- HÄR FYLLER VI I HUR MÅNGA KORT KVAR -->
   </div>
+
 
   <section>
     <button @click="confirmSelection(card)" id="confirm-button">Confirm</button>
@@ -39,9 +37,11 @@
   </div>
 </template>
 
+
 <script>
 import OneCard from "@/components/OneCard.vue";
 import displayableDeck from "@/assets/playerComponentDeck.json";
+
 
 export default {
   name: "Player",
@@ -73,6 +73,7 @@ export default {
     currentCardIndex: Number,
   },
 
+
   computed: {
     isCorrect() {
       return this.selectedCard && this.selectedCard.value === this.correctvalue;
@@ -88,10 +89,6 @@ export default {
     },
   },
   methods: {
-
-  showCardOnTop(card) {
-   // HÄR SKRIVER JAG VILKEN CSS CLASS SOM SKA RETURNERAS
-  },
     selectCard(card) {
       if (
         this.wrongGuesses >= 2 ||
@@ -112,11 +109,13 @@ export default {
         (c) => c.value === card.value && c !== card
       );
 
+
       // Find the highest z-index among those cards
       const highestZIndex = Math.max(
         ...otherCardsWithSameValue.map((c) => c.zIndex),
         -1
       );
+
 
       // Define the base style
       let style = {
@@ -125,23 +124,28 @@ export default {
         "z-index": card.zIndex + 1, // Default to the card's z-index
       };
 
+
       // Check if the current card has the highest z-index among cards with the same value
       if (card.zIndex === highestZIndex) {
         style["z-index"] = 0; // Set z-index to the lowest
       }
+
 
       // Adjust the position if the card is in cardsOutOfPlay array
       if (this.cardsOutOfPlay.includes(card)) {
         style["transform"] = "translateY(-10px)";
       }
 
+
       return style;
     },
+
 
     confirmSelection() {
       if (this.selectedCard) {
         this.isConfirmed = true;
         console.log("Confirmed selection:", this.selectedCard);
+
 
         if (!this.isCorrect) {
           this.showPopup(
@@ -151,6 +155,7 @@ export default {
           this.isConfirmed = false;
           this.shouldBlur = true;
           this.firstGuessedCard = this.selectedCard;
+
 
           this.wrongGuesses++;
           if (this.wrongGuesses >= 2) {
@@ -234,6 +239,7 @@ export default {
   filter: none;
 }
 
+
 #confirm-button {
   background-color: #4caf50;
   border: 2px solid black;
@@ -248,6 +254,7 @@ export default {
   transition-duration: 0.4s;
 }
 
+
 .card-flex {
   display: flex;
   width: 100%;
@@ -258,19 +265,23 @@ export default {
   --card-height: 8em;
 }
 
+
 .selected {
   border: 2px solid red;
 }
 
+
 .blur {
   filter: blur(2px);
 }
+
 
 .correct {
   filter: none;
   background-color: white;
   border: 0.07em solid rgb(95, 95, 95);
 }
+
 
 .popup {
   position: fixed;
@@ -285,6 +296,7 @@ export default {
   text-align: center;
 }
 
+
 #cardSelection {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -295,32 +307,19 @@ export default {
   width: calc(100% - 20em);
 }
 
+
 .card-grid {
   display: contents;
 }
+
 
 .card-border {
   background-color: lightgray;
   border: 2px dotted grey;
 }
 
-.absolute {
+
+.OneCard {
   position: absolute;
-}
-
-.OneCard:nth-child(1) {
-  transform: translateY(0);
-}
-
-.OneCard:nth-child(2) {
-  transform: translateY(-6em);
-}
-
-.OneCard:nth-child(3) {
-  transform: translateY(-12em);
-}
-
-.OneCard:nth-child(4) {
-  transform: translateY(-18em);
 }
 </style>

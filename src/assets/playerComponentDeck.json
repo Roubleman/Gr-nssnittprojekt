@@ -1,377 +1,93 @@
 [
-  {
-    "cardValue": "A",
-    "cards": [
-      {
+
+
+    {
         "value": "A",
-        "suit": "hearts",
-        "points": 1
-      },
+        "suit": "",
+        "points" : 1
+    },
 
-      {
-        "value": "A",
-        "suit": "diams",
-        "points": 1
-      },
 
-      {
-        "value": "A",
-        "suit": "spades",
-        "points": 1
-      },
+    {
+        "value" : "2",
+        "suit" : "",
+        "points" : 2
+    },
 
-      {
-        "value": "A",
-        "suit": "clubs",
-        "points": 1
-      }
-    ]
-  },
 
-  {
-    "cardValue": "2",
+    {
+        "value" : "3",
+        "suit" : "",
+        "points" : 3
+    },
 
-    "cards": [
-      {
-        "value": "2",
-        "suit": "hearts",
-        "points": 2
-      },
 
-      {
-        "value": "2",
-        "suit": "diams",
-        "points": 2
-      },
+    {
+        "value" : "4",
+        "suit" : "",
+        "points" : 4
+    },
 
-      {
-        "value": "2",
-        "suit": "spades",
-        "points": 2
-      },
 
-      {
-        "value": "2",
-        "suit": "clubs",
-        "points": 2
-      }
-    ]
-  },
+    {
+        "value" : "5",
+        "suit" : "",
+        "points" : 5
+    },
 
-  {
-    "cardValue": "3",
 
-    "cards": [
-      {
-        "value": "3",
-        "suit": "hearts",
-        "points": 3
-      },
+    {
+        "value" : "6",
+        "suit" : "",
+        "points" : 6
+    },
+    {
+        "value" : "7",
+        "suit" : "",
+        "points" : 7
+    },
 
-      {
-        "value": "3",
-        "suit": "diams",
-        "points": 3
-      },
 
-      {
-        "value": "3",
-        "suit": "spades",
-        "points": 3
-      },
+    {
+        "value" : "8",
+        "suit" : "",
+        "points" : 8
+    },
 
-      {
-        "value": "3",
-        "suit": "clubs",
-        "points": 3
-      }
-    ]
-  },
 
-  {
-    "cardValue": "4",
-    "cards": [
-      {
-        "value": "4",
-        "suit": "hearts",
-        "points": 4
-      },
+    {
+        "value" : "9",
+        "suit" : "",
+        "points" : 9
+    },
 
-      {
-        "value": "4",
-        "suit": "diams",
-        "points": 4
-      },
 
-      {
-        "value": "4",
-        "suit": "spades",
-        "points": 4
-      },
+    {
+        "value" : "10",
+        "suit" : "",
+        "points" : 10
+    },
 
-      {
-        "value": "4",
-        "suit": "clubs",
-        "points": 4
-      }
-    ]
-  },
 
-  {
-    "cardValue": "5",
+    {
+        "value" : "J",
+        "suit" : "",
+        "points" : 11
+    },
 
-    "cards": [
-      {
-        "value": "5",
-        "suit": "hearts",
-        "points": 5
-      },
 
-      {
-        "value": "5",
-        "suit": "diams",
-        "points": 5
-      },
+    {
+        "value" : "Q",
+        "suit" : "",
+        "points" : 12
+    },
 
-      {
-        "value": "5",
-        "suit": "spades",
-        "points": 5
-      },
 
-      {
-        "value": "5",
-        "suit": "clubs",
-        "points": 5
-      }
-    ]
-  },
-  {
-    "cardValue": "6",
-    "cards": [
-      {
-        "value": "6",
-        "suit": "hearts",
-        "points": 6
-      },
+    {
+        "value" : "K",
+        "suit" : "",
+        "points" : 13
+    }
 
-      {
-        "value": "6",
-        "suit": "diams",
-        "points": 6
-      },
 
-      {
-        "value": "6",
-        "suit": "spades",
-        "points": 6
-      },
-
-      {
-        "value": "6",
-        "suit": "clubs",
-        "points": 6
-      }
-    ]
-  },
-
-  {
-    "cardValue": "7",
-    "cards": [
-      {
-        "value": "7",
-        "suit": "hearts",
-        "points": 7
-      },
-
-      {
-        "value": "7",
-        "suit": "diams",
-        "points": 7
-      },
-
-      {
-        "value": "7",
-        "suit": "spades",
-        "points": 7
-      },
-
-      {
-        "value": "7",
-        "suit": "clubs",
-        "points": 7
-      }
-    ]
-  },
-  {
-    "cardValue": "8",
-    "cards": [
-      {
-        "value": "8",
-        "suit": "hearts",
-        "points": 8
-      },
-
-      {
-        "value": "8",
-        "suit": "diams",
-        "points": 8
-      },
-
-      {
-        "value": "8",
-        "suit": "spades",
-        "points": 8
-      },
-
-      {
-        "value": "8",
-        "suit": "clubs",
-        "points": 8
-      }
-    ]
-  },
-  {
-    "cardValue": "9",
-    "cards": [
-      {
-        "value": "9",
-        "suit": "hearts",
-        "points": 9
-      },
-
-      {
-        "value": "9",
-        "suit": "diams",
-        "points": 9
-      },
-
-      {
-        "value": "9",
-        "suit": "spades",
-        "points": 9
-      },
-
-      {
-        "value": "9",
-        "suit": "clubs",
-        "points": 9
-      }
-    ]
-  },
-  {
-    "cardValue": "10",
-    "cards": [
-      {
-        "value": "10",
-        "suit": "hearts",
-        "points": 10
-      },
-
-      {
-        "value": "10",
-        "suit": "diams",
-        "points": 10
-      },
-
-      {
-        "value": "10",
-        "suit": "spades",
-        "points": 10
-      },
-
-      {
-        "value": "10",
-        "suit": "clubs",
-        "points": 10
-      }
-    ]
-  },
-
-  {
-    "cardValue": "J",
-    "cards": [
-      {
-        "value": "J",
-        "suit": "hearts",
-        "points": 11
-      },
-
-      {
-        "value": "J",
-        "suit": "diams",
-        "points": 11
-      },
-
-      {
-        "value": "J",
-        "suit": "spades",
-        "points": 11
-      },
-
-      {
-        "value": "J",
-        "suit": "clubs",
-        "points": 11
-      }
-    ]
-  },
-
-  {
-    "cardValue": "Q",
-    "cards": [
-      {
-        "value": "Q",
-        "suit": "hearts",
-        "points": 12
-      },
-
-      {
-        "value": "Q",
-        "suit": "diams",
-        "points": 12
-      },
-
-      {
-        "value": "Q",
-        "suit": "spades",
-        "points": 12
-      },
-
-      {
-        "value": "Q",
-        "suit": "clubs",
-        "points": 12
-      }
-    ]
-  },
-
-  {
-    "cardValue": "K",
-    "cards": [
-      {
-        "value": "K",
-        "suit": "hearts",
-        "points": 13
-      },
-
-      {
-        "value": "K",
-        "suit": "diams",
-        "points": 13
-      },
-
-      {
-        "value": "K",
-        "suit": "spades",
-        "points": 13
-      },
-
-      {
-        "value": "K",
-        "suit": "clubs",
-        "points": 13
-      }
-    ]
-  }
 ]
