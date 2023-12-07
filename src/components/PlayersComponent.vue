@@ -4,10 +4,13 @@
         <button @click="showPopup = false">Close</button>
     </div>-->
   <h1>Your turn</h1>
-  <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
-  <div class="card-flex">
+  <div class="card-flex" 
+  >
+  <section v-for=" value in displayableDeck"
+  :key = "value.cardValue"
+  >
     <OneCard
-      v-for="card in displayableDeck"
+      v-for="card in value.cards"
       :card="card"
       :key="card.suit + card.value"
       :isClickable="isGuesser"
@@ -15,14 +18,15 @@
       :class="{
         selected: selectedCard === card,
         blur: shouldBlur && card === firstGuessedCard,
-        'selected-card': cardsOutOfPlay.includes(card),
+        'selected-card': cardsOutOfPlay.includes(card), 
+        //[ShowCardOnTop(card)]: true,
       }"
       width="8em"
       height="8em"
-      class="no-selection"
+      class="no-selection OneCard"
     >
     </OneCard>
-
+  </section>
     <!-- HÄR FYLLER VI I HUR MÅNGA KORT KVAR -->
   </div>
 
@@ -84,6 +88,10 @@ export default {
     },
   },
   methods: {
+
+  showCardOnTop(card) {
+   // HÄR SKRIVER JAG VILKEN CSS CLASS SOM SKA RETURNERAS
+  },
     selectCard(card) {
       if (
         this.wrongGuesses >= 2 ||
@@ -296,7 +304,23 @@ export default {
   border: 2px dotted grey;
 }
 
-.OneCard {
+.absolute {
   position: absolute;
+}
+
+.OneCard:nth-child(1) {
+  transform: translateY(0);
+}
+
+.OneCard:nth-child(2) {
+  transform: translateY(-6em);
+}
+
+.OneCard:nth-child(3) {
+  transform: translateY(-12em);
+}
+
+.OneCard:nth-child(4) {
+  transform: translateY(-18em);
 }
 </style>
