@@ -3,25 +3,20 @@
 
   <section class="currentDealerGuesser">
     <p v-if="!this.isDealer" class="styled-box">
-      {{ uiLabels.currentDealer }}<br>
-     <p class="name-display"> <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.dealerIndex].name }}</p>
+      {{ uiLabels.currentDealer }} <br>
+     <div class="name-display"> <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.dealerIndex].name }}</div>
     </p>
     <p v-if="!this.isGuesser" class="styled-box">
-      {{ uiLabels.currentGuesser }}<br>
-      <p class="name-display"><img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.guesserIndex].name }}</p>
+      {{ uiLabels.currentGuesser }} <br>
+      <div class="name-display"><img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.guesserIndex].name }}</div>
     </p>
   </section>
 
   <section class="dealer-view" v-if="this.isDealer">
     <h1>{{ this.playerName }}, {{ uiLabels.dealerHeader }}</h1>
-    <Dealer
-      v-bind:playingCards="this.playingCards"
-      v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
-      v-bind:higherLower="this.higherLower"
-      v-bind:uiLabels="this.uiLabels"
-      v-bind:guessedCard="this.cardGuessed"
-      v-on:dealerCheck="dealerHasChecked()"
-    >
+    <Dealer v-bind:playingCards="this.playingCards" v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-bind:higherLower="this.higherLower" v-bind:uiLabels="this.uiLabels" v-bind:guessedCard="this.cardGuessed"
+      v-on:dealerCheck="dealerHasChecked()">
     </Dealer>
   </section>
   <section class="player-view" v-else>
@@ -29,27 +24,21 @@
       {{ this.playerName }}, {{ uiLabels.playerHeader }}
     </h1>
     <h1 v-else>{{ this.playerName }}, {{ uiLabels.spectatorHeader }}</h1>
-    <Player
-      v-on:wrongGuess="guessCard($event)"
-      v-on:guessCorrect="correctGuess()"
-      v-bind:isGuesser="this.isGuesser"
-      v-bind:playingCards="this.playingCards"
-      v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
-      v-bind:dealerChecked="this.dealerChecked"
-      v-bind:guessedCard="this.cardGuessed"
-      v-bind:uiLabels="this.uiLabels"
-    >
+    <Player v-on:wrongGuess="guessCard($event)" v-on:guessCorrect="correctGuess()" v-bind:isGuesser="this.isGuesser"
+      v-bind:playingCards="this.playingCards" v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-bind:dealerChecked="this.dealerChecked" v-bind:guessedCard="this.cardGuessed" v-bind:uiLabels="this.uiLabels"
+      v-bind:fancyDeck="this.fancyDeck">
     </Player>
   </section>
   <section class="leaderboard">
-    <h1>Leaderboard</h1>
+    <h1>{{ uiLabels.leaderboardTitle }}</h1>
     <table class="leaderboard-table">
       <tr class="leaderboard-grid">
-        <th class="text-center"> {{ uiLabels.player }} </th>
+        <th class="text-center" > {{ uiLabels.player }} </th>
         <th class="text-center"> {{  uiLabels.points }} </th>
       </tr>
       <tr v-for="player in leaderboard">
-        <td class="text-center name-display"> <img :src="player.avatar" class="avatar"/> {{ player.name }}</td>
+        <td class="text-center"> <img :src="player.avatar" class="avatar"/> {{ player.name }}></td>
         <td class="text-center"> {{ player.points }} </td>
       </tr>
     </table>
@@ -75,6 +64,7 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       uiLabels: {},
       playingCards: DeckOfCards, // ta bort sen när vi inte behöver testa
+      fancyDeck: [],
       cardGuessed: {},
       gameId: "inactive game",
       playerList: [],
@@ -127,6 +117,8 @@ export default {
       }
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
+      this.fancyDeck = this.createFancyDeck(this.playingCards);
+      console.log(this.fancyDeck);
     });
 
     socket.on("gameUpdate", (game) => {
@@ -146,9 +138,12 @@ export default {
       this.dealerChecked = true;
     });
 
-    socket.on("wrongGuess", (card) => {
-      this.higherLower = true;
-      this.cardGuessed = card;
+    socket.on("wrongGuess", (data) => {
+      if (data.secondGuess) {
+        this.higherLower = true;
+        this.secondGuess = false;
+      }
+      this.cardGuessed = data.card;
     });
 
     socket.emit("pageLoaded", this.lang);
@@ -185,11 +180,41 @@ export default {
       leaderboard.sort((a, b) => a.points - b.points);
       return leaderboard;
     },
+    createFancyDeck: function (deck) {
+      let fancyDeck = [];
+      let valueArray = [
+        "A",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "J",
+        "Q",
+        "K",
+      ];
+      for (let i = 0; i < valueArray.length; i++) {
+        let deckObject = {value:valueArray[i], cards:deck.filter(card => card.value === valueArray[i])};
+        for (card of deckObject.cards) {
+          card.isVisible=false;
+        }
+        fancyDeck.push(deckObject);
+      }
+      return fancyDeck;
+    },
   },
 };
 </script>
 
 <style>
+body {
+  background-color: green;
+}
+
 #header-style {
   font-size: 1.5rem;
   font-weight: bolder;
@@ -208,6 +233,7 @@ h1 {
   justify-content: center;
   align-items: center;
 }
+
 .no-selection {
   user-select: none;
   -webkit-user-select: none;
@@ -279,16 +305,19 @@ h1 {
   text-align: center;
 }
 
-th, td {
+th,
+td {
   padding: 0.8em;
   text-align: center;
 }
 
-th:first-child, td:first-child {
+th:first-child,
+td:first-child {
   text-align: left;
 }
 
-th:last-child, td:last-child {
+th:last-child,
+td:last-child {
   text-align: right;
 }
 </style>

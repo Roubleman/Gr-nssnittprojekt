@@ -42,7 +42,8 @@
   "player": "Player",
   "points": "Points",
   "avatar": "Avatar",
-  "losePopup":  "You guessed the wrong card!",
+  "losePopup":  "You guessed the wrong card! You lose!",
  "winPopup": "You guessed the right card!",
- "wrongGuessPopup": "You guessed the wrong card!, you have one more try!" 
+ "wrongGuessPopup": "You guessed the wrong card! you have one more try!" ,
+ "leaderboardTitle" : "Leaderboard"
 }

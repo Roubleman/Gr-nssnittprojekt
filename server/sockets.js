@@ -80,13 +80,6 @@ function sockets(io, socket, data) {
     data.initializeGame(gameId);
   });
 
-  socket.on("guessCard", function (d) {
-    io.to(d.gameId).emit(
-      "cardGuessed",
-      data.guessCard(d.gameId, d.playerName, d.cardPoint)
-    );
-  });
-
   socket.on("fuckTheDealer", function (d) {
     data.fuckTheDealer(d.gameId, d.secondGuess);
     io.to(d.gameId).emit("gameInfo", data.getGame(d.gameId));
@@ -102,9 +95,12 @@ function sockets(io, socket, data) {
   });
 
   socket.on("cardGuessed", function (d) {
-    if (!d.secondGuess) {
-      io.to(d.gameId).emit("wrongGuess", d.card);
-    } else {
+    io.to(d.gameId).emit("wrongGuess", {
+      card: d.card,
+      secondGuess: d.secondGuess,
+    });
+    if (d.secondGuess) {
+      //increase Points
     }
   });
 
