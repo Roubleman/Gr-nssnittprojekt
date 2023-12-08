@@ -1,32 +1,60 @@
 <template>
-  <header id="dealer_header"> </header>
-
+  <header id="dealer_header"></header>
 
   <section class="scene">
-
     <div v-if="higherLower" class="guessed-card">
-      <OneCard 
-      v-bind:card="guessedCard"
-      :key="guessedCard.suit + guessedCard.value"
-      class="card-facing-up"
+      <OneCard
+        v-bind:card="guessedCard"
+        :key="guessedCard.suit + guessedCard.value"
+        class="card-facing-up"
       />
     </div>
 
-    <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
+    <button
+      class="dealer-button"
+      @click="emitHigherLower"
+      v-if="higherLower"
+      disabled="guessedCard.points > playingCards[currentCardIndex].points"
+      :style="{
+        opacity:
+          guessedCard.points > playingCards[currentCardIndex].points ? 0.5 : 1,
+      }"
+    >
       {{ uiLabels.lower }}
     </button>
     <!-- Got help from mr GPT-3.5 -->
-    <vue-flip active-click class="flip-card" :width="cardWidth" :height="cardHeight">
+    <vue-flip
+      active-click
+      class="flip-card"
+      :width="cardWidth"
+      :height="cardHeight"
+    >
       <!-- This is the back side of the card -->
       <template v-slot:front class="card">
-        <img src="/img/cardback.png" alt="Front of the card" class="card-image" />
+        <img
+          src="/img/cardback.png"
+          alt="Front of the card"
+          class="card-image"
+        />
       </template>
       <!-- This is the front side of the card -->
       <template v-slot:back class="card">
-        <OneCard class="card-facing-up" v-bind:card="playingCards[currentCardIndex]" />
+        <OneCard
+          class="card-facing-up"
+          v-bind:card="playingCards[currentCardIndex]"
+        />
       </template>
     </vue-flip>
-    <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
+    <button
+      class="dealer-button"
+      @click="emitHigherLower"
+      v-if="higherLower"
+      disabled="guessedCard.points < playingCards[currentCardIndex].points"
+      :style="{
+        opacity:
+          guessedCard.points < playingCards[currentCardIndex].points ? 0.5 : 1,
+      }"
+    >
       {{ uiLabels.higher }}
     </button>
   </section>

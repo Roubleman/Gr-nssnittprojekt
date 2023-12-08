@@ -25,11 +25,11 @@
   </section>
 
   <section class="dealer-view" v-if="this.isDealer">
-    <h1 class="h1 name-display"> <img
-          :src="this.player.avatar"
-          class="avatar"
-        />
-        {{ this.playerList[gameInfo.dealerIndex].name }}, <br> {{ uiLabels.dealerHeader }}</h1>
+    <h1 class="h1 name-display">
+      <img :src="this.player.avatar" class="avatar" />
+      {{ this.playerList[gameInfo.dealerIndex].name }}, <br />
+      {{ uiLabels.dealerHeader }}
+    </h1>
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
@@ -42,10 +42,8 @@
   </section>
   <section class="player-view" v-else>
     <h1 class="h1 name-display" v-if="this.isGuesser">
-      <img
-          :src="this.player.avatar"
-          class="avatar"
-        /> {{ this.playerName }}, {{ uiLabels.playerHeader }}
+      <img :src="this.player.avatar" class="avatar" /> {{ this.playerName }},
+      {{ uiLabels.playerHeader }}
     </h1>
     <h1 class="h1 name-display" v-else>
       {{ this.playerName }}, {{ uiLabels.spectatorHeader }}
@@ -71,8 +69,10 @@
         <th class="text-center">{{ uiLabels.points }}</th>
       </tr>
       <tr v-for="player in leaderboard">
-        <td class="text-center"> <img :src="player.avatar" class="avatar"/> {{ player.name }}</td>
-        <td class="text-center"> {{ player.points }} </td>
+        <td class="text-center">
+          <img :src="player.avatar" class="avatar" /> {{ player.name }}
+        </td>
+        <td class="text-center">{{ player.points }}</td>
       </tr>
     </table>
   </section>
