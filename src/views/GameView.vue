@@ -120,6 +120,7 @@ export default {
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
       this.fancyDeck = this.createFancyDeck(this.playingCards);
+      console.log(this.fancyDeck);
     });
 
     socket.on("gameUpdate", (game) => {
@@ -199,12 +200,9 @@ export default {
         "K",
       ];
       for (let i = 0; i < valueArray.length; i++) {
-        let deckObject = {value:valueArray[i], cards:[]};
-        for (let i = 0; i < deck.length; i++) {
-          if (deck[i].value === deckObject.value) {
-            deckObject.cards.push(deck[i]);
-            deckObject.cards
-          }
+        let deckObject = {value:valueArray[i], cards:deck.filter(card => card.value === valueArray[i])};
+        for (card of deckObject.cards) {
+          card.isVisible=false;
         }
         fancyDeck.push(deckObject);
       }
