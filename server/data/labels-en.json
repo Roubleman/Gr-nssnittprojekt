@@ -46,5 +46,6 @@
  "winPopup": "You guessed the right card!",
  "wrongGuessPopup": "You guessed the wrong card! you have one more try!" ,
  "leaderboardTitle" : "Leaderboard",
- "thisIsTheGuessedCard": "Guessed card:"
+ "thisIsTheGuessedCard": "Guessed card:",
+ "placement": "Placement"
 }

@@ -65,10 +65,25 @@
     <h1>{{ uiLabels.leaderboardTitle }}</h1>
     <table class="leaderboard-table">
       <tr class="leaderboard-grid">
+        <th class="text-center">{{ uiLabels.placement }}</th>
         <th class="text-center">{{ uiLabels.player }}</th>
         <th class="text-center">{{ uiLabels.points }}</th>
       </tr>
-      <tr v-for="player in leaderboard">
+      <tr v-for="(player, index) in leaderboard" :key="index">
+        <td class="text-center medal-cell">
+          <img v-if="index === 0" :src="'/img/goldMedal.png'" class="avatar" />
+          <img
+            v-else-if="index === 1"
+            :src="'/img/silverMedal.png'"
+            class="avatar"
+          />
+          <img
+            v-else-if="index === 2"
+            :src="'/img/bronzeMedal.png'"
+            class="avatar"
+          />
+          <span v-else> {{ index + 1 }}.</span>
+        </td>
         <td class="text-center">
           <img :src="player.avatar" class="avatar" /> {{ player.name }}
         </td>
@@ -341,13 +356,19 @@ export default {
   border-collapse: collapse;
 }
 
+.medal-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .text-center {
   text-align: center;
 }
 
 th,
 td {
-  padding: 0.8em;
+  padding: 0.5em;
   text-align: center;
 }
 
