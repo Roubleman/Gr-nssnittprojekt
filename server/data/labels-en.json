@@ -41,5 +41,8 @@
   "currentGuesser": "The current guesser is",
   "player": "Player",
   "points": "Points",
-  "avatar": "Avatar"
+  "avatar": "Avatar",
+  "losePopup":  "You guessed the wrong card!",
+ "winPopup": "You guessed the right card!",
+ "wrongGuessPopup": "You guessed the wrong card!, you have one more try!" 
 }

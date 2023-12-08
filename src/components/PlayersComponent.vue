@@ -3,7 +3,7 @@
         <p>It's your turn!</p>
         <button @click="showPopup = false">Close</button>
     </div>-->
-  <h1>Your turn</h1>
+
   <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
   <div class="card-flex">
     <OneCard v-for="card in displayableDeck" :card="card" :key="card.suit + card.value" :isClickable="isGuesser"
@@ -36,6 +36,12 @@ import displayableDeck from "@/assets/playerComponentDeck.json";
 
 export default {
   name: "Player",
+  props: {
+    isGuesser: Boolean,
+    playingCards: Array,
+    currentCardIndex: Number,
+    uiLabels: Object,
+  },
   components: {
     OneCard,
   },
@@ -48,7 +54,7 @@ export default {
       wrongGuesses: 0,
       popup: {
         isVisible: false,
-        message: "",
+        message: {},
         type: "",
       },
       gameResult: null,
@@ -58,11 +64,7 @@ export default {
       displayableDeck: displayableDeck,
     };
   },
-  props: {
-    isGuesser: Boolean,
-    playingCards: Array,
-    currentCardIndex: Number,
-  },
+
 
 
   computed: {
@@ -103,10 +105,7 @@ export default {
 
 
         if (!this.isCorrect) {
-          this.showPopup(
-            "wrong",
-            "You selected the wrong card! One more chance"
-          );
+          this.showPopup(this.uiLabels.wrongGuessPopup);
           this.isConfirmed = false;
           this.shouldBlur = true;
           this.firstGuessedCard = this.selectedCard;
@@ -117,11 +116,11 @@ export default {
             this.gameResult = "lose";
             this.firstGuessedCard = null;
             console.log(this.gameResult);
-            this.showPopup("lose", "You lose!");
+            this.showPopup(this.uiLabels.losePopup);
           }
         } else {
           this.cardsOutOfPlay.push(this.selectedCard); //change so that cardsoutofplay is slice of cardindex to current card in deck.
-          this.showPopup("correct", "You selected the correct card!");
+          this.showPopup(this.uiLabels.winPopup);
           this.gameResult = "win";
           this.selectedCard = null;
           this.firstGuessedCard = null;
@@ -130,9 +129,8 @@ export default {
         console.log("No card selected");
       }
     },
-    showPopup(type, message) {
+    showPopup(message) {
       this.popup.isVisible = true;
-      this.popup.type = type;
       this.popup.message = message;
     },
     closePopup() {

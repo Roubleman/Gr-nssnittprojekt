@@ -41,5 +41,8 @@
   "currentGuesser": "Den som gissar",
   "player": "Spelare",
   "points": "Poäng",
-  "avatar": "Avatar"
-} 
+  "avatar": "Avatar",
+  "losePopup":  "Du gissa fel kort!",
+ "winPopup": "Du gissa rätt kort!",
+ "wrongGuessPopup": "Du gissa fel kort, ett försök till!" 
+}
