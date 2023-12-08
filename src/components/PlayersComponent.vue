@@ -72,15 +72,7 @@ export default {
     isCorrect() {
       return this.selectedCard && this.selectedCard.value === this.correctvalue;
     },
-    styledPlayingCards() {
-      return this.playingCards.map((card) => {
-        const randomZIndex = Math.floor(Math.random() * 4) + 1;
-        return {
-          ...card,
-          zIndex: randomZIndex,
-        };
-      });
-    },
+
   },
   methods: {
     showCardOnTop(card) {
@@ -217,10 +209,6 @@ export default {
   position: relative;
   margin-left: 10em;
   width: calc(100% - 20em);
-}
-
-.card-grid {
-  display: contents;
 }
 
 .card-border {
