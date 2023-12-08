@@ -12,7 +12,7 @@
   "rules": "Regler",
   "startGame": "Starta spel",
   "inputName": "Skriv ditt spelar namn",
-  "inputGuesses": "Antal gissningar innan delare byte",
+  "inputGuesses": "Antal gissningar innan byte av dealer",
   "pointsSetting": "Poäng inställning",
   "easyOption": "Snäll",
   "normalOption": "Normal",
@@ -39,10 +39,12 @@
   "spectatorHeader": "Du är spektator!",
   "currentDealer": "Den som är dealer",
   "currentGuesser": "Den som gissar",
+  "currentGameSettings": "Spel inställningar:",
   "player": "Spelare",
   "points": "Poäng",
   "avatar": "Avatar",
-  "losePopup":  "Du gissa fel kort!",
+  "losePopup":  "Du gissa fel kort! Du förlorar!",
  "winPopup": "Du gissa rätt kort!",
- "wrongGuessPopup": "Du gissa fel kort, ett försök till!" 
+ "wrongGuessPopup": "Du gissa fel kort, ett försök till!",
+ "leaderboardTitle": "Poängställning"
 }

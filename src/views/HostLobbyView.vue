@@ -3,10 +3,12 @@
     <h1>{{ uiLabels.lobbyHeader }} {{ gameId }}</h1>
     <br />
   </div>
-
-  <section class="gameSettings">
-    <p>{{ uiLabels.pointsSetting }}: {{ this.gameInfo.pointsSetting }}</p>
-    <p>{{ uiLabels.inputGuesses }}: {{ this.gameInfo.guessesNumber }}</p>
+  <section id="settings_wrapper">
+    <h2>{{ uiLabels.currentGameSettings }}</h2>
+    <section class="gameSettings">
+      <p>{{ uiLabels.pointsSetting }}: {{ this.gameInfo.pointsSetting }}</p>
+      <p>{{ uiLabels.inputGuesses }}: {{ this.gameInfo.guessesNumber }}</p>
+    </section>
   </section>
 
   <section id="input_wrappers">
@@ -145,6 +147,12 @@ body {
   justify-content: space-between;
   margin: auto;
   width: 40%;
+}
+
+#settings_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #input_wrappers {
