@@ -6,13 +6,22 @@
   <h1>Your turn</h1>
   <div class="card-flex">
     <section v-for="value in displayableDeck" :key="value.cardValue">
-      <OneCard v-for="card in value.cards" :card="card" :key="card.suit + card.value" :isClickable="isGuesser"
-        v-on:selectedCard="selectCard($event)" :class="{
+      <OneCard
+        v-for="card in value.cards"
+        :card="card"
+        :key="card.suit + card.value"
+        :isClickable="isGuesser"
+        v-on:selectedCard="selectCard($event)"
+        :class="{
           selected: selectedCard === card,
           blur: shouldBlur && card === firstGuessedCard,
           'selected-card': cardsOutOfPlay.includes(card),
           //[ShowCardOnTop(card)]: true,
-        }" width="8em" height="8em" class="no-selection OneCard">
+        }"
+        width="8em"
+        height="8em"
+        class="no-selection OneCard"
+      >
       </OneCard>
     </section>
     <!-- HÄR FYLLER VI I HUR MÅNGA KORT KVAR -->
