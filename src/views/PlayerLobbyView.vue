@@ -116,12 +116,6 @@ export default {
 };
 </script>
 <style scoped>
-body {
-  background-color: rgb(233, 233, 223);
-  font-size: 1.3em;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
 #input_wrappers {
   display: flex;
   flex-direction: column;

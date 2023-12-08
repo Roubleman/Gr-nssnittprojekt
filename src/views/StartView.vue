@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="header">
     <div
       v-bind:class="['navigation-menu', { close: !hideNav }]"
       v-on:click="toggleNav"
@@ -230,12 +230,7 @@ export default {
 };
 </script>
 <style scoped>
-body {
-  background-color: rgb(233, 233, 223);
-  font-size: 1.3em;
-}
-
-header {
+.header {
   background-color: rgb(73, 114, 73);
   width: 100%;
   display: grid;

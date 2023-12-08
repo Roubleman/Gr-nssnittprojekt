@@ -25,7 +25,7 @@
   </section>
 
   <section class="dealer-view" v-if="this.isDealer">
-    <h1>{{ this.playerName }}, {{ uiLabels.dealerHeader }}</h1>
+    <h1 class="h1">{{ this.playerName }}, {{ uiLabels.dealerHeader }}</h1>
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
@@ -37,10 +37,12 @@
     </Dealer>
   </section>
   <section class="player-view" v-else>
-    <h1 v-if="this.isGuesser">
+    <h1 class="h1" v-if="this.isGuesser">
       {{ this.playerName }}, {{ uiLabels.playerHeader }}
     </h1>
-    <h1 v-else>{{ this.playerName }}, {{ uiLabels.spectatorHeader }}</h1>
+    <h1 class="h1" v-else>
+      {{ this.playerName }}, {{ uiLabels.spectatorHeader }}
+    </h1>
     <Player
       v-on:wrongGuess="guessCard($event)"
       v-on:guessCorrect="correctGuess()"
@@ -177,7 +179,13 @@ export default {
       this.uiLabels = labels;
     });
   },
-
+  mounted() {
+    //coPilot code so that we have body background with style scoped
+    document.body.style.backgroundColor = "green";
+  },
+  beforeDestroy() {
+    document.body.style.backgroundColor = null;
+  },
   methods: {
     guessCard: function (card) {
       socket.emit("cardGuessed", {
@@ -239,11 +247,7 @@ export default {
 };
 </script>
 
-<style>
-body {
-  background-color: green;
-}
-
+<style scoped>
 #header-style {
   font-size: 1.5rem;
   font-weight: bolder;
@@ -255,7 +259,7 @@ body {
   background-color: rgb(73, 114, 73);
 }
 
-h1 {
+.h1 {
   font-size: 1.5rem;
   font-weight: bolder;
   width: 100%;
