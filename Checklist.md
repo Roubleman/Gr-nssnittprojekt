@@ -69,6 +69,7 @@ Att göra lista:
 
     [x] Stack of cards, flip the highest back and forth
     [] Say "higher or lower" (one is unclickable if not bluffing implemented)
+    [] Guessed Card can not be displayed.
     [] Display of points
     [] Bluffing?
 
