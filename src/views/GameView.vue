@@ -3,20 +3,37 @@
 
   <section class="currentDealerGuesser">
     <div v-if="!this.isDealer" class="styled-box">
-      {{ uiLabels.currentDealer }} <br>
-     <p class="name-display"> <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.dealerIndex].name }}</p>
+      {{ uiLabels.currentDealer }} <br />
+      <p class="name-display">
+        <img
+          :src="this.playerList[gameInfo.dealerIndex].avatar"
+          class="avatar"
+        />
+        {{ this.playerList[gameInfo.dealerIndex].name }}
+      </p>
     </div>
     <div v-if="!this.isGuesser" class="styled-box">
-      {{ uiLabels.currentGuesser }} <br>
-      <p class="name-display"><img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.guesserIndex].name }}</p>
+      {{ uiLabels.currentGuesser }} <br />
+      <p class="name-display">
+        <img
+          :src="this.playerList[gameInfo.guesserIndex].avatar"
+          class="avatar"
+        />
+        {{ this.playerList[gameInfo.guesserIndex].name }}
+      </p>
     </div>
   </section>
 
   <section class="dealer-view" v-if="this.isDealer">
     <h1>{{ this.playerName }}, {{ uiLabels.dealerHeader }}</h1>
-    <Dealer v-bind:playingCards="this.playingCards" v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
-      v-bind:higherLower="this.higherLower" v-bind:uiLabels="this.uiLabels" v-bind:guessedCard="this.cardGuessed"
-      v-on:dealerCheck="dealerHasChecked()">
+    <Dealer
+      v-bind:playingCards="this.playingCards"
+      v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-bind:higherLower="this.higherLower"
+      v-bind:uiLabels="this.uiLabels"
+      v-bind:guessedCard="this.cardGuessed"
+      v-on:dealerCheck="dealerHasChecked()"
+    >
     </Dealer>
   </section>
   <section class="player-view" v-else>
@@ -24,22 +41,31 @@
       {{ this.playerName }}, {{ uiLabels.playerHeader }}
     </h1>
     <h1 v-else>{{ this.playerName }}, {{ uiLabels.spectatorHeader }}</h1>
-    <Player v-on:wrongGuess="guessCard($event)" v-on:guessCorrect="correctGuess()" v-bind:isGuesser="this.isGuesser"
-      v-bind:playingCards="this.playingCards" v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
-      v-bind:dealerChecked="this.dealerChecked" v-bind:guessedCard="this.cardGuessed" v-bind:uiLabels="this.uiLabels"
-      v-bind:fancyDeck="this.fancyDeck">
+    <Player
+      v-on:wrongGuess="guessCard($event)"
+      v-on:guessCorrect="correctGuess()"
+      v-bind:isGuesser="this.isGuesser"
+      v-bind:playingCards="this.playingCards"
+      v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-bind:dealerChecked="this.dealerChecked"
+      v-bind:guessedCard="this.cardGuessed"
+      v-bind:uiLabels="this.uiLabels"
+      v-bind:fancyDeck="this.fancyDeck"
+    >
     </Player>
   </section>
   <section class="leaderboard">
     <h1>{{ uiLabels.leaderboardTitle }}</h1>
     <table class="leaderboard-table">
       <tr class="leaderboard-grid">
-        <th class="text-center" > {{ uiLabels.player }} </th>
-        <th class="text-center"> {{  uiLabels.points }} </th>
+        <th class="text-center">{{ uiLabels.player }}</th>
+        <th class="text-center">{{ uiLabels.points }}</th>
       </tr>
       <tr v-for="player in leaderboard">
-        <td class="text-center"> <img :src="player.avatar" class="avatar"/> {{ player.name }}></td>
-        <td class="text-center"> {{ player.points }} </td>
+        <td class="text-center">
+          <img :src="player.avatar" class="avatar" /> {{ player.name }}>
+        </td>
+        <td class="text-center">{{ player.points }}</td>
       </tr>
     </table>
   </section>
@@ -198,9 +224,12 @@ export default {
         "K",
       ];
       for (let i = 0; i < valueArray.length; i++) {
-        let deckObject = {value:valueArray[i], cards:deck.filter(card => card.value === valueArray[i])};
-        for (card of deckObject.cards) {
-          card.isVisible=false;
+        let deckObject = {
+          value: valueArray[i],
+          cards: deck.filter((card) => card.value === valueArray[i]),
+        };
+        for (let card of deckObject.cards) {
+          card.isVisible = false;
         }
         fancyDeck.push(deckObject);
       }
