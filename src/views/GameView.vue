@@ -2,13 +2,13 @@
   <header id="header-style">{{ uiLabels.gameViewHeadline }}</header>
 
   <section class="currentDealerGuesser">
-    <p v-if="!this.isDealer">
-      {{ uiLabels.currentDealer }}:
-      {{ this.playerList[gameInfo.dealerIndex].name }}
+    <p v-if="!this.isDealer" class="styled-box">
+      {{ uiLabels.currentDealer }} <br>
+     <div class="name-display"> <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.dealerIndex].name }}</div>
     </p>
-    <p v-if="!this.isGuesser">
-      {{ uiLabels.currentGuesser }}:
-      {{ this.playerList[gameInfo.guesserIndex].name }}
+    <p v-if="!this.isGuesser" class="styled-box">
+      {{ uiLabels.currentGuesser }} <br>
+      <div class="name-display"><img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.guesserIndex].name }}</div>
     </p>
   </section>
 
@@ -44,10 +44,16 @@
   </section>
   <section class="leaderboard">
     <h1>Leaderboard</h1>
-    <li v-for="player in leaderboard">
-      <img :src="player.avatar" class="avatar" />
-      {{ player.name }}: {{ player.points }}
-    </li>
+    <table class="leaderboard-table">
+      <tr class="leaderboard-grid">
+        <th class="text-center" > {{ uiLabels.player }} </th>
+        <th class="text-center"> {{  uiLabels.points }} </th>
+      </tr>
+      <tr v-for="player in leaderboard">
+        <td class="text-center"> <img :src="player.avatar" class="avatar"/> {{ player.name }}></td>
+        <td class="text-center"> {{ player.points }} </td>
+      </tr>
+    </table>
   </section>
 </template>
 
@@ -272,6 +278,21 @@ h1 {
   margin: 2em auto;
 }
 
+.styled-box {
+  list-style-type: decimal;
+  color: white;
+  width: 15em;
+  border-style: inset;
+  border-color: rgba(252, 16, 48, 0.707);
+  border-width: 0.5em;
+  background-color: rgb(73, 114, 73);
+  margin: 2em auto;
+}
+
+.name-display {
+  font-weight: bold;
+}
+
 .leaderboard li {
   padding: 0.3em;
 }
@@ -280,5 +301,27 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.text-center {
+  text-align: center;
+}
+
+th, td {
+  padding: 0.8em;
+  text-align: center;
+}
+
+th:first-child, td:first-child {
+  text-align: left;
+}
+
+th:last-child, td:last-child {
+  text-align: right;
 }
 </style>

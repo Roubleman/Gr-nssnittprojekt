@@ -3,24 +3,15 @@
         <p>It's your turn!</p>
         <button @click="showPopup = false">Close</button>
     </div>-->
-  <h1>Your turn</h1>
+
   <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
   <div class="card-flex">
-    <OneCard
-      v-for="card in displayableDeck"
-      :card="card"
-      :key="card.suit + card.value"
-      :isClickable="isGuesser"
-      v-on:selectedCard="selectCard($event)"
-      :class="{
+    <OneCard v-for="card in displayableDeck" :card="card" :key="card.suit + card.value" :isClickable="isGuesser"
+      v-on:selectedCard="selectCard($event)" :class="{
         selected: selectedCard === card,
         blur: shouldBlur && card === firstGuessedCard,
         'selected-card': cardsOutOfPlay.includes(card),
-      }"
-      width="8em"
-      height="8em"
-      class="no-selection"
-    >
+      }" width="8em" height="8em" class="no-selection">
     </OneCard>
 
 
@@ -45,6 +36,12 @@ import displayableDeck from "@/assets/playerComponentDeck.json";
 
 export default {
   name: "Player",
+  props: {
+    isGuesser: Boolean,
+    playingCards: Array,
+    currentCardIndex: Number,
+    uiLabels: Object,
+  },
   components: {
     OneCard,
   },
@@ -57,7 +54,7 @@ export default {
       wrongGuesses: 0,
       popup: {
         isVisible: false,
-        message: "",
+        message: {},
         type: "",
       },
       gameResult: null,
@@ -67,11 +64,7 @@ export default {
       displayableDeck: displayableDeck,
     };
   },
-  props: {
-    isGuesser: Boolean,
-    playingCards: Array,
-    currentCardIndex: Number,
-  },
+
 
 
   computed: {
@@ -103,42 +96,6 @@ export default {
       }
       this.selectedCard = card;
     },
-    getCardStyle(card) {
-      // Find all cards with the same value, excluding the current card
-      const otherCardsWithSameValue = this.cardsOutOfPlay.filter(
-        (c) => c.value === card.value && c !== card
-      );
-
-
-      // Find the highest z-index among those cards
-      const highestZIndex = Math.max(
-        ...otherCardsWithSameValue.map((c) => c.zIndex),
-        -1
-      );
-
-
-      // Define the base style
-      let style = {
-        "grid-row-start": this.getRow(card.value),
-        "grid-column-start": this.getColumn(card.value),
-        "z-index": card.zIndex + 1, // Default to the card's z-index
-      };
-
-
-      // Check if the current card has the highest z-index among cards with the same value
-      if (card.zIndex === highestZIndex) {
-        style["z-index"] = 0; // Set z-index to the lowest
-      }
-
-
-      // Adjust the position if the card is in cardsOutOfPlay array
-      if (this.cardsOutOfPlay.includes(card)) {
-        style["transform"] = "translateY(-10px)";
-      }
-
-
-      return style;
-    },
 
 
     confirmSelection() {
@@ -148,10 +105,7 @@ export default {
 
 
         if (!this.isCorrect) {
-          this.showPopup(
-            "wrong",
-            "You selected the wrong card! One more chance"
-          );
+          this.showPopup(this.uiLabels.wrongGuessPopup);
           this.isConfirmed = false;
           this.shouldBlur = true;
           this.firstGuessedCard = this.selectedCard;
@@ -162,11 +116,11 @@ export default {
             this.gameResult = "lose";
             this.firstGuessedCard = null;
             console.log(this.gameResult);
-            this.showPopup("lose", "You lose!");
+            this.showPopup(this.uiLabels.losePopup);
           }
         } else {
           this.cardsOutOfPlay.push(this.selectedCard); //change so that cardsoutofplay is slice of cardindex to current card in deck.
-          this.showPopup("correct", "You selected the correct card!");
+          this.showPopup(this.uiLabels.winPopup);
           this.gameResult = "win";
           this.selectedCard = null;
           this.firstGuessedCard = null;
@@ -175,9 +129,8 @@ export default {
         console.log("No card selected");
       }
     },
-    showPopup(type, message) {
+    showPopup(message) {
       this.popup.isVisible = true;
-      this.popup.type = type;
       this.popup.message = message;
     },
     closePopup() {
@@ -186,45 +139,7 @@ export default {
     checkCard(card) {
       return card.value === this.correctvalue;
     },
-    getColumn(value) {
-      const positions = {
-        2: 1,
-        3: 2,
-        4: 3,
-        5: 4,
-        6: 5,
-        7: 6,
-        8: 7,
-        9: 1,
-        10: 2,
-        J: 3,
-        Q: 4,
-        K: 5,
-        A: 6,
-      };
-      return positions[value];
-    },
-    getRow(value) {
-      const positions = {
-        2: 1,
-        3: 1,
-        4: 1,
-        5: 1,
-        6: 1,
-        7: 1,
-        8: 1,
-        9: 2,
-        10: 2,
-        J: 2,
-        Q: 2,
-        K: 2,
-        A: 2,
-      };
-      return positions[value];
-    },
-    getZIndex(card) {
-      return card.zIndex;
-    },
+
   },
 };
 </script>
@@ -308,9 +223,7 @@ export default {
 }
 
 
-.card-grid {
-  display: contents;
-}
+
 
 
 .card-border {
