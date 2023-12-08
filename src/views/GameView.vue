@@ -11,7 +11,7 @@
   </section>
 
   <section class="dealer-view" v-if="this.isDealer">
-    <h1>{{ uiLabels.dealerHeader }}</h1>
+    <h1>{{ this.playerName }}, {{ uiLabels.dealerHeader }}</h1>
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
@@ -23,8 +23,10 @@
     </Dealer>
   </section>
   <section class="player-view" v-else>
-    <h1 v-if="this.isGuesser">{{ uiLabels.playerHeader }}</h1>
-    <h1 v-else>{{ uiLabels.spectatorHeader }}</h1>
+    <h1 v-if="this.isGuesser">
+      {{ this.playerName }}, {{ uiLabels.playerHeader }}
+    </h1>
+    <h1 v-else>{{ this.playerName }}, {{ uiLabels.spectatorHeader }}</h1>
     <Player
       v-on:wrongGuess="guessCard($event)"
       v-on:guessCorrect="correctGuess()"
