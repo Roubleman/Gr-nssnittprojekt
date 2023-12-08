@@ -38,6 +38,7 @@
       v-bind:dealerChecked="this.dealerChecked"
       v-bind:guessedCard="this.cardGuessed"
       v-bind:uiLabels="this.uiLabels"
+      v-bind:fancyDeck="this.fancyDeck"
     >
     </Player>
   </section>
@@ -69,6 +70,7 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       uiLabels: {},
       playingCards: DeckOfCards, // ta bort sen när vi inte behöver testa
+      fancyDeck: [],
       cardGuessed: {},
       gameId: "inactive game",
       playerList: [],
@@ -121,6 +123,7 @@ export default {
       }
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
+      this.fancyDeck = this.createDeckObject(this.playingCards);
     });
 
     socket.on("gameUpdate", (game) => {
@@ -178,6 +181,36 @@ export default {
       let leaderboard = [...this.playerList]; // coPilot code
       leaderboard.sort((a, b) => a.points - b.points);
       return leaderboard;
+    },
+    createFancyDeck: function (deck) {
+      let fancyDeck = [];
+      let valueArray = [
+        "A",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "J",
+        "Q",
+        "K",
+      ];
+      for (let i = 0; i < valueArray.length; i++) {
+        let deckObject = {};
+        deckObject.value = valueArray[i];
+        deckObject.cards = [];
+        for (let i = 0; i < deck.length; i++) {
+          if (deck[i].value === deckObject.value) {
+            deckObject.cards.push(deck[i]);
+          }
+        }
+        fancyDeck.push(deckObject);
+      }
+      return fancyDeck;
     },
   },
 };
