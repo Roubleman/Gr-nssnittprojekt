@@ -199,12 +199,11 @@ export default {
         "K",
       ];
       for (let i = 0; i < valueArray.length; i++) {
-        let deckObject = {};
-        deckObject.value = valueArray[i];
-        deckObject.cards = [];
+        let deckObject = {value:valueArray[i], cards:[]};
         for (let i = 0; i < deck.length; i++) {
           if (deck[i].value === deckObject.value) {
             deckObject.cards.push(deck[i]);
+            deckObject.cards
           }
         }
         fancyDeck.push(deckObject);
