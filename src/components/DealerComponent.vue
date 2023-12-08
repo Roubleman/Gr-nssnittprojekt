@@ -1,13 +1,14 @@
 <template>
   <header id="dealer_header"> </header>
 
-  <div class="scene">
-    <div>
-      <OneCard
+
+  <section class="scene">
+
+    <div v-if="higherLower" class="guessed-card">
+      <OneCard 
+      v-bind:card="guessedCard"
+      :key="guessedCard.suit + guessedCard.value"
       class="card-facing-up"
-      v-bind:card="testCard"
-      :width="cardWidth"
-      :height="cardHeight"
       />
     </div>
 
@@ -15,32 +16,20 @@
       {{ uiLabels.lower }}
     </button>
     <!-- Got help from mr GPT-3.5 -->
-    <vue-flip
-      active-click
-      class="flip-card"
-      :width="cardWidth"
-      :height="cardHeight"
-    >
+    <vue-flip active-click class="flip-card" :width="cardWidth" :height="cardHeight">
       <!-- This is the back side of the card -->
       <template v-slot:front class="card">
-        <img
-          src="/img/cardback.png"
-          alt="Front of the card"
-          class="card-image"
-        />
+        <img src="/img/cardback.png" alt="Front of the card" class="card-image" />
       </template>
       <!-- This is the front side of the card -->
       <template v-slot:back class="card">
-        <OneCard
-          class="card-facing-up"
-          v-bind:card="playingCards[currentCardIndex]"
-        />
+        <OneCard class="card-facing-up" v-bind:card="playingCards[currentCardIndex]" />
       </template>
     </vue-flip>
     <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
       {{ uiLabels.higher }}
     </button>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -60,16 +49,6 @@ export default {
     OneCard,
     "vue-flip": VueFlip,
   },
-  data () {
-    return {
-      testCard: {
-        value: "2",
-        suit: "hearts",
-        points: 2
-      },
-    }
-  },
-
   methods: {
     emitHigherLower() {
       this.$emit("dealerCheck");
@@ -88,6 +67,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .scene {
   display: flex;
   justify-content: center;
@@ -155,5 +137,15 @@ export default {
   transform: none !important;
   height: 100% !important;
   width: 100% !important;
+}
+
+.guessed-card {
+  overflow: hidden;
+  width: 13.2em;
+  height: 20em;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

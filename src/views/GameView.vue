@@ -25,7 +25,11 @@
   </section>
 
   <section class="dealer-view" v-if="this.isDealer">
-    <h1 class="h1">{{ this.playerName }}, {{ uiLabels.dealerHeader }}</h1>
+    <h1 class="h1 name-display"> <img
+          :src="this.playerList[gameInfo.dealerIndex].avatar"
+          class="avatar"
+        />
+        {{ this.playerList[gameInfo.dealerIndex].name }}, <br> {{ uiLabels.dealerHeader }}</h1>
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
@@ -316,7 +320,7 @@ export default {
 }
 
 .name-display {
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .leaderboard li {
