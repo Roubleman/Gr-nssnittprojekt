@@ -38,6 +38,7 @@ Data.prototype.createGame = function (
     } else if (pointsSetting === "hard") {
       game.pointsMultiplier = 2;
     }
+    game.pointsSetting = pointsSetting;
     game.guessesNumber = guessesNumber;
     game.deckOfCards = deckOfCards;
     player.name = hostName;
