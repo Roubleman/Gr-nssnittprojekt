@@ -5,7 +5,7 @@
     </div>-->
   <h1>Your turn</h1>
   <div class="card-flex">
-    <section v-for="value in displayableDeck" :key="value.cardValue">
+    <section v-for="value in fancyDeck" :key="value.value">
       <OneCard
         v-for="card in value.cards"
         :card="card"
@@ -48,6 +48,7 @@ export default {
     currentCardIndex: Number,
     uiLabels: Object,
     guessedCard: Object,
+    fancyDeck: Array,
   },
   components: {
     OneCard,
@@ -70,11 +71,6 @@ export default {
       shouldBlur: false,
       displayableDeck: displayableDeck,
     };
-  },
-  props: {
-    isGuesser: Boolean,
-    playingCards: Array,
-    currentCardIndex: Number,
   },
 
   computed: {
@@ -133,6 +129,7 @@ export default {
     },
 
     confirmSelection() {
+      console.log(displayableDeck);
       if (this.selectedCard) {
         this.isConfirmed = true;
         console.log("Confirmed selection:", this.selectedCard);
