@@ -1,13 +1,15 @@
 <template>
   <header id="dealer_header"> </header>
-  <div v-if="higherLower" class="guess-box"> 
-      <OneCard
-      class="card-facing-up"
-      v-bind:card="guessedCard" v-bind:key="guessedCard.points"
-      />
-    </div>
 
   <div class="scene">
+    <div> 
+      <OneCard
+      v-for="card in guessedCardTestList"
+      class="card-facing-up"
+      :key="card.suit + card.value"
+      style="cursor: default;"
+      />
+    </div>
     <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
      {{ uiLabels.lower }}
     </button>
@@ -59,6 +61,11 @@ export default {
   },
   data () {
     return {
+      guessedCardTestList: [{
+        "value": "2",
+        "suit": "hearts",
+        "points": 2
+      }],
     }
   },
 

@@ -38,7 +38,7 @@
         <th class="text-center"> {{  uiLabels.points }} </th>
       </tr>
       <tr v-for="player in leaderboard">
-        <td class="text-center"> <img :src="player.avatar" class="avatar"/> {{ player.name }}></td>
+        <td class="text-center"> <img :src="player.avatar" class="avatar"/> {{ player.name }}</td>
         <td class="text-center"> {{ player.points }} </td>
       </tr>
     </table>
@@ -272,6 +272,8 @@ h1 {
 }
 
 .styled-box {
+  margin-left: 1em;
+  margin-right: 1em;
   list-style-type: decimal;
   color: white;
   width: 15em;
