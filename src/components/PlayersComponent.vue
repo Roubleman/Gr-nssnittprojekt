@@ -28,7 +28,7 @@
   </div>
 
   <section>
-    <button @click="confirmSelection(card)" id="confirm-button">Confirm</button>
+    <button v-if="isGuesser" @click="confirmSelection(card)" id="confirm-button">Confirm</button>
   </section>
   <div v-if="popup.isVisible" class="popup" :class="popup.type">
     <p>{{ popup.message }}</p>
