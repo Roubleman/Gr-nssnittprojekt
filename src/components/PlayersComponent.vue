@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       selectedCard: [],
-      correctvalue: "2",
+      correctValue: "2",
       cardsOutOfPlay: [],
       stackIndices: {},
       wrongGuesses: 0,
@@ -79,9 +79,8 @@ export default {
 
   computed: {
     isCorrect() {
-      return this.selectedCard && this.selectedCard.value === this.correctvalue;
+      return this.selectedCard && this.selectedCard.value === this.correctValue;
     },
-
   },
   methods: {
     showCardOnTop(card) {
@@ -174,7 +173,7 @@ export default {
       this.popup.isVisible = false;
     },
     checkCard(card) {
-      return card.value === this.correctvalue;
+      return card.value === this.correctValue;
     },
     getColumn(value) {
       const positions = {
