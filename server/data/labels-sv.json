@@ -38,5 +38,8 @@
   "playerHeader": "Din tur att gissa!",
   "spectatorHeader": "Du är spektator!",
   "currentDealer": "Den som är dealer",
-  "currentGuesser": "Den som gissar"
+  "currentGuesser": "Den som gissar",
+  "player": "Spelare",
+  "points": "Poäng",
+  "avatar": "Avatar"
 } 

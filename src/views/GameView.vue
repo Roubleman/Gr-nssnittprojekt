@@ -39,10 +39,20 @@
   </section>
   <section class="leaderboard">
     <h1>Leaderboard</h1>
-    <li v-for="player in leaderboard">
+    <table class="leaderboard-table">
+      <tr class="leaderboard-grid">
+        <th class="text-center"> {{ uiLabels.player }} </th>
+        <th class="text-center"> {{  uiLabels.points }} </th>
+      </tr>
+      <tr v-for="player in leaderboard">
+        <td class="text-center"> <img :src="player.avatar" class="avatar"/> {{ player.name }}></td>
+        <td class="text-center"> {{ player.points }} </td>
+      </tr>
+    </table>
+    <!-- <li v-for="player in leaderboard">
       <img :src="player.avatar" class="avatar" />
       {{ player.name }}: {{ player.points }}
-    </li>
+    </li> -->
   </section>
 </template>
 
@@ -249,5 +259,10 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.leaderboard-table {
+  width: 100%;
+  
 }
 </style>
