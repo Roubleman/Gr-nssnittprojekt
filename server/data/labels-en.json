@@ -38,5 +38,6 @@
   "playerHeader": "Your time to guess!",
   "spectatorHeader": "You are a spectator!",
   "currentDealer": "The current dealer is",
-  "currentGuesser": "The current guesser is"
+  "currentGuesser": "The current guesser is",
+  "currentGameSettings": "Game settings:"
 }
