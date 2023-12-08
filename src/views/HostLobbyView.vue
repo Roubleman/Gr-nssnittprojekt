@@ -129,7 +129,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 #hamburger_icon {
   cursor: pointer;
   margin-left: 1em;
