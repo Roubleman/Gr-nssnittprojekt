@@ -41,6 +41,7 @@ export default {
     playingCards: Array,
     currentCardIndex: Number,
     uiLabels: Object,
+    guessedCard: Object,
   },
   components: {
     OneCard,
@@ -119,7 +120,7 @@ export default {
             this.showPopup(this.uiLabels.losePopup);
           }
         } else {
-          this.cardsOutOfPlay.push(this.selectedCard); //change so that cardsoutofplay is slice of cardindex to current card in deck.
+          this.cardsOutOfPlay = this.slice(cardIndex); //change so that cardsoutofplay is slice of cardindex to current card in deck.
           this.showPopup(this.uiLabels.winPopup);
           this.gameResult = "win";
           this.selectedCard = null;
