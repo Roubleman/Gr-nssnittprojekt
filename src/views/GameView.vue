@@ -41,7 +41,7 @@
     <h1>Leaderboard</h1>
     <table class="leaderboard-table">
       <tr class="leaderboard-grid">
-        <th class="text-center"> {{ uiLabels.player }} </th>
+        <th class="text-center" > {{ uiLabels.player }} </th>
         <th class="text-center"> {{  uiLabels.points }} </th>
       </tr>
       <tr v-for="player in leaderboard">
@@ -49,10 +49,6 @@
         <td class="text-center"> {{ player.points }} </td>
       </tr>
     </table>
-    <!-- <li v-for="player in leaderboard">
-      <img :src="player.avatar" class="avatar" />
-      {{ player.name }}: {{ player.points }}
-    </li> -->
   </section>
 </template>
 
@@ -263,6 +259,23 @@ h1 {
 
 .leaderboard-table {
   width: 100%;
-  
+  border-collapse: collapse;
+}
+
+.text-center {
+  text-align: center;
+}
+
+th, td {
+  padding: 0.8em;
+  text-align: center;
+}
+
+th:first-child, td:first-child {
+  text-align: left;
+}
+
+th:last-child, td:last-child {
+  text-align: right;
 }
 </style>
