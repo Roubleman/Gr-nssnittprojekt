@@ -1,17 +1,18 @@
 <template>
-  <header id="dealer_header"> </header>
-  <div v-if="higherLower" class="guess-box"> 
-      <OneCard
+  <header id="dealer_header"></header>
+  <div v-if="higherLower" class="guess-box">
+    <OneCard
       class="card-facing-up"
-      v-bind:card="guessedCard" v-bind:key="guessedCard.points"
-      />
-    </div>
+      v-bind:card="guessedCard"
+      v-bind:key="guessedCard.points"
+    />
+  </div>
 
   <div class="scene">
     <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
-     {{ uiLabels.lower }}
+      {{ uiLabels.lower }}
     </button>
-     <!-- Got help from mr GPT-3.5 -->
+    <!-- Got help from mr GPT-3.5 -->
     <vue-flip
       active-click
       class="flip-card"
@@ -36,7 +37,7 @@
     </vue-flip>
     <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
       {{ uiLabels.higher }}
-    </button> 
+    </button>
   </div>
 </template>
 
@@ -51,15 +52,14 @@ export default {
     currentCardIndex: Number,
     higherLower: Boolean,
     uiLabels: Object,
-    guessedCard: Object
+    guessedCard: Object,
   },
   components: {
     OneCard,
     "vue-flip": VueFlip,
   },
-  data () {
-    return {
-    }
+  data() {
+    return {};
   },
 
   methods: {
@@ -68,7 +68,7 @@ export default {
     },
   },
 
-  data() {  
+  data() {
     return {
       cards: [],
       topCard: null,
@@ -79,7 +79,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .scene {
   display: flex;
   justify-content: center;
@@ -97,14 +97,14 @@ export default {
 }
 
 .dealer-button {
-    height: 4em;
-    width: 10em;
-    margin-left: 5em;
-    margin-right: 5em;  
-    border-radius: 1.2em;
-    border-color: rgb(193, 220, 224);
-    cursor: pointer;
-    background-color: rgb(73, 114, 73);
+  height: 4em;
+  width: 10em;
+  margin-left: 5em;
+  margin-right: 5em;
+  border-radius: 1.2em;
+  border-color: rgb(193, 220, 224);
+  cursor: pointer;
+  background-color: rgb(73, 114, 73);
 }
 
 .card-image {

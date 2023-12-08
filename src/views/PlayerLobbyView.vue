@@ -115,7 +115,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 body {
   background-color: rgb(233, 233, 223);
   font-size: 1.3em;
