@@ -4,6 +4,11 @@
     <br />
   </div>
 
+  <section class="gameSettings">
+    <p>{{ uiLabels.pointsSetting }}: {{ this.gameInfo.pointsSetting }}</p>
+    <p>{{ uiLabels.inputGuesses }}: {{ this.gameInfo.guessesNumber }}</p>
+  </section>
+
   <section id="input_wrappers">
     <h2>{{ uiLabels.formTitle }}</h2>
     <button id="scramble_button" v-on:click="scramblePlayerOrder">
@@ -51,6 +56,7 @@ export default {
       uiLabels: {},
       gameId: "inactive game",
       playerList: [],
+      gameInfo: {},
     };
   },
   created: function () {
@@ -62,6 +68,8 @@ export default {
 
     socket.on("gameInfo", (game) => {
       this.playerList = game.players;
+      this.gameInfo.pointsSetting = game.pointsSetting;
+      this.gameInfo.guessesNumber = game.guessesNumber;
     });
 
     socket.on("playerList", (players) => {
@@ -129,6 +137,14 @@ body {
   background-color: rgb(233, 233, 223);
   font-size: 1.3em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.gameSettings {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  width: 40%;
 }
 
 #input_wrappers {

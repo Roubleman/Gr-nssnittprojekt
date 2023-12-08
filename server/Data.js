@@ -38,6 +38,7 @@ Data.prototype.createGame = function (
     } else if (pointsSetting === "hard") {
       game.pointsMultiplier = 2;
     }
+    game.pointsSetting = pointsSetting;
     game.guessesNumber = guessesNumber;
     game.deckOfCards = deckOfCards;
     player.name = hostName;
@@ -263,6 +264,22 @@ Data.prototype.fuckTheDealer = function (gameId, secondGuess) {
     }
     game.errorsRemaining = game.guessesNumber;
   }
+};
+
+Data.prototype.createTestGame = function (playingCards) {
+  //ta bort sen när vi inte behöver testa
+  this.createGame(
+    "test",
+    "en",
+    "normal",
+    3,
+    "player1",
+    playingCards,
+    "/img/crownAvatar.png"
+  );
+  this.joinGame("test", "player2", "/img/Avatars/alienAvatar.png");
+  this.joinGame("test", "player3", "/img/Avatars/alienAvatar.png");
+  this.initializeGame("test");
 };
 
 export { Data };

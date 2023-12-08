@@ -20,6 +20,11 @@ function sockets(io, socket, data) {
     socket.emit("gameIdChecked", data.checkGameId(gameId));
   });
 
+  socket.on("createTestGame", function (playingCards) {
+    //ta bort sen när vi inte behöver testa
+    data.createTestGame(playingCards);
+  });
+
   socket.on("createGame", function (d) {
     data.createGame(
       d.gameId,

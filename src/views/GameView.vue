@@ -1,17 +1,30 @@
 <template>
-  <header id="header-style">Cards</header>
+  <header id="header-style">{{ uiLabels.gameViewHeadline }}</header>
+
+  <section class="currentDealerGuesser">
+    <p v-if="!this.isDealer">
+      {{ uiLabels.currentDealer }}: {{ this.dealerName }}
+    </p>
+    <p v-if="!this.isGuesser">
+      {{ uiLabels.currentGuesser }}: {{ this.guesserName }}
+    </p>
+  </section>
 
   <section class="dealer-view" v-if="this.isDealer">
+    <h1>{{ uiLabels.dealerHeader }}</h1>
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
       v-bind:higherLower="this.higherLower"
       v-bind:uiLabels="this.uiLabels"
+      v-bind:guessedCard="this.cardGuessed"
       v-on:dealerCheck="dealerHasChecked()"
     >
     </Dealer>
   </section>
   <section class="player-view" v-else>
+    <h1 v-if="this.isGuesser">{{ uiLabels.playerHeader }}</h1>
+    <h1 v-else>{{ uiLabels.spectatorHeader }}</h1>
     <Player
       v-on:wrongGuess="guessCard($event)"
       v-on:guessCorrect="correctGuess()"
@@ -25,7 +38,9 @@
     </Player>
   </section>
   <section class="leaderboard">
+    <h1>Leaderboard</h1>
     <li v-for="player in leaderboard">
+      <img :src="player.avatar" class="avatar" />
       {{ player.name }}: {{ player.points }}
     </li>
   </section>
@@ -35,6 +50,7 @@
 import io from "socket.io-client";
 import Dealer from "@/components/DealerComponent.vue";
 import Player from "@/components/PlayersComponent.vue";
+import DeckOfCards from "@/assets/DeckOfCards.json";
 const socket = io("localhost:3000");
 
 export default {
@@ -48,7 +64,7 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       uiLabels: {},
-      playingCards: [],
+      playingCards: DeckOfCards, // ta bort sen när vi inte behöver testa
       cardGuessed: {},
       gameId: "inactive game",
       playerList: [],
@@ -58,22 +74,36 @@ export default {
       playerIndex: 0,
       isDealer: false,
       isGuesser: false,
-      playerName: "",
+      playerName: sessionStorage.getItem("playerName"),
       higherLower: false,
       dealerChecked: false,
       secondGuess: false,
+      dealerName: "",
+      guesserName: "",
     };
   },
 
   created: function () {
     this.gameId = this.$route.params.id;
 
+    if (
+      // ta bort sen när vi inte behöver testa
+      this.gameId === "test1" ||
+      this.gameId === "test2" ||
+      this.gameId === "test3"
+    ) {
+      this.playerName = "player" + this.gameId.slice(-1);
+      if (this.gameId === "test1") {
+        socket.emit("createTestGame", this.playingCards);
+      }
+      this.gameId = "test";
+    }
+
     socket.emit("joinSocket", this.gameId);
 
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
-      this.playerName = sessionStorage.getItem("playerName");
       this.playerList = game.players;
       this.leaderboard = this.getLeaderboard();
       this.gameInfo.errorsRemaining = game.errorsRemaining;
@@ -89,6 +119,8 @@ export default {
       }
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
+      this.dealerName = this.playerList[this.gameInfo.dealerIndex].name;
+      this.guesserName = this.playerList[this.gameInfo.guesserIndex].name;
     });
 
     socket.on("gameUpdate", (game) => {
@@ -165,6 +197,13 @@ export default {
   background-color: rgb(73, 114, 73);
 }
 
+h1 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
 .no-selection {
   user-select: none;
   -webkit-user-select: none;
@@ -184,5 +223,31 @@ export default {
 
 .dealer-view {
   --card-width: 20em;
+}
+
+.avatar {
+  width: 1.3em;
+  height: auto;
+}
+
+.leaderboard {
+  list-style-type: decimal;
+  color: white;
+  width: 15em;
+  border-style: inset;
+  border-color: rgba(252, 16, 48, 0.707);
+  border-width: 1em;
+  background-color: rgb(73, 114, 73);
+  margin: 2em auto;
+}
+
+.leaderboard li {
+  padding: 0.3em;
+}
+
+.currentDealerGuesser {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 </style>

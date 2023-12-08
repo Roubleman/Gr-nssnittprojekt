@@ -1,10 +1,12 @@
 [
 
+
     {
         "value": "A",
         "suit": "",
         "points" : 1
     },
+
 
     {
         "value" : "2",
@@ -12,11 +14,13 @@
         "points" : 2
     },
 
+
     {
         "value" : "3",
         "suit" : "",
         "points" : 3
     },
+
 
     {
         "value" : "4",
@@ -24,11 +28,13 @@
         "points" : 4
     },
 
+
     {
         "value" : "5",
         "suit" : "",
         "points" : 5
     },
+
 
     {
         "value" : "6",
@@ -41,11 +47,13 @@
         "points" : 7
     },
 
+
     {
         "value" : "8",
         "suit" : "",
         "points" : 8
     },
+
 
     {
         "value" : "9",
@@ -53,11 +61,13 @@
         "points" : 9
     },
 
+
     {
         "value" : "10",
         "suit" : "",
         "points" : 10
     },
+
 
     {
         "value" : "J",
@@ -65,16 +75,19 @@
         "points" : 11
     },
 
+
     {
         "value" : "Q",
         "suit" : "",
         "points" : 12
     },
 
+
     {
         "value" : "K",
         "suit" : "",
         "points" : 13
     }
+
 
 ]

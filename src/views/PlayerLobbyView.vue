@@ -4,6 +4,11 @@
     <br />
   </div>
 
+  <section class="gameSettings">
+    <p>{{ uiLabels.pointsSetting }}: {{ this.gameInfo.pointsSetting }}</p>
+    <p>{{ uiLabels.inputGuesses }}: {{ this.gameInfo.guessesNumber }}</p>
+  </section>
+
   <section id="input_wrappers">
     <h2>{{ uiLabels.formTitle }}</h2>
     <section class="player-list">
@@ -42,6 +47,7 @@ export default {
       playerList: [],
       playerName: "",
       player: {},
+      gameInfo: {},
     };
   },
   created: function () {
@@ -53,6 +59,8 @@ export default {
       this.playerList = game.players;
       this.player = this.playerList[this.playerList.length - 1];
       this.playerName = this.player.name;
+      this.gameInfo.pointsSetting = game.pointsSetting;
+      this.gameInfo.guessesNumber = game.guessesNumber;
     });
 
     socket.emit("lobbyJoined", this.gameId);
@@ -118,6 +126,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.gameSettings {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  width: 40%;
 }
 
 .player-list {
