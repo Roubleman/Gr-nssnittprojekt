@@ -4,11 +4,11 @@
   <section class="currentDealerGuesser">
     <p v-if="!this.isDealer" class="styled-box">
       {{ uiLabels.currentDealer }} <br>
-     <div class="name-display"> <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.dealerIndex].name }}</div>
+     <p class="name-display"> <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.dealerIndex].name }}</p>
     </p>
     <p v-if="!this.isGuesser" class="styled-box">
       {{ uiLabels.currentGuesser }} <br>
-      <div class="name-display"><img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.guesserIndex].name }}</div>
+      <p class="name-display"><img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.guesserIndex].name }}</p>
     </p>
   </section>
 
