@@ -95,6 +95,7 @@ export default {
       this.selectedCard = card;
     },
 
+
     confirmSelection() {
       if (this.selectedCard) {
         this.isConfirmed = true;
@@ -140,45 +141,7 @@ export default {
     checkCard(card) {
       return card.value === this.correctvalue;
     },
-    getColumn(value) {
-      const positions = {
-        2: 1,
-        3: 2,
-        4: 3,
-        5: 4,
-        6: 5,
-        7: 6,
-        8: 7,
-        9: 1,
-        10: 2,
-        J: 3,
-        Q: 4,
-        K: 5,
-        A: 6,
-      };
-      return positions[value];
-    },
-    getRow(value) {
-      const positions = {
-        2: 1,
-        3: 1,
-        4: 1,
-        5: 1,
-        6: 1,
-        7: 1,
-        8: 1,
-        9: 2,
-        10: 2,
-        J: 2,
-        Q: 2,
-        K: 2,
-        A: 2,
-      };
-      return positions[value];
-    },
-    getZIndex(card) {
-      return card.zIndex;
-    },
+
   },
 };
 </script>
@@ -262,9 +225,7 @@ export default {
 }
 
 
-.card-grid {
-  display: contents;
-}
+
 
 
 .card-border {
