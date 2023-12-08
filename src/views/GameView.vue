@@ -2,13 +2,13 @@
   <header id="header-style">{{ uiLabels.gameViewHeadline }}</header>
 
   <section class="currentDealerGuesser">
-    <p v-if="!this.isDealer">
-      {{ uiLabels.currentDealer }}:
-      {{ this.playerList[gameInfo.dealerIndex].name }}
+    <p v-if="!this.isDealer" class="styled-box">
+      {{ uiLabels.currentDealer }} <br>
+     <div class="name-display"> <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.dealerIndex].name }}</div>
     </p>
-    <p v-if="!this.isGuesser">
-      {{ uiLabels.currentGuesser }}:
-      {{ this.playerList[gameInfo.guesserIndex].name }}
+    <p v-if="!this.isGuesser" class="styled-box">
+      {{ uiLabels.currentGuesser }} <br>
+      <div class="name-display"><img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.guesserIndex].name }}</div>
     </p>
   </section>
 
@@ -243,6 +243,21 @@ h1 {
   border-width: 1em;
   background-color: rgb(73, 114, 73);
   margin: 2em auto;
+}
+
+.styled-box {
+  list-style-type: decimal;
+  color: white;
+  width: 15em;
+  border-style: inset;
+  border-color: rgba(252, 16, 48, 0.707);
+  border-width: 0.5em;
+  background-color: rgb(73, 114, 73);
+  margin: 2em auto;
+}
+
+.name-display {
+  font-weight: bold;
 }
 
 .leaderboard li {
