@@ -3,12 +3,12 @@
 
   <section class="currentDealerGuesser">
     <p v-if="!this.isDealer" class="styled-box">
-      {{ uiLabels.currentDealer }} <br>
-     <div class="name-display"> <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.dealerIndex].name }}</div>
+      {{ uiLabels.currentDealer }}<br>
+     <p class="name-display"> <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.dealerIndex].name }}</p>
     </p>
     <p v-if="!this.isGuesser" class="styled-box">
-      {{ uiLabels.currentGuesser }} <br>
-      <div class="name-display"><img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.guesserIndex].name }}</div>
+      {{ uiLabels.currentGuesser }}<br>
+      <p class="name-display"><img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.guesserIndex].name }}</p>
     </p>
   </section>
 
@@ -45,11 +45,11 @@
     <h1>Leaderboard</h1>
     <table class="leaderboard-table">
       <tr class="leaderboard-grid">
-        <th class="text-center" > {{ uiLabels.player }} </th>
+        <th class="text-center"> {{ uiLabels.player }} </th>
         <th class="text-center"> {{  uiLabels.points }} </th>
       </tr>
       <tr v-for="player in leaderboard">
-        <td class="text-center"> <img :src="player.avatar" class="avatar"/> {{ player.name }}></td>
+        <td class="text-center name-display"> <img :src="player.avatar" class="avatar"/> {{ player.name }}</td>
         <td class="text-center"> {{ player.points }} </td>
       </tr>
     </table>

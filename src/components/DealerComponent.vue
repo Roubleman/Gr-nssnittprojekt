@@ -1,10 +1,17 @@
 <template>
   <header id="dealer_header"> </header>
-  <!-- Got help from mr GPT-3.5 -->
+  <div v-if="higherLower" class="guess-box"> 
+      <OneCard
+      class="card-facing-up"
+      v-bind:card="guessedCard" v-bind:key="guessedCard.points"
+      />
+    </div>
+
   <div class="scene">
     <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
      {{ uiLabels.lower }}
     </button>
+     <!-- Got help from mr GPT-3.5 -->
     <vue-flip
       active-click
       class="flip-card"
@@ -44,10 +51,15 @@ export default {
     currentCardIndex: Number,
     higherLower: Boolean,
     uiLabels: Object,
+    guessedCard: Object
   },
   components: {
     OneCard,
     "vue-flip": VueFlip,
+  },
+  data () {
+    return {
+    }
   },
 
   methods: {
@@ -128,6 +140,7 @@ export default {
 }
 
 .card-facing-up {
+  cursor: pointer;
   background-color: white;
   z-index: 3;
   transition: none !important;
