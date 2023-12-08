@@ -2,14 +2,14 @@
   <header id="header-style">{{ uiLabels.gameViewHeadline }}</header>
 
   <section class="currentDealerGuesser">
-    <p v-if="!this.isDealer" class="styled-box">
+    <div v-if="!this.isDealer" class="styled-box">
       {{ uiLabels.currentDealer }} <br>
      <p class="name-display"> <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.dealerIndex].name }}</p>
-    </p>
-    <p v-if="!this.isGuesser" class="styled-box">
+    </div>
+    <div v-if="!this.isGuesser" class="styled-box">
       {{ uiLabels.currentGuesser }} <br>
       <p class="name-display"><img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar"/> {{ this.playerList[gameInfo.guesserIndex].name }}</p>
-    </p>
+    </div>
   </section>
 
   <section class="dealer-view" v-if="this.isDealer">
