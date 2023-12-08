@@ -26,7 +26,7 @@
 
   <section class="dealer-view" v-if="this.isDealer">
     <h1 class="h1 name-display"> <img
-          :src="this.playerList[gameInfo.dealerIndex].avatar"
+          :src="this.player.avatar"
           class="avatar"
         />
         {{ this.playerList[gameInfo.dealerIndex].name }}, <br> {{ uiLabels.dealerHeader }}</h1>
@@ -41,10 +41,13 @@
     </Dealer>
   </section>
   <section class="player-view" v-else>
-    <h1 class="h1" v-if="this.isGuesser">
-      {{ this.playerName }}, {{ uiLabels.playerHeader }}
+    <h1 class="h1 name-display" v-if="this.isGuesser">
+      <img
+          :src="this.player.avatar"
+          class="avatar"
+        /> {{ this.playerName }}, {{ uiLabels.playerHeader }}
     </h1>
-    <h1 class="h1" v-else>
+    <h1 class="h1 name-display" v-else>
       {{ this.playerName }}, {{ uiLabels.spectatorHeader }}
     </h1>
     <Player
