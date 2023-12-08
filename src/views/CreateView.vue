@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ uiLabels.createHeading }}</h1>
+    <h1 class="heading">{{ uiLabels.createHeading }}</h1>
     <section id="global_section">
       <section class="create-setting">
         {{ uiLabels.inputGuesses }}: {{ guessesNumber }}
@@ -124,13 +124,7 @@ export default {
 </script>
 
 <style scoped>
-body {
-  background-color: rgb(233, 233, 223);
-  font-size: 1.3em;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-h1 {
+.heading {
   font-size: 3em;
   margin: 0.5em;
   margin-bottom: 0.8em;
