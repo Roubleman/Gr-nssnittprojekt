@@ -3,10 +3,12 @@
 
   <section class="currentDealerGuesser">
     <p v-if="!this.isDealer">
-      {{ uiLabels.currentDealer }}: {{ this.dealerName }}
+      {{ uiLabels.currentDealer }}:
+      {{ this.playerList[gameInfo.dealerIndex].name }}
     </p>
     <p v-if="!this.isGuesser">
-      {{ uiLabels.currentGuesser }}: {{ this.guesserName }}
+      {{ uiLabels.currentGuesser }}:
+      {{ this.playerList[gameInfo.guesserIndex].name }}
     </p>
   </section>
 
@@ -80,8 +82,6 @@ export default {
       higherLower: false,
       dealerChecked: false,
       secondGuess: false,
-      dealerName: "",
-      guesserName: "",
     };
   },
 
@@ -121,8 +121,6 @@ export default {
       }
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
-      this.dealerName = this.playerList[this.gameInfo.dealerIndex].name;
-      this.guesserName = this.playerList[this.gameInfo.guesserIndex].name;
     });
 
     socket.on("gameUpdate", (game) => {
@@ -132,8 +130,6 @@ export default {
       this.gameInfo.currentCardIndex = game.currentCardIndex;
       this.gameInfo.dealerIndex = game.dealerIndex;
       this.gameInfo.guesserIndex = game.guesserIndex;
-      this.dealer = this.playerList[this.gameInfo.dealerIndex];
-      this.guesser = this.playerList[this.gameInfo.guesserIndex];
       this.player = this.playerList[this.playerIndex];
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
