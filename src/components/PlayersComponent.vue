@@ -6,21 +6,12 @@
   <h1>Your turn</h1>
   <!-- The skeleton code of this Onecard is provided by chat gpt 3.5 -->
   <div class="card-flex">
-    <OneCard
-      v-for="card in displayableDeck"
-      :card="card"
-      :key="card.suit + card.value"
-      :isClickable="isGuesser"
-      v-on:selectedCard="selectCard($event)"
-      :class="{
+    <OneCard v-for="card in displayableDeck" :card="card" :key="card.suit + card.value" :isClickable="isGuesser"
+      v-on:selectedCard="selectCard($event)" :class="{
         selected: selectedCard === card,
         blur: shouldBlur && card === firstGuessedCard,
         'selected-card': cardsOutOfPlay.includes(card),
-      }"
-      width="8em"
-      height="8em"
-      class="no-selection"
-    >
+      }" width="8em" height="8em" class="no-selection">
     </OneCard>
 
 
@@ -103,43 +94,6 @@ export default {
       }
       this.selectedCard = card;
     },
-    getCardStyle(card) {
-      // Find all cards with the same value, excluding the current card
-      const otherCardsWithSameValue = this.cardsOutOfPlay.filter(
-        (c) => c.value === card.value && c !== card
-      );
-
-
-      // Find the highest z-index among those cards
-      const highestZIndex = Math.max(
-        ...otherCardsWithSameValue.map((c) => c.zIndex),
-        -1
-      );
-
-
-      // Define the base style
-      let style = {
-        "grid-row-start": this.getRow(card.value),
-        "grid-column-start": this.getColumn(card.value),
-        "z-index": card.zIndex + 1, // Default to the card's z-index
-      };
-
-
-      // Check if the current card has the highest z-index among cards with the same value
-      if (card.zIndex === highestZIndex) {
-        style["z-index"] = 0; // Set z-index to the lowest
-      }
-
-
-      // Adjust the position if the card is in cardsOutOfPlay array
-      if (this.cardsOutOfPlay.includes(card)) {
-        style["transform"] = "translateY(-10px)";
-      }
-
-
-      return style;
-    },
-
 
     confirmSelection() {
       if (this.selectedCard) {
