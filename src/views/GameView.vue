@@ -129,7 +129,7 @@ export default {
       }
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
-      this.fancyDeck = this.createDeckObject(this.playingCards);
+      this.fancyDeck = this.createFancyDeck(this.playingCards);
     });
 
     socket.on("gameUpdate", (game) => {
@@ -149,9 +149,12 @@ export default {
       this.dealerChecked = true;
     });
 
-    socket.on("wrongGuess", (card) => {
-      this.higherLower = true;
-      this.cardGuessed = card;
+    socket.on("wrongGuess", (data) => {
+      if (data.secondGuess) {
+        this.higherLower = true;
+        this.secondGuess = false;
+      }
+      this.cardGuessed = data.card;
     });
 
     socket.emit("pageLoaded", this.lang);
