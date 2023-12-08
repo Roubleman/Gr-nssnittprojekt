@@ -32,5 +32,11 @@
   "backToHomepage": "Tillbaka till startsidan",
   "lower": "Lägre",
   "higher": "Högre",
-  "youAreTheDealer": "Du är dealer!"
+  "youAreTheDealer": "Du är dealer!",
+  "gameViewHeadline": "Nu kör vi!",
+  "dealerHeader": "Du är dealer!",
+  "playerHeader": "Din tur att gissa!",
+  "spectatorHeader": "Du är spektator!",
+  "currentDealer": "Den som är dealer",
+  "currentGuesser": "Den som gissar"
 } 
