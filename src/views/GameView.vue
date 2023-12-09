@@ -64,8 +64,10 @@
         <th class="text-center">{{ uiLabels.points }}</th>
       </tr>
       <tr v-for="player in leaderboard">
-        <td class="text-center"> <img :src="player.avatar" class="avatar"/> {{ player.name }}</td>
-        <td class="text-center"> {{ player.points }} </td>
+        <td class="text-center">
+          <img :src="player.avatar" class="avatar" /> {{ player.name }}
+        </td>
+        <td class="text-center">{{ player.points }}</td>
       </tr>
     </table>
   </section>
@@ -104,6 +106,7 @@ export default {
       higherLower: false,
       dealerChecked: false,
       secondGuess: false,
+      pointsIncreased: 0,
     };
   },
 
@@ -170,6 +173,10 @@ export default {
         this.secondGuess = false;
       }
       this.cardGuessed = data.card;
+    });
+
+    socket.on("guesserPointsIncreased", (points) => {
+      this.pointsIncreased = points;
     });
 
     socket.emit("pageLoaded", this.lang);

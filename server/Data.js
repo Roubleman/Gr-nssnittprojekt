@@ -160,17 +160,6 @@ Data.prototype.initializeGame = function (gameId) {
   }
 };
 
-Data.prototype.guessCard = function (gameId, playerName, cardPoint) {
-  const game = this.games[gameId];
-  if (typeof game !== "undefined") {
-    if (game.deckOfCards[game.currentCardIndex].points === cardPoint) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-};
-
 Data.prototype.nextRound = function (gameId) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
@@ -250,6 +239,7 @@ Data.prototype.increasePoints = function (gameId, playerName, cardPoint) {
         console.log("points increased", gameId, playerName, pointsIncrease);
       }
     }
+    return pointsIncrease;
   }
 };
 

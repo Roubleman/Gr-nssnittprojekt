@@ -100,7 +100,10 @@ function sockets(io, socket, data) {
       secondGuess: d.secondGuess,
     });
     if (d.secondGuess) {
-      //increase Points
+      io.to(d.gameId).emit(
+        "guesserPointsIncreased",
+        data.increasePoints(d.gameId, d.playerName, d.card.points)
+      );
     }
   });
 
