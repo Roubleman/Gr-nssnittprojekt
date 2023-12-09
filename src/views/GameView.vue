@@ -254,14 +254,45 @@ export default {
       for (let i = 0; i < valueArray.length; i++) {
         let deckObject = {
           value: valueArray[i],
-          cards: deck.filter((card) => card.value === valueArray[i]),
+          cards: [
+            {
+              value: valueArray[i],
+              suit: "",
+              points: this.shadowGhostCardFunctionMaker(valueArray[i]),
+            },
+          ],
         };
+
+        /*deckObject.cards.push(
+          deck.filter((card) => card.value === valueArray[i])
+        ); BEHÖVER FIXA SÅ ATT DEN LÄGGS IN I ARRAYEN PÅ RÄTT SÄTT!!*/
+
         for (let card of deckObject.cards) {
-          card.isVisible = false;
+          if (card.suit === "") {
+            card.isVisible = true;
+          } else {
+            card.isVisible = false;
+          }
         }
         fancyDeck.push(deckObject);
       }
+      console.log(fancyDeck);
       return fancyDeck;
+    },
+
+    shadowGhostCardFunctionMaker(value) {
+      switch (value) {
+        case "A":
+          return 1;
+        case "J":
+          return 11;
+        case "Q":
+          return 12;
+        case "K":
+          return 13;
+        default:
+          return parseInt(value);
+      }
     },
   },
 };

@@ -16,10 +16,9 @@
           selected: selectedCard === card,
           blur: shouldBlur && card === firstGuessedCard,
           'selected-card': cardsOutOfPlay.includes(card),
-          //[ShowCardOnTop(card)]: true,
         }"
-        width="8em"
-        height="8em"
+        width="--card-height"
+        height="--card-height"
         class="no-selection OneCard"
       >
       </OneCard>
@@ -28,7 +27,13 @@
   </div>
 
   <section>
-    <button v-if="isGuesser" @click="confirmSelection(card)" id="confirm-button">Confirm</button>
+    <button
+      v-if="isGuesser"
+      @click="confirmSelection(card)"
+      id="confirm-button"
+    >
+      Confirm
+    </button>
   </section>
   <div v-if="popup.isVisible" class="popup" :class="popup.type">
     <p>{{ popup.message }}</p>
@@ -79,9 +84,6 @@ export default {
     },
   },
   methods: {
-    showCardOnTop(card) {
-      // HÄR SKRIVER JAG VILKEN CSS CLASS SOM SKA RETURNERAS
-    },
     selectCard(card) {
       if (
         this.wrongGuesses >= 2 ||
@@ -95,37 +97,6 @@ export default {
         this.firstGuessedCard = card;
       }
       this.selectedCard = card;
-    },
-    getCardStyle(card) {
-      // Find all cards with the same value, excluding the current card
-      const otherCardsWithSameValue = this.cardsOutOfPlay.filter(
-        (c) => c.value === card.value && c !== card
-      );
-
-      // Find the highest z-index among those cards
-      const highestZIndex = Math.max(
-        ...otherCardsWithSameValue.map((c) => c.zIndex),
-        -1
-      );
-
-      // Define the base style
-      let style = {
-        "grid-row-start": this.getRow(card.value),
-        "grid-column-start": this.getColumn(card.value),
-        "z-index": card.zIndex + 1, // Default to the card's z-index
-      };
-
-      // Check if the current card has the highest z-index among cards with the same value
-      if (card.zIndex === highestZIndex) {
-        style["z-index"] = 0; // Set z-index to the lowest
-      }
-
-      // Adjust the position if the card is in cardsOutOfPlay array
-      if (this.cardsOutOfPlay.includes(card)) {
-        style["transform"] = "translateY(-10px)";
-      }
-
-      return style;
     },
 
     confirmSelection() {
@@ -171,45 +142,6 @@ export default {
     },
     checkCard(card) {
       return card.value === this.correctValue;
-    },
-    getColumn(value) {
-      const positions = {
-        2: 1,
-        3: 2,
-        4: 3,
-        5: 4,
-        6: 5,
-        7: 6,
-        8: 7,
-        9: 1,
-        10: 2,
-        J: 3,
-        Q: 4,
-        K: 5,
-        A: 6,
-      };
-      return positions[value];
-    },
-    getRow(value) {
-      const positions = {
-        2: 1,
-        3: 1,
-        4: 1,
-        5: 1,
-        6: 1,
-        7: 1,
-        8: 1,
-        9: 2,
-        10: 2,
-        J: 2,
-        Q: 2,
-        K: 2,
-        A: 2,
-      };
-      return positions[value];
-    },
-    getZIndex(card) {
-      return card.zIndex;
     },
   },
 };
@@ -284,15 +216,6 @@ export default {
   position: relative;
   margin-left: 10em;
   width: calc(100% - 20em);
-}
-
-.card-border {
-  background-color: lightgray;
-  border: 2px dotted grey;
-}
-
-.absolute {
-  position: absolute;
 }
 
 .OneCard:nth-child(1) {
