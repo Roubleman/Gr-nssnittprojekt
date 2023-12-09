@@ -1,17 +1,25 @@
 <template>
-  <header id="dealer_header"> </header>
+  <header id="dealer_header"></header>
 
-  <div class="scene">
-    <div>
+  <section class="scene">
+    <div v-if="higherLower" class="guessed-card">
       <OneCard
-      class="card-facing-up"
-      v-bind:card="testCard"
-      :width="cardWidth"
-      :height="cardHeight"
+        v-bind:card="guessedCard"
+        :key="guessedCard.suit + guessedCard.value"
+        class="card-facing-up"
       />
     </div>
 
-    <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
+    <button
+      class="dealer-button"
+      @click="emitHigherLower"
+      v-if="higherLower"
+      disabled="guessedCard.points > playingCards[currentCardIndex].points"
+      :style="{
+        opacity:
+          guessedCard.points > playingCards[currentCardIndex].points ? 0.5 : 1,
+      }"
+    >
       {{ uiLabels.lower }}
     </button>
     <!-- Got help from mr GPT-3.5 -->
@@ -37,10 +45,19 @@
         />
       </template>
     </vue-flip>
-    <button class="dealer-button" @click="emitHigherLower" v-if="higherLower">
+    <button
+      class="dealer-button"
+      @click="emitHigherLower"
+      v-if="higherLower"
+      disabled="guessedCard.points < playingCards[currentCardIndex].points"
+      :style="{
+        opacity:
+          guessedCard.points < playingCards[currentCardIndex].points ? 0.5 : 1,
+      }"
+    >
       {{ uiLabels.higher }}
     </button>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -60,16 +77,6 @@ export default {
     OneCard,
     "vue-flip": VueFlip,
   },
-  data () {
-    return {
-      testCard: {
-        value: "2",
-        suit: "hearts",
-        points: 2
-      },
-    }
-  },
-
   methods: {
     emitHigherLower() {
       this.$emit("dealerCheck");
@@ -88,6 +95,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .scene {
   display: flex;
   justify-content: center;
@@ -155,5 +165,15 @@ export default {
   transform: none !important;
   height: 100% !important;
   width: 100% !important;
+}
+
+.guessed-card {
+  overflow: hidden;
+  width: 13.2em;
+  height: 20em;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

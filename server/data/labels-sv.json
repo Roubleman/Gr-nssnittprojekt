@@ -46,5 +46,7 @@
   "losePopup":  "Du gissa fel kort! Du förlorar!",
  "winPopup": "Du gissa rätt kort!",
  "wrongGuessPopup": "Du gissa fel kort, ett försök till!",
- "leaderboardTitle": "Poängställning"
+ "leaderboardTitle": "Poängställning",
+ "thisIsTheGuessedCard": "Gissat kort:",
+ "placement": "Placering"
 }

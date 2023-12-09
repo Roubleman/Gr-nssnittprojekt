@@ -25,7 +25,11 @@
   </section>
 
   <section class="dealer-view" v-if="this.isDealer">
-    <h1 class="h1">{{ this.playerName }}, {{ uiLabels.dealerHeader }}</h1>
+    <h1 class="h1 name-display">
+      <img :src="this.player.avatar" class="avatar" />
+      {{ this.playerList[gameInfo.dealerIndex].name }}, <br />
+      {{ uiLabels.dealerHeader }}
+    </h1>
     <Dealer
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
@@ -37,10 +41,11 @@
     </Dealer>
   </section>
   <section class="player-view" v-else>
-    <h1 class="h1" v-if="this.isGuesser">
-      {{ this.playerName }}, {{ uiLabels.playerHeader }}
+    <h1 class="h1 name-display" v-if="this.isGuesser">
+      <img :src="this.player.avatar" class="avatar" /> {{ this.playerName }},
+      {{ uiLabels.playerHeader }}
     </h1>
-    <h1 class="h1" v-else>
+    <h1 class="h1 name-display" v-else>
       {{ this.playerName }}, {{ uiLabels.spectatorHeader }}
     </h1>
     <Player
@@ -60,10 +65,25 @@
     <h1>{{ uiLabels.leaderboardTitle }}</h1>
     <table class="leaderboard-table">
       <tr class="leaderboard-grid">
+        <th class="text-center">{{ uiLabels.placement }}</th>
         <th class="text-center">{{ uiLabels.player }}</th>
         <th class="text-center">{{ uiLabels.points }}</th>
       </tr>
-      <tr v-for="player in leaderboard">
+      <tr v-for="(player, index) in leaderboard" :key="index">
+        <td class="text-center medal-cell">
+          <img v-if="index === 0" :src="'/img/goldMedal.png'" class="avatar" />
+          <img
+            v-else-if="index === 1"
+            :src="'/img/silverMedal.png'"
+            class="avatar"
+          />
+          <img
+            v-else-if="index === 2"
+            :src="'/img/bronzeMedal.png'"
+            class="avatar"
+          />
+          <span v-else> {{ index + 1 }}.</span>
+        </td>
         <td class="text-center">
           <img :src="player.avatar" class="avatar" /> {{ player.name }}
         </td>
@@ -239,14 +259,45 @@ export default {
       for (let i = 0; i < valueArray.length; i++) {
         let deckObject = {
           value: valueArray[i],
-          cards: deck.filter((card) => card.value === valueArray[i]),
+          cards: [
+            {
+              value: valueArray[i],
+              suit: "",
+              points: this.shadowGhostCardFunctionMaker(valueArray[i]),
+            },
+          ],
         };
+
+        /*deckObject.cards.push(
+          deck.filter((card) => card.value === valueArray[i])
+        ); BEHÖVER FIXA SÅ ATT DEN LÄGGS IN I ARRAYEN PÅ RÄTT SÄTT!!*/
+
         for (let card of deckObject.cards) {
-          card.isVisible = false;
+          if (card.suit === "") {
+            card.isVisible = true;
+          } else {
+            card.isVisible = false;
+          }
         }
         fancyDeck.push(deckObject);
       }
+      console.log(fancyDeck);
       return fancyDeck;
+    },
+
+    shadowGhostCardFunctionMaker(value) {
+      switch (value) {
+        case "A":
+          return 1;
+        case "J":
+          return 11;
+        case "Q":
+          return 12;
+        case "K":
+          return 13;
+        default:
+          return parseInt(value);
+      }
     },
   },
 };
@@ -323,7 +374,7 @@ export default {
 }
 
 .name-display {
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .leaderboard li {
@@ -341,13 +392,19 @@ export default {
   border-collapse: collapse;
 }
 
+.medal-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .text-center {
   text-align: center;
 }
 
 th,
 td {
-  padding: 0.8em;
+  padding: 0.5em;
   text-align: center;
 }
 

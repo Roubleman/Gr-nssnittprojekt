@@ -48,7 +48,7 @@
           </div>
         </section>
 
-        <section v-else>
+        <section v-else style="height:100%; display: flex; justify-content: center; align-items: center;">
           <span id="ace" v-html="'&' + card.suit + ';'"></span>
         </section>
       </section>
@@ -181,6 +181,7 @@ export default {
 .grid-container {
   display: grid;
   grid-template-columns: 0.3em 1fr 0.3em;
+  height: 100%;
 }
 
 .card-corner-left {
