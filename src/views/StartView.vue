@@ -49,8 +49,16 @@
     <section class="input-boxes">
       <label>
         {{ uiLabels.inputName }}:
-        <input class="input" type="text" v-model="name" />
-        <p class="explanation">{{ uiLabels.nameExplanation }}</p>
+        <input
+          class="input"
+          type="text"
+          v-model="name"
+          v-on:input="checkName()"
+        />
+        <p class="input-error" v-if="!nameAvailable">
+          {{ uiLabels.nameUnavailable }}
+        </p>
+        <p class="explanation" v-else>{{ uiLabels.nameExplanation }}</p>
       </label>
     </section>
     <section class="input-boxes">
@@ -60,9 +68,15 @@
           class="input"
           type="text"
           v-model="id"
-          v-on:input="id = id.replace(/\s/g, '')"
+          v-on:input="
+            id = id.replace(/\s/g, '');
+            checkGameId();
+          "
         />
-        <p class="explanation">{{ uiLabels.inputGameIdExplanation }}</p>
+        <p class="input-error" v-if="!gameIdExists">
+          {{ uiLabels.gameIdNotFound }}
+        </p>
+        <p class="explanation" v-else>{{ uiLabels.inputGameIdExplanation }}</p>
       </label>
     </section>
     <section class="input-boxes">
@@ -82,7 +96,7 @@
   <section style="padding-top: 1em; margin-bottom: 10em">
     <button
       class="join-button join-button2"
-      v-on:click="tryToJoin"
+      v-on:click="sendPlayerInfo()"
       :class="{
         joinButtonIsDisabled: !this.inputChecker(),
         popupRemoveButton: this.removeButton,
@@ -90,18 +104,6 @@
     >
       {{ uiLabels.joinGame }}
     </button>
-    <!-- <router-link
-      class="join-button join-button2"
-      v-bind:to="'/join/' + this.id"
-      v-bind:class="[
-        join - button,
-        join - button2,
-        { joinButtonIsDisabled: this.inputChecker() },
-        { popupRemoveButton: this.removeButton },
-      ]"
-      @click="this.sendPlayerInfo()"
-      >{{ uiLabels.joinGame }}</router-link
-    > -->
   </section>
 </template>
 
@@ -123,7 +125,8 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       hideNav: true,
       removeButton: false,
-      valuesAccepted: false,
+      nameAvailable: true,
+      gameIdExists: true,
       avatars: [
         "/img/Avatars/alienAvatar.png",
         "/img/Avatars/clownAvatar.png",
@@ -145,10 +148,14 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
-    socket.on("gameValuesChecked", (checkBool) => {
-      console.log("game values accepted");
-      this.valuesAccepted = checkBool;
-      this.sendPlayerInfo();
+    socket.on("nameChecked", (checkBool) => {
+      this.nameAvailable = checkBool;
+    });
+    socket.on("gameIdChecked", (checkBool) => {
+      this.gameIdExists = !checkBool;
+      if (this.gameIdExists) {
+        this.checkName();
+      }
     });
   },
   methods: {
@@ -209,34 +216,32 @@ export default {
       }
     },
     inputChecker: function () {
-      if (this.name.length < 1) {
+      if (
+        this.name.length < 1 ||
+        this.id.length < 4 ||
+        !this.nameAvailable ||
+        !this.gameIdExists
+      ) {
         return false;
+      } else {
+        return true;
       }
-      if (this.id.length < 1) {
-        return false;
-      }
-      return true;
     },
-
-    tryToJoin: function () {
-      socket.emit("checkGameValues", {
-        gameId: this.id,
-        playerName: this.name,
-      });
+    checkName: function () {
+      socket.emit("checkName", { gameId: this.id, playerName: this.name });
+    },
+    checkGameId: function () {
+      socket.emit("checkGameId", this.id);
     },
 
     sendPlayerInfo: function () {
-      if (!this.valuesAccepted) {
-        alert(this.uiLabels.inputError);
-      } else {
-        sessionStorage.setItem("playerName", this.name);
-        socket.emit("joinGame", {
-          gameId: this.id,
-          playerName: this.name,
-          avatar: this.avatar,
-        });
-        this.$router.push("/join/" + this.id);
-      }
+      sessionStorage.setItem("playerName", this.name);
+      socket.emit("joinGame", {
+        gameId: this.id,
+        playerName: this.name,
+        avatar: this.avatar,
+      });
+      this.$router.push("/join/" + this.id);
     },
   },
 };
@@ -292,6 +297,11 @@ export default {
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+
+.input-error {
+  color: red;
+  font-size: 0.8em;
 }
 
 .avatar-picture {

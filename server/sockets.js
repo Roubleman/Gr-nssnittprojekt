@@ -9,11 +9,10 @@ function sockets(io, socket, data) {
     socket.emit("init", data.getUILabels(lang));
   });
 
-  socket.on("checkGameValues", function (d) {
-    socket.emit(
-      "gameValuesChecked",
-      data.checkGameValues(d.gameId, d.playerName)
-    );
+  socket.on("checkName", function (d) {
+    if (!data.checkGameId(d.gameId)) {
+      socket.emit("nameChecked", data.checkPlayerName(d.gameId, d.playerName));
+    }
   });
 
   socket.on("checkGameId", function (gameId) {
