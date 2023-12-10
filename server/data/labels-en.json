@@ -47,5 +47,6 @@
  "wrongGuessPopup": "You guessed the wrong card! you have one more try!" ,
  "leaderboardTitle" : "Leaderboard",
  "thisIsTheGuessedCard": "Guessed card:",
- "placement": "Placement"
+ "placement": "Placement",
+ "joinInfo": "Join an existing game below or create a new one!"
 }

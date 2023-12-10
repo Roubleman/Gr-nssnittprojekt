@@ -40,6 +40,11 @@
       <p v-for="text in uiLabels.aboutText">{{ text }}</p>
     </div>
   </div>
+  <div id="join_info">
+    <p>
+      {{ uiLabels.joinInfo }}
+    </p>
+  </div>
   <section id="input_wrappers">
     <section class="input-boxes">
       <label>

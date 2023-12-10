@@ -48,5 +48,6 @@
  "wrongGuessPopup": "Du gissa fel kort, ett försök till!",
  "leaderboardTitle": "Poängställning",
  "thisIsTheGuessedCard": "Gissat kort:",
- "placement": "Placering"
+ "placement": "Placering",
+ "joinInfo": "Gå med i ett spel nedanför eller skapa ett nytt själv!"
 }

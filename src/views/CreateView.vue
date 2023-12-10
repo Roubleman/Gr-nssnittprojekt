@@ -1,6 +1,15 @@
 <template>
   <div>
+    <div id="back_button_div">
+      <button
+        class="back-button back-button2"
+        @click="this.$router.push({ path: '/' })"
+      >
+        {{ uiLabels.backToHomepage }}
+      </button>
+    </div>
     <h1 class="heading">{{ uiLabels.createHeading }}</h1>
+
     <section id="global_section">
       <section class="create-setting">
         {{ uiLabels.inputGuesses }}: {{ guessesNumber }}
@@ -29,13 +38,6 @@
         />
       </section>
       <section id="button_section">
-        <button
-          class="back-button back-button2"
-          @click="this.$router.push({ path: '/' })"
-        >
-          {{ uiLabels.backToHomepage }}
-        </button>
-
         <transition name="fade">
           <button
             class="start-button"
@@ -127,14 +129,22 @@ export default {
 .heading {
   font-size: 3em;
   margin: 0.5em;
-  margin-bottom: 0.8em;
+  align-self: center;
 }
 
 #global_section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+#back_button_div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 5em;
+  position: relative;
 }
 
 .create-setting {
@@ -158,25 +168,13 @@ export default {
   padding-top: 2%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-}
-
-#start_game_button {
-  width: 50%;
-  height: 50%;
-  background-color: rgb(160, 242, 37);
-  font-size: 1.5em;
-}
-
-#start_game_button:hover {
-  background-color: rgb(62, 172, 28);
-  cursor: pointer;
+  justify-content: center;
 }
 
 .start-button {
   width: 40%;
   color: black;
-  padding-top: 2%;
+  margin-bottom: 1%;
   background: rgb(73, 114, 73);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -222,13 +220,7 @@ export default {
 }
 
 .back-button {
-  text-decoration: none;
-  padding: 0.5em 1em;
-  z-index: 1;
-}
-
-.back-button {
-  width: 40%;
+  width: 20%;
   color: black;
   padding-top: 2%;
   background: rgb(73, 114, 73);
@@ -238,6 +230,8 @@ export default {
   display: inline-block;
   font-size: 1.5em;
   padding: 0.5em 1em;
+  margin-left: 1em;
+  margin-top: 1em;
   z-index: 1;
 }
 
