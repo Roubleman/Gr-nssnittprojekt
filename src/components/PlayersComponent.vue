@@ -5,7 +5,7 @@
     </div>-->
   <h1>Your turn</h1>
   <div class="card-flex">
-    <section v-for="value in fancyDeck" :key="value.value">
+    <section v-for="value in graphicDeck" :key="value.value">
       <OneCard
         v-for="card in value.cards"
         :card="card"
@@ -53,7 +53,7 @@ export default {
     currentCardIndex: Number,
     uiLabels: Object,
     guessedCard: Object,
-    fancyDeck: Array,
+    graphicDeck: Array,
   },
   components: {
     OneCard,

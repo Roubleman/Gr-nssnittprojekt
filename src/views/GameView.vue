@@ -57,7 +57,7 @@
       v-bind:dealerChecked="this.dealerChecked"
       v-bind:guessedCard="this.cardGuessed"
       v-bind:uiLabels="this.uiLabels"
-      v-bind:fancyDeck="this.fancyDeck"
+      v-bind:graphicDeck="this.graphicDeck"
     >
     </Player>
   </section>
@@ -112,7 +112,7 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       uiLabels: {},
       playingCards: DeckOfCards, // ta bort sen när vi inte behöver testa
-      fancyDeck: [],
+      graphicDeck: [],
       cardGuessed: {},
       gameId: "inactive game",
       playerList: [],
@@ -166,8 +166,8 @@ export default {
       }
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
-      this.fancyDeck = this.createFancyDeck(this.playingCards);
-      console.log(this.fancyDeck);
+      this.graphicDeck = this.createGraphicDeck(this.playingCards);
+      console.log(this.graphicDeck);
     });
 
     socket.on("gameUpdate", (game) => {
@@ -239,8 +239,8 @@ export default {
       leaderboard.sort((a, b) => a.points - b.points);
       return leaderboard;
     },
-    createFancyDeck: function (deck) {
-      let fancyDeck = [];
+    createGraphicDeck: function (deck) {
+      let graphicDeck = [];
       let valueArray = [
         "A",
         "2",
@@ -279,10 +279,10 @@ export default {
             card.isVisible = false;
           }
         }
-        fancyDeck.push(deckObject);
+        graphicDeck.push(deckObject);
       }
-      console.log(fancyDeck);
-      return fancyDeck;
+      console.log(graphicDeck);
+      return graphicDeck;
     },
 
     shadowGhostCardFunctionMaker(value) {
