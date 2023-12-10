@@ -51,7 +51,7 @@
  "joinInfo": "Join an existing game below or create a new one!",
  "nameExplanation": "This is your name that will be displayed during the game",
  "lobbyCodeTaken": "Lobby code is already taken, please enter new one",
- "lobbyCodeExplanation": "This is your unique code that players use to join the lobby",
+ "lobbyCodeExplanation": "This is your unique code that players use to join the lobby (min 4 char)",
  "pointsSettingExplanation": "This setting changes how many points (sips) you gain",
  "guessesExplanation": "This setting changes how many wrong guesses is allowed before the dealer is swapped",
  "inputGameIdExplanation": "Enter the code given from your host to join lobby"

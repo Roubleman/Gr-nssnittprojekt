@@ -43,7 +43,10 @@
           class="input"
           type="text"
           v-model="gameId"
-          v-on:input="checkId()"
+          v-on:input="
+            gameId = gameId.replace(/\s/g, '');
+            checkId();
+          "
         />
         <p id="lobby_code_taken" v-if="!gameIdAvailable">
           {{ uiLabels.lobbyCodeTaken }}
@@ -106,7 +109,7 @@ export default {
       }
     },
     checkValues: function () {
-      if (this.gameId === "") {
+      if (this.gameId.length < 4) {
         return false;
       } else if (this.hostName === "") {
         return false;

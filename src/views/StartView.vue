@@ -56,7 +56,12 @@
     <section class="input-boxes">
       <label>
         {{ uiLabels.inputGameId }}:
-        <input class="input" type="text" v-model="id" />
+        <input
+          class="input"
+          type="text"
+          v-model="id"
+          v-on:input="id = id.replace(/\s/g, '')"
+        />
         <p class="explanation">{{ uiLabels.inputGameIdExplanation }}</p>
       </label>
     </section>
