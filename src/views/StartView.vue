@@ -302,6 +302,7 @@ export default {
 .input-error {
   color: red;
   font-size: 0.8em;
+  font-weight: bold;
 }
 
 .avatar-picture {
