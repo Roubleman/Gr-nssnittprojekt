@@ -15,6 +15,9 @@
         {{ uiLabels.inputGuesses }}: {{ guessesNumber }}
         <button class="guess-button" v-on:click="this.addGuesses">+</button>
         <button class="guess-button" v-on:click="this.removeGuesses">-</button>
+        <p class="explanation">
+          {{ uiLabels.guessesExplanation }}
+        </p>
       </section>
       <section class="create-setting">
         {{ uiLabels.pointsSetting }}:
@@ -23,10 +26,16 @@
           <option v-bind:value="'normal'">{{ uiLabels.normalOption }}</option>
           <option v-bind:value="'hard'">{{ uiLabels.hardcoreOption }}</option>
         </select>
+        <p class="explanation">
+          {{ uiLabels.pointsSettingExplanation }}
+        </p>
       </section>
       <section class="create-setting">
         {{ uiLabels.inputName }}:
         <input class="input" type="text" v-model="hostName" />
+        <p class="explanation">
+          {{ uiLabels.nameExplanation }}
+        </p>
       </section>
       <section class="create-setting">
         {{ uiLabels.inputGameId }}:
@@ -36,13 +45,21 @@
           v-model="gameId"
           v-on:input="checkId()"
         />
+        <p id="lobby_code_taken" v-if="!gameIdAvailable">
+          {{ uiLabels.lobbyCodeTaken }}
+        </p>
+        <p class="explanation" v-else>
+          {{ uiLabels.lobbyCodeExplanation }}
+        </p>
       </section>
       <section id="button_section">
         <transition name="fade">
           <button
             class="start-button"
             v-on:click="createGame"
-            :class="{ startButtonIsDisabled: !this.checkValues() }"
+            :class="{
+              startButtonIsDisabled: !this.checkValues() || !gameIdAvailable,
+            }"
           >
             {{ uiLabels.startGame }}
           </button>
@@ -68,7 +85,7 @@ export default {
       data: {},
       uiLabels: {},
       pointsSetting: "normal",
-      gameIdAvailable: false,
+      gameIdAvailable: true,
       playingCards: DeckOfCards,
       hostAvatar: "/img/crownAvatar.png",
     };
@@ -105,7 +122,7 @@ export default {
     },
     createGame: function () {
       if (!this.gameIdAvailable) {
-        alert("Game ID already taken");
+        alert(this.uiLabels.lobbyCodeTaken);
         return;
       } else {
         sessionStorage.setItem("playerName", this.hostName);
@@ -171,6 +188,10 @@ export default {
   justify-content: center;
 }
 
+#lobby_code_taken {
+  color: red;
+  font-size: 0.8em;
+}
 .start-button {
   width: 40%;
   color: black;
@@ -261,6 +282,11 @@ export default {
 
 .back-button:active {
   top: 2px;
+}
+
+.explanation {
+  font-size: 0.7em;
+  color: lightgreen;
 }
 
 .guess-button {

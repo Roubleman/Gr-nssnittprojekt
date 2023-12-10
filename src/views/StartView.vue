@@ -50,12 +50,14 @@
       <label>
         {{ uiLabels.inputName }}:
         <input class="input" type="text" v-model="name" />
+        <p class="explanation">{{ uiLabels.nameExplanation }}</p>
       </label>
     </section>
     <section class="input-boxes">
       <label>
         {{ uiLabels.inputGameId }}:
         <input class="input" type="text" v-model="id" />
+        <p class="explanation">{{ uiLabels.inputGameIdExplanation }}</p>
       </label>
     </section>
     <section class="input-boxes">
@@ -254,6 +256,11 @@ export default {
   height: 2.5rem;
   vertical-align: bottom;
   margin-right: 0.5rem;
+}
+
+.explanation {
+  font-size: 0.7em;
+  color: lightgreen;
 }
 
 .navigation-menu {
