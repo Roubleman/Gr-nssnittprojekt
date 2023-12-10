@@ -257,20 +257,20 @@ export default {
         "K",
       ];
       for (let i = 0; i < valueArray.length; i++) {
+        let shadowGhostCards = [
+          {
+            value: valueArray[i],
+            suit: "",
+            points: this.shadowGhostCardFunctionMaker(valueArray[i]),
+          },
+        ];
+
+        let normalCards = deck.filter((card) => card.value === valueArray[i]);
+
         let deckObject = {
           value: valueArray[i],
-          cards: [
-            {
-              value: valueArray[i],
-              suit: "",
-              points: this.shadowGhostCardFunctionMaker(valueArray[i]),
-            },
-          ],
+          cards: [].concat(shadowGhostCards, normalCards),
         };
-
-        /*deckObject.cards.push(
-          deck.filter((card) => card.value === valueArray[i])
-        ); BEHÖVER FIXA SÅ ATT DEN LÄGGS IN I ARRAYEN PÅ RÄTT SÄTT!!*/
 
         for (let card of deckObject.cards) {
           if (card.suit === "") {
