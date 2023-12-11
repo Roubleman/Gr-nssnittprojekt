@@ -182,6 +182,9 @@ export default {
   gap: 1em 0.7em;
   padding: 1em;
   --card-height: 8em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 .selected {
