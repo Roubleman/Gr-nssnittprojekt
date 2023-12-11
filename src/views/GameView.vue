@@ -289,7 +289,7 @@ export default {
       return graphicDeck;
     },
 
-    shadowGhostCardFunctionMaker(value) {
+    shadowGhostCardPointMakerFunction(value) {
       switch (value) {
         case "A":
           return 1;
