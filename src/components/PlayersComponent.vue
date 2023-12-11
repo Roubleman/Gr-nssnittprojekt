@@ -7,31 +7,19 @@
   <div class="card-flex">
     <section v-for="value in graphicDeck" :key="value.value">
       <template v-for="card in value.cards" :key="card.suit + card.value">
-        <OneCard
-          v-if="card.isVisible"
-          :card="card"
-          :isClickable="isGuesser"
-          v-on:selectedCard="selectCard($event)"
+        <OneCard v-if="card.isVisible" :card="card" :isClickable="isGuesser" v-on:selectedCard="selectCard($event)"
           :class="{
             selected: selectedCard === card,
             blur: shouldBlur && card === wrongGuessedCard,
             'selected-card': cardsOutOfPlay.includes(card),
-          }"
-          width="--card-height"
-          height="--card-height"
-          class="no-selection OneCard"
-        >
+          }" width="--card-height" height="--card-height" class="no-selection OneCard">
         </OneCard>
       </template>
     </section>
   </div>
 
   <section>
-    <button
-      v-if="isGuesser"
-      @click="confirmSelection(card)"
-      id="confirm-button"
-    >
+    <button v-if="isGuesser" @click="confirmSelection(card)" id="confirm-button">
       Confirm
     </button>
   </section>
@@ -82,7 +70,7 @@ export default {
       return (
         this.selectedCard &&
         this.selectedCard.points ===
-          this.playingCards[this.currentCardIndex].points
+        this.playingCards[this.currentCardIndex].points
       );
     },
   },
@@ -93,17 +81,7 @@ export default {
         this.playingCards[this.currentCardIndex].points
       );
       console.log("points of cardinex is", card.points);
-      if (
-        this.wrongGuesses >= 2 ||
-        this.gameResult === "win" ||
-        this.gameResult === "lose"
-      ) {
-        console.log("Selection already confirmed");
-        return;
-      }
-      if (!this.firstGuessedCard && !this.isCorrect) {
-        this.firstGuessedCard = card;
-      }
+
       this.selectedCard = card;
     },
 
@@ -164,13 +142,14 @@ export default {
     },
 
     handleGameResult(data) {
-      if (data.result === "wrongGuess") {
-        this.$emit("wrongGuess", { card: data.wrongGuessedCard }); //send shadow instead of real card.
-        this.showPopup(this.uiLabels.wrongGuessPopup);
+      if (data.result === 'wrongGuess') {
+        this.$emit("wrongGuess", { card: data.wrongGuessedCard });
+        this.showPopup('wrong', this.uiLabels.wrongGuessPopup);
         console.log(data.wrongGuessedCard);
-      } else if (data.result === "correctGuess") {
-        this.$emit("correctGuess");
-        this.showPopup(this.uiLabels.winPopup);
+
+      } else if (data.result === 'correctGuess') {
+        this.$emit('correctGuess');
+        this.showPopup('win', this.uiLabels.winPopup);
       }
     },
   },
