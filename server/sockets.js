@@ -84,14 +84,14 @@ function sockets(io, socket, data) {
     io.to(d.gameId).emit("gameInfo", data.getGame(d.gameId));
   });
 
-  socket.on("roundOver", function (gameId) {
-    let gameStillGoing = data.nextRound(gameId);
-    if (gameStillGoing) {
-      io.to(gameId).emit("gameUpdate", data.getGame(gameId));
-    } else {
-      io.to(gameId).emit("gameEnded");
-    }
-  });
+  // socket.on("roundOver", function (gameId) {
+  //   let gameStillGoing = data.nextRound(gameId);
+  //   if (gameStillGoing) {
+  //     io.to(gameId).emit("gameUpdate", data.getGame(gameId));
+  //   } else {
+  //     io.to(gameId).emit("gameEnded");
+  //   }
+  // });
 
   socket.on("cardGuessed", function (d) {
     io.to(d.gameId).emit("wrongGuess", {

@@ -188,9 +188,8 @@ export default {
     });
 
     socket.on("wrongGuess", (data) => {
-      if (data.secondGuess) {
+      if (!data.secondGuess && this.isDealer) {
         this.higherLower = true;
-        this.secondGuess = false;
       }
       this.cardGuessed = data.card;
     });
@@ -237,6 +236,7 @@ export default {
     },
     dealerHasChecked: function () {
       socket.emit("dealerCheck", this.gameId);
+      this.higherLower = false;
     },
     getLeaderboard: function () {
       let leaderboard = [...this.playerList]; // coPilot code
