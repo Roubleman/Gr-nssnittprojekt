@@ -133,7 +133,7 @@ export default {
       topCard4: null,
       piles: [],
       selectedCard: [],
-      cardPoints: [],
+      cardSuit: [],
       cardWidth: "13.2em",
       cardHeight: "20em",
       lang: localStorage.getItem("lang") || "en",
@@ -191,33 +191,76 @@ export default {
       console.log(this.selectedCard);
       this.compare(this.selectedCard);
     },
-    checkSorted: function (arr, i = 0) {
-      if (i === arr.length - 1) {
-        return true;
+    checkBlack: function (arr) {
+      for(let i = 1; i < arr.length; i +=2){
+        if(i % 2 === 1){
+          if(arr[i] == "spades" || arr[i] == "clubs"){
+            return true;
+          } else {
+            console.log(arr[i])
+            return false;
+          }
+        }
+        else return false;
       }
-      if (arr[i] > arr[i + 1]) {
-        return false;
-      }
+    },
+    checkRed: function (arr) {
+      for(let i = 0; i < arr.length; i++){
+        if (i % 2 === 0){
+          if(arr[i] == "diams" ||arr[i] == "hearts"){
+            return true;
+          }else {
+            console.log(arr[i])
+            return false;
+          }
 
-      return checkSorted(arr, i + 1);
+        } else if (arr[i] ) {
+          return false;
+        }
+      }
+      
     },
     compare: function (selectedCard) {
-      this.cardPoints.push(
-        this.selectedCard[this.selectedCard.length - 1].points
+      this.cardSuit.push(
+        this.selectedCard[this.selectedCard.length - 1].suit
       );
-      console.log(this.cardPoints);
-      if (this.checkSorted(this.cardPoints) && this.cardPoints.length == 4) {
+      console.log(this.cardSuit);
+      if ( this.cardSuit.length == 4 && this.checkBlack(this.cardSuit)) {
         isDone = true;
         return this.isDone;
-      } else if (!this.checkSorted(this.cardPoints)) {
+      } 
+      else if (selectedCard.length === 0) {
+        return this.isDone;
+      }
+      else if (selectedCard.length === 1 && !this.checkRed(this.cardSuit) ) {
+        console.log(this.checkRed(this.cardSuit))
         this.distributeDeck();
         this.gameScore += selectedCard.length * 2;
         console.log(this.gameScore);
         this.selectedCard = [];
-        this.cardPoints = [];
+        this.cardSuit = [];
+        return this.isDone;
+      } else if (selectedCard.length === 2 && !this.checkBlack(this.cardSuit)) {
+        this.distributeDeck();
+        this.gameScore += selectedCard.length * 2;
+        console.log(this.gameScore);
+        this.selectedCard = [];
+        this.cardSuit = [];
+        return this.isDone;
+      }
+      else if (selectedCard.length === 3 && !this.checkRed(this.cardSuit)) {
+        console.log(this.checkRed(this.cardSuit))
+        this.distributeDeck();
+        this.gameScore += selectedCard.length * 2;
+        console.log(this.gameScore);
+        this.selectedCard = [];
+        this.cardSuit = [];
+        return this.isDone;
+      }else {
+        return this.isDone;
       }
 
-      return this.isDone;
+      
     },
   },
 };

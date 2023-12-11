@@ -182,6 +182,9 @@ export default {
   display: grid;
   grid-template-columns: 0.3em 1fr 0.3em;
   height: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 .card-corner-left {
