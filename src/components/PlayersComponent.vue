@@ -69,15 +69,15 @@ export default {
 
   computed: {
     isCorrect() {
-      return this.selectedCard && this.selectedCard.points === this.currentCardIndex.points;
+      return this.selectedCard && this.selectedCard.points === this.playingCards[this.currentCardIndex].points;
 
 
     },
   },
   methods: {
     selectCard(card) {
-      console.log("Current cardIndex is", this.currentCardIndex);
-      console.log("Selected cardindex is", card.points);
+      console.log("Current cardIndex is", this.playingCards[this.currentCardIndex].points);
+      console.log("points of cardinex is", card.points);
       if (
         this.wrongGuesses >= 2 ||
         this.gameResult === "win" ||
@@ -119,7 +119,7 @@ export default {
             this.showPopup("lose", "You lose!");
           }
         } else {
-          this.cardsOutOfPlay = this.slice(this.currentCardIndex); //change so that cardsoutofplay is slice of cardindex to current card in deck.
+          this.cardsOutOfPlay = this.graphicDeck.slice(0, this.currentCardIndex + 1); //change so that cardsoutofplay is slice of cardindex to current card in deck.
           console.log("Cards out of play:", this.cardsOutOfPlay);
           this.showPopup(this.uiLabels.winPopup);
           this.gameResult = "win";
