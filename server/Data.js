@@ -226,7 +226,7 @@ Data.prototype.swapGuesser = function (gameId) {
 Data.prototype.increasePoints = function (gameId, playerName, cardPoint) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
-    pointsIncrease =
+    let pointsIncrease =
       Math.abs(cardPoint - game.deckOfCards[game.currentCardIndex].points) *
       game.pointsMultiplier;
     for (let i = 0; i < game.players.length; i++) {
@@ -242,7 +242,7 @@ Data.prototype.increasePoints = function (gameId, playerName, cardPoint) {
 Data.prototype.fuckTheDealer = function (gameId, secondGuess) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
-    pointsIncrease = (secondGuess ? 3 : 5) * game.pointsMultiplier;
+    let pointsIncrease = (secondGuess ? 3 : 5) * game.pointsMultiplier;
     for (let i = 0; i < game.players.length; i++) {
       if (game.players[i].isDealer) {
         game.players[i].points += pointsIncrease;
