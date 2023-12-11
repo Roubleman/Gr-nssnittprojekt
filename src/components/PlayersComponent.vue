@@ -113,36 +113,32 @@ export default {
         console.log("Confirmed selection:", this.selectedCard);
 
         if (!this.isCorrect) {
-          this.showPopup(
-            "wrong",
-            "You selected the wrong card! One more chance"
-          );
+          this.gameResult = "wrongGuess";
           this.isConfirmed = false;
           this.shouldBlur = true;
-          this.wrongGuessedCard = this.selectedCard;
+          this.wrongGuessedCard = removeSuits(this.selectedCard);
           this.handleGameResult({
-            result: "lose",
+            result: "wrongGuess",
             wrongGuessedCard: this.selectedCard,
           });
 
-          this.wrongGuesses++;
-          if (this.wrongGuesses >= 2) {
-            this.gameResult = "lose";
-            this.wrongGuessedCard = null;
-            console.log(this.gameResult);
-            this.showPopup("lose", "You lose!");
-          }
+          // this.wrongGuesses++;
+          // if (this.wrongGuesses >= 2) {
+          //   this.gameResult = "lose";
+          //   this.wrongGuessedCard = null;
+          //   console.log(this.gameResult);
+          //   this.showPopup("lose", "You lose!");
         } else {
           this.cardsOutOfPlay = this.graphicDeck.slice(
             0,
             this.currentCardIndex + 1
           ); //change so that cardsoutofplay is slice of cardindex to current card in deck.
           console.log("Cards out of play:", this.cardsOutOfPlay);
-          this.showPopup(this.uiLabels.winPopup);
-          this.gameResult = "win";
+
+          this.gameResult = "correctguess";
           this.selectedCard = null;
           this.wrongGuessedCard = null;
-          this.handleGameResult({ result: "win" });
+          this.handleGameResult({ result: "correctGuess" });
         }
       } else {
         console.log("No card selected");
@@ -159,13 +155,20 @@ export default {
     checkCard(card) {
       return card.points === this.currentCardIndex.points;
     },
+    removeSuits(card) {
+      return {
+        value: card.value,
+        points: card.points,
+      };
+    },
 
     handleGameResult(data) {
-      if (data.result === "lose") {
+      if (data.result === "wrongGuess") {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard }); //send shadow instead of real card.
-        console.log("wrong guess");
-      } else if (data.result === "win") {
-        this.$emit(this.correctGuess());
+        this.showPopup(this.uiLabels.wrongGuessPopup);
+      } else if (data.result === "correctGuess") {
+        this.$emit("correctGuess");
+        this.showPopup(this.uiLabels.winPopup);
       }
     },
   },

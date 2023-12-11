@@ -5,20 +5,14 @@
     <div v-if="!this.isDealer" class="styled-box">
       {{ uiLabels.currentDealer }} <br />
       <p class="name-display">
-        <img
-          :src="this.playerList[gameInfo.dealerIndex].avatar"
-          class="avatar"
-        />
+        <img :src="this.playerList[gameInfo.dealerIndex].avatar" class="avatar" />
         {{ this.playerList[gameInfo.dealerIndex].name }}
       </p>
     </div>
     <div v-if="!this.isGuesser" class="styled-box">
       {{ uiLabels.currentGuesser }} <br />
       <p class="name-display">
-        <img
-          :src="this.playerList[gameInfo.guesserIndex].avatar"
-          class="avatar"
-        />
+        <img :src="this.playerList[gameInfo.guesserIndex].avatar" class="avatar" />
         {{ this.playerList[gameInfo.guesserIndex].name }}
       </p>
     </div>
@@ -30,14 +24,9 @@
       {{ this.playerList[gameInfo.dealerIndex].name }}, <br />
       {{ uiLabels.dealerHeader }}
     </h1>
-    <Dealer
-      v-bind:playingCards="this.playingCards"
-      v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
-      v-bind:higherLower="this.higherLower"
-      v-bind:uiLabels="this.uiLabels"
-      v-bind:guessedCard="this.cardGuessed"
-      v-on:dealerCheck="dealerHasChecked()"
-    >
+    <Dealer v-bind:playingCards="this.playingCards" v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-bind:higherLower="this.higherLower" v-bind:uiLabels="this.uiLabels" v-bind:guessedCard="this.cardGuessed"
+      v-on:dealerCheck="dealerHasChecked()">
     </Dealer>
   </section>
   <section class="player-view" v-else>
@@ -48,17 +37,10 @@
     <h1 class="h1 name-display" v-else>
       {{ this.playerName }}, {{ uiLabels.spectatorHeader }}
     </h1>
-    <Player
-      v-on:wrongGuess="guessCard($event)"
-      v-on:correctGuess="correctGuess()"
-      v-bind:isGuesser="this.isGuesser"
-      v-bind:playingCards="this.playingCards"
-      v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
-      v-bind:dealerChecked="this.dealerChecked"
-      v-bind:guessedCard="this.cardGuessed"
-      v-bind:uiLabels="this.uiLabels"
-      v-bind:graphicDeck="this.graphicDeck"
-    >
+    <Player v-on:wrongGuess="guessCard($event)" v-on:correctGuess="correctGuess()" v-bind:isGuesser="this.isGuesser"
+      v-bind:playingCards="this.playingCards" v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
+      v-bind:dealerChecked="this.dealerChecked" v-bind:guessedCard="this.cardGuessed" v-bind:uiLabels="this.uiLabels"
+      v-bind:graphicDeck="this.graphicDeck">
     </Player>
   </section>
   <section class="leaderboard">
@@ -72,16 +54,8 @@
       <tr v-for="(player, index) in leaderboard" :key="index">
         <td class="text-center medal-cell">
           <img v-if="index === 0" :src="'/img/goldMedal.png'" class="avatar" />
-          <img
-            v-else-if="index === 1"
-            :src="'/img/silverMedal.png'"
-            class="avatar"
-          />
-          <img
-            v-else-if="index === 2"
-            :src="'/img/bronzeMedal.png'"
-            class="avatar"
-          />
+          <img v-else-if="index === 1" :src="'/img/silverMedal.png'" class="avatar" />
+          <img v-else-if="index === 2" :src="'/img/bronzeMedal.png'" class="avatar" />
           <span v-else> {{ index + 1 }}.</span>
         </td>
         <td class="text-center">
@@ -265,7 +239,7 @@ export default {
           {
             value: valueArray[i],
             suit: "",
-            points: this.shadowGhostCardFunctionMaker(valueArray[i]),
+            points: this.shadowGhostCardPointMakerFunction(valueArray[i]),
           },
         ];
 
@@ -289,7 +263,7 @@ export default {
       return graphicDeck;
     },
 
-    shadowGhostCardFunctionMaker(value) {
+    shadowGhostCardPointMakerFunction(value) {
       switch (value) {
         case "A":
           return 1;
