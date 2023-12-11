@@ -176,7 +176,7 @@ export default {
   display: flex;
   width: 100%;
   flex-flow: row wrap;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 1em 0.7em;
   padding: 1em;
   --card-height: 8em;
