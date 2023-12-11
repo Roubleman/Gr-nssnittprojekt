@@ -6,10 +6,11 @@
   <h1>Your turn</h1>
   <div class="card-flex">
     <section v-for="value in graphicDeck" :key="value.value">
+      <template v-for="card in value.cards" 
+      :key = "card.suit + card.value">
       <OneCard
-        v-for="card in value.cards"
+      v-if = "card.isVisible"
         :card="card"
-        :key="card.suit + card.value"
         :isClickable="isGuesser"
         v-on:selectedCard="selectCard($event)"
         :class="{
@@ -22,8 +23,8 @@
         class="no-selection OneCard"
       >
       </OneCard>
+    </template>
     </section>
-    <!-- HÄR FYLLER VI I HUR MÅNGA KORT KVAR -->
   </div>
 
   <section>
