@@ -199,6 +199,10 @@ export default {
       this.pointsIncreased = points;
     });
 
+    socket.on("gameEnded", () => {
+      this.$router.push("/result/" + this.gameId);
+    });
+
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;
