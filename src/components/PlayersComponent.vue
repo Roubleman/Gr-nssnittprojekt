@@ -93,7 +93,13 @@ export default {
       this.selectedCard = card;
     },
 
-
+    removeSuits(card) {
+      return {
+        suits: '',
+        value: card.value,
+        points: card.points
+      };
+    },
     confirmSelection() {
       if (this.selectedCard) {
         this.isConfirmed = true;
@@ -105,7 +111,7 @@ export default {
           this.gameResult = "wrongGuess";
           this.isConfirmed = false;
           this.shouldBlur = true;
-          this.wrongGuessedCard = removeSuits(this.selectedCard);
+          this.wrongGuessedCard = this.removeSuits(this.selectedCard);
           this.handleGameResult({ result: 'wrongGuess', wrongGuessedCard: this.selectedCard });
 
 
@@ -143,17 +149,13 @@ export default {
       return card.points === this.currentCardIndex.points;
 
     },
-    removeSuits(card) {
-      return {
-        value: card.value,
-        points: card.points
-      };
-    },
+
 
     handleGameResult(data) {
       if (data.result === 'wrongGuess') {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard }); //send shadow instead of real card.
         this.showPopup(this.uiLabels.wrongGuessPopup);
+        console.log(data.wrongGuessedCard);
 
       } else if (data.result === 'correctGuess') {
         this.$emit('correctGuess');
