@@ -76,7 +76,8 @@ export default {
   },
   methods: {
     selectCard(card) {
-      console.log(this.currentCardIndex);
+      console.log("Current cardIndex is", this.currentCardIndex);
+      console.log("Selected cardindex is", card.points);
       if (
         this.wrongGuesses >= 2 ||
         this.gameResult === "win" ||
@@ -93,7 +94,6 @@ export default {
 
 
     confirmSelection() {
-      console.log(displayableDeck);
       if (this.selectedCard) {
         this.isConfirmed = true;
         console.log("Confirmed selection:", this.selectedCard);
@@ -106,22 +106,23 @@ export default {
           );
           this.isConfirmed = false;
           this.shouldBlur = true;
-          this.firstGuessedCard = this.selectedCard;
+          this.wrongGuessedCard = this.selectedCard;
 
 
           this.wrongGuesses++;
           if (this.wrongGuesses >= 2) {
             this.gameResult = "lose";
-            this.firstGuessedCard = null;
+            this.wrongGuessedCard = null;
             console.log(this.gameResult);
             this.showPopup("lose", "You lose!");
           }
         } else {
           this.cardsOutOfPlay = this.slice(this.currentCardIndex); //change so that cardsoutofplay is slice of cardindex to current card in deck.
+          console.log("Cards out of play:", this.cardsOutOfPlay);
           this.showPopup(this.uiLabels.winPopup);
           this.gameResult = "win";
           this.selectedCard = null;
-          this.firstGuessedCard = null;
+          this.wrongGuessedCard = null;
         }
       } else {
         console.log("No card selected");
@@ -139,12 +140,14 @@ export default {
       return card.points === this.currentCardIndex.points;
 
     },
+
   },
   handleGameResult(data) {
-    if (data.result === 'lose') {
-      socket.emit("wrongGuess", { card: data.wrongGuessedCard, secondGuess: this.secondGuess });
+    if (data.result === 'wrongGuess') {
+      socket.emit("wrongGuess", { card: data.wrongGuessedCard }); //send shadow instead of real card.
+      console.log("wrong guess");
     } else if (data.result === 'win') {
-      this.correctGuess();
+      socket.emit(this.correctGuess());
     }
   },
 };
