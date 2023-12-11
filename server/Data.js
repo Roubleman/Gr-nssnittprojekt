@@ -254,18 +254,23 @@ Data.prototype.fuckTheDealer = function (gameId, secondGuess) {
 
 Data.prototype.createTestGame = function (playingCards) {
   //ta bort sen när vi inte behöver testa
-  this.createGame(
-    "test",
-    "en",
-    "normal",
-    3,
-    "player1",
-    playingCards,
-    "/img/crownAvatar.png"
-  );
-  this.joinGame("test", "player2", "/img/Avatars/alienAvatar.png");
-  this.joinGame("test", "player3", "/img/Avatars/alienAvatar.png");
-  this.initializeGame("test");
+  if (typeof this.games["test"] === "undefined") {
+    this.createGame(
+      "test",
+      "en",
+      "normal",
+      3,
+      "player1",
+      playingCards,
+      "/img/crownAvatar.png"
+    );
+    this.joinGame("test", "player2", "/img/Avatars/alienAvatar.png");
+    this.joinGame("test", "player3", "/img/Avatars/alienAvatar.png");
+    this.initializeGame("test");
+  } else {
+    this.removeGame("test");
+    this.createTestGame(playingCards);
+  }
 };
 
 export { Data };
