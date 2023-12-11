@@ -101,14 +101,11 @@ export default {
 
 
         if (!this.isCorrect) {
-          this.showPopup(
-            "wrong",
-            "You selected the wrong card! One more chance"
-          );
+
           this.gameResult = "wrongGuess";
           this.isConfirmed = false;
           this.shouldBlur = true;
-          this.wrongGuessedCard = this.selectedCard;
+          this.wrongGuessedCard = removeSuits(this.selectedCard);
           this.handleGameResult({ result: 'wrongGuess', wrongGuessedCard: this.selectedCard });
 
 
@@ -123,7 +120,7 @@ export default {
         } else {
           this.cardsOutOfPlay = this.graphicDeck.slice(0, this.currentCardIndex + 1); //change so that cardsoutofplay is slice of cardindex to current card in deck.
           console.log("Cards out of play:", this.cardsOutOfPlay);
-          this.showPopup(this.uiLabels.winPopup);
+
           this.gameResult = "correctguess";
           this.selectedCard = null;
           this.wrongGuessedCard = null;
@@ -146,15 +143,24 @@ export default {
       return card.points === this.currentCardIndex.points;
 
     },
+    removeSuits(card) {
+      return {
+        value: card.value,
+        points: card.points
+      };
+    },
 
     handleGameResult(data) {
       if (data.result === 'wrongGuess') {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard }); //send shadow instead of real card.
-        console.log("wrong guess");
+        this.showPopup(this.uiLabels.wrongGuessPopup);
+
       } else if (data.result === 'correctGuess') {
         this.$emit('correctGuess');
+        this.showPopup(this.uiLabels.winPopup);
       }
     },
+
   },
 };
 </script>
