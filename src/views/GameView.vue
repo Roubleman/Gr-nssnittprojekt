@@ -50,7 +50,7 @@
     </h1>
     <Player
       v-on:wrongGuess="guessCard($event)"
-      v-on:guessCorrect="correctGuess()"
+      v-on:correctGuess="correctGuess()"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
