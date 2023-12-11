@@ -10,7 +10,7 @@
         <OneCard v-if="card.isVisible" :card="card" :isClickable="isGuesser" v-on:selectedCard="selectCard($event)"
           :class="{
             selected: selectedCard === card,
-            blur: shouldBlur && card === firstGuessedCard,
+            blur: shouldBlur && card === wrongGuessedCard,
             'selected-card': cardsOutOfPlay.includes(card),
           }" width="--card-height" height="--card-height" class="no-selection OneCard">
         </OneCard>
@@ -107,6 +107,8 @@ export default {
           this.isConfirmed = false;
           this.shouldBlur = true;
           this.wrongGuessedCard = this.selectedCard;
+          this.handleGameResult({ result: 'lose', wrongGuessedCard: this.selectedCard });
+
 
 
           this.wrongGuesses++;
@@ -123,6 +125,8 @@ export default {
           this.gameResult = "win";
           this.selectedCard = null;
           this.wrongGuessedCard = null;
+          this.handleGameResult({ result: 'win' });
+
         }
       } else {
         console.log("No card selected");
@@ -141,14 +145,14 @@ export default {
 
     },
 
-  },
-  handleGameResult(data) {
-    if (data.result === 'wrongGuess') {
-      socket.emit("wrongGuess", { card: data.wrongGuessedCard }); //send shadow instead of real card.
-      console.log("wrong guess");
-    } else if (data.result === 'win') {
-      socket.emit(this.correctGuess());
-    }
+    handleGameResult(data) {
+      if (data.result === 'lose') {
+        this.$emit("wrongGuess", { card: data.wrongGuessedCard }); //send shadow instead of real card.
+        console.log("wrong guess");
+      } else if (data.result === 'win') {
+        this.$emit(this.correctGuess());
+      }
+    },
   },
 };
 </script>
