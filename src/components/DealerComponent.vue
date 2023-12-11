@@ -2,7 +2,7 @@
   <header id="dealer_header"></header>
 
   <div v-if="higherLower" class="guessed-card">
-    <OneCard v-bind:card="guessedCard" class="card-facing-up" />
+    <OneCard v-bind:card="guessedCard.card" class="card-facing-up" />
   </div>
 
   <section class="scene">

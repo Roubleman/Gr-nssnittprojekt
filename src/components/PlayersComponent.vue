@@ -107,16 +107,13 @@ export default {
       this.selectedCard = card;
     },
 
-<<<<<<< HEAD
-=======
     removeSuits(card) {
       return {
-        suits: '',
+        suit: "",
         value: card.value,
-        points: card.points
+        points: card.points,
       };
     },
->>>>>>> 016de078d068687782cf6163ed073399564a16d1
     confirmSelection() {
       if (this.selectedCard) {
         this.isConfirmed = true;
@@ -126,18 +123,11 @@ export default {
           this.gameResult = "wrongGuess";
           this.isConfirmed = false;
           this.shouldBlur = true;
-<<<<<<< HEAD
-          this.wrongGuessedCard = removeSuits(this.selectedCard);
+          this.wrongGuessedCard = this.removeSuits(this.selectedCard);
           this.handleGameResult({
             result: "wrongGuess",
             wrongGuessedCard: this.selectedCard,
           });
-=======
-          this.wrongGuessedCard = this.removeSuits(this.selectedCard);
-          this.handleGameResult({ result: 'wrongGuess', wrongGuessedCard: this.selectedCard });
-
-
->>>>>>> 016de078d068687782cf6163ed073399564a16d1
 
           // this.wrongGuesses++;
           // if (this.wrongGuesses >= 2) {
@@ -172,30 +162,14 @@ export default {
     checkCard(card) {
       return card.points === this.currentCardIndex.points;
     },
-<<<<<<< HEAD
-    removeSuits(card) {
-      return {
-        value: card.value,
-        points: card.points,
-      };
-    },
-=======
-
->>>>>>> 016de078d068687782cf6163ed073399564a16d1
 
     handleGameResult(data) {
       if (data.result === "wrongGuess") {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard }); //send shadow instead of real card.
         this.showPopup(this.uiLabels.wrongGuessPopup);
-<<<<<<< HEAD
+        console.log(data.wrongGuessedCard);
       } else if (data.result === "correctGuess") {
         this.$emit("correctGuess");
-=======
-        console.log(data.wrongGuessedCard);
-
-      } else if (data.result === 'correctGuess') {
-        this.$emit('correctGuess');
->>>>>>> 016de078d068687782cf6163ed073399564a16d1
         this.showPopup(this.uiLabels.winPopup);
       }
     },
