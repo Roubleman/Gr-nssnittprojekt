@@ -69,7 +69,7 @@ export default {
 
   computed: {
     isCorrect() {
-      return this.selectedCard && this.selectedCard.value === this.currentCardIndex.points;
+      return this.selectedCard && this.selectedCard.points === this.currentCardIndex.points;
 
 
     },
