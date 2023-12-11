@@ -7,19 +7,31 @@
   <div class="card-flex">
     <section v-for="value in graphicDeck" :key="value.value">
       <template v-for="card in value.cards" :key="card.suit + card.value">
-        <OneCard v-if="card.isVisible" :card="card" :isClickable="isGuesser" v-on:selectedCard="selectCard($event)"
+        <OneCard
+          v-if="card.isVisible"
+          :card="card"
+          :isClickable="isGuesser"
+          v-on:selectedCard="selectCard($event)"
           :class="{
             selected: selectedCard === card,
             blur: shouldBlur && card === wrongGuessedCard,
             'selected-card': cardsOutOfPlay.includes(card),
-          }" width="--card-height" height="--card-height" class="no-selection OneCard">
+          }"
+          width="--card-height"
+          height="--card-height"
+          class="no-selection OneCard"
+        >
         </OneCard>
       </template>
     </section>
   </div>
 
   <section>
-    <button v-if="isGuesser" @click="confirmSelection(card)" id="confirm-button">
+    <button
+      v-if="isGuesser"
+      @click="confirmSelection(card)"
+      id="confirm-button"
+    >
       Confirm
     </button>
   </section>
@@ -32,7 +44,6 @@
 <script>
 import OneCard from "@/components/OneCard.vue";
 import displayableDeck from "@/assets/playerComponentDeck.json";
-
 
 export default {
   name: "Player",
@@ -66,17 +77,21 @@ export default {
     };
   },
 
-
   computed: {
     isCorrect() {
-      return this.selectedCard && this.selectedCard.points === this.playingCards[this.currentCardIndex].points;
-
-
+      return (
+        this.selectedCard &&
+        this.selectedCard.points ===
+          this.playingCards[this.currentCardIndex].points
+      );
     },
   },
   methods: {
     selectCard(card) {
-      console.log("Current cardIndex is", this.playingCards[this.currentCardIndex].points);
+      console.log(
+        "Current cardIndex is",
+        this.playingCards[this.currentCardIndex].points
+      );
       console.log("points of cardinex is", card.points);
       if (
         this.wrongGuesses >= 2 ||
@@ -92,12 +107,10 @@ export default {
       this.selectedCard = card;
     },
 
-
     confirmSelection() {
       if (this.selectedCard) {
         this.isConfirmed = true;
         console.log("Confirmed selection:", this.selectedCard);
-
 
         if (!this.isCorrect) {
           this.showPopup(
@@ -107,9 +120,10 @@ export default {
           this.isConfirmed = false;
           this.shouldBlur = true;
           this.wrongGuessedCard = this.selectedCard;
-          this.handleGameResult({ result: 'lose', wrongGuessedCard: this.selectedCard });
-
-
+          this.handleGameResult({
+            result: "lose",
+            wrongGuessedCard: this.selectedCard,
+          });
 
           this.wrongGuesses++;
           if (this.wrongGuesses >= 2) {
@@ -119,14 +133,16 @@ export default {
             this.showPopup("lose", "You lose!");
           }
         } else {
-          this.cardsOutOfPlay = this.graphicDeck.slice(0, this.currentCardIndex + 1); //change so that cardsoutofplay is slice of cardindex to current card in deck.
+          this.cardsOutOfPlay = this.graphicDeck.slice(
+            0,
+            this.currentCardIndex + 1
+          ); //change so that cardsoutofplay is slice of cardindex to current card in deck.
           console.log("Cards out of play:", this.cardsOutOfPlay);
           this.showPopup(this.uiLabels.winPopup);
           this.gameResult = "win";
           this.selectedCard = null;
           this.wrongGuessedCard = null;
-          this.handleGameResult({ result: 'win' });
-
+          this.handleGameResult({ result: "win" });
         }
       } else {
         console.log("No card selected");
@@ -142,14 +158,13 @@ export default {
     },
     checkCard(card) {
       return card.points === this.currentCardIndex.points;
-
     },
 
     handleGameResult(data) {
-      if (data.result === 'lose') {
+      if (data.result === "lose") {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard }); //send shadow instead of real card.
         console.log("wrong guess");
-      } else if (data.result === 'win') {
+      } else if (data.result === "win") {
         this.$emit(this.correctGuess());
       }
     },

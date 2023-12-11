@@ -1,20 +1,15 @@
 <template>
   <header id="dealer_header"></header>
 
-  <section class="scene">
-    <div v-if="higherLower" class="guessed-card">
-      <OneCard
-        v-bind:card="guessedCard"
-        :key="guessedCard.suit + guessedCard.value"
-        class="card-facing-up"
-      />
-    </div>
+  <div v-if="higherLower" class="guessed-card">
+    <OneCard v-bind:card="guessedCard" class="card-facing-up" />
+  </div>
 
+  <section class="scene">
     <button
       class="dealer-button"
       @click="emitHigherLower"
       v-if="higherLower"
-      disabled="guessedCard.points > playingCards[currentCardIndex].points"
       :style="{
         opacity:
           guessedCard.points > playingCards[currentCardIndex].points ? 0.5 : 1,
@@ -95,9 +90,6 @@ export default {
 </script>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-}
 .scene {
   display: flex;
   justify-content: center;
@@ -163,8 +155,8 @@ export default {
   z-index: 3;
   transition: none !important;
   transform: none !important;
-  height: 100% !important;
-  width: 100% !important;
+  height: 100%;
+  width: 100%;
 }
 
 .guessed-card {
