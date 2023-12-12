@@ -167,7 +167,6 @@ export default {
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
       this.graphicDeck = this.createGraphicDeck(this.playingCards);
-      console.log(this.graphicDeck);
     });
 
     socket.on("gameUpdate", (game) => {
@@ -182,6 +181,7 @@ export default {
       this.isGuesser = this.player.isGuesser;
       this.isDealer = this.player.isDealer;
       this.secondGuess = false;
+      this.updateGraphicDeck(this.playingCards, this.gameInfo.currentCardIndex);
     });
 
     socket.on("dealerHasChecked", () => {
@@ -291,8 +291,22 @@ export default {
         }
         graphicDeck.push(deckObject);
       }
-      console.log(graphicDeck);
       return graphicDeck;
+    },
+    updateGraphicDeck(deck, cardIndex) {
+      let cardToDisplay = deck[cardIndex - 1];
+      for (let i = o; i < this.graphicDeck; i++) {
+        if (this.graphicDeck[i].value === cardToDisplay.value) {
+          for (let i = o; i < this.graphicDeck[i].cards.length; i++) {
+            if (this.graphicDeck[i].cards[i].suit === cardToDisplay.suit) {
+              this.graphicDeck[i].cards[i].isVisible = true;
+              if (this.graphicDeck[i].cards[0].isVisible) {
+                this.graphicDeck[i].cards[0].isVisible = false;
+              }
+            }
+          }
+        }
+      }
     },
 
     shadowGhostCardPointMakerFunction(value) {
