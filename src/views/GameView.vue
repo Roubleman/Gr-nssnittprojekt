@@ -106,8 +106,7 @@
     <OneCard
       v-if="Object.keys(popup.card).length > 0"
       :card="popup.card"
-      width="2em"
-      height="2em"
+      :cardHeight="2"
       class="no-selection"
     ></OneCard>
     <button @click="closePopup">{{ uiLabels.close }}</button>
@@ -461,7 +460,6 @@ h4 {
   justify-content: flex-start;
   gap: 1em 0.7em;
   padding: 1em;
-  --card-height: 8em;
 }
 
 .dealer-view {

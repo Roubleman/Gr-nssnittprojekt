@@ -4,21 +4,23 @@
         <button @click="showPopup = false">Close</button>
     </div>-->
   <div class="card-flex">
-    <section v-for="value in graphicDeck" :key="value.value">
+    <section
+      v-for="value in graphicDeck"
+      :key="value.value"
+      style="position: relative"
+    >
       <template v-for="card in value.cards" :key="card.suit + card.value">
         <OneCard
           v-if="card.isVisible"
           :card="card"
           :isClickable="isGuesser && canSelectCard"
+          :cardHeight="8"
           v-on:selectedCard="selectCard($event)"
           :class="{
             selected: isGuesser && selectedCard === card,
-            blur:
-              shouldBlur && isGuesser && card.value === wrongGuessedCard?.value,
+            blur: shouldBlur && isGuesser && card === wrongGuessedCard,
             'selected-card': cardsOutOfPlay.includes(card),
           }"
-          width="--card-height"
-          height="--card-height"
           class="no-selection OneCard"
         >
         </OneCard>
@@ -137,6 +139,8 @@ export default {
 
         if (!this.isCorrect) {
           this.gameResult = "wrongGuess";
+          this.isConfirmed = false;
+          this.shouldBlur = true;
           this.wrongGuessedCard = this.removeSuits(this.selectedCard);
           this.handleGameResult({
             result: "wrongGuess",
@@ -144,12 +148,16 @@ export default {
           });
           this.canSelectCard = false;
         } else {
-          this.cardsOutOfPlay = this.playingCards.slice(
+          this.cardsOutOfPlay = this.graphicDeck.slice(
+            // Borde det inte vara playingCards istället?? MVH Elias
             0,
             this.currentCardIndex + 1
-          ); //Ändra så isVisible är true för dessa kort?
+          ); //change so that cardsoutofplay is slice of cardindex to current card in deck.
           console.log("Cards out of play:", this.cardsOutOfPlay);
+
           this.gameResult = "correctguess";
+          this.selectedCard = null;
+          this.wrongGuessedCard = null;
           this.handleGameResult({ result: "correctGuess" });
           this.selectedCard = [];
         }
@@ -189,6 +197,7 @@ export default {
 </script>
 <style scoped>
 .selected-card {
+  background-color: white;
   border: 0.07em solid rgb(95, 95, 95);
   border-radius: 0.4em;
   cursor: pointer;
@@ -217,14 +226,13 @@ export default {
   justify-content: center;
   gap: 1em 0.7em;
   padding: 1em;
-  --card-height: 8em;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
 
 .selected {
-  border: 2px solid black;
+  border: 2px solid red;
 }
 
 .blur {
@@ -254,19 +262,26 @@ export default {
   width: calc(100% - 20em);
 }
 
+.OneCard:hover {
+  transform: none;
+}
 .OneCard:nth-child(1) {
-  transform: translateY(0);
+  translate: 0 0;
+  z-index: 1;
 }
 
 .OneCard:nth-child(2) {
-  transform: translateY(-6em);
+  translate: 0 -6em;
+  z-index: 2;
 }
 
 .OneCard:nth-child(3) {
-  transform: translateY(-12em);
+  translate: 0 -12em;
+  z-index: 3;
 }
 
 .OneCard:nth-child(4) {
-  transform: translateY(-18em);
+  translate: 0 -18em;
+  z-index: 4;
 }
 </style>
