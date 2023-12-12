@@ -106,8 +106,7 @@
     <OneCard
       v-if="Object.keys(popup.card).length > 0"
       :card="popup.card"
-      width="2em"
-      height="2em"
+      :cardHeight="2"
       class="no-selection"
     ></OneCard>
     <button @click="closePopup">{{ uiLabels.close }}</button>
