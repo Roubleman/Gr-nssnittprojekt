@@ -3,7 +3,7 @@
 
   <section class="currentDealerGuesser">
     <div v-if="!this.isDealer" class="styled-box">
-      <h4>{{ uiLabels.currentDealer }} </h4> 
+      <h4>{{ uiLabels.currentDealer }}</h4>
       <p class="name-display">
         <img
           :src="this.playerList[gameInfo.dealerIndex].avatar"
@@ -18,10 +18,10 @@
       </h4>
       <p id="errors">
         {{ this.gameInfo.errorsRemaining }}
-         </p>
+      </p>
     </div>
     <div v-if="!this.isGuesser" class="styled-box">
-      <h4>{{ uiLabels.currentGuesser }} </h4>
+      <h4>{{ uiLabels.currentGuesser }}</h4>
       <p class="name-display">
         <img
           :src="this.playerList[gameInfo.guesserIndex].avatar"
@@ -365,7 +365,7 @@ export default {
     },
     updateGraphicDeck(deck, cardIndex) {
       let cardToDisplay = deck[cardIndex - 1];
-      for (let i = o; i < this.graphicDeck; i++) {
+      for (let i = 0; i < this.graphicDeck; i++) {
         if (this.graphicDeck[i].value === cardToDisplay.value) {
           for (let i = o; i < this.graphicDeck[i].cards.length; i++) {
             if (this.graphicDeck[i].cards[i].suit === cardToDisplay.suit) {
@@ -411,11 +411,9 @@ export default {
 </script>
 
 <style scoped>
-
 h4 {
-margin:0.3em;
+  margin: 0.3em;
 }
-
 
 #header-style {
   font-size: 1.5rem;
