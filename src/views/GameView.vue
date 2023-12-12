@@ -59,6 +59,7 @@
     <Player
       v-on:wrongGuess="guessCard($event)"
       v-on:correctGuess="correctGuess()"
+      v-on:popUpShown="resetDealerChecked()"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
@@ -99,6 +100,18 @@
       </tr>
     </table>
   </section>
+  <div v-if="popup.isVisible" class="popup" :class="popup.type">
+    <p>{{ popup.message }}</p>
+    <p v-if="popup.points != 0">{{ popup.points }} {{ uiLabels.points }}</p>
+    <OneCard
+      v-if="popup.card != {}"
+      :card="popup.card"
+      width="2em"
+      height="2em"
+      class="no-selection"
+    ></OneCard>
+    <button @click="closePopup">{{ uiLabels.close }}</button>
+  </div>
 </template>
 
 <script>
@@ -106,6 +119,7 @@ import io from "socket.io-client";
 import Dealer from "@/components/DealerComponent.vue";
 import Player from "@/components/PlayersComponent.vue";
 import DeckOfCards from "@/assets/DeckOfCards.json";
+import OneCard from "@/components/OneCard.vue";
 const socket = io("localhost:3000");
 
 export default {
@@ -113,6 +127,7 @@ export default {
   components: {
     Player,
     Dealer,
+    OneCard,
   },
 
   data: function () {
@@ -135,6 +150,13 @@ export default {
       dealerChecked: false,
       secondGuess: false,
       pointsIncreased: 0,
+      popup: {
+        isVisible: false,
+        message: "",
+        card: {},
+        type: "",
+        points: 0,
+      },
     };
   },
 
@@ -178,18 +200,23 @@ export default {
     });
 
     socket.on("gameUpdate", (game) => {
-      // Ska vi ha en popup för ny runda som dyker upp här?
-      this.playerList = game.players;
-      this.leaderboard = this.getLeaderboard();
-      this.gameInfo.errorsRemaining = game.errorsRemaining;
-      this.gameInfo.currentCardIndex = game.currentCardIndex;
-      this.gameInfo.dealerIndex = game.dealerIndex;
-      this.gameInfo.guesserIndex = game.guesserIndex;
-      this.player = this.playerList[this.playerIndex];
-      this.isGuesser = this.player.isGuesser;
-      this.isDealer = this.player.isDealer;
-      this.secondGuess = false;
-      this.updateGraphicDeck(this.playingCards, this.gameInfo.currentCardIndex);
+      setTimeout(() => {
+        this.showPopup("newRound", this.uiLabels.newRound, {});
+        this.playerList = game.players;
+        this.leaderboard = this.getLeaderboard();
+        this.gameInfo.errorsRemaining = game.errorsRemaining;
+        this.gameInfo.currentCardIndex = game.currentCardIndex;
+        this.gameInfo.dealerIndex = game.dealerIndex;
+        this.gameInfo.guesserIndex = game.guesserIndex;
+        this.player = this.playerList[this.playerIndex];
+        this.isGuesser = this.player.isGuesser;
+        this.isDealer = this.player.isDealer;
+        this.secondGuess = false;
+        this.updateGraphicDeck(
+          this.playingCards,
+          this.gameInfo.currentCardIndex
+        );
+      }, 3000);
     });
 
     socket.on("dealerHasChecked", () => {
@@ -200,16 +227,39 @@ export default {
       if (!data.secondGuess && this.isDealer) {
         this.higherLower = true;
       }
+      if (!this.isDealer && !this.isGuesser && !data.secondGuess) {
+        this.showPopup(
+          "wrongGuess",
+          this.uiLabels.wrongGuessPopupSpec,
+          data.card,
+          0
+        );
+      }
       this.cardGuessed = data.card;
     });
 
     socket.on("correctGuess", (points) => {
-      //show popup för alla, den som är dealer har annat meddelande
+      let message = {};
+      if (this.isDealer) {
+        message = this.uiLabels.youGotFucked;
+      } else if (this.isGuesser) {
+        message = this.uiLabels.youGuessedCorrect;
+      } else {
+        message = this.uiLabels.guesserGuessedCorrect;
+      }
+      this.showPopup("correctGuess", message, this.cardGuessed, points);
     });
 
     socket.on("guesserPointsIncreased", (points) => {
       this.pointsIncreased = points;
-      //show popup för alla, den som är guesses har annat meddelande
+      if (this.isGuesser) {
+        this.showPopup(
+          "pointsIncreased",
+          this.uiLabels.wrongGuessPoints,
+          this.playingCards[this.gameInfo.currentCardIndex],
+          points
+        );
+      }
     });
 
     socket.on("gameEnded", () => {
@@ -229,6 +279,9 @@ export default {
     document.body.style.backgroundColor = null;
   },
   methods: {
+    resetDealerChecked: function () {
+      this.dealerChecked = false;
+    },
     guessCard: function (card) {
       socket.emit("cardGuessed", {
         card: card,
@@ -332,6 +385,16 @@ export default {
       }
     },
   },
+  showPopup(type, message, card, points) {
+    this.popup.points = points;
+    this.popup.card = card;
+    this.popup.type = type;
+    this.popup.message = message;
+    this.popup.isVisible = true;
+  },
+  closePopup() {
+    this.popup.isVisible = false;
+  },
 };
 </script>
 
@@ -359,6 +422,19 @@ margin:0.3em;
   width: 100%;
   justify-content: center;
   align-items: center;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 10px;
+  z-index: 1000;
+  text-align: center;
 }
 
 .no-selection {
