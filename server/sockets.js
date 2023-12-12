@@ -94,6 +94,7 @@ function sockets(io, socket, data) {
   // });
 
   socket.on("cardGuessed", function (d) {
+    console.log(d);
     io.to(d.gameId).emit("wrongGuess", {
       card: d.card,
       secondGuess: d.secondGuess,
@@ -102,7 +103,7 @@ function sockets(io, socket, data) {
       io.to(d.gameId).emit(
         "guesserPointsIncreased",
         data.increasePoints(d.gameId, d.playerName, d.card.points)
-      ); // delay??
+      );
       let gameStillGoing = data.nextRound(d.gameId);
       if (gameStillGoing) {
         io.to(d.gameId).emit("gameUpdate", data.getGame(d.gameId));
