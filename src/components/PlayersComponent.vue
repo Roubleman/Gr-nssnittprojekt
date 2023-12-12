@@ -14,7 +14,7 @@
           v-on:selectedCard="selectCard($event)"
           :class="{
             selected: selectedCard === card,
-            blur: shouldBlur && card === wrongGuessedCard,
+            blur: shouldBlur && card.value === wrongGuessedCard?.value,
             'selected-card': cardsOutOfPlay.includes(card),
           }"
           width="--card-height"
@@ -111,31 +111,18 @@ export default {
 
         if (!this.isCorrect) {
           this.gameResult = "wrongGuess";
-          this.isConfirmed = false;
-          this.shouldBlur = true;
           this.wrongGuessedCard = this.removeSuits(this.selectedCard);
           this.handleGameResult({
             result: "wrongGuess",
             wrongGuessedCard: this.selectedCard,
           });
-
-          // this.wrongGuesses++;
-          // if (this.wrongGuesses >= 2) {
-          //   this.gameResult = "lose";
-          //   this.wrongGuessedCard = null;
-          //   console.log(this.gameResult);
-          //   this.showPopup("lose", "You lose!");
         } else {
-          this.cardsOutOfPlay = this.graphicDeck.slice(
-            // Borde det inte vara playingCards istället?? MVH Elias
+          this.cardsOutOfPlay = this.playingCards.slice(
             0,
             this.currentCardIndex + 1
-          ); //change so that cardsoutofplay is slice of cardindex to current card in deck.
+          ); //Ändra så isVisible är true för dessa kort?
           console.log("Cards out of play:", this.cardsOutOfPlay);
-
           this.gameResult = "correctguess";
-          this.selectedCard = null;
-          this.wrongGuessedCard = null;
           this.handleGameResult({ result: "correctGuess" });
         }
       } else {
@@ -158,10 +145,13 @@ export default {
       if (data.result === "wrongGuess") {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard });
         this.showPopup("wrong", this.uiLabels.wrongGuessPopup);
-        console.log(data.wrongGuessedCard);
+        this.shouldBlur = true;
+        this.isConfirmed = false;
       } else if (data.result === "correctGuess") {
         this.$emit("correctGuess");
         this.showPopup("win", this.uiLabels.winPopup);
+        this.selectedCard = null;
+        this.wrongGuessedCard = null;
       }
     },
   },
@@ -169,7 +159,6 @@ export default {
 </script>
 <style scoped>
 .selected-card {
-  background-color: white;
   border: 0.07em solid rgb(95, 95, 95);
   border-radius: 0.4em;
   cursor: pointer;
@@ -206,7 +195,7 @@ export default {
 }
 
 .selected {
-  border: 2px solid red;
+  border: 2px solid black;
 }
 
 .blur {
