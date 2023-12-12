@@ -102,7 +102,7 @@ function sockets(io, socket, data) {
     if (d.secondGuess) {
       io.to(d.gameId).emit(
         "guesserPointsIncreased",
-        data.increasePoints(d.gameId, d.playerName, d.card.points)
+        data.increasePoints(d.gameId, d.playerName, d.card.card.points)
       );
       let gameStillGoing = data.nextRound(d.gameId);
       if (gameStillGoing) {
