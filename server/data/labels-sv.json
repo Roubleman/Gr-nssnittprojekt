@@ -65,5 +65,11 @@
  "youGotFucked": "Spelaren gissade rätt, du får:",
  "youGuessedCorrect": "Du gissade rätt, dealern får:",
  "guesserGuessedCorrect": "Spelaren gissade rätt, dealern får:",
- "wrongGuessPoints": "Du gissade fel, rätt kort var:"
+ "wrongGuessPoints": "Du gissade fel, rätt kort var:",
+ "bus": "Buss",
+ "rule1": "Varrannat kort ska vara ha samma färg",
+ "rule2": "Ta klunkar enligt poängen",
+ "rule3": "Ha de roligt!",
+ "busInfo1": "Antal gissningar denna runda",
+ "busInfo2": "Antal blandningar:"
 }

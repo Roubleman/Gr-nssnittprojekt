@@ -1,114 +1,118 @@
 <template>
-  <div>
-    <h1>Buss</h1>
-  </div>
-  <div class="card-grid">
-    <section id="cardSelection" vis>
-      <vue-flip
-        active-click
-        class="flip-card"
-        :width="cardWidth"
-        :height="cardHeight"
-      >
-        <template v-slot:front class="card">
-          <img
-            src="/img/cardback.png"
-            alt="Front of the card"
-            class="card-image"
-          />
-        </template>
-
-        <template v-slot:back class="card">
-          <div class="card-grid">
-            <OneCard
-              class="card-facing-up"
-              v-bind:card="topCard1"
-              v-on:click="addToSelected(topCard1)"
+  <section id="background">
+    <header id="header-style">{{ uiLabels.bus }}</header>
+    <div class="card-grid">
+      <section id="cardSelection" vis>
+        <vue-flip
+          active-click
+          class="flip-card"
+          :width="cardWidth"
+          :height="cardHeight"
+        >
+          <template v-slot:front class="card">
+            <img
+              src="/img/cardback.png"
+              alt="Front of the card"
+              class="card-image"
             />
-          </div>
-        </template>
-      </vue-flip>
+          </template>
 
-      <vue-flip
-        active-click
-        class="flip-card"
-        :width="cardWidth"
-        :height="cardHeight"
-      >
-        <template v-slot:front class="card">
-          <img
-            src="/img/cardback.png"
-            alt="Front of the card"
-            class="card-image"
-          />
-        </template>
+          <template v-slot:back class="card">
+            <div class="card-grid">
+              <OneCard
+                class="card-facing-up"
+                v-bind:card="topCard1"
+                v-on:click="addToSelected(topCard1)"
+              />
+            </div>
+          </template>
+        </vue-flip>
 
-        <template v-slot:back class="card">
-          <div class="card-grid">
-            <OneCard
-              class="card-facing-up"
-              v-bind:card="topCard2"
-              v-on:click="addToSelected(topCard2)"
+        <vue-flip
+          active-click
+          class="flip-card"
+          :width="cardWidth"
+          :height="cardHeight"
+        >
+          <template v-slot:front class="card">
+            <img
+              src="/img/cardback.png"
+              alt="Front of the card"
+              class="card-image"
             />
-          </div>
-        </template>
-      </vue-flip>
-      <vue-flip
-        active-click
-        class="flip-card"
-        :width="cardWidth"
-        :height="cardHeight"
-      >
-        <template v-slot:front class="card">
-          <img
-            src="/img/cardback.png"
-            alt="Front of the card"
-            class="card-image"
-          />
-        </template>
+          </template>
 
-        <template v-slot:back class="card">
-          <div class="card-grid">
-            <OneCard
-              class="card-facing-up"
-              v-bind:card="topCard3"
-              v-on:click="addToSelected(topCard3)"
+          <template v-slot:back class="card">
+            <div class="card-grid">
+              <OneCard
+                class="card-facing-up"
+                v-bind:card="topCard2"
+                v-on:click="addToSelected(topCard2)"
+              />
+            </div>
+          </template>
+        </vue-flip>
+        <vue-flip
+          active-click
+          class="flip-card"
+          :width="cardWidth"
+          :height="cardHeight"
+        >
+          <template v-slot:front class="card">
+            <img
+              src="/img/cardback.png"
+              alt="Front of the card"
+              class="card-image"
             />
-          </div>
-        </template>
-      </vue-flip>
-      <vue-flip
-        active-click
-        class="flip-card"
-        :width="cardWidth"
-        :height="cardHeight"
-      >
-        <template v-slot:front class="card">
-          <img
-            src="/img/cardback.png"
-            alt="Front of the card"
-            class="card-image"
-          />
-        </template>
+          </template>
 
-        <template v-slot:back class="card">
-          <div class="card-grid">
-            <OneCard
-              class="card-facing-up"
-              v-bind:card="topCard4"
-              v-on:click="addToSelected(topCard4)"
+          <template v-slot:back class="card">
+            <div class="card-grid">
+              <OneCard
+                class="card-facing-up"
+                v-bind:card="topCard3"
+                v-on:click="addToSelected(topCard3)"
+              />
+            </div>
+          </template>
+        </vue-flip>
+        <vue-flip
+          active-click
+          class="flip-card"
+          :width="cardWidth"
+          :height="cardHeight"
+        >
+          <template v-slot:front class="card">
+            <img
+              src="/img/cardback.png"
+              alt="Front of the card"
+              class="card-image"
             />
-          </div>
-        </template>
-      </vue-flip>
-    </section>
-    <section class="gameScore">
-      <h1>{{ uiLabels.numberOfPoints }}: {{ this.gameScore }}</h1>
-    </section>
-    <section class="rules">
-      <li v-for="rules in ruleList">{{ rules }}</li>
-    </section>
-  </div>
+          </template>
+
+          <template v-slot:back class="card">
+            <div class="card-grid">
+              <OneCard
+                class="card-facing-up"
+                v-bind:card="topCard4"
+                v-on:click="addToSelected(topCard4)"
+              />
+            </div>
+          </template>
+        </vue-flip>
+      </section>
+      <section class="gameInfo">
+        <li>{{ uiLabels.numberOfPoints }}: {{ this.gameScore }}</li>
+        <li>{{ uiLabels.busInfo1 }}{{ this.selectedCard.length }}</li>
+        <li>{{ uiLabels.busInfo2 }}{{ this.noShuffles }}</li>
+      </section>
+      <section class="rules">
+        <li>{{ uiLabels.rule1 }}</li>
+        <li>{{ uiLabels.rule2 }}</li>
+        <li>{{ uiLabels.rule3 }}</li>
+      </section>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -146,17 +150,12 @@ export default {
       playerScore: {},
       playingCards: [],
       gameScore: 0,
-      ruleList: [],
+      noShuffles: 0,
     };
   },
   created: function () {
     this.isDone = false;
     this.distributeDeck();
-    this.ruleList.push(
-      "1. Every other card has to be a different color",
-      "2. Points is the amound you have to drink",
-      "3. Have fun!"
-    );
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
@@ -229,6 +228,7 @@ export default {
         alert("You won");
       } else if (this.cardSuit.length == 4 && !this.checkBlack(this.cardSuit)) {
         this.distributeDeck();
+        this.noShuffles += 1;
         this.gameScore += selectedCard.length * 2;
         console.log(this.gameScore);
         this.selectedCard = [];
@@ -236,12 +236,14 @@ export default {
       } else if (selectedCard.length === 1 && !this.checkRed(this.cardSuit)) {
         console.log(this.checkRed(this.cardSuit));
         this.distributeDeck();
+        this.noShuffles += 1;
         this.gameScore += selectedCard.length * 2;
         console.log(this.gameScore);
         this.selectedCard = [];
         this.cardSuit = [];
       } else if (selectedCard.length === 2 && !this.checkBlack(this.cardSuit)) {
         this.distributeDeck();
+        this.noShuffles += 1;
         this.gameScore += selectedCard.length * 2;
         console.log(this.gameScore);
         this.selectedCard = [];
@@ -249,6 +251,7 @@ export default {
       } else if (selectedCard.length === 3 && !this.checkRed(this.cardSuit)) {
         console.log(this.checkRed(this.cardSuit));
         this.distributeDeck();
+        this.noShuffles += 1;
         this.gameScore += selectedCard.length * 2;
         console.log(this.gameScore);
         this.selectedCard = [];
@@ -271,7 +274,7 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1em;
-  margin-top: 8em;
+  margin-top: 10em;
   position: relative;
   margin-left: 8em;
   width: calc(100% - 20em);
@@ -325,32 +328,50 @@ body {
   height: 100% !important;
   width: 100% !important;
 }
-.gameScore {
+.gameInfo {
+  text-align: left;
   color: white;
   width: 15em;
   border-style: inset;
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 1em;
   background-color: rgb(73, 114, 73);
-  margin-top: 0.5em;
+  margin-top: 4.4em;
   margin-bottom: 0.5em;
   position: absolute;
   top: 8px;
-  right: 16px;
+  right: 0px;
   z-index: 100;
 }
 .rules {
+  text-align: left;
   color: white;
   width: 15em;
   border-style: inset;
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 1em;
   background-color: rgb(73, 114, 73);
-  margin-top: 0.5em;
+  margin-top: 4.4em;
   margin-bottom: 0.5em;
   position: absolute;
   top: 8px;
-  left: 16px;
+  left: 0px;
   z-index: 100;
+}
+html {
+  background-color: green;
+}
+#background {
+  background-color: green;
+}
+#header-style {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  padding-top: 2em;
+  padding-bottom: 1em;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(73, 114, 73);
 }
 </style>

@@ -64,5 +64,11 @@
  "youGotFucked": "Player guessed correctly, you gain:",
  "youGuessedCorrect": "You guessed correctly, the dealer gains:",
  "guesserGuessedCorrect": "Player guessed correctly, the dealer gains:",
- "wrongGuessPoints": "You guessed wrong, the correct card was:"
+ "wrongGuessPoints": "You guessed wrong, the correct card was:",
+ "bus": "Bus",
+ "rule1": "Every other card has to be a different color",
+ "rule2": "Drink according to points",
+ "rule3": "Have fun!",
+ "busInfo1": "Current guess in round:",
+ "busInfo2": "Number of shuffles:"
 }
