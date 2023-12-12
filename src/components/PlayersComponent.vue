@@ -11,6 +11,7 @@
     >
       <template v-for="card in value.cards" :key="card.suit + card.value">
         <OneCard
+          v-if="card.isVisible"
           :card="card"
           :isClickable="isGuesser && canSelectCard"
           :cardHeight="8"
