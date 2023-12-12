@@ -18,7 +18,8 @@
           v-on:selectedCard="selectCard($event)"
           :class="{
             selected: isGuesser && selectedCard === card,
-            blur: shouldBlur && isGuesser && card === wrongGuessedCard,
+            blur:
+              shouldBlur && isGuesser && card.value === wrongGuessedCard?.value,
             'selected-card': cardsOutOfPlay.includes(card),
           }"
           class="no-selection OneCard"
