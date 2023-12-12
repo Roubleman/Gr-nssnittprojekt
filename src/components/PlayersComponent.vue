@@ -161,6 +161,7 @@ export default {
     },
     closePopup() {
       this.popup.isVisible = false;
+      this.DisplayPopup.isVisible = false;
     },
     checkCard(card) {
       return card.points === this.currentCardIndex.points;
