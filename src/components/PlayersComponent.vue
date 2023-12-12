@@ -17,8 +17,9 @@
           :cardHeight="8"
           v-on:selectedCard="selectCard($event)"
           :class="{
-            selected: selectedCard === card,
-            blur: shouldBlur && card === wrongGuessedCard,
+            selected: isGuesser && selectedCard === card,
+            blur:
+              shouldBlur && isGuesser && card.value === wrongGuessedCard?.value,
             'selected-card': cardsOutOfPlay.includes(card),
           }"
           class="no-selection OneCard"
@@ -159,7 +160,7 @@ export default {
           this.selectedCard = null;
           this.wrongGuessedCard = null;
           this.handleGameResult({ result: "correctGuess" });
-          this.canSelectCard = true;
+          this.selectedCard = [];
         }
       } else {
         console.log("No card selected");
@@ -184,10 +185,12 @@ export default {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard });
         this.shouldBlur = true;
         this.isConfirmed = false;
+        this.selectedCard = [];
       } else if (data.result === "correctGuess") {
         this.$emit("correctGuess");
         this.selectedCard = null;
         this.wrongGuessedCard = null;
+        this.canSelectCard = true;
       }
     },
   },
