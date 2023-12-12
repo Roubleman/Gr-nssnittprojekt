@@ -57,5 +57,8 @@
  "guessesExplanation": "Denna inställning ändrar hur många felaktiga gissningar som krävs innan det blir en ny dealer",
  "inputGameIdExplanation": "Skriv in koden från din host för att gå med i lobby",
  "nameUnavailable": "Namnet är redan taget, vänligen välj ett annat",
- "gameIdNotFound": "Spelet finns inte, vänligen pröva en annan kod eller skapa ett nytt spel"
+ "gameIdNotFound": "Spelet finns inte, vänligen pröva en annan kod eller skapa ett nytt spel",
+ "close": "Stäng",
+ "newRound": "Ny runda!",
+ "wrongGuessPopupSpec": "gissade fel kort"
 }

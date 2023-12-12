@@ -202,12 +202,6 @@ export default {
   filter: blur(2px);
 }
 
-.correct {
-  filter: none;
-  background-color: white;
-  border: 0.07em solid rgb(95, 95, 95);
-}
-
 .popup {
   position: fixed;
   top: 50%;
