@@ -5,8 +5,8 @@
     </div>-->
   <div class="card-flex">
     <section
-      v-for="value in displayableDeck"
-      :key="value.cardValue"
+      v-for="value in graphicDeck"
+      :key="value.value"
       style="position: relative"
     >
       <template v-for="card in value.cards" :key="card.suit + card.value">
