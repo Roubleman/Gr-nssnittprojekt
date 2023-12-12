@@ -38,11 +38,16 @@
     <p>{{ popup.message }}</p>
     <button @click="closePopup">Close</button>
   </div>
+  <div v-if="DisplayPopup.isVisible" class="popup" :class="DisplayPopup.type">
+    <p>{{ DisplayPopup.message }}</p>
+    <button @click="closePopup">Close</button>
+  </div>
 </template>
 
 <script>
 import OneCard from "@/components/OneCard.vue";
 import displayableDeck from "@/assets/playerComponentDeck.json";
+import { sockets } from "../../server/sockets";
 
 export default {
   name: "Player",
@@ -53,6 +58,7 @@ export default {
     uiLabels: Object,
     guessedCard: Object,
     graphicDeck: Array,
+    dealerChecked: Boolean,
   },
   components: {
     OneCard,
@@ -84,7 +90,26 @@ export default {
           this.playingCards[this.currentCardIndex].points
       );
     },
+    DisplayPopup() {
+      if (this.dealerChecked) {
+        const popupData = {
+          isVisible: true,
+          type: "wrongGuess",
+          message: this.uiLabels.wrongGuessPopup,
+        };
+        this.showPopup(popupData.type, popupData.message);
+        this.$emit("popupShown");
+        return popupData;
+      } else {
+        return {
+          isVisible: false,
+          type: "",
+          message: "",
+        };
+      }
+    },
   },
+
   methods: {
     selectCard(card) {
       console.log(
@@ -143,7 +168,6 @@ export default {
     handleGameResult(data) {
       if (data.result === "wrongGuess") {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard });
-        this.showPopup("wrong", this.uiLabels.wrongGuessPopup);
         this.shouldBlur = true;
         this.isConfirmed = false;
       } else if (data.result === "correctGuess") {
