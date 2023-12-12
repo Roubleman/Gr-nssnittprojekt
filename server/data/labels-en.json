@@ -56,5 +56,19 @@
  "guessesExplanation": "This setting changes how many wrong guesses is allowed before the dealer is swapped",
  "inputGameIdExplanation": "Enter the code given from your host to join lobby",
  "nameUnavailable": "Name is already taken, please enter new one",
- "gameIdNotFound": "Game doesn't exist, please try a new code or create a new game"
+ "gameIdNotFound": "Game doesn't exist, please try a new code or create a new game",
+ "errorsRemaining": "Errors left until new dealer",
+ "close": "Close",
+ "newRound": "New Round!",
+ "wrongGuessPopupSpec": "guessed the wrong card",
+ "youGotFucked": "Player guessed correctly, you gain:",
+ "youGuessedCorrect": "You guessed correctly, the dealer gains:",
+ "guesserGuessedCorrect": "Player guessed correctly, the dealer gains:",
+ "wrongGuessPoints": "You guessed wrong, the correct card was:",
+ "bus": "Bus",
+ "rule1": "Every other card has to be a different color",
+ "rule2": "Drink according to points",
+ "rule3": "Have fun!",
+ "busInfo1": "Current guess in round:",
+ "busInfo2": "Number of shuffles:"
 }

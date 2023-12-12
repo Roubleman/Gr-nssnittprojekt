@@ -3,7 +3,6 @@
         <p>It's your turn!</p>
         <button @click="showPopup = false">Close</button>
     </div>-->
-  <h1>Your turn</h1>
   <div class="card-flex">
     <section
       v-for="value in displayableDeck"
@@ -13,7 +12,7 @@
       <template v-for="card in value.cards" :key="card.suit + card.value">
         <OneCard
           :card="card"
-          :isClickable="isGuesser"
+          :isClickable="isGuesser && canSelectCard"
           :cardHeight="8"
           v-on:selectedCard="selectCard($event)"
           :class="{
@@ -41,11 +40,16 @@
     <p>{{ popup.message }}</p>
     <button @click="closePopup">Close</button>
   </div>
+  <div v-if="DisplayPopup.isVisible" class="popup" :class="DisplayPopup.type">
+    <p>{{ DisplayPopup.message }}</p>
+    <button @click="closePopup">Close</button>
+  </div>
 </template>
 
 <script>
 import OneCard from "@/components/OneCard.vue";
 import displayableDeck from "@/assets/playerComponentDeck.json";
+import { sockets } from "../../server/sockets";
 
 export default {
   name: "Player",
@@ -56,6 +60,7 @@ export default {
     uiLabels: Object,
     guessedCard: Object,
     graphicDeck: Array,
+    dealerChecked: Boolean,
   },
   components: {
     OneCard,
@@ -76,6 +81,7 @@ export default {
       isConfirmed: false,
       shouldBlur: false,
       displayableDeck: displayableDeck,
+      canSelectCard: true,
     };
   },
 
@@ -87,7 +93,26 @@ export default {
           this.playingCards[this.currentCardIndex].points
       );
     },
+    DisplayPopup() {
+      if (this.dealerChecked && this.isGuesser) {
+        const popupData = {
+          isVisible: true,
+          type: "wrongGuess",
+          message: this.uiLabels.wrongGuessPopup,
+        };
+        this.showPopup(popupData.type, popupData.message);
+        this.$emit("popupShown");
+        return popupData;
+      } else {
+        return {
+          isVisible: false,
+          type: "",
+          message: "",
+        };
+      }
+    },
   },
+
   methods: {
     selectCard(card) {
       console.log(
@@ -120,13 +145,7 @@ export default {
             result: "wrongGuess",
             wrongGuessedCard: this.selectedCard,
           });
-
-          // this.wrongGuesses++;
-          // if (this.wrongGuesses >= 2) {
-          //   this.gameResult = "lose";
-          //   this.wrongGuessedCard = null;
-          //   console.log(this.gameResult);
-          //   this.showPopup("lose", "You lose!");
+          this.canSelectCard = false;
         } else {
           this.cardsOutOfPlay = this.graphicDeck.slice(
             // Borde det inte vara playingCards istället?? MVH Elias
@@ -139,6 +158,7 @@ export default {
           this.selectedCard = null;
           this.wrongGuessedCard = null;
           this.handleGameResult({ result: "correctGuess" });
+          this.canSelectCard = true;
         }
       } else {
         console.log("No card selected");
@@ -151,6 +171,8 @@ export default {
     },
     closePopup() {
       this.popup.isVisible = false;
+      this.DisplayPopup.isVisible = false;
+      this.canSelectCard = true;
     },
     checkCard(card) {
       return card.points === this.currentCardIndex.points;
@@ -159,11 +181,12 @@ export default {
     handleGameResult(data) {
       if (data.result === "wrongGuess") {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard });
-        this.showPopup("wrong", this.uiLabels.wrongGuessPopup);
-        console.log(data.wrongGuessedCard);
+        this.shouldBlur = true;
+        this.isConfirmed = false;
       } else if (data.result === "correctGuess") {
         this.$emit("correctGuess");
-        this.showPopup("win", this.uiLabels.winPopup);
+        this.selectedCard = null;
+        this.wrongGuessedCard = null;
       }
     },
   },
@@ -183,13 +206,12 @@ export default {
 #confirm-button {
   background-color: #4caf50;
   border: 2px solid black;
-  color: white;
-  padding: 15px 32px;
+  color: black;
+  padding: 0.5em 0.5em;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
+  font-size: 1em;
+  margin: 2px;
   cursor: pointer;
   transition-duration: 0.4s;
 }
@@ -212,12 +234,6 @@ export default {
 
 .blur {
   filter: blur(2px);
-}
-
-.correct {
-  filter: none;
-  background-color: white;
-  border: 0.07em solid rgb(95, 95, 95);
 }
 
 .popup {
