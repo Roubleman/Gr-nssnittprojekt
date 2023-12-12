@@ -11,7 +11,7 @@
       </li>
     </section>
     <button v-on:click="startBus">
-      <label> {{uiLabels.startGame}}</label>
+      <label> {{ uiLabels.startGame }}</label>
     </button>
   </section>
 </template>
@@ -35,7 +35,7 @@ export default {
   created: function () {
     this.gameId = this.$route.params.id;
     socket.emit("getGameInfo", this.gameId);
-    console.log("result playerlist")
+    console.log("result playerlist");
     socket.emit("joinGame", this.gameId);
     socket.on("gameInfo", (game) => {
       this.playerList = game.players;
@@ -47,7 +47,6 @@ export default {
 
     socket.emit("lobbyJoined", this.gameId);
 
-  
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels;
@@ -55,14 +54,14 @@ export default {
   },
   methods: {
     startBus: function () {
-      this.$router.push("/bus/" + this.gameId);
-      for (player in this.playerList){
-        if (player.isGuesser){
+      this.$router.push("/bus/");
+      for (player in this.playerList) {
+        if (player.isGuesser) {
           this.$router.push("/bus/" + this.gameId);
         }
       }
-      }
-    }
+    },
+  },
 };
 </script>
 

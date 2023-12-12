@@ -3,7 +3,7 @@
     <h1>Buss</h1>
   </div>
   <div class="card-grid">
-    <section id="cardSelection">
+    <section id="cardSelection" vis>
       <vue-flip
         active-click
         class="flip-card"
@@ -101,7 +101,12 @@
           </div>
         </template>
       </vue-flip>
-      <button v-on:click="console.log(this.selectedCard)"></button>
+    </section>
+    <section class="gameScore">
+      <h1>{{ uiLabels.numberOfPoints }}: {{ this.gameScore }}</h1>
+    </section>
+    <section class="rules">
+      <li v-for="rules in ruleList">{{ rules }}</li>
     </section>
   </div>
 </template>
@@ -121,7 +126,7 @@ export default {
   },
   data: function () {
     return {
-      isDone: false,
+      isDone: null,
       cards: [],
       pile1: [],
       pile2: [],
@@ -137,21 +142,24 @@ export default {
       cardWidth: "13.2em",
       cardHeight: "20em",
       lang: localStorage.getItem("lang") || "en",
-      gameId: "inactive game",
       uiLabels: {},
       playerScore: {},
       playingCards: [],
-      playerList: {},
       gameScore: 0,
+      ruleList: [],
     };
   },
   created: function () {
+    this.isDone = false;
     this.distributeDeck();
-    /*
-    socket.emit("getGameInfo", this.gameId);
-    socket.on("gameInfo", (game) => {
-      this.playerList = game.players;
-    });*/
+    this.ruleList.push(
+      "1. Every other card has to be a different color",
+      "2. Points is the amound you have to drink",
+      "3. Have fun!"
+    );
+    socket.on("init", (labels) => {
+      this.uiLabels = labels;
+    });
   },
   methods: {
     shuffleCards: function (deck) {
@@ -192,88 +200,80 @@ export default {
       this.compare(this.selectedCard);
     },
     checkBlack: function (arr) {
-      for(let i = 1; i < arr.length; i +=2){
-        if(i % 2 === 1){
-          if(arr[i] == "spades" || arr[i] == "clubs"){
-            return true;
-          } else {
-            console.log(arr[i])
-            return false;
-          }
-        }
-        else return false;
-      }
+      if (arr.length === 4) {
+        if (arr[3] === "spades" || arr[3] === "clubs") {
+          return true;
+        } else return false;
+      } else if (arr.length === 2) {
+        if (arr[1] === "spades" || arr[1] === "clubs") {
+          return true;
+        } else return false;
+      } else return false;
     },
     checkRed: function (arr) {
-      for(let i = 0; i < arr.length; i++){
-        if (i % 2 === 0){
-          if(arr[i] == "diams" ||arr[i] == "hearts"){
-            return true;
-          }else {
-            console.log(arr[i])
-            return false;
-          }
-
-        } else if (arr[i] ) {
-          return false;
-        }
-      }
-      
+      if (arr.length === 3) {
+        if (arr[2] === "hearts" || arr[2] === "diams") {
+          return true;
+        } else return false;
+      } else if (arr.length === 1) {
+        if (arr[0] === "hearts" || arr[0] === "diams") {
+          return true;
+        } else return false;
+      } else return false;
     },
     compare: function (selectedCard) {
-      this.cardSuit.push(
-        this.selectedCard[this.selectedCard.length - 1].suit
-      );
+      this.cardSuit.push(this.selectedCard[this.selectedCard.length - 1].suit);
       console.log(this.cardSuit);
-      if ( this.cardSuit.length == 4 && this.checkBlack(this.cardSuit)) {
-        isDone = true;
-        return this.isDone;
-      } 
-      else if (selectedCard.length === 0) {
-        return this.isDone;
-      }
-      else if (selectedCard.length === 1 && !this.checkRed(this.cardSuit) ) {
-        console.log(this.checkRed(this.cardSuit))
+      if (this.cardSuit.length == 4 && this.checkBlack(this.cardSuit)) {
+        this.isDone = true;
+        alert("You won");
+      } else if (this.cardSuit.length == 4 && !this.checkBlack(this.cardSuit)) {
         this.distributeDeck();
         this.gameScore += selectedCard.length * 2;
         console.log(this.gameScore);
         this.selectedCard = [];
         this.cardSuit = [];
-        return this.isDone;
+      } else if (selectedCard.length === 1 && !this.checkRed(this.cardSuit)) {
+        console.log(this.checkRed(this.cardSuit));
+        this.distributeDeck();
+        this.gameScore += selectedCard.length * 2;
+        console.log(this.gameScore);
+        this.selectedCard = [];
+        this.cardSuit = [];
       } else if (selectedCard.length === 2 && !this.checkBlack(this.cardSuit)) {
         this.distributeDeck();
         this.gameScore += selectedCard.length * 2;
         console.log(this.gameScore);
         this.selectedCard = [];
         this.cardSuit = [];
-        return this.isDone;
-      }
-      else if (selectedCard.length === 3 && !this.checkRed(this.cardSuit)) {
-        console.log(this.checkRed(this.cardSuit))
+      } else if (selectedCard.length === 3 && !this.checkRed(this.cardSuit)) {
+        console.log(this.checkRed(this.cardSuit));
         this.distributeDeck();
         this.gameScore += selectedCard.length * 2;
         console.log(this.gameScore);
         this.selectedCard = [];
         this.cardSuit = [];
-        return this.isDone;
-      }else {
-        return this.isDone;
+      } else {
+        console.log("good job");
       }
-
-      
     },
   },
 };
 </script>
 
 <style>
+body {
+  background-color: rgb(233, 233, 223);
+  font-size: 1.3em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 #cardSelection {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1em;
+  margin-top: 8em;
   position: relative;
-  margin-left: 10em;
+  margin-left: 8em;
   width: calc(100% - 20em);
 }
 .scene {
@@ -314,6 +314,7 @@ export default {
 }
 
 .card-grid {
+  margin: 5px;
   display: contents;
 }
 .card-facing-up {
@@ -323,5 +324,33 @@ export default {
   transform: none !important;
   height: 100% !important;
   width: 100% !important;
+}
+.gameScore {
+  color: white;
+  width: 15em;
+  border-style: inset;
+  border-color: rgba(252, 16, 48, 0.707);
+  border-width: 1em;
+  background-color: rgb(73, 114, 73);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  z-index: 100;
+}
+.rules {
+  color: white;
+  width: 15em;
+  border-style: inset;
+  border-color: rgba(252, 16, 48, 0.707);
+  border-width: 1em;
+  background-color: rgb(73, 114, 73);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  z-index: 100;
 }
 </style>
