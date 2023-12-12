@@ -7,19 +7,31 @@
   <div class="card-flex">
     <section v-for="value in graphicDeck" :key="value.value">
       <template v-for="card in value.cards" :key="card.suit + card.value">
-        <OneCard v-if="card.isVisible" :card="card" :isClickable="isGuesser" v-on:selectedCard="selectCard($event)"
+        <OneCard
+          v-if="card.isVisible"
+          :card="card"
+          :isClickable="isGuesser"
+          v-on:selectedCard="selectCard($event)"
           :class="{
             selected: selectedCard === card,
             blur: shouldBlur && card === wrongGuessedCard,
             'selected-card': cardsOutOfPlay.includes(card),
-          }" width="--card-height" height="--card-height" class="no-selection OneCard">
+          }"
+          width="--card-height"
+          height="--card-height"
+          class="no-selection OneCard"
+        >
         </OneCard>
       </template>
     </section>
   </div>
 
   <section>
-    <button v-if="isGuesser" @click="confirmSelection(card)" id="confirm-button">
+    <button
+      v-if="isGuesser"
+      @click="confirmSelection(card)"
+      id="confirm-button"
+    >
       Confirm
     </button>
   </section>
@@ -70,7 +82,7 @@ export default {
       return (
         this.selectedCard &&
         this.selectedCard.points ===
-        this.playingCards[this.currentCardIndex].points
+          this.playingCards[this.currentCardIndex].points
       );
     },
   },
@@ -115,6 +127,7 @@ export default {
           //   this.showPopup("lose", "You lose!");
         } else {
           this.cardsOutOfPlay = this.graphicDeck.slice(
+            // Borde det inte vara playingCards istället?? MVH Elias
             0,
             this.currentCardIndex + 1
           ); //change so that cardsoutofplay is slice of cardindex to current card in deck.
@@ -142,14 +155,13 @@ export default {
     },
 
     handleGameResult(data) {
-      if (data.result === 'wrongGuess') {
+      if (data.result === "wrongGuess") {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard });
-        this.showPopup('wrong', this.uiLabels.wrongGuessPopup);
+        this.showPopup("wrong", this.uiLabels.wrongGuessPopup);
         console.log(data.wrongGuessedCard);
-
-      } else if (data.result === 'correctGuess') {
-        this.$emit('correctGuess');
-        this.showPopup('win', this.uiLabels.winPopup);
+      } else if (data.result === "correctGuess") {
+        this.$emit("correctGuess");
+        this.showPopup("win", this.uiLabels.winPopup);
       }
     },
   },
