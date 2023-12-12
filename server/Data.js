@@ -249,6 +249,7 @@ Data.prototype.fuckTheDealer = function (gameId, secondGuess) {
       }
     }
     game.errorsRemaining = game.guessesNumber;
+    return pointsIncrease;
   }
 };
 

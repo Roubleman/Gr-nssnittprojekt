@@ -102,7 +102,7 @@ function sockets(io, socket, data) {
       io.to(d.gameId).emit(
         "guesserPointsIncreased",
         data.increasePoints(d.gameId, d.playerName, d.card.points)
-      );
+      ); // delay??
       let gameStillGoing = data.nextRound(d.gameId);
       if (gameStillGoing) {
         io.to(d.gameId).emit("gameUpdate", data.getGame(d.gameId));
@@ -113,9 +113,11 @@ function sockets(io, socket, data) {
   });
 
   socket.on("correctGuess", function (d) {
-    io.to(d.gameId).emit("correctGuess");
-    data.fuckTheDealer(d.gameId, d.secondGuess);
-    let gameStillGoing = data.nextRound(d.gameId);
+    io.to(d.gameId).emit(
+      "correctGuess",
+      data.fuckTheDealer(d.gameId, d.secondGuess)
+    );
+    let gameStillGoing = data.nextRound(d.gameId); // delay?
     if (gameStillGoing) {
       io.to(d.gameId).emit("gameUpdate", data.getGame(d.gameId));
     } else {
