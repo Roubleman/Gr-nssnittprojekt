@@ -94,9 +94,9 @@
   </section>
   <div v-if="popup.isVisible" class="popup" :class="popup.type">
     <p>{{ popup.message }}</p>
-    <p v-if="popup.points != 0">{{ popup.points }} {{ uiLabels.points }}</p>
+    <p v-if="popup.points">{{ uiLabels.points }}: {{ popup.points }}</p>
     <OneCard
-      v-if="popup.card != {}"
+      v-if="Object.keys(popup.card).length > 0"
       :card="popup.card"
       width="2em"
       height="2em"
@@ -192,8 +192,9 @@ export default {
     });
 
     socket.on("gameUpdate", (game) => {
+      console.log("gameUpdate recieved", game.currentCardIndex);
       setTimeout(() => {
-        this.showPopup("newRound", this.uiLabels.newRound, {});
+        this.showPopup("newRound", this.uiLabels.newRound, {}, 0);
         this.playerList = game.players;
         this.leaderboard = this.getLeaderboard();
         this.gameInfo.errorsRemaining = game.errorsRemaining;
@@ -208,7 +209,7 @@ export default {
           this.playingCards,
           this.gameInfo.currentCardIndex
         );
-      }, 3000);
+      }, 10000);
     });
 
     socket.on("dealerHasChecked", () => {
@@ -216,6 +217,7 @@ export default {
     });
 
     socket.on("wrongGuess", (data) => {
+      console.log("wrongGuess recieved", data.card, data.secondGuess);
       if (!data.secondGuess && this.isDealer) {
         this.higherLower = true;
       }
@@ -231,6 +233,7 @@ export default {
     });
 
     socket.on("correctGuess", (points) => {
+      console.log("correctGuess recieved", points);
       let message = {};
       if (this.isDealer) {
         message = this.uiLabels.youGotFucked;
@@ -239,10 +242,16 @@ export default {
       } else {
         message = this.uiLabels.guesserGuessedCorrect;
       }
-      this.showPopup("correctGuess", message, this.cardGuessed, points);
+      this.showPopup(
+        "correctGuess",
+        message,
+        this.playingCards[this.gameInfo.currentCardIndex],
+        points
+      );
     });
 
     socket.on("guesserPointsIncreased", (points) => {
+      console.log("guesserPointsIncreased received", points);
       this.pointsIncreased = points;
       if (this.isGuesser) {
         this.showPopup(
@@ -376,16 +385,19 @@ export default {
           return parseInt(value);
       }
     },
-  },
-  showPopup(type, message, card, points) {
-    this.popup.points = points;
-    this.popup.card = card;
-    this.popup.type = type;
-    this.popup.message = message;
-    this.popup.isVisible = true;
-  },
-  closePopup() {
-    this.popup.isVisible = false;
+    showPopup(type, message, card, points) {
+      if (this.popup.isVisible) {
+        this.closePopup();
+      }
+      this.popup.points = points;
+      this.popup.card = card;
+      this.popup.type = type;
+      this.popup.message = message;
+      this.popup.isVisible = true;
+    },
+    closePopup() {
+      this.popup.isVisible = false;
+    },
   },
 };
 </script>
