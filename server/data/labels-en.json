@@ -59,5 +59,9 @@
  "gameIdNotFound": "Game doesn't exist, please try a new code or create a new game",
  "close": "Close",
  "newRound": "New Round!",
- "wrongGuessPopupSpec": "guessed the wrong card"
+ "wrongGuessPopupSpec": "guessed the wrong card",
+ "youGotFucked": "Player guessed correctly, you gain:",
+ "youGuessedCorrect": "You guessed correctly, the dealer gains:",
+ "guesserGuessedCorrect": "Player guessed correctly, the dealer gains:",
+ "wrongGuessPoints": "You guessed wrong, the correct card was:"
 }
