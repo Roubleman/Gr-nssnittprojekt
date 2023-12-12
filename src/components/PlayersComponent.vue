@@ -9,7 +9,7 @@
         <OneCard
           v-if="card.isVisible"
           :card="card"
-          :isClickable="isGuesser"
+          :isClickable="isGuesser && canSelectCard"
           v-on:selectedCard="selectCard($event)"
           :class="{
             selected: selectedCard === card,
@@ -79,6 +79,7 @@ export default {
       isConfirmed: false,
       shouldBlur: false,
       displayableDeck: displayableDeck,
+      canSelectCard: true,
     };
   },
 
@@ -91,7 +92,7 @@ export default {
       );
     },
     DisplayPopup() {
-      if (this.dealerChecked) {
+      if (this.dealerChecked && this.isGuesser) {
         const popupData = {
           isVisible: true,
           type: "wrongGuess",
@@ -140,6 +141,7 @@ export default {
             result: "wrongGuess",
             wrongGuessedCard: this.selectedCard,
           });
+          this.canSelectCard = false;
         } else {
           this.cardsOutOfPlay = this.playingCards.slice(
             0,
@@ -148,6 +150,7 @@ export default {
           console.log("Cards out of play:", this.cardsOutOfPlay);
           this.gameResult = "correctguess";
           this.handleGameResult({ result: "correctGuess" });
+          this.canSelectCard = true;
         }
       } else {
         console.log("No card selected");
@@ -161,6 +164,7 @@ export default {
     closePopup() {
       this.popup.isVisible = false;
       this.DisplayPopup.isVisible = false;
+      this.canSelectCard = true;
     },
     checkCard(card) {
       return card.points === this.currentCardIndex.points;
@@ -173,7 +177,6 @@ export default {
         this.isConfirmed = false;
       } else if (data.result === "correctGuess") {
         this.$emit("correctGuess");
-        this.showPopup("win", this.uiLabels.winPopup);
         this.selectedCard = null;
         this.wrongGuessedCard = null;
       }
@@ -194,13 +197,12 @@ export default {
 #confirm-button {
   background-color: #4caf50;
   border: 2px solid black;
-  color: white;
-  padding: 15px 32px;
+  color: black;
+  padding: 0.5em 0.5em;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
+  font-size: 1em;
+  margin: 2px;
   cursor: pointer;
   transition-duration: 0.4s;
 }

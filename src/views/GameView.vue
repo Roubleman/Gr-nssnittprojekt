@@ -3,7 +3,7 @@
 
   <section class="currentDealerGuesser">
     <div v-if="!this.isDealer" class="styled-box">
-      {{ uiLabels.currentDealer }} <br />
+      <h4>{{ uiLabels.currentDealer }} </h4> 
       <p class="name-display">
         <img
           :src="this.playerList[gameInfo.dealerIndex].avatar"
@@ -12,8 +12,16 @@
         {{ this.playerList[gameInfo.dealerIndex].name }}
       </p>
     </div>
+    <div class="styled-box error-box">
+      <h4>
+        {{ uiLabels.errorsRemaining }}
+      </h4>
+      <p id="errors">
+        {{ this.gameInfo.errorsRemaining }}
+         </p>
+    </div>
     <div v-if="!this.isGuesser" class="styled-box">
-      {{ uiLabels.currentGuesser }} <br />
+      <h4>{{ uiLabels.currentGuesser }} </h4>
       <p class="name-display">
         <img
           :src="this.playerList[gameInfo.guesserIndex].avatar"
@@ -403,6 +411,12 @@ export default {
 </script>
 
 <style scoped>
+
+h4 {
+margin:0.3em;
+}
+
+
 #header-style {
   font-size: 1.5rem;
   font-weight: bolder;
