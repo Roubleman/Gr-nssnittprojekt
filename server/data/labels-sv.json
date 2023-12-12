@@ -37,7 +37,7 @@
   "dealerHeader": "Du är dealer!",
   "playerHeader": "Din tur att gissa!",
   "spectatorHeader": "Du är spektator!",
-  "currentDealer": "Den som är dealer",
+  "currentDealer": "Dealer",
   "currentGuesser": "Den som gissar",
   "currentGameSettings": "Spelinställningar:",
   "player": "Spelare",
@@ -58,7 +58,12 @@
  "inputGameIdExplanation": "Skriv in koden från din host för att gå med i lobby",
  "nameUnavailable": "Namnet är redan taget, vänligen välj ett annat",
  "gameIdNotFound": "Spelet finns inte, vänligen pröva en annan kod eller skapa ett nytt spel",
+ "errorsRemaining": "Antal felaktiga gissningar till ny dealer",
  "close": "Stäng",
  "newRound": "Ny runda!",
- "wrongGuessPopupSpec": "gissade fel kort"
+ "wrongGuessPopupSpec": "gissade fel kort",
+ "youGotFucked": "Spelaren gissade rätt, du får:",
+ "youGuessedCorrect": "Du gissade rätt, dealern får:",
+ "guesserGuessedCorrect": "Spelaren gissade rätt, dealern får:",
+ "wrongGuessPoints": "Du gissade fel, rätt kort var:"
 }

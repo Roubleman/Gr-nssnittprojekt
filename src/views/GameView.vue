@@ -3,7 +3,7 @@
 
   <section class="currentDealerGuesser">
     <div v-if="!this.isDealer" class="styled-box">
-      {{ uiLabels.currentDealer }} <br />
+      <h4>{{ uiLabels.currentDealer }} </h4> 
       <p class="name-display">
         <img
           :src="this.playerList[gameInfo.dealerIndex].avatar"
@@ -12,8 +12,16 @@
         {{ this.playerList[gameInfo.dealerIndex].name }}
       </p>
     </div>
+    <div class="styled-box error-box">
+      <h4>
+        {{ uiLabels.errorsRemaining }}
+      </h4>
+      <p id="errors">
+        {{ this.gameInfo.errorsRemaining }}
+         </p>
+    </div>
     <div v-if="!this.isGuesser" class="styled-box">
-      {{ uiLabels.currentGuesser }} <br />
+      <h4>{{ uiLabels.currentGuesser }} </h4>
       <p class="name-display">
         <img
           :src="this.playerList[gameInfo.guesserIndex].avatar"
@@ -94,6 +102,7 @@
   </section>
   <div v-if="popup.isVisible" class="popup" :class="popup.type">
     <p>{{ popup.message }}</p>
+    <p v-if="popup.points != 0">{{ popup.points }} {{ uiLabels.points }}</p>
     <OneCard
       v-if="popup.card != {}"
       :card="popup.card"
@@ -191,18 +200,23 @@ export default {
     });
 
     socket.on("gameUpdate", (game) => {
-      this.showPopup("newRound", this.uiLabels.newRound, {});
-      this.playerList = game.players;
-      this.leaderboard = this.getLeaderboard();
-      this.gameInfo.errorsRemaining = game.errorsRemaining;
-      this.gameInfo.currentCardIndex = game.currentCardIndex;
-      this.gameInfo.dealerIndex = game.dealerIndex;
-      this.gameInfo.guesserIndex = game.guesserIndex;
-      this.player = this.playerList[this.playerIndex];
-      this.isGuesser = this.player.isGuesser;
-      this.isDealer = this.player.isDealer;
-      this.secondGuess = false;
-      this.updateGraphicDeck(this.playingCards, this.gameInfo.currentCardIndex);
+      setTimeout(() => {
+        this.showPopup("newRound", this.uiLabels.newRound, {});
+        this.playerList = game.players;
+        this.leaderboard = this.getLeaderboard();
+        this.gameInfo.errorsRemaining = game.errorsRemaining;
+        this.gameInfo.currentCardIndex = game.currentCardIndex;
+        this.gameInfo.dealerIndex = game.dealerIndex;
+        this.gameInfo.guesserIndex = game.guesserIndex;
+        this.player = this.playerList[this.playerIndex];
+        this.isGuesser = this.player.isGuesser;
+        this.isDealer = this.player.isDealer;
+        this.secondGuess = false;
+        this.updateGraphicDeck(
+          this.playingCards,
+          this.gameInfo.currentCardIndex
+        );
+      }, 3000);
     });
 
     socket.on("dealerHasChecked", () => {
@@ -224,19 +238,28 @@ export default {
       this.cardGuessed = data.card;
     });
 
-    // socket.on("correctGuess", (points) => {
-    //   if (this.isDealer) {
-    //     this.showPopup("correctGuess", this.uiLabels.youGotFucked, {}, points)
-    //   }
-    //   if (this.isGuesser) {
-    //     this.showPopup("correctGuess", this)
-    //   }
-    //   this.showPopup("correctGuess", this.uiLabels.correctGuessPopupSpec, {}, points);
-    // });
+    socket.on("correctGuess", (points) => {
+      let message = {};
+      if (this.isDealer) {
+        message = this.uiLabels.youGotFucked;
+      } else if (this.isGuesser) {
+        message = this.uiLabels.youGuessedCorrect;
+      } else {
+        message = this.uiLabels.guesserGuessedCorrect;
+      }
+      this.showPopup("correctGuess", message, this.cardGuessed, points);
+    });
 
     socket.on("guesserPointsIncreased", (points) => {
       this.pointsIncreased = points;
-      //show popup för alla, den som är guesses har annat meddelande
+      if (this.isGuesser) {
+        this.showPopup(
+          "pointsIncreased",
+          this.uiLabels.wrongGuessPoints,
+          this.playingCards[this.gameInfo.currentCardIndex],
+          points
+        );
+      }
     });
 
     socket.on("gameEnded", () => {
@@ -362,7 +385,8 @@ export default {
       }
     },
   },
-  showPopup(type, message, card) {
+  showPopup(type, message, card, points) {
+    this.popup.points = points;
     this.popup.card = card;
     this.popup.type = type;
     this.popup.message = message;
@@ -375,6 +399,12 @@ export default {
 </script>
 
 <style scoped>
+
+h4 {
+margin:0.3em;
+}
+
+
 #header-style {
   font-size: 1.5rem;
   font-weight: bolder;
