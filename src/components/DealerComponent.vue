@@ -10,9 +10,10 @@
       class="dealer-button"
       @click="emitHigherLower"
       v-if="higherLower"
+      :disabled="guessedCard.card.points < playingCards[currentCardIndex].points"
       :style="{
         opacity:
-          guessedCard.points > playingCards[currentCardIndex].points ? 0.5 : 1,
+          guessedCard.card.points > playingCards[currentCardIndex].points ? 1 : 0.5,
       }"
     >
       {{ uiLabels.lower }}
@@ -44,10 +45,10 @@
       class="dealer-button"
       @click="emitHigherLower"
       v-if="higherLower"
-      disabled="guessedCard.points < playingCards[currentCardIndex].points"
+      :disabled="guessedCard.card.points > playingCards[currentCardIndex].points"
       :style="{
         opacity:
-          guessedCard.points < playingCards[currentCardIndex].points ? 0.5 : 1,
+          guessedCard.card.points < playingCards[currentCardIndex].points ? 1 : 0.5,
       }"
     >
       {{ uiLabels.higher }}

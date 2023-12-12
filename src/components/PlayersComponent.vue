@@ -3,7 +3,6 @@
         <p>It's your turn!</p>
         <button @click="showPopup = false">Close</button>
     </div>-->
-  <h1>Your turn</h1>
   <div class="card-flex">
     <section v-for="value in graphicDeck" :key="value.value">
       <template v-for="card in value.cards" :key="card.suit + card.value">
