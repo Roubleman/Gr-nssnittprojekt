@@ -460,7 +460,6 @@ h4 {
   justify-content: flex-start;
   gap: 1em 0.7em;
   padding: 1em;
-  --card-height: 8em;
 }
 
 .dealer-view {

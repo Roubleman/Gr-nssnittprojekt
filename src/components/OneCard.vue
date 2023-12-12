@@ -6,6 +6,7 @@
       isClickable ? '' : 'card-border[disabled]:hover',
     ]"
     @click="selectedCardTapped"
+    :style="cssProps"
   >
     <div class="grid-container" :class="this.isRed() ? 'red' : 'black'">
       <section class="card-corner-left">
@@ -48,7 +49,15 @@
           </div>
         </section>
 
-        <section v-else style="height:100%; display: flex; justify-content: center; align-items: center;">
+        <section
+          v-else
+          style="
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
           <span id="ace" v-html="'&' + card.suit + ';'"></span>
         </section>
       </section>
@@ -79,6 +88,7 @@ export default {
   props: {
     card: Object,
     isClickable: Boolean,
+    cardHeight: Number,
   },
   data: function () {
     return {};
@@ -142,6 +152,13 @@ export default {
 
       return [];
     },
+
+    cssProps() {
+      return {
+        "--card-height": this.cardHeight + "em",
+        "--card-width": this.cardHeight * 0.66 + "em",
+      };
+    },
   },
 
   methods: {
@@ -166,7 +183,7 @@ export default {
 <style scoped>
 .card-border {
   height: var(--card-height);
-  width: calc(var(--card-height) * 0.66);
+  width: var(--card-width);
   border: 0.07em solid rgb(95, 95, 95);
   border-radius: 0.4em;
   transition: transform 0.6s ease;
