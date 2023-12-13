@@ -163,7 +163,9 @@ export default {
         "--card-corner-right-margin-top": this.card*0.7125 + "em",
         "--card-corner-right-margin-right": this.cardHeight*0.05 + "em",
         "--no-card-suit-right": this.cardHeight*(-0.5) + "em",
-        "--card-font-size": this.cardHeight*0.1625 + "em"
+        "--card-font-size": this.cardHeight*0.125 + "em",
+        "--card-border-thickness": this.cardHeight*0.00875 + "em",
+        "--card-border-radius": this.cardHeight*0.05 + "em"
       };
     },
   },
@@ -191,8 +193,8 @@ export default {
 .card-border {
   height: var(--card-height);
   width: var(--card-width);
-  border: 0.07em solid rgb(95, 95, 95);
-  border-radius: 0.4em;
+  border: var(--card-border-thickness) solid rgb(95, 95, 95);
+  border-radius: var(--card-border-radius);
   transition: transform 0.6s ease;
   background-color: white;
 }

@@ -235,6 +235,7 @@ Data.prototype.increasePoints = function (gameId, playerName, cardPoint) {
         console.log("points increased", gameId, playerName, pointsIncrease);
       }
     }
+    game.errorsRemaining--;
     return pointsIncrease;
   }
 };
