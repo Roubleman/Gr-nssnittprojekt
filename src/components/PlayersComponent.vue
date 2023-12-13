@@ -3,6 +3,13 @@
         <p>It's your turn!</p>
         <button @click="showPopup = false">Close</button>
     </div>-->
+
+  <div>
+    <div v-if="this.dealerChecked && this.isGuesser">
+      <p>{{ guessComparison }}</p>
+    </div>
+  </div>
+
   <div class="card-flex">
     <section
       v-for="value in graphicDeck"
@@ -72,7 +79,6 @@ export default {
       selectedCard: [],
       cardsOutOfPlay: [],
       stackIndices: {},
-      wrongGuesses: 0,
       popup: {
         isVisible: false,
         message: "",
@@ -113,6 +119,20 @@ export default {
         };
       }
     },
+    guessComparison() {
+      const currentCardPoints = this.playingCards[this.currentCardIndex].points;
+      const selectedCardPoints = this.wrongGuessedCard.points;
+
+      if (selectedCardPoints > currentCardPoints) {
+        return "Guess a lower card!";
+      } else if (selectedCardPoints < currentCardPoints) {
+        return "Guess a higher card!";
+      } else if (selectedCardPoints === currentCardPoints) {
+        return "Your guess is correct!";
+      } else {
+        return "Something went wrong";
+      }
+    },
   },
 
   methods: {
@@ -122,7 +142,6 @@ export default {
         this.playingCards[this.currentCardIndex].points
       );
       console.log("points of cardinex is", card.points);
-
       this.selectedCard = card;
     },
 
