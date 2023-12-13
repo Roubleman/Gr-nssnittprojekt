@@ -47,7 +47,7 @@
   "avatar": "Avatar",
   "losePopup": "You guessed the wrong card! You lose!",
   "winPopup": "You guessed the right card!",
-  "wrongGuessPopup": "You guessed the wrong card! you have one more try!",
+  "wrongGuessPopup": "You guessed the wrong card!",
   "leaderboardTitle": "Leaderboard",
   "thisIsTheGuessedCard": "Guessed card:",
   "placement": "Placement",
@@ -74,5 +74,8 @@
   "rule3": "First card needs to be red",
   "busInfo1": "Current guess in round:",
   "busInfo2": "Number of shuffles:",
-  "playerGuessedWrong": "The player guessed wrong, the correct card and points given are:"
+  "playerGuessedWrong": "The player guessed wrong, the correct card and points given are:",
+  "guessHigher": "Guess a higher card!",
+  "guessLower": "Guess a lower card",
+  "guessWasCorrect" : "Guess was correct"
 }
