@@ -39,7 +39,6 @@ export default {
     socket.emit("joinGame", this.gameId);
     socket.on("gameInfo", (game) => {
       this.playerList = game.players;
-      this.gameSettings.pointsSetting = game.pointsSetting;
       this.player = this.playerList[this.playerList.length - 1];
       this.playerName = this.player.name;
       console.log(this.playerList);
@@ -54,9 +53,8 @@ export default {
   },
   methods: {
     startBus: function () {
-      this.$router.push("/bus/");
       for (player in this.playerList) {
-        if (player.isGuesser) {
+        if (player.isDealer) {
           this.$router.push("/bus/");
         }
       }

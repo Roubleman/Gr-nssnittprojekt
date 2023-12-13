@@ -20,7 +20,8 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard class="card-facing-up" v-bind:card="topCard1" />
+              <OneCard class="card-facing-up" v-bind:card="topCard1" 
+              :cardHeight="20"/>
             </div>
           </template>
         </vue-flip>
@@ -42,7 +43,8 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard class="card-facing-up" v-bind:card="topCard2" />
+              <OneCard class="card-facing-up" v-bind:card="topCard2"
+              :cardHeight="20" />
             </div>
           </template>
         </vue-flip>
@@ -63,7 +65,8 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard class="card-facing-up" v-bind:card="topCard3" />
+              <OneCard class="card-facing-up" v-bind:card="topCard3" 
+              :cardHeight="20"/>
             </div>
           </template>
         </vue-flip>
@@ -84,7 +87,8 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard class="card-facing-up" v-bind:card="topCard4" />
+              <OneCard class="card-facing-up" v-bind:card="topCard4" 
+              :cardHeight="20"/>
             </div>
           </template>
         </vue-flip>
@@ -241,7 +245,7 @@ export default {
           console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
-        }, 3000);
+        }, 1000);
       } else if (selectedCard.length === 1 && !this.checkRed(this.cardSuit)) {
         console.log(this.checkRed(this.cardSuit));
         setTimeout(() => {
@@ -251,7 +255,7 @@ export default {
           console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
-        }, 3000);
+        }, 1000);
       } else if (selectedCard.length === 2 && !this.checkBlack(this.cardSuit)) {
         setTimeout(() => {
           this.distributeDeck();
@@ -260,7 +264,7 @@ export default {
           console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
-        }, 3000);
+        }, 1000);
       } else if (selectedCard.length === 3 && !this.checkRed(this.cardSuit)) {
         console.log(this.checkRed(this.cardSuit));
         setTimeout(() => {
@@ -270,7 +274,7 @@ export default {
           console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
-        }, 3000);
+        }, 1000);
       } else {
         console.log("good job");
       }
@@ -320,8 +324,8 @@ body {
   z-index: 1;
 }
 .card-image {
-  border: 0.08em solid black;
-  border-radius: 0.5em;
+  border: 0.175em solid rgb(95, 95, 95);
+  border-radius: 1em;
   cursor: pointer;
   height: inherit;
   width: inherit;
@@ -340,8 +344,6 @@ body {
   z-index: 3;
   transition: none !important;
   transform: none !important;
-  height: 100% !important;
-  width: 100% !important;
 }
 .gameInfo {
   text-align: left;
