@@ -31,7 +31,7 @@
 
   <section>
     <button
-      v-if="isGuesser"
+      v-if="isGuesser && !isConfirmed && canSelectCard"
       @click="confirmSelection(card)"
       id="confirm-button"
     >
