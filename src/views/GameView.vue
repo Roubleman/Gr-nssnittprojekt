@@ -67,7 +67,7 @@
       v-on:wrongGuess="guessCard($event)"
       v-on:correctGuess="correctGuess()"
       v-on:popUpShown="resetDealerChecked()"
-      v-on:newRoundRecieved="resetNewRound()"
+      v-on:newRoundReceived="resetNewRound()"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
@@ -234,11 +234,13 @@ export default {
           this.playingCards,
           this.gameInfo.currentCardIndex
         );
-      }, 10000);
+      }, 1000);
     });
 
     socket.on("dealerHasChecked", () => {
-      this.dealerChecked = true;
+      if (this.isGuesser) {
+        this.dealerChecked = true;
+      }
       if (!this.isDealer && !this.isGuesser) {
         this.showPopup(
           "wrongGuess",
