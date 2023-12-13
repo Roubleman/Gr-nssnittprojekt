@@ -84,7 +84,20 @@ export default {
       waitingForDealer: false,
     };
   },
+  watch: {
+    newRound: function (newVal, oldVal) {
+      if (newVal !== oldVal && newVal) {
+        this.resetRound();
+        this.$emit("newRoundReceived");
+      }
+    },
+  },
   computed: {
+    newRoundReceived() {
+      this.resetRound();
+      this.$emit("newRoundReceived");
+    },
+
     isCorrect() {
       return (
         this.selectedCard &&
@@ -126,6 +139,7 @@ export default {
       }
     },
   },
+
   methods: {
     selectCard(card) {
       this.selectedCard = card;
@@ -194,6 +208,16 @@ export default {
         this.selectedCard = null;
         this.wrongGuessedCard = null;
       }
+    },
+    resetRound() {
+      this.gameResult = null;
+      this.firstGuessedCard = null;
+      this.isConfirmed = false;
+      this.shouldBlur = false;
+      this.canSelectCard = true;
+      this.wrongGuessedCard = 0;
+      this.displayButtonClosed = false;
+      this.waitingForDealer = false;
     },
   },
 };

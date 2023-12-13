@@ -234,7 +234,7 @@ export default {
           this.playingCards,
           this.gameInfo.currentCardIndex
         );
-      }, 10000);
+      }, 1000);
     });
 
     socket.on("dealerHasChecked", () => {
