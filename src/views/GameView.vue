@@ -102,13 +102,15 @@
   </section>
   <div v-if="popup.isVisible" class="popup" :class="popup.type">
     <p>{{ popup.message }}</p>
-    <p v-if="popup.points">{{ uiLabels.points }}: {{ popup.points }}</p>
-    <OneCard
-      v-if="Object.keys(popup.card).length > 0"
-      :card="popup.card"
-      :cardHeight="5"
-      class="no-selection"
-    ></OneCard>
+    <div class="popup-elements">
+      <p v-if="popup.points">{{ uiLabels.points }}: {{ popup.points }}</p>
+      <OneCard
+        v-if="Object.keys(popup.card).length > 0"
+        :card="popup.card"
+        :cardHeight="5"
+        class="no-selection"
+      ></OneCard>
+    </div>
     <button @click="closePopup" v-if="popup.isClosable">
       {{ uiLabels.close }}
     </button>
@@ -224,21 +226,21 @@ export default {
 
     socket.on("dealerHasChecked", () => {
       this.dealerChecked = true;
+      if (!this.isDealer && !this.isGuesser) {
+        this.showPopup(
+          "wrongGuess",
+          this.uiLabels.wrongGuessPopupSpec,
+          this.cardGuessed,
+          0,
+          true
+        );
+      }
     });
 
     socket.on("wrongGuess", (data) => {
       console.log("wrongGuess recieved", data.card, data.secondGuess);
       if (!data.secondGuess && this.isDealer) {
         this.higherLower = true;
-      }
-      if (!this.isDealer && !this.isGuesser && !data.secondGuess) {
-        this.showPopup(
-          "wrongGuess",
-          this.uiLabels.wrongGuessPopupSpec,
-          data.card,
-          0,
-          true
-        );
       }
       this.cardGuessed = data.card;
       console.log(this.cardGuessed);
@@ -259,7 +261,7 @@ export default {
         message,
         this.playingCards[this.gameInfo.currentCardIndex],
         points,
-        false
+        true
       );
     });
 
@@ -273,6 +275,14 @@ export default {
           this.playingCards[this.gameInfo.currentCardIndex],
           points,
           true
+        );
+      } else {
+        this.showPopup(
+          "pointsIncreased",
+          this.uiLabels.playerGuessedWrong,
+          this.playingCards[this.gameInfo.currentCardIndex],
+          points,
+          false
         );
       }
     });
@@ -410,7 +420,7 @@ export default {
       this.popup.type = type;
       this.popup.message = message;
       this.popup.isVisible = true;
-      if (isClosable) {
+      if (!isClosable) {
         setTimeout(() => {
           this.closePopup();
         }, 3000);
@@ -458,6 +468,12 @@ h4 {
   border-radius: 10px;
   z-index: 1000;
   text-align: center;
+}
+
+.popup-elements {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .no-selection {

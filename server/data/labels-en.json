@@ -73,5 +73,6 @@
   "rule2": "Drink according to points",
   "rule3": "Have fun!",
   "busInfo1": "Current guess in round:",
-  "busInfo2": "Number of shuffles:"
+  "busInfo2": "Number of shuffles:",
+  "playerGuessedWrong": "The player guessed wrong, the correct card and points given are:"
 }
