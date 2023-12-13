@@ -17,7 +17,7 @@
         <OneCard
           v-if="card.isVisible"
           :card="card"
-          :isClickable="isGuesser && canSelectCard"
+          :isClickable="isGuesser && canSelectCard && !this.waitingForDealer"
           :cardHeight="8"
           v-on:selectedCard="selectCard($event)"
           :class="{
@@ -81,6 +81,7 @@ export default {
       canSelectCard: true,
       wrongGuessedCard: 0,
       displayButtonClosed: false,
+      waitingForDealer: false,
     };
   },
 
@@ -108,10 +109,7 @@ export default {
       } else {
         popupData.isVisible = false;
       }
-      if (this.newRound) {
-        popupData.isVisible = false;
-        this.canSelectCard = true;
-      }
+
       return popupData;
     },
     guessComparison() {
@@ -132,11 +130,6 @@ export default {
 
   methods: {
     selectCard(card) {
-      console.log(
-        "Current cardIndex is",
-        this.playingCards[this.currentCardIndex].points
-      );
-      console.log("points of cardinex is", card.points);
       this.selectedCard = card;
     },
 
@@ -150,6 +143,7 @@ export default {
     confirmSelection() {
       if (this.selectedCard) {
         this.isConfirmed = true;
+        this.waitingForDealer = true;
 
         if (!this.isCorrect) {
           this.gameResult = "wrongGuess";
@@ -179,6 +173,7 @@ export default {
     closePopup() {
       this.canSelectCard = true;
       this.displayButtonClosed = true;
+      this.waitingForDealer = false;
       this.$emit("popUpShown");
     },
     checkCard(card) {
