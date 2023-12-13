@@ -22,20 +22,20 @@
     </div>
     <div v-if="!this.isGuesser" class="styled-box">
       <h4>{{ uiLabels.currentGuesser }}</h4>
-      <p class="name-display">
+      <div class="name-display">
         <img
           :src="this.playerList[gameInfo.guesserIndex].avatar"
           class="avatar"
         />
         {{ this.playerList[gameInfo.guesserIndex].name }}
-        <div v-if="higherLower && isDealer" class="guessed-card">
-        <OneCard
-          v-bind:card="cardGuessed"
-          class="no-selection"
-          :cardHeight="8"
-        />
-        </div>
-      </p>
+        <p v-if="higherLower && isDealer" class="guessed-card">
+          <OneCard
+            v-bind:card="cardGuessed"
+            class="no-selection"
+            :cardHeight="8"
+          />
+        </p>
+      </div>
     </div>
   </section>
 
@@ -139,8 +139,8 @@ export default {
     Player,
     Dealer,
     OneCard,
-    withDirectives
-},
+    withDirectives,
+  },
 
   data: function () {
     return {
@@ -536,7 +536,7 @@ h4 {
 
 .name-display {
   font-weight: bolder;
-  margin:0.5em;
+  margin: 0.5em;
 }
 
 .leaderboard li {
