@@ -14,12 +14,14 @@
     <section
       v-for="value in graphicDeck"
       :key="value.value"
-      style="position: relative"
+      style="height: 15em"
     >
+      <!-- MÅSTE BARA LYCKAS SCALEA OM DETTA. BORDE ÄVEN VARIERA PÅ ANTALET KORT I VARJE SECTION KOLLA ONECARD FÖR INSPO -->
+
       <template v-for="card in value.cards" :key="card.suit + card.value">
         <OneCard
-          v-if="card.isVisible"
           :card="card"
+          v-if="card.isVisible"
           :isClickable="isGuesser && canSelectCard"
           :cardHeight="8"
           v-on:selectedCard="selectCard($event)"
@@ -294,21 +296,17 @@ export default {
 }
 .OneCard:nth-child(1) {
   translate: 0 0;
-  z-index: 1;
 }
 
 .OneCard:nth-child(2) {
   translate: 0 -6em;
-  z-index: 2;
 }
 
 .OneCard:nth-child(3) {
   translate: 0 -12em;
-  z-index: 3;
 }
 
 .OneCard:nth-child(4) {
   translate: 0 -18em;
-  z-index: 4;
 }
 </style>
