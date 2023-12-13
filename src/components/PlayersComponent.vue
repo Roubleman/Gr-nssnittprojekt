@@ -206,6 +206,7 @@ export default {
         this.selectedCard = [];
       } else if (data.result === "correctGuess") {
         this.$emit("correctGuess");
+        this.isConfirmed = false;
         this.selectedCard = null;
         this.wrongGuessedCard = null;
         this.canSelectCard = true;
