@@ -28,13 +28,13 @@
           class="avatar"
         />
         {{ this.playerList[gameInfo.guesserIndex].name }}
-        <p v-if="higherLower && isDealer" class="guessed-card">
+        <div v-if="higherLower && isDealer" class="guessed-card">
         <OneCard
           v-bind:card="cardGuessed"
           class="no-selection"
           :cardHeight="8"
         />
-        </p>
+        </div>
       </p>
     </div>
   </section>
@@ -130,6 +130,7 @@ import Dealer from "@/components/DealerComponent.vue";
 import Player from "@/components/PlayersComponent.vue";
 import DeckOfCards from "@/assets/DeckOfCards.json";
 import OneCard from "@/components/OneCard.vue";
+import { withDirectives } from "vue";
 const socket = io("localhost:3000");
 
 export default {
@@ -138,7 +139,8 @@ export default {
     Player,
     Dealer,
     OneCard,
-  },
+    withDirectives
+},
 
   data: function () {
     return {

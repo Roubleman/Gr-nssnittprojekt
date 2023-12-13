@@ -50,7 +50,7 @@
     <button @click="closePopup">Close</button>
   </div>
   <div v-if="DisplayPopup.isVisible" class="popup" :class="DisplayPopup.type">
-    <p>{{ DisplayPopup.message }}</p>
+    <p>{{ DisplayPopup.message }}, {{ guessComparison }}</p>
     <button @click="closePopup">Close</button>
   </div>
 </template>
@@ -124,13 +124,11 @@ export default {
       const selectedCardPoints = this.wrongGuessedCard.points;
 
       if (selectedCardPoints > currentCardPoints) {
-        return "Guess a lower card!";
+        return this.uiLabels.guessLower;
       } else if (selectedCardPoints < currentCardPoints) {
-        return "Guess a higher card!";
+        return this.uiLabels.guessHigher;
       } else if (selectedCardPoints === currentCardPoints) {
-        return "Your guess is correct!";
-      } else {
-        return "Something went wrong";
+        return this.uiLabels.guessWasCorrect;
       }
     },
   },
@@ -180,6 +178,7 @@ export default {
           this.wrongGuessedCard = null;
           this.handleGameResult({ result: "correctGuess" });
           this.selectedCard = [];
+          this.canSelectCard = true;
         }
       } else {
         console.log("No card selected");
