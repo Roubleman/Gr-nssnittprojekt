@@ -163,7 +163,7 @@ export default {
         "--card-corner-right-margin-top": this.card*0.7125 + "em",
         "--card-corner-right-margin-right": this.cardHeight*0.05 + "em",
         "--no-card-suit-right": this.cardHeight*(-0.5) + "em",
-        "--card-font-size": this.cardHeight*0.1625 + "em"
+        "--card-font-size": this.cardHeight*0.125 + "em"
       };
     },
   },
