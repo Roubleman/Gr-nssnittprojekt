@@ -19,7 +19,6 @@
         <OneCard
           :card="card"
           v-if="card.isVisible"
-          :card="card"
           :isClickable="isGuesser && canSelectCard && !this.waitingForDealer"
           :cardHeight="8"
           v-on:selectedCard="selectCard($event)"
