@@ -57,7 +57,7 @@ export default {
       this.$router.push("/bus/");
       for (player in this.playerList) {
         if (player.isGuesser) {
-          this.$router.push("/bus/" + this.gameId);
+          this.$router.push("/bus/");
         }
       }
     },
