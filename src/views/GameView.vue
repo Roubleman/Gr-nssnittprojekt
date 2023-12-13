@@ -241,7 +241,7 @@ export default {
           this.uiLabels.wrongGuessPopupSpec,
           this.cardGuessed,
           0,
-          true
+          false
         );
       }
     });
@@ -270,7 +270,7 @@ export default {
         message,
         this.playingCards[this.gameInfo.currentCardIndex],
         points,
-        true
+        false
       );
     });
 
@@ -391,11 +391,11 @@ export default {
     },
     updateGraphicDeck(deck, cardIndex) {
       let cardToDisplay = deck[cardIndex - 1];
-      for (let i = 0; i < this.graphicDeck; i++) {
+      for (let i = 0; i < this.graphicDeck.length; i++) {
         if (this.graphicDeck[i].value === cardToDisplay.value) {
-          for (let i = o; i < this.graphicDeck[i].cards.length; i++) {
-            if (this.graphicDeck[i].cards[i].suit === cardToDisplay.suit) {
-              this.graphicDeck[i].cards[i].isVisible = true;
+          for (let j = 0; j < this.graphicDeck[i].cards.length; j++) {
+            if (this.graphicDeck[i].cards[j].suit === cardToDisplay.suit) {
+              this.graphicDeck[i].cards[j].isVisible = true;
               if (this.graphicDeck[i].cards[0].isVisible) {
                 this.graphicDeck[i].cards[0].isVisible = false;
               }
