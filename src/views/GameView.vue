@@ -239,7 +239,7 @@ export default {
           this.uiLabels.wrongGuessPopupSpec,
           this.cardGuessed,
           0,
-          true
+          false
         );
       }
     });
@@ -268,7 +268,7 @@ export default {
         message,
         this.playingCards[this.gameInfo.currentCardIndex],
         points,
-        true
+        false
       );
     });
 
