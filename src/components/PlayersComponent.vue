@@ -90,6 +90,7 @@ export default {
       shouldBlur: false,
       displayableDeck: displayableDeck,
       canSelectCard: true,
+      wrongGuessedCard: 0,
     };
   },
 
@@ -121,7 +122,9 @@ export default {
     },
     guessComparison() {
       const currentCardPoints = this.playingCards[this.currentCardIndex].points;
-      const selectedCardPoints = this.wrongGuessedCard.points;
+      const selectedCardPoints = this.wrongGuessedCard
+        ? this.wrongGuessedCard.points
+        : 0;
 
       if (selectedCardPoints > currentCardPoints) {
         return this.uiLabels.guessLower;
@@ -157,7 +160,6 @@ export default {
 
         if (!this.isCorrect) {
           this.gameResult = "wrongGuess";
-          this.isConfirmed = false;
           this.shouldBlur = true;
           this.wrongGuessedCard = this.removeSuits(this.selectedCard);
           this.handleGameResult({
@@ -193,9 +195,14 @@ export default {
       this.popup.isVisible = false;
       this.DisplayPopup.isVisible = false;
       this.canSelectCard = true;
+      this.isGuesser = true;
     },
     checkCard(card) {
       return card.points === this.currentCardIndex.points;
+    },
+    newRoundReceived() {
+      //
+      this.$emit("newRoundReceived");
     },
 
     handleGameResult(data) {
