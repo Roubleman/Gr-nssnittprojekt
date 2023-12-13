@@ -88,7 +88,7 @@
           :key="index"
           :src="avatar"
           @click="selectAvatar(index)"
-          :class="this.selectedAvatar === index ? 'high-light-selected' : ''"
+          :class="(this.selectedAvatar === index) && !removeButton ? 'high-light-selected' : ''"
         />
       </section>
     </section>
@@ -401,7 +401,7 @@ export default {
 }
 
 .popup {
-  z-index: 2;
+  z-index: 9999;
   background: #fff;
   padding: 1em;
   border-radius: 0.5em;
