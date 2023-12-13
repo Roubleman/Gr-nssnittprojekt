@@ -185,13 +185,13 @@ export default {
       console.log(this.piles);
     },
     addToSelected: function (card) {
-      if (this.selectedCard.length == 0) {
+      if (!this.selectedCard.includes(card)) {
         this.selectedCard.push(card);
-      } else if (!this.selectedCard.includes(card)) {
-        this.selectedCard.push(card);
-      }
-      console.log(this.selectedCard);
-      this.compare(this.selectedCard);
+        console.log(this.selectedCard);
+        this.compare(this.selectedCard);
+      } 
+      
+      
     },
     checkBlack: function (arr) {
       if (arr.length === 4) {

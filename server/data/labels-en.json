@@ -71,7 +71,7 @@
   "bus": "Bus",
   "rule1": "Every other card has to be a different color",
   "rule2": "Drink according to points",
-  "rule3": "Have fun!",
+  "rule3": "First card needs to be red",
   "busInfo1": "Current guess in round:",
   "busInfo2": "Number of shuffles:",
   "playerGuessedWrong": "The player guessed wrong, the correct card and points given are:"
