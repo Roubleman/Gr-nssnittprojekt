@@ -10,10 +10,10 @@
   >
     <div class="grid-container" :class="this.isRed() ? 'red' : 'black'">
       <section class="card-corner-left">
-        <p style="margin-block: 0em">
+        <p style="margin-block: 0em; font-size: var(--card-font-size)">
           {{ card.value }}
         </p>
-        <p style="margin-block: -0.3em">
+        <p style="margin-block: -0.3em; font-size: var(--card-font-size)">
           <span
             v-html="'&' + card.suit + ';'"
             v-if="!(card.suit === '')"
@@ -44,6 +44,7 @@
               <span
                 v-html="'&' + this.card.suit + ';'"
                 v-if="suit == true"
+                style="font-size: var(--card-font-size)"
               ></span>
             </span>
           </div>
@@ -66,10 +67,10 @@
         class="card-corner-right"
         :class="card.suit === '' ? 'no-suit-right' : ''"
       >
-        <p style="margin-block: 0em">
+        <p style="margin-block: 0em; font-size: var(--card-font-size)">
           {{ card.value }}
         </p>
-        <p style="margin-block: 0em; margin-top: -0.3em">
+        <p style="margin-block: 0em; margin-top: -0.3em; font-size: var(--card-font-size)">
           <span
             v-html="'&' + card.suit + ';'"
             v-if="!(card.suit === '')"
@@ -157,6 +158,12 @@ export default {
       return {
         "--card-height": this.cardHeight + "em",
         "--card-width": this.cardHeight * 0.66 + "em",
+        "--card-ace-size": this.cardHeight*0.8125 + "em",
+        "--card-corner-left-margin": this.cardHeight*0.0375 + "em",
+        "--card-corner-right-margin-top": this.card*0.7125 + "em",
+        "--card-corner-right-margin-right": this.cardHeight*0.05 + "em",
+        "--no-card-suit-right": this.cardHeight*(-0.5) + "em",
+        "--card-font-size": this.cardHeight*0.1625 + "em"
       };
     },
   },
@@ -190,10 +197,11 @@ export default {
   background-color: white;
 }
 
+/*
 .card-border:hover {
   transform: scale(1.1);
   box-shadow: 0.1em 0.1em 0.2em 0.1em #888888;
-}
+}*/
 
 .grid-container {
   display: grid;
@@ -205,13 +213,13 @@ export default {
 }
 
 .card-corner-left {
-  margin-left: 0.3em;
+  margin-left: var(--card-corner-left-margin);
   text-align: start;
 }
 
 .card-corner-right {
-  margin-top: 5.7em;
-  margin-right: 0.4em;
+  margin-top: var(--card-corner-right-margin-top);
+  margin-right: var(--card-corner-right-margin-right);
   rotate: 180deg;
 }
 
@@ -248,10 +256,10 @@ export default {
 }
 
 .no-suit-right {
-  margin-right: -4em;
+  margin-right: var(--no-card-suit-right);
 }
 
 #ace {
-  font-size: 6.5em;
+  font-size: var(--card-ace-size);
 }
 </style>

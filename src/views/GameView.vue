@@ -102,14 +102,18 @@
   </section>
   <div v-if="popup.isVisible" class="popup" :class="popup.type">
     <p>{{ popup.message }}</p>
-    <p v-if="popup.points">{{ uiLabels.points }}: {{ popup.points }}</p>
-    <OneCard
-      v-if="Object.keys(popup.card).length > 0"
-      :card="popup.card"
-      :cardHeight="2"
-      class="no-selection"
-    ></OneCard>
-    <button @click="closePopup">{{ uiLabels.close }}</button>
+    <div class="popup-elements">
+      <p v-if="popup.points">{{ uiLabels.points }}: {{ popup.points }}</p>
+      <OneCard
+        v-if="Object.keys(popup.card).length > 0"
+        :card="popup.card"
+        :cardHeight="5"
+        class="no-selection"
+      ></OneCard>
+    </div>
+    <button @click="closePopup" v-if="popup.isClosable">
+      {{ uiLabels.close }}
+    </button>
   </div>
 </template>
 
@@ -151,6 +155,7 @@ export default {
       pointsIncreased: 0,
       popup: {
         isVisible: false,
+        isClosable: true,
         message: "",
         card: {},
         type: "",
@@ -201,7 +206,7 @@ export default {
     socket.on("gameUpdate", (game) => {
       console.log("gameUpdate recieved", game.currentCardIndex);
       setTimeout(() => {
-        this.showPopup("newRound", this.uiLabels.newRound, {}, 0);
+        this.showPopup("newRound", this.uiLabels.newRound, {}, 0, false);
         this.playerList = game.players;
         this.leaderboard = this.getLeaderboard();
         this.gameInfo.errorsRemaining = game.errorsRemaining;
@@ -221,6 +226,15 @@ export default {
 
     socket.on("dealerHasChecked", () => {
       this.dealerChecked = true;
+      if (!this.isDealer && !this.isGuesser) {
+        this.showPopup(
+          "wrongGuess",
+          this.uiLabels.wrongGuessPopupSpec,
+          this.cardGuessed,
+          0,
+          true
+        );
+      }
     });
 
     socket.on("wrongGuess", (data) => {
@@ -228,15 +242,8 @@ export default {
       if (!data.secondGuess && this.isDealer) {
         this.higherLower = true;
       }
-      if (!this.isDealer && !this.isGuesser && !data.secondGuess) {
-        this.showPopup(
-          "wrongGuess",
-          this.uiLabels.wrongGuessPopupSpec,
-          data.card,
-          0
-        );
-      }
       this.cardGuessed = data.card;
+      console.log(this.cardGuessed);
     });
 
     socket.on("correctGuess", (points) => {
@@ -253,7 +260,8 @@ export default {
         "correctGuess",
         message,
         this.playingCards[this.gameInfo.currentCardIndex],
-        points
+        points,
+        true
       );
     });
 
@@ -265,7 +273,16 @@ export default {
           "pointsIncreased",
           this.uiLabels.wrongGuessPoints,
           this.playingCards[this.gameInfo.currentCardIndex],
-          points
+          points,
+          true
+        );
+      } else {
+        this.showPopup(
+          "pointsIncreased",
+          this.uiLabels.playerGuessedWrong,
+          this.playingCards[this.gameInfo.currentCardIndex],
+          points,
+          false
         );
       }
     });
@@ -393,15 +410,21 @@ export default {
           return parseInt(value);
       }
     },
-    showPopup(type, message, card, points) {
+    showPopup(type, message, card, points, isClosable) {
       if (this.popup.isVisible) {
         this.closePopup();
       }
+      this.popup.isClosable = isClosable;
       this.popup.points = points;
       this.popup.card = card;
       this.popup.type = type;
       this.popup.message = message;
       this.popup.isVisible = true;
+      if (!isClosable) {
+        setTimeout(() => {
+          this.closePopup();
+        }, 3000);
+      }
     },
     closePopup() {
       this.popup.isVisible = false;
@@ -445,6 +468,12 @@ h4 {
   border-radius: 10px;
   z-index: 1000;
   text-align: center;
+}
+
+.popup-elements {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .no-selection {
