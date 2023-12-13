@@ -28,6 +28,13 @@
           class="avatar"
         />
         {{ this.playerList[gameInfo.guesserIndex].name }}
+        <p v-if="higherLower && isDealer" class="guessed-card">
+        <OneCard
+          v-bind:card="cardGuessed"
+          class="no-selection"
+          :cardHeight="8"
+        />
+        </p>
       </p>
     </div>
   </section>
@@ -435,7 +442,7 @@ export default {
 
 <style scoped>
 h4 {
-  margin: 0.3em;
+  margin: 0.1em;
 }
 
 #header-style {
@@ -522,11 +529,12 @@ h4 {
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 0.5em;
   background-color: rgb(73, 114, 73);
-  margin: 2em auto;
+  margin: 1.5em auto;
 }
 
 .name-display {
   font-weight: bolder;
+  margin:0.5em;
 }
 
 .leaderboard li {
@@ -552,6 +560,15 @@ h4 {
 
 .text-center {
   text-align: center;
+}
+
+.guessed-card {
+  /* Add some space around the card if needed */
+  margin-top: 0.4em; /* Adjust as needed */
+  /* Additional styles for the container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 th,
