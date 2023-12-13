@@ -389,16 +389,14 @@ export default {
     },
     updateGraphicDeck(deck, cardIndex) {
       let cardToDisplay = deck[cardIndex - 1];
-      for (let i = 0; i < this.graphicDeck.length; i++) {
-        if (this.graphicDeck[i].value === cardToDisplay.value) {
-          for (let j = 0; j < this.graphicDeck[i].cards.length; j++) {
-            if (this.graphicDeck[i].cards[j].suit === cardToDisplay.suit) {
-              this.graphicDeck[i].cards[j].isVisible = true;
-              if (this.graphicDeck[i].cards[0].isVisible) {
-                this.graphicDeck[i].cards[0].isVisible = false;
-              }
-            }
+      let valueIndex = cardToDisplay.points -1;
+          for (let j = 0; j < this.graphicDeck[valueIndex].cards.length; j++) {
+            if (this.graphicDeck[valueIndex].cards[j].suit === cardToDisplay.suit) {
+              this.graphicDeck[valueIndex].cards[j].isVisible = true;
+              if (this.graphicDeck[valueIndex].cards[0].isVisible) {
+                this.graphicDeck[valueIndex].cards[0].isVisible = false;
           }
+          break;
         }
       }
     },
