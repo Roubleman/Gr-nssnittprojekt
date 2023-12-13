@@ -4,10 +4,11 @@
     <div class="card-grid">
       <section id="cardSelection" vis>
         <vue-flip
-          active-click
+          v-model="flipped1"
           class="flip-card"
           :width="cardWidth"
           :height="cardHeight"
+          v-on:click="addToSelected(topCard1), (flipped1 = true)"
         >
           <template v-slot:front class="card">
             <img
@@ -19,20 +20,17 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard
-                class="card-facing-up"
-                v-bind:card="topCard1"
-                v-on:click="addToSelected(topCard1)"
-              />
+              <OneCard class="card-facing-up" v-bind:card="topCard1" />
             </div>
           </template>
         </vue-flip>
 
         <vue-flip
-          active-click
+          v-model="flipped2"
           class="flip-card"
           :width="cardWidth"
           :height="cardHeight"
+          v-on:click="addToSelected(topCard2), (flipped2 = true)"
         >
           <template v-slot:front class="card">
             <img
@@ -44,19 +42,16 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard
-                class="card-facing-up"
-                v-bind:card="topCard2"
-                v-on:click="addToSelected(topCard2)"
-              />
+              <OneCard class="card-facing-up" v-bind:card="topCard2" />
             </div>
           </template>
         </vue-flip>
         <vue-flip
-          active-click
+          v-model="flipped3"
           class="flip-card"
           :width="cardWidth"
           :height="cardHeight"
+          v-on:click="addToSelected(topCard3), (flipped3 = true)"
         >
           <template v-slot:front class="card">
             <img
@@ -68,19 +63,16 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard
-                class="card-facing-up"
-                v-bind:card="topCard3"
-                v-on:click="addToSelected(topCard3)"
-              />
+              <OneCard class="card-facing-up" v-bind:card="topCard3" />
             </div>
           </template>
         </vue-flip>
         <vue-flip
-          active-click
+          v-model="flipped4"
           class="flip-card"
           :width="cardWidth"
           :height="cardHeight"
+          v-on:click="addToSelected(topCard4), (flipped4 = true)"
         >
           <template v-slot:front class="card">
             <img
@@ -92,11 +84,7 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard
-                class="card-facing-up"
-                v-bind:card="topCard4"
-                v-on:click="addToSelected(topCard4)"
-              />
+              <OneCard class="card-facing-up" v-bind:card="topCard4" />
             </div>
           </template>
         </vue-flip>
@@ -151,6 +139,10 @@ export default {
       playingCards: [],
       gameScore: 0,
       noShuffles: 0,
+      flipped1: false,
+      flipped2: false,
+      flipped3: false,
+      flipped4: false,
     };
   },
   created: function () {
@@ -172,6 +164,10 @@ export default {
     },
     distributeDeck: function () {
       this.cards = this.shuffleCards(deckOfCards);
+      this.flipped1 = false;
+      this.flipped2 = false;
+      this.flipped3 = false;
+      this.flipped4 = false;
       this.pile1 = this.cards.slice(0, 13);
       this.pile2 = this.cards.slice(13, 26);
       this.pile3 = this.cards.slice(26, 39);
@@ -181,7 +177,6 @@ export default {
       this.piles.push(this.pile2);
       this.piles.push(this.pile3);
       this.piles.push(this.pile4);
-
       this.topCard1 = this.piles[0][0];
       this.topCard2 = this.piles[1][0];
       this.topCard3 = this.piles[2][0];
@@ -202,23 +197,35 @@ export default {
       if (arr.length === 4) {
         if (arr[3] === "spades" || arr[3] === "clubs") {
           return true;
-        } else return false;
+        } else {
+          return false;
+        }
       } else if (arr.length === 2) {
         if (arr[1] === "spades" || arr[1] === "clubs") {
           return true;
-        } else return false;
-      } else return false;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
     },
     checkRed: function (arr) {
       if (arr.length === 3) {
         if (arr[2] === "hearts" || arr[2] === "diams") {
           return true;
-        } else return false;
+        } else {
+          return false;
+        }
       } else if (arr.length === 1) {
         if (arr[0] === "hearts" || arr[0] === "diams") {
           return true;
-        } else return false;
-      } else return false;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
     },
     compare: function (selectedCard) {
       this.cardSuit.push(this.selectedCard[this.selectedCard.length - 1].suit);
@@ -227,35 +234,43 @@ export default {
         this.isDone = true;
         alert("You won");
       } else if (this.cardSuit.length == 4 && !this.checkBlack(this.cardSuit)) {
-        this.distributeDeck();
-        this.noShuffles += 1;
-        this.gameScore += selectedCard.length * 2;
-        console.log(this.gameScore);
-        this.selectedCard = [];
-        this.cardSuit = [];
+        setTimeout(() => {
+          this.distributeDeck();
+          this.noShuffles += 1;
+          this.gameScore += selectedCard.length * 2;
+          console.log(this.gameScore);
+          this.selectedCard = [];
+          this.cardSuit = [];
+        }, 3000);
       } else if (selectedCard.length === 1 && !this.checkRed(this.cardSuit)) {
         console.log(this.checkRed(this.cardSuit));
-        this.distributeDeck();
-        this.noShuffles += 1;
-        this.gameScore += selectedCard.length * 2;
-        console.log(this.gameScore);
-        this.selectedCard = [];
-        this.cardSuit = [];
+        setTimeout(() => {
+          this.distributeDeck();
+          this.noShuffles += 1;
+          this.gameScore += selectedCard.length * 2;
+          console.log(this.gameScore);
+          this.selectedCard = [];
+          this.cardSuit = [];
+        }, 3000);
       } else if (selectedCard.length === 2 && !this.checkBlack(this.cardSuit)) {
-        this.distributeDeck();
-        this.noShuffles += 1;
-        this.gameScore += selectedCard.length * 2;
-        console.log(this.gameScore);
-        this.selectedCard = [];
-        this.cardSuit = [];
+        setTimeout(() => {
+          this.distributeDeck();
+          this.noShuffles += 1;
+          this.gameScore += selectedCard.length * 2;
+          console.log(this.gameScore);
+          this.selectedCard = [];
+          this.cardSuit = [];
+        }, 3000);
       } else if (selectedCard.length === 3 && !this.checkRed(this.cardSuit)) {
         console.log(this.checkRed(this.cardSuit));
-        this.distributeDeck();
-        this.noShuffles += 1;
-        this.gameScore += selectedCard.length * 2;
-        console.log(this.gameScore);
-        this.selectedCard = [];
-        this.cardSuit = [];
+        setTimeout(() => {
+          this.distributeDeck();
+          this.noShuffles += 1;
+          this.gameScore += selectedCard.length * 2;
+          console.log(this.gameScore);
+          this.selectedCard = [];
+          this.cardSuit = [];
+        }, 3000);
       } else {
         console.log("good job");
       }
