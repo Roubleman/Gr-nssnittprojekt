@@ -238,7 +238,9 @@ export default {
     });
 
     socket.on("dealerHasChecked", () => {
-      this.dealerChecked = true;
+      if (this.isGuesser) {
+        this.dealerChecked = true;
+      }
       if (!this.isDealer && !this.isGuesser) {
         this.showPopup(
           "wrongGuess",
