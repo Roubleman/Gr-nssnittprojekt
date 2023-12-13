@@ -1,10 +1,5 @@
 <template>
   <header id="dealer_header"></header>
-
-  <div v-if="higherLower" class="guessed-card">
-    <OneCard v-bind:card="guessedCard" class="card-facing-up" :cardHeight="8" />
-  </div>
-
   <section class="scene">
     <button
       class="dealer-button"
