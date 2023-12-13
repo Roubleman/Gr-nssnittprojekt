@@ -73,7 +73,7 @@
             checkGameId();
           "
         />
-        <p class="input-error" v-if="!gameIdExists">
+        <p class="input-error" v-if="!gameIdExists && this.id.length > 3">
           {{ uiLabels.gameIdNotFound }}
         </p>
         <p class="explanation" v-else>{{ uiLabels.inputGameIdExplanation }}</p>

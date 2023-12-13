@@ -216,7 +216,7 @@ export default {
           this.playingCards,
           this.gameInfo.currentCardIndex
         );
-      }, 6000);
+      }, 10000);
     });
 
     socket.on("dealerHasChecked", () => {
@@ -293,7 +293,7 @@ export default {
     guessCard: function (card) {
       console.log(card);
       socket.emit("cardGuessed", {
-        card: card,
+        card: card.card,
         gameId: this.gameId,
         playerName: this.playerName,
         secondGuess: this.secondGuess,

@@ -2,7 +2,7 @@
   <header id="dealer_header"></header>
 
   <div v-if="higherLower" class="guessed-card">
-    <OneCard v-bind:card="guessedCard.card" class="card-facing-up" />
+    <OneCard v-bind:card="guessedCard" class="card-facing-up" :cardHeight="8" />
   </div>
 
   <section class="scene">
@@ -10,10 +10,10 @@
       class="dealer-button"
       @click="emitHigherLower"
       v-if="higherLower"
-      :disabled="guessedCard.card.points < playingCards[currentCardIndex].points"
+      :disabled="guessedCard.points < playingCards[currentCardIndex].points"
       :style="{
         opacity:
-          guessedCard.card.points > playingCards[currentCardIndex].points ? 1 : 0.5,
+          guessedCard.points > playingCards[currentCardIndex].points ? 1 : 0.5,
       }"
     >
       {{ uiLabels.lower }}
@@ -38,6 +38,7 @@
         <OneCard
           class="card-facing-up"
           v-bind:card="playingCards[currentCardIndex]"
+          :cardHeight="20"
         />
       </template>
     </vue-flip>
@@ -45,10 +46,10 @@
       class="dealer-button"
       @click="emitHigherLower"
       v-if="higherLower"
-      :disabled="guessedCard.card.points > playingCards[currentCardIndex].points"
+      :disabled="guessedCard.points > playingCards[currentCardIndex].points"
       :style="{
         opacity:
-          guessedCard.card.points < playingCards[currentCardIndex].points ? 1 : 0.5,
+          guessedCard.points < playingCards[currentCardIndex].points ? 1 : 0.5,
       }"
     >
       {{ uiLabels.higher }}
@@ -98,8 +99,6 @@ export default {
 }
 
 .card {
-  width: 100%;
-  height: 100%;
   position: absolute;
   backface-visibility: hidden;
   display: flex;
@@ -139,8 +138,6 @@ export default {
 }
 
 .flip-card {
-  width: 100%;
-  height: 100%;
   border: 0.08em solid black;
   border-radius: 0.5em;
   background-image: url("../../public/img/cardback.png");
@@ -156,14 +153,10 @@ export default {
   z-index: 3;
   transition: none !important;
   transform: none !important;
-  height: 100%;
-  width: 100%;
 }
 
 .guessed-card {
   overflow: hidden;
-  width: 13.2em;
-  height: 20em;
   backface-visibility: hidden;
   display: flex;
   align-items: center;
