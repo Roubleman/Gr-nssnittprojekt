@@ -67,7 +67,7 @@
       v-on:wrongGuess="guessCard($event)"
       v-on:correctGuess="correctGuess()"
       v-on:popUpShown="resetDealerChecked()"
-      v-on:newRoundRecieved="resetNewRound()"
+      v-on:newRoundReceived="resetNewRound()"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"

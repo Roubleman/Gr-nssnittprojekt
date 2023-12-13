@@ -4,12 +4,9 @@
         <button @click="showPopup = false">Close</button>
     </div>-->
 
-  <div>
-    <div v-if="this.dealerChecked && this.isGuesser">
-      <p>{{ guessComparison }}</p>
-    </div>
+  <div v-if="isGuesser && this.displayButtonClosed">
+    <p>{{ guessComparison }}</p>
   </div>
-
   <div class="card-flex">
     <section
       v-for="value in graphicDeck"
@@ -45,12 +42,8 @@
       Confirm
     </button>
   </section>
-  <div v-if="popup.isVisible" class="popup" :class="popup.type">
-    <p>{{ popup.message }}</p>
-    <button @click="closePopup">Close</button>
-  </div>
-  <div v-if="DisplayPopup.isVisible" class="popup" :class="DisplayPopup.type">
-    <p>{{ DisplayPopup.message }}, {{ guessComparison }}</p>
+  <div v-if="displayPopup.isVisible" class="popup" :class="displayPopup.type">
+    <p>{{ displayPopup.message }} {{ guessComparison }}</p>
     <button @click="closePopup">Close</button>
   </div>
 </template>
@@ -70,6 +63,7 @@ export default {
     guessedCard: Object,
     graphicDeck: Array,
     dealerChecked: Boolean,
+    newRound: Boolean,
   },
   components: {
     OneCard,
@@ -79,11 +73,6 @@ export default {
       selectedCard: [],
       cardsOutOfPlay: [],
       stackIndices: {},
-      popup: {
-        isVisible: false,
-        message: "",
-        type: "",
-      },
       gameResult: null,
       firstGuessedCard: null,
       isConfirmed: false,
@@ -91,6 +80,7 @@ export default {
       displayableDeck: displayableDeck,
       canSelectCard: true,
       wrongGuessedCard: 0,
+      displayButtonClosed: false,
     };
   },
 
@@ -102,23 +92,27 @@ export default {
           this.playingCards[this.currentCardIndex].points
       );
     },
-    DisplayPopup() {
+    displayPopup() {
+      const popupData = {
+        isVisible: false,
+        type: "wrongGuess",
+        message: this.uiLabels.wrongGuessPopup,
+      };
+      console.log(
+        "dealerChecked, isGuesser: ",
+        this.dealerChecked,
+        this.isGuesser
+      );
       if (this.dealerChecked && this.isGuesser) {
-        const popupData = {
-          isVisible: true,
-          type: "wrongGuess",
-          message: this.uiLabels.wrongGuessPopup,
-        };
-        this.showPopup(popupData.type, popupData.message);
-        this.$emit("popupShown");
-        return popupData;
+        popupData.isVisible = true;
       } else {
-        return {
-          isVisible: false,
-          type: "",
-          message: "",
-        };
+        popupData.isVisible = false;
       }
+      if (this.newRound) {
+        popupData.isVisible = false;
+        this.canSelectCard = true;
+      }
+      return popupData;
     },
     guessComparison() {
       const currentCardPoints = this.playingCards[this.currentCardIndex].points;
@@ -156,7 +150,6 @@ export default {
     confirmSelection() {
       if (this.selectedCard) {
         this.isConfirmed = true;
-        console.log("Confirmed selection:", this.selectedCard);
 
         if (!this.isCorrect) {
           this.gameResult = "wrongGuess";
@@ -166,7 +159,6 @@ export default {
             result: "wrongGuess",
             wrongGuessedCard: this.selectedCard,
           });
-          this.canSelectCard = false;
         } else {
           this.cardsOutOfPlay = this.graphicDeck.slice(
             // Borde det inte vara playingCards istället?? MVH Elias
@@ -179,29 +171,20 @@ export default {
           this.selectedCard = null;
           this.wrongGuessedCard = null;
           this.handleGameResult({ result: "correctGuess" });
-          this.selectedCard = [];
-          this.canSelectCard = true;
         }
       } else {
         console.log("No card selected");
       }
     },
-    showPopup(type, message) {
-      this.popup.isVisible = true;
-      this.popup.type = type;
-      this.popup.message = message;
-    },
     closePopup() {
-      this.popup.isVisible = false;
-      this.DisplayPopup.isVisible = false;
       this.canSelectCard = true;
-      this.isGuesser = true;
+      this.displayButtonClosed = true;
+      this.$emit("popUpShown");
     },
     checkCard(card) {
       return card.points === this.currentCardIndex.points;
     },
     newRoundReceived() {
-      //
       this.$emit("newRoundReceived");
     },
 
@@ -210,13 +193,13 @@ export default {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard });
         this.shouldBlur = true;
         this.isConfirmed = false;
-        this.selectedCard = [];
+        this.selectedCard = null;
       } else if (data.result === "correctGuess") {
         this.$emit("correctGuess");
+        // this.DisplayPopup.isVisible = false;
         this.isConfirmed = false;
         this.selectedCard = null;
         this.wrongGuessedCard = null;
-        this.canSelectCard = true;
       }
     },
   },
