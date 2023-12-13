@@ -106,15 +106,15 @@ export default {
   width: 10em;
   margin-left: 5em;
   margin-right: 5em;
-  border-radius: 1.2em;
+  border-radius: 1em;
   border-color: rgb(193, 220, 224);
   cursor: pointer;
   background-color: rgb(73, 114, 73);
 }
 
 .card-image {
-  border: 0.08em solid black;
-  border-radius: 0.5em;
+  border: 0.175em solid rgb(95, 95, 95);
+  border-radius: 1em;
   cursor: pointer;
   height: inherit;
   width: inherit;
@@ -133,8 +133,7 @@ export default {
 }
 
 .flip-card {
-  border: 0.08em solid black;
-  border-radius: 0.5em;
+  border-radius: 1em;
   background-image: url("../../public/img/cardback.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
