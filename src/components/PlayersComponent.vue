@@ -50,7 +50,7 @@
     <button @click="closePopup">Close</button>
   </div>
   <div v-if="DisplayPopup.isVisible" class="popup" :class="DisplayPopup.type">
-    <p>{{ DisplayPopup.message }}</p>
+    <p>{{ DisplayPopup.message }}, {{ guessComparison }}</p>
     <button @click="closePopup">Close</button>
   </div>
 </template>
@@ -90,6 +90,7 @@ export default {
       shouldBlur: false,
       displayableDeck: displayableDeck,
       canSelectCard: true,
+      wrongGuessedCard: 0,
     };
   },
 
@@ -121,16 +122,16 @@ export default {
     },
     guessComparison() {
       const currentCardPoints = this.playingCards[this.currentCardIndex].points;
-      const selectedCardPoints = this.wrongGuessedCard.points;
+      const selectedCardPoints = this.wrongGuessedCard
+        ? this.wrongGuessedCard.points
+        : 0;
 
       if (selectedCardPoints > currentCardPoints) {
-        return "Guess a lower card!";
+        return this.uiLabels.guessLower;
       } else if (selectedCardPoints < currentCardPoints) {
-        return "Guess a higher card!";
+        return this.uiLabels.guessHigher;
       } else if (selectedCardPoints === currentCardPoints) {
-        return "Your guess is correct!";
-      } else {
-        return "Something went wrong";
+        return this.uiLabels.guessWasCorrect;
       }
     },
   },
@@ -159,7 +160,6 @@ export default {
 
         if (!this.isCorrect) {
           this.gameResult = "wrongGuess";
-          this.isConfirmed = false;
           this.shouldBlur = true;
           this.wrongGuessedCard = this.removeSuits(this.selectedCard);
           this.handleGameResult({
@@ -180,6 +180,7 @@ export default {
           this.wrongGuessedCard = null;
           this.handleGameResult({ result: "correctGuess" });
           this.selectedCard = [];
+          this.canSelectCard = true;
         }
       } else {
         console.log("No card selected");
@@ -194,9 +195,14 @@ export default {
       this.popup.isVisible = false;
       this.DisplayPopup.isVisible = false;
       this.canSelectCard = true;
+      this.isGuesser = true;
     },
     checkCard(card) {
       return card.points === this.currentCardIndex.points;
+    },
+    newRoundReceived() {
+      //
+      this.$emit("newRoundReceived");
     },
 
     handleGameResult(data) {
@@ -207,6 +213,7 @@ export default {
         this.selectedCard = [];
       } else if (data.result === "correctGuess") {
         this.$emit("correctGuess");
+        this.isConfirmed = false;
         this.selectedCard = null;
         this.wrongGuessedCard = null;
         this.canSelectCard = true;

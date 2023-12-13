@@ -22,20 +22,20 @@
     </div>
     <div v-if="!this.isGuesser" class="styled-box">
       <h4>{{ uiLabels.currentGuesser }}</h4>
-      <p class="name-display">
+      <div class="name-display">
         <img
           :src="this.playerList[gameInfo.guesserIndex].avatar"
           class="avatar"
         />
         {{ this.playerList[gameInfo.guesserIndex].name }}
         <p v-if="higherLower && isDealer" class="guessed-card">
-        <OneCard
-          v-bind:card="cardGuessed"
-          class="no-selection"
-          :cardHeight="8"
-        />
+          <OneCard
+            v-bind:card="cardGuessed"
+            class="no-selection"
+            :cardHeight="8"
+          />
         </p>
-      </p>
+      </div>
     </div>
   </section>
 
@@ -67,6 +67,7 @@
       v-on:wrongGuess="guessCard($event)"
       v-on:correctGuess="correctGuess()"
       v-on:popUpShown="resetDealerChecked()"
+      v-on:newRoundRecieved="resetNewRound()"
       v-bind:isGuesser="this.isGuesser"
       v-bind:playingCards="this.playingCards"
       v-bind:currentCardIndex="this.gameInfo.currentCardIndex"
@@ -74,6 +75,7 @@
       v-bind:guessedCard="this.cardGuessed"
       v-bind:uiLabels="this.uiLabels"
       v-bind:graphicDeck="this.graphicDeck"
+      v-bind:newRound="this.newRound"
     >
     </Player>
   </section>
@@ -130,6 +132,7 @@ import Dealer from "@/components/DealerComponent.vue";
 import Player from "@/components/PlayersComponent.vue";
 import DeckOfCards from "@/assets/DeckOfCards.json";
 import OneCard from "@/components/OneCard.vue";
+import { withDirectives } from "vue";
 const socket = io("localhost:3000");
 
 export default {
@@ -138,6 +141,7 @@ export default {
     Player,
     Dealer,
     OneCard,
+    withDirectives,
   },
 
   data: function () {
@@ -168,6 +172,7 @@ export default {
         type: "",
         points: 0,
       },
+      newRound: false,
     };
   },
 
@@ -213,6 +218,7 @@ export default {
     socket.on("gameUpdate", (game) => {
       console.log("gameUpdate recieved", game.currentCardIndex);
       setTimeout(() => {
+        this.newRound = true;
         this.showPopup("newRound", this.uiLabels.newRound, {}, 0, false);
         this.playerList = game.players;
         this.leaderboard = this.getLeaderboard();
@@ -311,6 +317,9 @@ export default {
     document.body.style.backgroundColor = null;
   },
   methods: {
+    resetNewRound: function () {
+      this.newRound = false;
+    },
     resetDealerChecked: function () {
       this.dealerChecked = false;
     },
@@ -388,17 +397,18 @@ export default {
       return graphicDeck;
     },
     updateGraphicDeck(deck, cardIndex) {
+      console.log("updateGraphicDeck", deck[cardIndex - 1]);
       let cardToDisplay = deck[cardIndex - 1];
-      for (let i = 0; i < this.graphicDeck.length; i++) {
-        if (this.graphicDeck[i].value === cardToDisplay.value) {
-          for (let j = 0; j < this.graphicDeck[i].cards.length; j++) {
-            if (this.graphicDeck[i].cards[j].suit === cardToDisplay.suit) {
-              this.graphicDeck[i].cards[j].isVisible = true;
-              if (this.graphicDeck[i].cards[0].isVisible) {
-                this.graphicDeck[i].cards[0].isVisible = false;
-              }
-            }
+      let valueIndex = cardToDisplay.points - 1;
+      for (let j = 0; j < this.graphicDeck[valueIndex].cards.length; j++) {
+        if (this.graphicDeck[valueIndex].cards[j].suit === cardToDisplay.suit) {
+          console.log("suit found", this.graphicDeck[valueIndex].cards[j]);
+          this.graphicDeck[valueIndex].cards[j].isVisible = true;
+          console.log(this.graphicDeck[valueIndex].cards[j]);
+          if (this.graphicDeck[valueIndex].cards[0].isVisible) {
+            this.graphicDeck[valueIndex].cards[0].isVisible = false;
           }
+          break;
         }
       }
     },
@@ -534,7 +544,7 @@ h4 {
 
 .name-display {
   font-weight: bolder;
-  margin:0.5em;
+  margin: 0.5em;
 }
 
 .leaderboard li {
