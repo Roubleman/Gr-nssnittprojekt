@@ -84,7 +84,6 @@ export default {
       waitingForDealer: false,
     };
   },
-
   computed: {
     isCorrect() {
       return (
@@ -127,7 +126,6 @@ export default {
       }
     },
   },
-
   methods: {
     selectCard(card) {
       this.selectedCard = card;
