@@ -7,20 +7,18 @@
   <div v-if="isGuesser && this.displayButtonClosed">
     <p>{{ guessComparison }}</p>
   </div>
-  <div class="card-flex">
+  <div class="card-flex" :style="sectionHeight">
     <section
       v-for="value in graphicDeck"
       :key="value.value"
-      style="height: 15em"
+      style="height: var(--card-section-height)"
     >
-      <!-- MÅSTE BARA LYCKAS SCALEA OM DETTA. BORDE ÄVEN VARIERA PÅ ANTALET KORT I VARJE SECTION KOLLA ONECARD FÖR INSPO -->
-
       <template v-for="card in value.cards" :key="card.suit + card.value">
         <OneCard
           :card="card"
           v-if="card.isVisible"
           :isClickable="isGuesser && canSelectCard && !this.waitingForDealer"
-          :cardHeight="8"
+          :cardHeight="8" 
           v-on:selectedCard="selectCard($event)"
           :class="{
             selected: isGuesser && selectedCard === card,
@@ -66,6 +64,7 @@ export default {
     graphicDeck: Array,
     dealerChecked: Boolean,
     newRound: Boolean,
+    cardSectionHeight: Number, 
   },
   components: {
     OneCard,
@@ -140,6 +139,11 @@ export default {
         return this.uiLabels.guessWasCorrect;
       }
     },
+
+    sectionHeight() {
+      return {"--card-section-height" : this.cardSectionHeight + "em"}
+    }
+
   },
 
   methods: {

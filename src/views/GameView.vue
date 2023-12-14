@@ -76,6 +76,7 @@
       v-bind:uiLabels="this.uiLabels"
       v-bind:graphicDeck="this.graphicDeck"
       v-bind:newRound="this.newRound"
+      :cardSectionHeight="this.cardSectionHeight"
     >
     </Player>
   </section>
@@ -203,6 +204,7 @@ export default {
         points: 0,
       },
       newRound: false,
+      cardSectionHeight: 15,
     };
   },
 
