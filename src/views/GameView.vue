@@ -234,7 +234,7 @@ export default {
           this.playingCards,
           this.gameInfo.currentCardIndex
         );
-      }, 1000);
+      }, 3000);
     });
 
     socket.on("dealerHasChecked", () => {
@@ -289,7 +289,7 @@ export default {
           this.uiLabels.wrongGuessPoints,
           this.playingCards[this.gameInfo.currentCardIndex],
           points,
-          true
+          false
         );
       } else {
         this.showPopup(
@@ -399,14 +399,11 @@ export default {
       return graphicDeck;
     },
     updateGraphicDeck(deck, cardIndex) {
-      console.log("updateGraphicDeck", deck[cardIndex - 1]);
       let cardToDisplay = deck[cardIndex - 1];
       let valueIndex = cardToDisplay.points - 1;
       for (let j = 0; j < this.graphicDeck[valueIndex].cards.length; j++) {
         if (this.graphicDeck[valueIndex].cards[j].suit === cardToDisplay.suit) {
-          console.log("suit found", this.graphicDeck[valueIndex].cards[j]);
           this.graphicDeck[valueIndex].cards[j].isVisible = true;
-          console.log(this.graphicDeck[valueIndex].cards[j]);
           if (this.graphicDeck[valueIndex].cards[0].isVisible) {
             this.graphicDeck[valueIndex].cards[0].isVisible = false;
           }
@@ -442,7 +439,7 @@ export default {
       if (!isClosable) {
         setTimeout(() => {
           this.closePopup();
-        }, 3000);
+        }, 2000);
       }
     },
     closePopup() {
