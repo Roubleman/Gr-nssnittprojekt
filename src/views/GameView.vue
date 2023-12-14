@@ -1,7 +1,7 @@
 <template>
   <header id="header-style">{{ uiLabels.gameViewHeadline }}</header>
 
-  <section class="currentDealerGuesser">
+  <section class="wrapper">
     <div v-if="!this.isDealer" class="styled-box">
       <h4>{{ uiLabels.currentDealer }}</h4>
       <p class="name-display">
@@ -79,36 +79,59 @@
     >
     </Player>
   </section>
-  <section class="leaderboard">
-    <h1>{{ uiLabels.leaderboardTitle }}</h1>
-    <table class="leaderboard-table">
-      <tr class="leaderboard-grid">
-        <th class="text-center">{{ uiLabels.placement }}</th>
-        <th class="text-center">{{ uiLabels.player }}</th>
-        <th class="text-center">{{ uiLabels.points }}</th>
-      </tr>
-      <tr v-for="(player, index) in leaderboard" :key="index">
-        <td class="text-center medal-cell">
-          <img v-if="index === 0" :src="'/img/goldMedal.png'" class="avatar" />
-          <img
-            v-else-if="index === 1"
-            :src="'/img/silverMedal.png'"
-            class="avatar"
-          />
-          <img
-            v-else-if="index === 2"
-            :src="'/img/bronzeMedal.png'"
-            class="avatar"
-          />
-          <span v-else> {{ index + 1 }}.</span>
-        </td>
-        <td class="text-center">
-          <img :src="player.avatar" class="avatar" /> {{ player.name }}
-        </td>
-        <td class="text-center">{{ player.points }}</td>
-      </tr>
-    </table>
-  </section>
+  <div class="wrapper">
+    <section class="leaderboard">
+      <h1>{{ uiLabels.leaderboardTitle }}</h1>
+      <table class="leaderboard-table">
+        <tr class="leaderboard-grid">
+          <th class="text-center">{{ uiLabels.placement }}</th>
+          <th class="text-center">{{ uiLabels.player }}</th>
+          <th class="text-center">{{ uiLabels.points }}</th>
+        </tr>
+        <tr v-for="(player, index) in leaderboard" :key="index">
+          <td class="text-center medal-cell">
+            <img
+              v-if="index === 0"
+              :src="'/img/goldMedal.png'"
+              class="avatar"
+            />
+            <img
+              v-else-if="index === 1"
+              :src="'/img/silverMedal.png'"
+              class="avatar"
+            />
+            <img
+              v-else-if="index === 2"
+              :src="'/img/bronzeMedal.png'"
+              class="avatar"
+            />
+            <span v-else> {{ index + 1 }}.</span>
+          </td>
+          <td class="text-center">
+            <img :src="player.avatar" class="avatar" /> {{ player.name }}
+          </td>
+          <td class="text-center">{{ player.points }}</td>
+        </tr>
+      </table>
+    </section>
+    <section class="styled-box" v-if="latestMessage.isVisible">
+      <div class="latest-message" :class="latestMessage.type">
+        <h1>{{ uiLabels.latestMessage }}</h1>
+        <p>{{ latestMessage.message }}</p>
+        <div class="popup-elements">
+          <p v-if="latestMessage.points">
+            {{ uiLabels.points }}: {{ latestMessage.points }}
+          </p>
+          <OneCard
+            v-if="Object.keys(latestMessage.card).length > 0"
+            :card="latestMessage.card"
+            :cardHeight="5"
+            class="no-selection"
+          ></OneCard>
+        </div>
+      </div>
+    </section>
+  </div>
   <div v-if="popup.isVisible" class="popup" :class="popup.type">
     <p>{{ popup.message }}</p>
     <div class="popup-elements">
@@ -167,6 +190,13 @@ export default {
       popup: {
         isVisible: false,
         isClosable: true,
+        message: "",
+        card: {},
+        type: "",
+        points: 0,
+      },
+      latestMessage: {
+        isVisible: false,
         message: "",
         card: {},
         type: "",
@@ -428,7 +458,7 @@ export default {
     },
     showPopup(type, message, card, points, isClosable) {
       if (this.popup.isVisible) {
-        this.closePopup();
+        this.closePopup(type, message, card, points);
       }
       this.popup.isClosable = isClosable;
       this.popup.points = points;
@@ -438,12 +468,21 @@ export default {
       this.popup.isVisible = true;
       if (!isClosable) {
         setTimeout(() => {
-          this.closePopup();
+          this.closePopup(type, message, card, points);
         }, 2000);
       }
     },
-    closePopup() {
+    closePopup(type, message, card, points) {
       this.popup.isVisible = false;
+      if (type !== "newRound") {
+        this.latestMessage.type = type;
+        this.latestMessage.message = message;
+        this.latestMessage.card = card;
+        this.latestMessage.points = points;
+        if (!this.latestMessage.isVisible) {
+          this.latestMessage.isVisible = true;
+        }
+      }
     },
   },
 };
@@ -523,9 +562,9 @@ h4 {
   width: 15em;
   border-style: inset;
   border-color: rgba(252, 16, 48, 0.707);
-  border-width: 1em;
+  border-width: 0.8em;
   background-color: rgb(73, 114, 73);
-  margin: 2em auto;
+  margin: 1.5em auto;
 }
 
 .styled-box {
@@ -536,7 +575,7 @@ h4 {
   width: 15em;
   border-style: inset;
   border-color: rgba(252, 16, 48, 0.707);
-  border-width: 0.5em;
+  border-width: 0.8em;
   background-color: rgb(73, 114, 73);
   margin: 1.5em auto;
 }
@@ -550,7 +589,7 @@ h4 {
   padding: 0.3em;
 }
 
-.currentDealerGuesser {
+.wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-around;

@@ -78,5 +78,6 @@
   "playerGuessedWrong": "Spelaren gissade fel, rätt kort och deras poäng är:",
   "guessLower": "Gissa på lägre kort",
   "guessHigher": "Gissa på ett högre kort",
-  "guessWasCorrect" : "Gissningen var rätt"
+  "guessWasCorrect": "Gissningen var rätt",
+  "latestMessage": "Senaste meddelandet"
 }

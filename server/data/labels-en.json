@@ -77,5 +77,6 @@
   "playerGuessedWrong": "The player guessed wrong, the correct card and points given are:",
   "guessHigher": "Guess a higher card!",
   "guessLower": "Guess a lower card",
-  "guessWasCorrect" : "Guess was correct"
+  "guessWasCorrect": "Guess was correct",
+  "latestMessage": "The latest message"
 }
