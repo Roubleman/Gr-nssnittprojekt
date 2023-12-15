@@ -203,6 +203,21 @@ export default {
         points: 0,
       },
       newRound: false,
+      cardsOnTable: {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+        6: 0,
+        7: 0,
+        8: 0,
+        9: 0,
+        10: 0,
+        11: 0,
+        12: 0,
+        13: 0,
+      },
     };
   },
 
@@ -434,6 +449,8 @@ export default {
       for (let j = 0; j < this.graphicDeck[valueIndex].cards.length; j++) {
         if (this.graphicDeck[valueIndex].cards[j].suit === cardToDisplay.suit) {
           this.graphicDeck[valueIndex].cards[j].isVisible = true;
+          this.cardsOnTable[cardToDisplay.points]++;
+          console.log(this.cardsOnTable);
           if (this.graphicDeck[valueIndex].cards[0].isVisible) {
             this.graphicDeck[valueIndex].cards[0].isVisible = false;
           }
@@ -550,7 +567,6 @@ h4 {
 .dealer-view {
   --card-width: 20em;
 }
-
 .avatar {
   width: 1.3em;
   height: auto;
