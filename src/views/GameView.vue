@@ -157,6 +157,7 @@ import Player from "@/components/PlayersComponent.vue";
 import DeckOfCards from "@/assets/DeckOfCards.json";
 import OneCard from "@/components/OneCard.vue";
 import { withDirectives } from "vue";
+import { set } from "express/lib/application";
 const socket = io("localhost:3000");
 
 export default {
@@ -204,7 +205,7 @@ export default {
         points: 0,
       },
       newRound: false,
-      cardSectionHeight: 15,
+      cardSectionHeight: 9,
       cardsOnTable: {
         1: 0,
         2: 0,
@@ -220,6 +221,9 @@ export default {
         12: 0,
         13: 0,
       },
+      twoCardHeight: 11,
+      threeCardHeight: 13,
+      fourCardHeight: 15,
     };
   },
 
@@ -350,7 +354,10 @@ export default {
     });
 
     socket.on("gameEnded", () => {
-      this.$router.push("/result/" + this.gameId);
+      this.showPopup("gameEnded", this.uiLabels.gameEnded, {}, 0, false);
+      setTimeout(() => {
+        this.$router.push("/result/" + this.gameId);
+      }, 3000);
     });
 
     socket.emit("pageLoaded", this.lang);
@@ -451,8 +458,7 @@ export default {
       for (let j = 0; j < this.graphicDeck[valueIndex].cards.length; j++) {
         if (this.graphicDeck[valueIndex].cards[j].suit === cardToDisplay.suit) {
           this.graphicDeck[valueIndex].cards[j].isVisible = true;
-          this.cardsOnTable[cardToDisplay.points]++;
-          console.log(this.cardsOnTable);
+          this.updateCardsOnTable(cardToDisplay.points);
           if (this.graphicDeck[valueIndex].cards[0].isVisible) {
             this.graphicDeck[valueIndex].cards[0].isVisible = false;
           }
@@ -460,7 +466,26 @@ export default {
         }
       }
     },
-
+    updateCardsOnTable(points) {
+      this.cardsOnTable[points]++;
+      switch (this.cardsOnTable[points]) {
+        case 2:
+          if (this.cardSectionHeight < this.twoCardHeight) {
+            this.cardSectionHeight = this.twoCardHeight;
+          }
+          break;
+        case 3:
+          if (this.cardSectionHeight < this.threeCardHeight) {
+            this.cardSectionHeight = this.threeCardHeight;
+          }
+          break;
+        case 4:
+          if (this.cardSectionHeight < this.fourCardHeight) {
+            this.cardSectionHeight = this.fourCardHeight;
+          }
+          break;
+      }
+    },
     shadowGhostCardPointMakerFunction(value) {
       switch (value) {
         case "A":

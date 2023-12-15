@@ -79,5 +79,6 @@
   "guessLower": "Gissa på lägre kort",
   "guessHigher": "Gissa på ett högre kort",
   "guessWasCorrect": "Gissningen var rätt",
-  "latestMessage": "Senaste meddelandet"
+  "latestMessage": "Senaste meddelandet",
+  "gameEnded": "Spelet är slut!"
 }
