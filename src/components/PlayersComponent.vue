@@ -7,14 +7,12 @@
   <div v-if="isGuesser && this.displayButtonClosed">
     <p>{{ guessComparison }}</p>
   </div>
-  <div class="card-flex">
+  <div class="card-flex" :style="sectionHeight">
     <section
       v-for="value in graphicDeck"
       :key="value.value"
-      style="height: 15em"
+      style="height: var(--card-section-height)"
     >
-      <!-- MÅSTE BARA LYCKAS SCALEA OM DETTA. BORDE ÄVEN VARIERA PÅ ANTALET KORT I VARJE SECTION KOLLA ONECARD FÖR INSPO -->
-
       <template v-for="card in value.cards" :key="card.suit + card.value">
         <OneCard
           :card="card"
@@ -66,6 +64,7 @@ export default {
     graphicDeck: Array,
     dealerChecked: Boolean,
     newRound: Boolean,
+    cardSectionHeight: Number,
   },
   components: {
     OneCard,
@@ -76,23 +75,19 @@ export default {
       cardsOutOfPlay: [],
       stackIndices: {},
       gameResult: null,
-      firstGuessedCard: null,
       isConfirmed: false,
       shouldBlur: false,
       displayableDeck: displayableDeck,
       canSelectCard: true,
-      wrongGuessedCard: 0,
+      wrongGuessedCard: null,
       displayButtonClosed: false,
       waitingForDealer: false,
     };
   },
-  watch: {
-    newRound: function (newVal, oldVal) {
-      if (newVal !== oldVal && newVal) {
-        this.resetRound();
-        this.$emit("newRoundReceived");
-      }
-    },
+  updated() {
+    if (this.newRound) {
+      this.handleNewRound();
+    }
   },
   computed: {
     newRoundReceived() {
@@ -139,6 +134,10 @@ export default {
       } else if (selectedCardPoints === currentCardPoints) {
         return this.uiLabels.guessWasCorrect;
       }
+    },
+
+    sectionHeight() {
+      return { "--card-section-height": this.cardSectionHeight + "em" };
     },
   },
 
@@ -213,13 +212,17 @@ export default {
     },
     resetRound() {
       this.gameResult = null;
-      this.firstGuessedCard = null;
       this.isConfirmed = false;
       this.shouldBlur = false;
       this.canSelectCard = true;
-      this.wrongGuessedCard = 0;
+      this.wrongGuessedCard = null;
       this.displayButtonClosed = false;
       this.waitingForDealer = false;
+      this.selectedCard = null;
+    },
+    handleNewRound() {
+      this.resetRound();
+      this.$emit("newRoundReceived");
     },
   },
 };
