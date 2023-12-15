@@ -18,7 +18,7 @@
           :card="card"
           v-if="card.isVisible"
           :isClickable="isGuesser && canSelectCard && !this.waitingForDealer"
-          :cardHeight="8" 
+          :cardHeight="8"
           v-on:selectedCard="selectCard($event)"
           :class="{
             selected: isGuesser && selectedCard === card,
@@ -64,7 +64,7 @@ export default {
     graphicDeck: Array,
     dealerChecked: Boolean,
     newRound: Boolean,
-    cardSectionHeight: Number, 
+    cardSectionHeight: Number,
   },
   components: {
     OneCard,
@@ -75,23 +75,19 @@ export default {
       cardsOutOfPlay: [],
       stackIndices: {},
       gameResult: null,
-      firstGuessedCard: null,
       isConfirmed: false,
       shouldBlur: false,
       displayableDeck: displayableDeck,
       canSelectCard: true,
-      wrongGuessedCard: 0,
+      wrongGuessedCard: null,
       displayButtonClosed: false,
       waitingForDealer: false,
     };
   },
-  watch: {
-    newRound: function (newVal, oldVal) {
-      if (newVal !== oldVal && newVal) {
-        this.resetRound();
-        this.$emit("newRoundReceived");
-      }
-    },
+  updated() {
+    if (this.newRound) {
+      this.handleNewRound();
+    }
   },
   computed: {
     newRoundReceived() {
@@ -141,9 +137,8 @@ export default {
     },
 
     sectionHeight() {
-      return {"--card-section-height" : this.cardSectionHeight + "em"}
-    }
-
+      return { "--card-section-height": this.cardSectionHeight + "em" };
+    },
   },
 
   methods: {
@@ -217,13 +212,17 @@ export default {
     },
     resetRound() {
       this.gameResult = null;
-      this.firstGuessedCard = null;
       this.isConfirmed = false;
       this.shouldBlur = false;
       this.canSelectCard = true;
-      this.wrongGuessedCard = 0;
+      this.wrongGuessedCard = null;
       this.displayButtonClosed = false;
       this.waitingForDealer = false;
+      this.selectedCard = null;
+    },
+    handleNewRound() {
+      this.resetRound();
+      this.$emit("newRoundReceived");
     },
   },
 };
