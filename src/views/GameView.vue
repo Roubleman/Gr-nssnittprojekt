@@ -157,7 +157,6 @@ import Player from "@/components/PlayersComponent.vue";
 import DeckOfCards from "@/assets/DeckOfCards.json";
 import OneCard from "@/components/OneCard.vue";
 import { withDirectives } from "vue";
-import { set } from "express/lib/application";
 const socket = io("localhost:3000");
 
 export default {
@@ -223,7 +222,6 @@ export default {
       },
       twoCardHeight: 11,
       threeCardHeight: 13,
-      fourCardHeight: 15,
     };
   },
 
@@ -433,17 +431,15 @@ export default {
             points: this.shadowGhostCardPointMakerFunction(valueArray[i]),
           },
         ];
-
         let normalCards = deck.filter((card) => card.value === valueArray[i]);
-
         let deckObject = {
           value: valueArray[i],
           cards: [].concat(shadowGhostCards, normalCards),
         };
-
         for (let card of deckObject.cards) {
           if (card.suit === "") {
             card.isVisible = true;
+            card.isFlipped = false;
           } else {
             card.isVisible = false;
           }
@@ -455,7 +451,7 @@ export default {
     updateGraphicDeck(deck, cardIndex) {
       let cardToDisplay = deck[cardIndex - 1];
       let valueIndex = cardToDisplay.points - 1;
-      for (let j = 0; j < this.graphicDeck[valueIndex].cards.length; j++) {
+      for (let j = 1; j < this.graphicDeck[valueIndex].cards.length; j++) {
         if (this.graphicDeck[valueIndex].cards[j].suit === cardToDisplay.suit) {
           this.graphicDeck[valueIndex].cards[j].isVisible = true;
           this.updateCardsOnTable(cardToDisplay.points);
@@ -480,10 +476,17 @@ export default {
           }
           break;
         case 4:
-          if (this.cardSectionHeight < this.fourCardHeight) {
-            this.cardSectionHeight = this.fourCardHeight;
-          }
+          this.flipCard(points);
           break;
+      }
+    },
+    flipCard(points) {
+      let value = this.graphicDeck[points - 1].value;
+      let cardToFlip = this.graphicDeck[points - 1].cards[0];
+      cardToFlip.isFlipped = true;
+      cardToFlip.isVisible = true;
+      for (i = 1; i < 5; i++) {
+        this.graphicDeck[points - 1].cards[i].isVisible = false;
       }
     },
     shadowGhostCardPointMakerFunction(value) {
