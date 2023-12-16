@@ -36,6 +36,7 @@ Att göra lista:
     [x] Back-end
     [] Styled
     [] Resize correctly
+    [] Använda withDirectives för att sätta fokus på första textrutan direkt när sidan öppnas. https://vuejs.org/guide/reusability/custom-directives
 
 ## Lobby view
 
