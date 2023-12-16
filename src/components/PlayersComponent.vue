@@ -18,7 +18,7 @@
           :card="card"
           v-if="card.isVisible"
           :isClickable="isGuesser && canSelectCard && !this.waitingForDealer"
-          :cardHeight="8"
+          :cardHeight="this.cardSize"
           v-on:selectedCard="selectCard($event)"
           :class="{
             selected: isGuesser && selectedCard === card,
@@ -51,7 +51,6 @@
 <script>
 import OneCard from "@/components/OneCard.vue";
 import displayableDeck from "@/assets/playerComponentDeck.json";
-import { sockets } from "../../server/sockets";
 
 export default {
   name: "Player",
@@ -82,6 +81,7 @@ export default {
       wrongGuessedCard: null,
       displayButtonClosed: false,
       waitingForDealer: false,
+      cardSize: 8,
     };
   },
   updated() {

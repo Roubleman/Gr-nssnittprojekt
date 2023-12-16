@@ -1,4 +1,12 @@
 <template>
+  <div class="back-of-card" v-if="card.isFlipped" :style="cssProps">
+    <img
+      src="/img/cardback.png"
+      alt="Front of the card"
+      class="card-back-image"
+    />
+  </div>
+
   <div
     class="card-border"
     :class="[
@@ -7,13 +15,19 @@
     ]"
     @click="selectedCardTapped"
     :style="cssProps"
+    v-else
   >
     <div class="grid-container" :class="this.isRed() ? 'red' : 'black'">
       <section class="card-corner-left">
         <p style="margin-block: 0em; font-size: var(--card-font-size)">
           {{ card.value }}
         </p>
-        <p style="margin-block: -0.3em; font-size: var(--card-font-size)">
+        <p
+          style="
+            margin-block: var(--margin-block-suit);
+            font-size: var(--card-font-size);
+          "
+        >
           <span
             v-html="'&' + card.suit + ';'"
             v-if="!(card.suit === '')"
@@ -70,7 +84,13 @@
         <p style="margin-block: 0em; font-size: var(--card-font-size)">
           {{ card.value }}
         </p>
-        <p style="margin-block: 0em; margin-top: -0.3em; font-size: var(--card-font-size)">
+        <p
+          style="
+            margin-block: 0em;
+            margin-top: var(--margin-block-suit);
+            font-size: var(--card-font-size);
+          "
+        >
           <span
             v-html="'&' + card.suit + ';'"
             v-if="!(card.suit === '')"
@@ -158,14 +178,15 @@ export default {
       return {
         "--card-height": this.cardHeight + "em",
         "--card-width": this.cardHeight * 0.66 + "em",
-        "--card-ace-size": this.cardHeight*0.8125 + "em",
-        "--card-corner-left-margin": this.cardHeight*0.0375 + "em",
-        "--card-corner-right-margin-top": this.card*0.7125 + "em",
-        "--card-corner-right-margin-right": this.cardHeight*0.05 + "em",
-        "--no-card-suit-right": this.cardHeight*(-0.5) + "em",
-        "--card-font-size": this.cardHeight*0.125 + "em",
-        "--card-border-thickness": this.cardHeight*0.00875 + "em",
-        "--card-border-radius": this.cardHeight*0.05 + "em"
+        "--card-ace-size": this.cardHeight * 0.8125 + "em",
+        "--card-corner-left-margin": this.cardHeight * 0.0375 + "em",
+        "--card-corner-right-margin-top": this.card * 0.7125 + "em",
+        "--card-corner-right-margin-right": this.cardHeight * 0.05 + "em",
+        "--no-card-suit-right": this.cardHeight * -0.5 + "em",
+        "--card-font-size": this.cardHeight * 0.125 + "em",
+        "--card-border-thickness": this.cardHeight * 0.00875 + "em",
+        "--card-border-radius": this.cardHeight * 0.05 + "em",
+        "--margin-block-suit": -1 * this.cardHeight * 0.02 + "em",
       };
     },
   },
@@ -212,6 +233,17 @@ export default {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+.card-back-image {
+  border: var(--card-border-thickness) solid rgb(95, 95, 95);
+  border-radius: var(--card-border-radius);
+  height: inherit;
+  width: inherit;
+}
+
+.back-of-card {
+  height: var(--card-height);
+  width: var(--card-width);
 }
 
 .card-corner-left {
