@@ -439,10 +439,10 @@ export default {
         for (let card of deckObject.cards) {
           if (card.suit === "") {
             card.isVisible = true;
-            card.isFlipped = false;
           } else {
             card.isVisible = false;
           }
+          card.isFlipped = false;
         }
         graphicDeck.push(deckObject);
       }
