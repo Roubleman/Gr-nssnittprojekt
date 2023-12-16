@@ -80,5 +80,8 @@
   "guessHigher": "Gissa på ett högre kort",
   "guessWasCorrect": "Gissningen var rätt",
   "latestMessage": "Senaste meddelandet",
-  "gameEnded": "Spelet är slut!"
+  "gameEnded": "Spelet är slut!",
+  "takeTheBus": "Åk buss!",
+  "restartGame": "Starta ett nytt spel med samma regler",
+  "joinRestart": "Gå med i samma spel igen"
 }

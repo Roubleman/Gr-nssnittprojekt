@@ -79,5 +79,8 @@
   "guessLower": "Guess a lower card",
   "guessWasCorrect": "Guess was correct",
   "latestMessage": "The latest message",
-  "gameEnded": "Game is over!"
+  "gameEnded": "Game is over!",
+  "takeTheBus": "Go on a bus-trip!",
+  "restartGame": "Restart game with same rules",
+  "joinRestart": "Join same game again"
 }

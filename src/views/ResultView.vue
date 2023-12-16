@@ -10,14 +10,18 @@
         <span v-if="player.isDealer">&#x1f68c; &#128640; &#128640;</span>
       </li>
     </section>
-    <button v-if="isDealer" v-on:click="startBus">
-      <label> {{ uiLabels.startGame }}</label>
+    <button v-if="isDealer" v-on:click="startBus" class="bus-button">
+      <label> {{ uiLabels.takeTheBus }}</label>
     </button>
-    <button v-if="isHost" v-on:click="reStart">
-      <label> {{ uiLabels.startGame }}</label>
+    <button v-if="isHost" v-on:click="reStart" class="restart-button">
+      <label> {{ uiLabels.restartGame }}</label>
     </button>
-    <button v-else v-on:click="playAgain">
-      <label> {{ uiLabels.startGame }}</label>
+    <button
+      v-if="!isHost && newGameExists"
+      v-on:click="playAgain"
+      class="restart-button"
+    >
+      <label> {{ uiLabels.joinRestart }}</label>
     </button>
   </section>
 </template>
@@ -41,6 +45,7 @@ export default {
       leaderboard: [],
       isDealer: false,
       isHost: false,
+      newGameExists: false,
     };
   },
   created: function () {
@@ -57,6 +62,9 @@ export default {
         }
       });
       this.leaderboard = this.getLeaderboard();
+    });
+    socket.on("newGameStarted", () => {
+      newGameExists = true;
     });
 
     socket.emit("pageLoaded", this.lang);
@@ -92,7 +100,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 body {
   background-color: rgb(233, 233, 223);
   font-size: 1.3em;
@@ -103,6 +111,28 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.restart-button {
+  width: 30%;
+  color: black;
+  margin-bottom: 1%;
+  background: rgb(73, 114, 73);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  font-size: 1.5em;
+  padding: 0.5em 1em;
+  z-index: 1;
+}
+
+.bus-button {
+  color: rgb(246, 255, 0);
+  background: rgb(255, 85, 0);
+  width: 30%;
+  cursor: pointer;
+  font-size: 1.5em;
+  padding: 0.5em 1em;
 }
 
 .playerList {

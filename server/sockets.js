@@ -131,6 +131,7 @@ function sockets(io, socket, data) {
   });
 
   socket.on("reStart", (gameId) => {
+    io.to(gameId).emit("newGameStarted");
     data.recreateLobby(gameId);
   });
 
