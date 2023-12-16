@@ -104,7 +104,7 @@ export default {
   },
   methods: {
     checkId: function () {
-      if (this.gameId.length > 0) {
+      if (this.gameId.length > 3) {
         socket.emit("checkGameId", this.gameId);
       }
     },

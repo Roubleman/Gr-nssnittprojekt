@@ -146,7 +146,6 @@ Data.prototype.initializeGame = function (gameId) {
     game.currentCardIndex = 0;
     game.players.forEach((player) => {
       delete player.isReady;
-      delete player.isHost;
       player.isDealer = false;
       player.isGuesser = false;
     });
@@ -272,6 +271,26 @@ Data.prototype.createTestGame = function (playingCards) {
   } else {
     this.removeGame("test");
     this.createTestGame(playingCards);
+  }
+};
+
+Data.prototype.recreateLobby = function (gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    this.removeGame(gameId);
+    game.players.forEach((player) => {
+      if (player.isHost) {
+        this.createGame(
+          gameId,
+          game.lang,
+          game.pointsSetting,
+          game.guessesNumber,
+          player.name,
+          game.deckOfCards,
+          player.avatar
+        );
+      }
+    });
   }
 };
 

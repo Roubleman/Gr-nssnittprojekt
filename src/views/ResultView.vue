@@ -4,13 +4,19 @@
   </div>
   <section id="input_wrappers">
     <section class="playerList">
-      <li v-for="player in playerList">
+      <li v-for="player in leaderboard">
         {{ player.name }}: {{ uiLabels.numberOfPoints }}
         {{ player.points }}
-        <span v-if="player.isGuesser">&#x1f68c; &#128640; &#128640;</span>
+        <span v-if="player.isDealer">&#x1f68c; &#128640; &#128640;</span>
       </li>
     </section>
-    <button v-on:click="startBus">
+    <button v-if="isDealer" v-on:click="startBus">
+      <label> {{ uiLabels.startGame }}</label>
+    </button>
+    <button v-if="isHost" v-on:click="reStart">
+      <label> {{ uiLabels.startGame }}</label>
+    </button>
+    <button v-else v-on:click="playAgain">
       <label> {{ uiLabels.startGame }}</label>
     </button>
   </section>
@@ -27,24 +33,31 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
+      playerName: sessionStorage.getItem("playerName"),
+      player: {},
       gameId: "inactive game",
       uiLabels: {},
-      playerList: {},
+      playerList: [],
+      leaderboard: [],
+      isDealer: false,
+      isHost: false,
     };
   },
   created: function () {
     this.gameId = this.$route.params.id;
     socket.emit("getGameInfo", this.gameId);
-    console.log("result playerlist");
-    socket.emit("joinGame", this.gameId);
+    socket.emit("joinSocket", this.gameId);
     socket.on("gameInfo", (game) => {
       this.playerList = game.players;
-      this.player = this.playerList[this.playerList.length - 1];
-      this.playerName = this.player.name;
-      console.log(this.playerList);
+      this.playerList.forEach((player) => {
+        if (player.name === this.playerName) {
+          this.player = player;
+          this.isDealer = player.isDealer;
+          this.isHost = player.isHost;
+        }
+      });
+      this.leaderboard = this.getLeaderboard();
     });
-
-    socket.emit("lobbyJoined", this.gameId);
 
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
@@ -53,11 +66,27 @@ export default {
   },
   methods: {
     startBus: function () {
-      for (player in this.playerList) {
-        if (player.isDealer) {
-          this.$router.push("/bus/");
-        }
-      }
+      this.$router.push("/bus/");
+    },
+    backToHomepage: function () {
+      this.$router.push("/");
+    },
+    reStart: function () {
+      socket.emit("restart", this.gameId);
+      this.$router.push("/lobby/" + this.gameId);
+    },
+    playAgain: function () {
+      socket.emit("joinGame", {
+        gameId: this.gameId,
+        playerName: this.player.name,
+        avatar: this.player.avatar,
+      });
+      this.$router.push("/lobby/" + this.gameId);
+    },
+    getLeaderboard: function () {
+      let leaderboard = [...this.playerList]; // coPilot code
+      leaderboard.sort((a, b) => a.points - b.points);
+      return leaderboard;
     },
   },
 };

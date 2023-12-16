@@ -130,6 +130,10 @@ function sockets(io, socket, data) {
     io.to(gameId).emit("dealerHasChecked");
   });
 
+  socket.on("reStart", (gameId) => {
+    data.recreateLobby(gameId);
+  });
+
   socket.on("resetAll", () => {
     data = new Data();
     data.initializeData();
