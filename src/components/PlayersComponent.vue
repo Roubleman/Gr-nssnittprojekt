@@ -17,14 +17,19 @@
         <OneCard
           :card="card"
           v-if="card.isVisible"
-          :isClickable="isGuesser && canSelectCard && !this.waitingForDealer"
+          :isClickable="
+            isGuesser &&
+            canSelectCard &&
+            !this.waitingForDealer &&
+            !card.isBlurred
+          "
           :cardHeight="this.cardSize"
           v-on:selectedCard="selectCard($event)"
           :class="{
             selected: isGuesser && selectedCard === card,
             blur:
               shouldBlur && isGuesser && card.value === wrongGuessedCard?.value,
-            'selected-card': cardsOutOfPlay.includes(card),
+            blurComparison: card.isBlurred,
           }"
           class="no-selection OneCard"
         >
@@ -71,7 +76,6 @@ export default {
   data() {
     return {
       selectedCard: [],
-      cardsOutOfPlay: [],
       stackIndices: {},
       gameResult: null,
       isConfirmed: false,
@@ -167,13 +171,6 @@ export default {
             wrongGuessedCard: this.selectedCard,
           });
         } else {
-          this.cardsOutOfPlay = this.graphicDeck.slice(
-            // Borde det inte vara playingCards istället?? MVH Elias
-            0,
-            this.currentCardIndex + 1
-          ); //change so that cardsoutofplay is slice of cardindex to current card in deck.
-          console.log("Cards out of play:", this.cardsOutOfPlay);
-
           this.gameResult = "correctguess";
           this.selectedCard = null;
           this.wrongGuessedCard = null;
@@ -186,6 +183,7 @@ export default {
     closePopup() {
       this.canSelectCard = true;
       this.displayButtonClosed = true;
+      this.blurCardsBasedOnComparison();
       this.waitingForDealer = false;
       this.$emit("popUpShown");
     },
@@ -195,7 +193,35 @@ export default {
     newRoundReceived() {
       this.$emit("newRoundReceived");
     },
+    blurCardsBasedOnComparison() {
+      const currentCardPoints = this.playingCards[this.currentCardIndex].points;
 
+      // Determine whether to blur higher or lower cards
+      const shouldBlurHigher =
+        this.guessComparison === this.uiLabels.guessLower;
+      const shouldBlurLower =
+        this.guessComparison === this.uiLabels.guessHigher;
+
+      // Apply blur to cards based on the comparison
+      this.graphicDeck.forEach((value) => {
+        value.cards.forEach((card) => {
+          if (card.isVisible && card.points !== currentCardPoints) {
+            card.isBlurred = false;
+            if (
+              shouldBlurHigher &&
+              card.points > this.wrongGuessedCard.points
+            ) {
+              card.isBlurred = true;
+            }
+
+            // Blur lower cards
+            if (shouldBlurLower && card.points < this.wrongGuessedCard.points) {
+              card.isBlurred = true;
+            }
+          }
+        });
+      });
+    },
     handleGameResult(data) {
       if (data.result === "wrongGuess") {
         this.$emit("wrongGuess", { card: data.wrongGuessedCard });
@@ -219,6 +245,12 @@ export default {
       this.displayButtonClosed = false;
       this.waitingForDealer = false;
       this.selectedCard = null;
+      //Reset blurcomparison
+      this.graphicDeck.forEach((value) => {
+        value.cards.forEach((card) => {
+          card.isBlurred = false;
+        });
+      });
     },
     handleNewRound() {
       this.resetRound();
@@ -268,6 +300,9 @@ export default {
 }
 
 .blur {
+  filter: blur(2px);
+}
+.blurComparison {
   filter: blur(2px);
 }
 
