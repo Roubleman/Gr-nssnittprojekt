@@ -365,7 +365,9 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
-    document.body.style.backgroundColor = "green";
+    document.body.style.backgroundColor = "rgb(29,36,0)";
+    document.body.style.background =
+      "linear-gradient(90deg, rgba(29,36,0,1) 0%, rgba(85,138,47,1) 50%, rgba(29,36,0,1) 100%)";
   },
   beforeDestroy() {
     document.body.style.backgroundColor = null;

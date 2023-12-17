@@ -273,6 +273,7 @@ export default {
 #confirm-button {
   background-color: #4caf50;
   border: 2px solid black;
+  border-radius: 3px;
   color: black;
   padding: 0.5em 0.5em;
   text-align: center;
@@ -281,6 +282,10 @@ export default {
   margin: 2px;
   cursor: pointer;
   transition-duration: 0.4s;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.3);
+}
+#confirm-button:hover {
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
 }
 
 .card-flex {
