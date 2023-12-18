@@ -183,11 +183,12 @@ export default {
         "--card-corner-left-margin": this.cardHeight * 0.0375 + "em",
         "--card-corner-right-margin-top": this.card * 0.7125 + "em",
         "--card-corner-right-margin-right": this.cardHeight * 0.05 + "em",
-        "--no-card-suit-right": this.cardHeight * -0.5 + "em",
         "--card-font-size": this.cardHeight * 0.125 + "em",
         "--card-border-thickness": this.cardHeight * 0.00875 + "em",
         "--card-border-radius": this.cardHeight * 0.05 + "em",
         "--margin-block-suit": -1 * this.cardHeight * 0.02 + "em",
+        "--no-suit-width-minus-100": this.cardHeight * 0.5 + "em",
+        "--no-suit-x-translation" : -1*this.cardHeight * 0.50625 + "em",
       };
     },
   },
@@ -290,9 +291,9 @@ export default {
   color: black;
 }
 
-.no-suit-right {
-  margin-right: var(--no-card-suit-right); /* Denna jäveln är ett problem för bredden 
-  måste hitta annat sätt att placera den på/hantera vidden på den.*/
+.no-suit-right { 
+  width: calc(100% - var(--no-suit-width-minus-100));
+  transform: translateX(var(--no-suit-x-translation)); 
 }
 
 #ace {

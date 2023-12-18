@@ -145,6 +145,13 @@ export default {
     },
   },
 
+beforeMount: function () {
+
+window.screen.width < 800 ? this.cardHeight = 5 : this.cardHeight = 8;
+
+},
+
+
   methods: {
     selectCard(card) {
       this.selectedCard = card;
@@ -351,4 +358,9 @@ export default {
 .OneCard:nth-child(4) {
   translate: 0 -18em;
 }
+
+@media screen and (max-width: 50em){
+/* VILL GÖRA RESPONSIVE NAV(isch) HÄR?? för mer clean interface*/ 
+}
+
 </style>
