@@ -79,7 +79,7 @@
         <p class="explanation" v-else>{{ uiLabels.inputGameIdExplanation }}</p>
       </label>
     </section>
-    <section class="input-boxes">
+    <section class="input-boxes" id="avatar_box">
       <p id="avatar_select">{{ uiLabels.selectAvatar }}</p>
       <section class="avatars">
         <img
@@ -88,7 +88,11 @@
           :key="index"
           :src="avatar"
           @click="selectAvatar(index)"
-          :class="(this.selectedAvatar === index) && !removeButton ? 'high-light-selected' : ''"
+          :class="
+            this.selectedAvatar === index && !removeButton
+              ? 'high-light-selected'
+              : ''
+          "
         />
       </section>
     </section>
@@ -176,6 +180,7 @@ export default {
       this.avatar = this.avatars[this.selectedAvatar];
     },
     openRules: function () {
+      this.hideNav = true;
       const rulesPopup = document.getElementById("rules_popup");
       rulesPopup.style.display = "flex";
       this.removeButton = true;
@@ -196,6 +201,7 @@ export default {
       }
     },
     openAbout: function () {
+      this.hideNav = true;
       const aboutPopup = document.getElementById("about_popup");
       aboutPopup.style.display = "flex";
       this.removeButton = true;
@@ -274,6 +280,7 @@ export default {
 }
 
 .navigation-menu {
+  overflow: hidden;
   color: white;
   width: 1em;
   display: flex;
@@ -488,6 +495,19 @@ export default {
 
   .hide {
     left: -12em;
+  }
+
+  .input-boxes {
+    width: 85%;
+    font-size: 0.85em;
+    padding: 0.5em;
+  }
+  #avatar_select {
+    font-size: 0.85em;
+    padding: 0.5em;
+  }
+  #avatar_box {
+    height: 7em;
   }
 }
 </style>
