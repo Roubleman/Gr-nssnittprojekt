@@ -11,18 +11,22 @@
     </div>
   </header>
   <ResponsiveNav class="on-top" v-bind:hideNav="hideNav">
-    <button v-on:click="switchLanguage">
+    <button v-on:click="switchLanguage" class="hover-link">
       <img
         class="language-flag"
         :src="uiLabels.changeLanguageFlag"
         :alt="uiLabels.changeLanguage"
       />
     </button>
-    <router-link to="/create/"> {{ uiLabels.createHeading }}</router-link>
+    <router-link to="/create/" class="hover-link">
+      {{ uiLabels.createHeading }}</router-link
+    >
     <a class="hover-link" href="#" @click.prevent="openAbout">{{
       uiLabels.about
     }}</a>
-    <a href="#" @click.prevent="openRules">{{ uiLabels.rules }}</a>
+    <a class="hover-link" href="#" @click.prevent="openRules">{{
+      uiLabels.rules
+    }}</a>
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
@@ -475,6 +479,20 @@ export default {
 
 .on-top {
   z-index: 100;
+  background-color: black;
+}
+
+.on-top button {
+  background-color: black;
+  border: none;
+}
+
+.hover-link {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
 }
 
 @media screen and (max-width: 50em) {
@@ -508,6 +526,18 @@ export default {
   }
   #avatar_box {
     height: 7em;
+  }
+
+  .on-top {
+    z-index: 100;
+    background-color: rgb(73, 114, 73);
+    top: inherit;
+    border: none;
+  }
+
+  .on-top button {
+    background-color: rgb(73, 114, 73);
+    border: none;
   }
 }
 </style>
