@@ -587,15 +587,6 @@ h4 {
   -moz-user-select: none;
 }
 
-.card-flex {
-  display: flex;
-  width: 100%;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  gap: 1em 0.7em;
-  padding: 1em;
-}
-
 .dealer-view {
   --card-width: 20em;
 }
@@ -681,5 +672,29 @@ td:first-child {
 th:last-child,
 td:last-child {
   text-align: right;
+}
+
+@media screen and (max-width: 50em) {
+  body 
+    .leaderboard {
+      color:black;
+    
+  }
+
+  .styled-box {
+    width: 7em;
+    height: auto;
+    margin: 0.75em auto;
+  }
+
+  div.wrapper{
+    flex-direction: column;
+  }
+
+  div.wrapper > section.styled-box {
+    width: 15em;
+    margin-bottom: 1em;
+  }
+
 }
 </style>

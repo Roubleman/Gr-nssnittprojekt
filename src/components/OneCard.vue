@@ -1,4 +1,5 @@
 <template>
+  <!-- LÄGGER IN TRANSITIONS HÄR SEN.-->
   <div class="back-of-card" v-if="card.isFlipped" :style="cssProps">
     <img
       src="/img/cardback.png"
@@ -290,7 +291,8 @@ export default {
 }
 
 .no-suit-right {
-  margin-right: var(--no-card-suit-right);
+  margin-right: var(--no-card-suit-right); /* Denna jäveln är ett problem för bredden 
+  måste hitta annat sätt att placera den på/hantera vidden på den.*/
 }
 
 #ace {

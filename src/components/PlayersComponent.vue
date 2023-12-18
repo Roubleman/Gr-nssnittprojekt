@@ -294,7 +294,6 @@ export default {
   flex-flow: row wrap;
   justify-content: center;
   gap: 1em 0.7em;
-  padding: 1em;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
