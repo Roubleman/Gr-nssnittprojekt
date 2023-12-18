@@ -163,7 +163,8 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 5em;
+  height: 3em;
+  width: 60em;
   position: relative;
 }
 
@@ -309,5 +310,39 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+@media (max-width: 850px) {
+  .heading {
+    font-size: 2em;
+  }
+  .create-setting {
+    width: 90%;
+    font-size: 0.8em;
+  }
+  .input {
+    font-size: 1em;
+  }
+  #button_section {
+    width: 90%;
+  }
+  .start-button {
+    width: 800%;
+    height: 60%;
+  }
+  .back-button {
+    display: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+  }
+  #back_button_div {
+    height: 0;
+  }
+  .guess-button {
+    font-size: 1em;
+    width: 1.5em;
+  }
 }
 </style>
