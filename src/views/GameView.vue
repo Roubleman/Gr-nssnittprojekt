@@ -455,11 +455,11 @@ export default {
       let valueIndex = cardToDisplay.points - 1;
       for (let j = 1; j < this.graphicDeck[valueIndex].cards.length; j++) {
         if (this.graphicDeck[valueIndex].cards[j].suit === cardToDisplay.suit) {
-          this.graphicDeck[valueIndex].cards[j].isVisible = true;
-          this.updateCardsOnTable(cardToDisplay.points);
           if (this.graphicDeck[valueIndex].cards[0].isVisible) {
             this.graphicDeck[valueIndex].cards[0].isVisible = false;
           }
+          this.graphicDeck[valueIndex].cards[j].isVisible = true;
+          this.updateCardsOnTable(cardToDisplay.points);
           break;
         }
       }
@@ -483,11 +483,10 @@ export default {
       }
     },
     flipCard(points) {
-      let value = this.graphicDeck[points - 1].value;
       let cardToFlip = this.graphicDeck[points - 1].cards[0];
       cardToFlip.isFlipped = true;
       cardToFlip.isVisible = true;
-      for (i = 1; i < 5; i++) {
+      for (let i = 1; i < 5; i++) {
         this.graphicDeck[points - 1].cards[i].isVisible = false;
       }
     },
