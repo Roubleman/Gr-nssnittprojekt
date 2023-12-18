@@ -145,12 +145,9 @@ export default {
     },
   },
 
-beforeMount: function () {
-
-window.screen.width < 800 ? this.cardHeight = 5 : this.cardHeight = 8;
-
-},
-
+  beforeMount: function () {
+    window.screen.width < 800 ? (this.cardHeight = 5) : (this.cardHeight = 8);
+  },
 
   methods: {
     selectCard(card) {
@@ -216,13 +213,16 @@ window.screen.width < 800 ? this.cardHeight = 5 : this.cardHeight = 8;
             card.isBlurred = false;
             if (
               shouldBlurHigher &&
-              card.points > this.wrongGuessedCard.points
+              card.points >= this.wrongGuessedCard.points
             ) {
               card.isBlurred = true;
             }
 
             // Blur lower cards
-            if (shouldBlurLower && card.points < this.wrongGuessedCard.points) {
+            if (
+              shouldBlurLower &&
+              card.points <= this.wrongGuessedCard.points
+            ) {
               card.isBlurred = true;
             }
           }
@@ -359,8 +359,7 @@ window.screen.width < 800 ? this.cardHeight = 5 : this.cardHeight = 8;
   translate: 0 -18em;
 }
 
-@media screen and (max-width: 50em){
-/* VILL GÖRA RESPONSIVE NAV(isch) HÄR?? för mer clean interface*/ 
+@media screen and (max-width: 50em) {
+  /* VILL GÖRA RESPONSIVE NAV(isch) HÄR?? för mer clean interface*/
 }
-
 </style>
