@@ -156,4 +156,12 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
+@media screen and (max-width: 50em) {
+  .scene {
+    flex-direction: column-reverse; /* FOR NOW vill helst göra om hela layouten??*/
+    row-gap: 1em;
+  }
+}
+
 </style>

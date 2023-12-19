@@ -555,7 +555,6 @@ h4 {
 .h1 {
   font-size: 1.5rem;
   font-weight: bolder;
-  width: 100%;
   justify-content: center;
   align-items: center;
 }
@@ -674,19 +673,13 @@ td:last-child {
 }
 
 @media screen and (max-width: 50em) {
-  body 
-    .leaderboard {
-      color:black;
-    
-  }
-
   .styled-box {
     width: 7em;
     height: auto;
     margin: 0.75em auto;
   }
 
-  div.wrapper{
+  div.wrapper {
     flex-direction: column;
   }
 
@@ -694,6 +687,9 @@ td:last-child {
     width: 15em;
     margin-bottom: 1em;
   }
+
+  
+
 
 }
 </style>
