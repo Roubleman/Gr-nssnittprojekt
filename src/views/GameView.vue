@@ -1,7 +1,8 @@
 <template>
   <header id="header-style">{{ uiLabels.gameViewHeadline }}</header>
 
-  <section class="wrapper">
+  
+  <section class="wrapper wrapper-transition">
     <div v-if="!this.isDealer" class="styled-box">
       <h4>{{ uiLabels.currentDealer }}</h4>
       <p class="name-display">
@@ -20,6 +21,7 @@
         {{ this.gameInfo.errorsRemaining }}
       </p>
     </div>
+    <Transition name="wrapperAnimation">
     <div v-if="!this.isGuesser" class="styled-box">
       <h4>{{ uiLabels.currentGuesser }}</h4>
       <div class="name-display">
@@ -37,7 +39,9 @@
         </p>
       </div>
     </div>
+  </Transition>
   </section>
+  
 
   <section class="dealer-view" v-if="this.isDealer">
     <h1 class="h1 name-display">
@@ -115,7 +119,8 @@
         </tr>
       </table>
     </section>
-    <section class="styled-box" v-if="latestMessage.isVisible">
+    <transition name="slide-in">
+    <section class="styled-box" v-if="latestMessage.isVisible" key="1">
       <div class="latest-message" :class="latestMessage.type">
         <h1>{{ uiLabels.latestMessage }}</h1>
         <p>{{ latestMessage.message }}</p>
@@ -123,16 +128,19 @@
           <p v-if="latestMessage.points">
             {{ uiLabels.points }}: {{ latestMessage.points }}
           </p>
+          <transition name="bounce-fade">
           <OneCard
-            v-if="Object.keys(latestMessage.card).length > 0"
             :card="latestMessage.card"
             :cardHeight="5"
             class="no-selection"
           ></OneCard>
+        </transition>
         </div>
       </div>
     </section>
+  </transition>
   </div>
+  <transition name="popup">
   <div v-if="popup.isVisible" class="popup" :class="popup.type">
     <p>{{ popup.message }}</p>
     <div class="popup-elements">
@@ -141,13 +149,14 @@
         v-if="Object.keys(popup.card).length > 0"
         :card="popup.card"
         :cardHeight="5"
-        class="no-selection"
+        class="no-selection padding-bottom"
       ></OneCard>
     </div>
     <button @click="closePopup" v-if="popup.isClosable">
       {{ uiLabels.close }}
     </button>
   </div>
+</transition>
 </template>
 
 <script>
@@ -157,7 +166,7 @@ import Player from "@/components/PlayersComponent.vue";
 import DeckOfCards from "@/assets/DeckOfCards.json";
 import OneCard from "@/components/OneCard.vue";
 import { withDirectives } from "vue";
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("dataServer"));
 
 export default {
   name: "GameView",
@@ -578,11 +587,111 @@ h4 {
   justify-content: space-around;
 }
 
+.popup-enter-active {
+  animation: bounce-in 0.4s;
+}
+
+.popup-leave-active{
+  animation: bounce-in 0.4s reverse;
+}
+
+@keyframes bounce-in {
+  0% 
+  {transform: translate(-50%, -50%) scale(0)}
+  50% {
+    transform: translate(-50%, -50%) scale(1.2)
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1)
+  }
+}
+
+.slide-in-enter-active {
+  animation: slide-in 0.5s ease-in-out;
+}
+
+@keyframes slide-in{
+  0% {
+    transform: translateX(110%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.bounce-fade-enter-active {
+  animation: bounce-fade 0.4s ease-in-out;
+}
+
+.bounce-fade-leave-active {
+  animation: bounce-fade 0.4s ease-in-out reverse;
+}
+
+@keyframes bounce-fade{
+  0% {
+      transform: scale(0);
+      opacity: 0;
+  }
+  25% {
+    opacity:0.33;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.66;
+  }
+  100%{
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.wrapperAnimation-enter-active {
+  animation: wrapperAnimationEnterLeave 0.5s ease-in-out;
+}
+
+.wrapperAnimation-leave-active {
+  animation: wrapperAnimationEnterLeave 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) reverse;
+  position:absolute;
+}
+
+.wrapperAnimation-move-active { /* KANSKE KAN TA BORT DENNA skulle användas till transitiongroup */
+  animation: wrapperAnimationMove 0.5s ease-in-out;
+}
+
+@keyframes wrapperAnimationEnterLeave{
+  0% {
+      transform: scale(0);
+      opacity: 0;
+  }
+  25% {
+    opacity:0.33;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.66;
+  }
+  100%{
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes wrapperAnimationMove{
+
+}
+
 .no-selection {
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
+}
+
+.padding-bottom{
+  padding-bottom: 0.5em;
 }
 
 .dealer-view {
@@ -630,6 +739,10 @@ h4 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.wrapper-transition{
+  transition: 1s ease-in-out;
 }
 
 .leaderboard-table {

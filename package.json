@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev:frontend": "vite",
+    "dev:host": "vite --host",
     "dev:backend": "nodemon server/index.js",
     "dev": "concurrently 'npm:dev:frontend' 'npm:dev:backend'",
+    "host": "concurrently 'npm:dev:host' 'npm:dev:backend'",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"

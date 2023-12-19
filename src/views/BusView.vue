@@ -113,7 +113,7 @@ import deckOfCards from "@/assets/DeckOfCards.json";
 import OneCard from "../components/OneCard.vue";
 import { VueFlip } from "vue-flip";
 
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("dataServer"));
 export default {
   name: "ResultView",
   components: {

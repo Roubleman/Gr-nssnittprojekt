@@ -48,12 +48,13 @@
               (Number(card.value) == 4 && i == 1) ||
               (Number(card.value) <= 6 && i == 2) ||
               (Number(card.value) == 7 && i == 3) ||
-              (Number(card.value) >= 8 && i > 3)
+              (Number(card.value) >= 8 && i >= 2)
                 ? 'rotate-suit'
                 : '',
 
               row.length == 1 ? 'suit-row single-suit' : '',
             ]"
+            :style="flexRow"
           >
             <span v-for="(suit, j) in row" :key="j">
               <span
@@ -165,9 +166,10 @@ export default {
       if (this.card.value == "10") {
         return [
           [true, true],
+          [true]
           [true, true],
           [true, true],
-          [true, true],
+          [true]
           [true, true],
         ];
       }
@@ -175,15 +177,45 @@ export default {
       return [];
     },
 
+    flexRow(){
+      let normal_flex_grow = 1
+      let first_last_child_flex_grow = 1
+      let second_child_flex_grow = 1
+
+      if (this.card.points == 10 || this.card.points == 9){
+         normal_flex_grow = 1
+         first_last_child_flex_grow = 5
+         second_child_flex_grow = 10
+      }
+
+      return {
+        "--suit-row-flex-grow" : normal_flex_grow,
+        "--suit-row-flex-grow-first-last-child" : first_last_child_flex_grow,
+        "--suit-row-flex-grow-second-child" : second_child_flex_grow,
+      }
+    },
+
+
     cssProps() {
+    
+      let font_size_multiplier
+      let card_corner_right_margin_top_multiplier
+
+      if ((this.card.points == 10 || this.card.points == 9) && this.cardHeight <= 5){
+         font_size_multiplier = 0.14
+
+      } else{
+         font_size_multiplier = 0.125
+      }
+
       return {
         "--card-height": this.cardHeight + "em",
         "--card-width": this.cardHeight * 0.66 + "em",
         "--card-ace-size": this.cardHeight * 0.8125 + "em",
         "--card-corner-left-margin": this.cardHeight * 0.0375 + "em",
-        "--card-corner-right-margin-top": this.card * 0.7125 + "em",
+        "--card-corner-right-margin-top": this.cardHeight * 0.7125 + "em",
         "--card-corner-right-margin-right": this.cardHeight * 0.05 + "em",
-        "--card-font-size": this.cardHeight * 0.125 + "em",
+        "--card-font-size": this.cardHeight * font_size_multiplier + "em",
         "--card-border-thickness": this.cardHeight * 0.00875 + "em",
         "--card-border-radius": this.cardHeight * 0.05 + "em",
         "--margin-block-suit": -1 * this.cardHeight * 0.02 + "em",
@@ -271,8 +303,19 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-grow: 1;
+  flex-grow: var(--suit-row-flex-grow);
   width: 50%;
+}
+
+.suit-row:first-child{
+  flex-grow: var(--suit-row-flex-grow-first-last-child);
+}
+
+.suit-row:nth-child(2){
+  flex-grow: var(--suit-row-flex-grow-second-child);
+}
+.suit-row:last-child {
+  flex-grow: var(--suit-row-flex-grow-first-last-child);
 }
 
 .suit-row.single-suit {

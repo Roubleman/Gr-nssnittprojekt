@@ -8,12 +8,16 @@
     <p>{{ guessComparison }}</p>
   </div>
   <div class="card-flex" :style="sectionHeight">
+    
     <section
       v-for="value in graphicDeck"
       :key="value.value"
       style="height: var(--card-section-height)"
     >
-      <template v-for="card in value.cards" :key="card.suit + card.value">
+    
+    
+      <div v-for="card in value.cards" :key="card.suit + card.value">
+        <Transition name="fade-bounce" mode="out-in">
         <OneCard
           :card="card"
           v-if="card.isVisible"
@@ -32,10 +36,14 @@
             blurComparison: card.isBlurred,
           }"
           class="no-selection OneCard"
+          key="this.card.suit + this.card.value"
         >
         </OneCard>
-      </template>
+     </Transition>
+      </div>
+      
     </section>
+  
   </div>
 
   <section>
@@ -56,6 +64,7 @@
 <script>
 import OneCard from "@/components/OneCard.vue";
 import displayableDeck from "@/assets/playerComponentDeck.json";
+import { TransitionGroup } from "vue";
 
 export default {
   name: "Player",
@@ -72,7 +81,8 @@ export default {
   },
   components: {
     OneCard,
-  },
+    TransitionGroup
+},
   data() {
     return {
       selectedCard: [],
@@ -306,6 +316,30 @@ export default {
   user-select: none;
 }
 
+.fade-bounce-enter-active{
+  animation: fade-bounce 1s ease-in-out;
+  position: relative;
+
+}
+.fade-bounce-leave-active{
+  animation: fade-bounce 1s ease-in-out reverse;
+  position: absolute;
+}
+
+@keyframes fade-bounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 .selected {
   border: 2px solid red;
 }
@@ -344,19 +378,19 @@ export default {
   transform: none;
 }
 .OneCard:nth-child(1) {
-  translate: 0 0;
+  transform: translate(0, 0);
 }
 
 .OneCard:nth-child(2) {
-  translate: 0 -6em;
+  transform: translate(0, -6em);
 }
 
 .OneCard:nth-child(3) {
-  translate: 0 -12em;
+  transform: translate(0, -12em);
 }
 
 .OneCard:nth-child(4) {
-  translate: 0 -18em;
+  transform: translate(0, -18em);
 }
 
 @media screen and (max-width: 50em) {
