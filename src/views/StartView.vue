@@ -11,7 +11,7 @@
     </div>
   </header>
   <ResponsiveNav class="on-top" v-bind:hideNav="hideNav">
-    <button v-on:click="switchLanguage" class="hover-link">
+    <button v-on:click="switchLanguage" id="switch_language" class="hover-link">
       <img
         class="language-flag"
         :src="uiLabels.changeLanguageFlag"
@@ -479,20 +479,36 @@ export default {
 
 .on-top {
   z-index: 100;
-  background-color: black;
+  background-color: inherit;
+  color: black;
 }
 
 .on-top button {
-  background-color: black;
+  background-color: inherit;
   border: none;
 }
 
 .hover-link {
-  color: white;
+  color: black;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
+  transition: transform 0.3s ease;
+}
+
+.hover-link:hover {
+  color: rgb(73, 114, 73);
+  transform: scale(1.2);
+}
+
+#switch_language {
+  transform: none;
+  transition: transform 0.3s ease;
+}
+
+.language-flag:hover {
+  transform: scale(1.04);
 }
 
 @media screen and (max-width: 50em) {
@@ -520,10 +536,12 @@ export default {
     font-size: 0.85em;
     padding: 0.5em;
   }
+
   #avatar_select {
     font-size: 0.85em;
     padding: 0.5em;
   }
+
   #avatar_box {
     height: 7em;
   }
@@ -538,6 +556,10 @@ export default {
   .on-top button {
     background-color: rgb(73, 114, 73);
     border: none;
+  }
+
+  .hover-link {
+    color: white;
   }
 }
 </style>
