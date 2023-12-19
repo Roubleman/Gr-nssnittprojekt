@@ -33,14 +33,14 @@
   <div class="overlay" id="rules_popup">
     <div class="popup">
       <span class="close_popup" @click="closeRules">&times;</span>
-      <h1>{{ uiLabels.rules }}:</h1>
+      <h1>{{ uiLabels.rules }}</h1>
       <p v-for="text in uiLabels.rulesText">{{ text }}</p>
     </div>
   </div>
   <div class="overlay" id="about_popup">
     <div class="popup">
       <span class="close_popup" @click="closeAbout">&times;</span>
-      <h1>{{ uiLabels.about }}:</h1>
+      <h1>{{ uiLabels.about }}</h1>
       <p v-for="text in uiLabels.aboutText">{{ text }}</p>
     </div>
   </div>
@@ -419,6 +419,7 @@ export default {
   box-shadow: 0 0 0.7em rgba(0, 0, 0, 0.3);
   text-align: center;
   position: relative;
+  max-width: 60%;
 }
 
 .close_popup {
@@ -458,7 +459,7 @@ export default {
 }
 
 .high-light-selected {
-  scale: calc(1.8);
+  scale: calc(1.5);
   margin-left: 1em;
   margin-right: 1em;
 }
@@ -512,6 +513,9 @@ export default {
 }
 
 @media screen and (max-width: 50em) {
+  .hover-link:hover {
+    color: black;
+  }
   .logo {
     font-size: 5vw;
     display: flex;
@@ -547,6 +551,7 @@ export default {
   }
 
   .on-top {
+    height: 95%;
     z-index: 100;
     background-color: rgb(73, 114, 73);
     top: inherit;
@@ -560,6 +565,10 @@ export default {
 
   .hover-link {
     color: white;
+    font-size: 1em;
+  }
+  .popup {
+    max-width: 80%;
   }
 }
 </style>
