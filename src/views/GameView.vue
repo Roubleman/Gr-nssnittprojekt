@@ -1,6 +1,4 @@
 <template>
-  <header id="header-style">{{ uiLabels.gameViewHeadline }}</header>
-
   <section class="wrapper">
     <div v-if="!this.isDealer" class="styled-box">
       <h4>{{ uiLabels.currentDealer }}</h4>
@@ -687,9 +685,5 @@ td:last-child {
     width: 15em;
     margin-bottom: 1em;
   }
-
-  
-
-
 }
 </style>
