@@ -800,9 +800,5 @@ td:last-child {
     width: 15em;
     margin-bottom: 1em;
   }
-
-  
-
-
 }
 </style>

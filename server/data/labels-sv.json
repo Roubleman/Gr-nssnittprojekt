@@ -18,7 +18,14 @@
   "normalOption": "Normal (x1)",
   "hardcoreOption": "Bli full snabbt (x2)",
   "playGame": "Spela",
-  "rulesText": ["Punkt ett", "Punkt två", "Punkt tre"],
+  "rulesText": [
+  "1. Den som gissar gissar på kort.", 
+  "2. Dealern svarar med högre eller lägre, om inte första gissningen var rätt.", 
+  "3. Den som gissar får gissa en till gång, stämmer gissningen får dealern dricka. Om gissningen var fel får den som gissade dricka så många klunkar som skillnaden från det rätta kortet.",
+  "4. Kortleken skickas vidare efter ett antal felaktiga gissningar.",
+  "5. Den som är dealer när hela kortleken ligger på bordet får åka på en liten resa...",
+  "1 Poäng = 1 Klunk"
+],
   "aboutText": [
     "Det här är ett spel som går ut på att supa jävel!",
     "Bli inte dealer, om du inte vill bli helt väck!"
@@ -36,7 +43,6 @@
   "lower": "Lägre",
   "higher": "Högre",
   "youAreTheDealer": "Du är dealer!",
-  "gameViewHeadline": "Nu kör vi!",
   "dealerHeader": "Du är dealer!",
   "playerHeader": "Din tur att gissa!",
   "spectatorHeader": "Du är spektator!",

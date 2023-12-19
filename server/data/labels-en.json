@@ -18,7 +18,14 @@
   "normalOption": "Normal (x1)",
   "hardcoreOption": "Get drunk fast (x2)",
   "playGame": "Play game",
-  "rulesText": ["First rule", "Second rule", "Third rule"],
+  "rulesText": [
+  "1. The guesser guesses on a card.",
+  "2. The dealer anwsers higher or lower, unless the first guess was correct.",
+  "3. The guesser gets to guess one more time, if the guess is correct, the dealer drinks. If the guess was wrong, the guesser drinks sips corresponding to the difference from the correct card.",
+  "4. The dealer is swapped after a certain amount of wrong guesses.",
+  "5. The player who is the dealer when the entire deck is on the table has to go for a little trip...",
+  "1 Point = 1 Sip"
+],
   "aboutText": [
     "This is a game where you are supposed to get drunk!",
     "Stay away from being a dealer, unless you want to get hammered!"
@@ -36,7 +43,6 @@
   "lower": "Lower",
   "higher": "Higher",
   "youAreTheDealer": "You are the dealer!",
-  "gameViewHeadline": "Let's play!",
   "dealerHeader": "You are the dealer!",
   "playerHeader": "Your time to guess!",
   "spectatorHeader": "You are a spectator!",

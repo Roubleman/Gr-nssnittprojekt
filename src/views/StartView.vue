@@ -11,32 +11,36 @@
     </div>
   </header>
   <ResponsiveNav class="on-top" v-bind:hideNav="hideNav">
-    <button v-on:click="switchLanguage">
+    <button v-on:click="switchLanguage" id="switch_language" class="hover-link">
       <img
         class="language-flag"
         :src="uiLabels.changeLanguageFlag"
         :alt="uiLabels.changeLanguage"
       />
     </button>
-    <router-link to="/create/"> {{ uiLabels.createHeading }}</router-link>
+    <router-link to="/create/" class="hover-link">
+      {{ uiLabels.createHeading }}</router-link
+    >
     <a class="hover-link" href="#" @click.prevent="openAbout">{{
       uiLabels.about
     }}</a>
-    <a href="#" @click.prevent="openRules">{{ uiLabels.rules }}</a>
+    <a class="hover-link" href="#" @click.prevent="openRules">{{
+      uiLabels.rules
+    }}</a>
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
   <div class="overlay" id="rules_popup">
     <div class="popup">
       <span class="close_popup" @click="closeRules">&times;</span>
-      <h1>{{ uiLabels.rules }}:</h1>
+      <h1>{{ uiLabels.rules }}</h1>
       <p v-for="text in uiLabels.rulesText">{{ text }}</p>
     </div>
   </div>
   <div class="overlay" id="about_popup">
     <div class="popup">
       <span class="close_popup" @click="closeAbout">&times;</span>
-      <h1>{{ uiLabels.about }}:</h1>
+      <h1>{{ uiLabels.about }}</h1>
       <p v-for="text in uiLabels.aboutText">{{ text }}</p>
     </div>
   </div>
@@ -79,7 +83,7 @@
         <p class="explanation" v-else>{{ uiLabels.inputGameIdExplanation }}</p>
       </label>
     </section>
-    <section class="input-boxes">
+    <section class="input-boxes" id="avatar_box">
       <p id="avatar_select">{{ uiLabels.selectAvatar }}</p>
       <section class="avatars">
         <img
@@ -88,7 +92,11 @@
           :key="index"
           :src="avatar"
           @click="selectAvatar(index)"
-          :class="(this.selectedAvatar === index) && !removeButton ? 'high-light-selected' : ''"
+          :class="
+            this.selectedAvatar === index && !removeButton
+              ? 'high-light-selected'
+              : ''
+          "
         />
       </section>
     </section>
@@ -180,6 +188,7 @@ export default {
       this.avatar = this.avatars[this.selectedAvatar];
     },
     openRules: function () {
+      this.hideNav = true;
       const rulesPopup = document.getElementById("rules_popup");
       rulesPopup.style.display = "flex";
       this.removeButton = true;
@@ -200,6 +209,7 @@ export default {
       }
     },
     openAbout: function () {
+      this.hideNav = true;
       const aboutPopup = document.getElementById("about_popup");
       aboutPopup.style.display = "flex";
       this.removeButton = true;
@@ -278,6 +288,7 @@ export default {
 }
 
 .navigation-menu {
+  overflow: hidden;
   color: white;
   width: 1em;
   display: flex;
@@ -412,6 +423,7 @@ export default {
   box-shadow: 0 0 0.7em rgba(0, 0, 0, 0.3);
   text-align: center;
   position: relative;
+  max-width: 60%;
 }
 
 .close_popup {
@@ -451,7 +463,7 @@ export default {
 }
 
 .high-light-selected {
-  scale: calc(1.8);
+  scale: calc(1.5);
   margin-left: 1em;
   margin-right: 1em;
 }
@@ -472,9 +484,42 @@ export default {
 
 .on-top {
   z-index: 100;
+  background-color: inherit;
+  color: black;
+}
+
+.on-top button {
+  background-color: inherit;
+  border: none;
+}
+
+.hover-link {
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.hover-link:hover {
+  color: rgb(73, 114, 73);
+  transform: scale(1.2);
+}
+
+#switch_language {
+  transform: none;
+  transition: transform 0.3s ease;
+}
+
+.language-flag:hover {
+  transform: scale(1.04);
 }
 
 @media screen and (max-width: 50em) {
+  .hover-link:hover {
+    color: black;
+  }
   .logo {
     font-size: 5vw;
     display: flex;
@@ -492,6 +537,42 @@ export default {
 
   .hide {
     left: -12em;
+  }
+
+  .input-boxes {
+    width: 85%;
+    font-size: 0.85em;
+    padding: 0.5em;
+  }
+
+  #avatar_select {
+    font-size: 0.85em;
+    padding: 0.5em;
+  }
+
+  #avatar_box {
+    height: 7em;
+  }
+
+  .on-top {
+    height: 95%;
+    z-index: 100;
+    background-color: rgb(73, 114, 73);
+    top: inherit;
+    border: none;
+  }
+
+  .on-top button {
+    background-color: rgb(73, 114, 73);
+    border: none;
+  }
+
+  .hover-link {
+    color: white;
+    font-size: 1em;
+  }
+  .popup {
+    max-width: 80%;
   }
 }
 </style>
