@@ -8,42 +8,37 @@
     <p>{{ guessComparison }}</p>
   </div>
   <div class="card-flex" :style="sectionHeight">
-    
     <section
       v-for="value in graphicDeck"
       :key="value.value"
       style="height: var(--card-section-height)"
     >
-    
-    
-      <div v-for="card in value.cards" :key="card.suit + card.value">
-        <Transition name="fade-bounce" mode="out-in">
-        <OneCard
-          :card="card"
-          v-if="card.isVisible"
-          :isClickable="
-            isGuesser &&
-            canSelectCard &&
-            !this.waitingForDealer &&
-            !card.isBlurred
-          "
-          :cardHeight="this.cardSize"
-          v-on:selectedCard="selectCard($event)"
-          :class="{
-            selected: isGuesser && selectedCard === card,
-            blur:
-              shouldBlur && isGuesser && card.value === wrongGuessedCard?.value,
-            blurComparison: card.isBlurred,
-          }"
-          class="no-selection OneCard"
-          key="this.card.suit + this.card.value"
-        >
-        </OneCard>
-     </Transition>
-      </div>
-      
+      <TransitionGroup name="fade-bounce" mode="out-in">
+        <div v-for="card in value.cards" :key="card.suit + card.value">
+          <OneCard
+            :card="card"
+            v-if="card.isVisible"
+            :isClickable="
+              isGuesser &&
+              canSelectCard &&
+              !this.waitingForDealer &&
+              !card.isBlurred
+            "
+            :cardHeight="this.cardSize"
+            v-on:selectedCard="selectCard($event)"
+            :class="{
+              selected: isGuesser && selectedCard === card,
+              blur:
+                shouldBlur &&
+                isGuesser &&
+                card.value === wrongGuessedCard?.value,
+              blurComparison: card.isBlurred,
+            }"
+            class="no-selection OneCard"
+          />
+        </div>
+      </TransitionGroup>
     </section>
-  
   </div>
 
   <section>
@@ -81,8 +76,8 @@ export default {
   },
   components: {
     OneCard,
-    TransitionGroup
-},
+    TransitionGroup,
+  },
   data() {
     return {
       selectedCard: [],
@@ -316,12 +311,11 @@ export default {
   user-select: none;
 }
 
-.fade-bounce-enter-active{
+.fade-bounce-enter-active {
   animation: fade-bounce 1s ease-in-out;
   position: relative;
-
 }
-.fade-bounce-leave-active{
+.fade-bounce-leave-active {
   animation: fade-bounce 1s ease-in-out reverse;
   position: absolute;
 }
@@ -374,9 +368,6 @@ export default {
   width: calc(100% - 20em);
 }
 
-.OneCard:hover {
-  transform: none;
-}
 .OneCard:nth-child(1) {
   transform: translate(0, 0);
 }
@@ -388,11 +379,9 @@ export default {
 .OneCard:nth-child(3) {
   transform: translate(0, -12em);
 }
-
 .OneCard:nth-child(4) {
   transform: translate(0, -18em);
 }
-
 @media screen and (max-width: 50em) {
   /* VILL GÖRA RESPONSIVE NAV(isch) HÄR?? för mer clean interface*/
 }
