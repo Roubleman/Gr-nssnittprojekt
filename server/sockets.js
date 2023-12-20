@@ -24,6 +24,12 @@ function sockets(io, socket, data) {
     data.createTestGame(playingCards);
   });
 
+  socket.on("createTestResult", function (d) {
+    data.createTestGame(d.deck);
+    data.createTestResult(d.gameId);
+    console.log("createTestResult", d.gameId);
+  });
+
   socket.on("createGame", function (d) {
     data.createGame(
       d.gameId,
@@ -130,7 +136,7 @@ function sockets(io, socket, data) {
     io.to(gameId).emit("dealerHasChecked");
   });
 
-  socket.on("reStart", (gameId) => {
+  socket.on("restart", (gameId) => {
     io.to(gameId).emit("newGameStarted");
     data.recreateLobby(gameId);
   });

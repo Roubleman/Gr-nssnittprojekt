@@ -87,7 +87,7 @@ export default {
     });
   },
   beforeDestroy() {
-    window.removeEventListener("beforeunload", this.hostLeaving());
+    window.removeEventListener("beforeunload", this.hostLeaving);
   },
   methods: {
     hostLeaving: function () {

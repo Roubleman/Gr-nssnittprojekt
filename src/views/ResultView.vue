@@ -31,11 +31,13 @@
 
 import io from "socket.io-client";
 const socket = io(sessionStorage.getItem("dataServer"));
+import DeckOfCards from "@/assets/DeckOfCards.json";
 
 export default {
   name: "ResultView",
   data: function () {
     return {
+      playingCards: DeckOfCards, // ta bort sen när vi inte behöver testa
       lang: localStorage.getItem("lang") || "en",
       playerName: sessionStorage.getItem("playerName"),
       player: {},
@@ -50,6 +52,23 @@ export default {
   },
   created: function () {
     this.gameId = this.$route.params.id;
+
+    if (
+      // ta bort sen när vi inte behöver testa
+      this.gameId === "test1" ||
+      this.gameId === "test2" ||
+      this.gameId === "test3"
+    ) {
+      this.playerName = "player" + this.gameId.slice(-1);
+      if (this.gameId === "test1") {
+        socket.emit("createTestResult", {
+          deck: this.playingCards,
+          gameId: "test",
+        });
+      }
+      this.gameId = "test";
+    }
+
     socket.emit("getGameInfo", this.gameId);
     socket.emit("joinSocket", this.gameId);
     socket.on("gameInfo", (game) => {
@@ -64,7 +83,8 @@ export default {
       this.leaderboard = this.getLeaderboard();
     });
     socket.on("newGameStarted", () => {
-      newGameExists = true;
+      console.log("new game started");
+      this.newGameExists = true;
     });
 
     socket.emit("pageLoaded", this.lang);
@@ -81,7 +101,7 @@ export default {
     },
     reStart: function () {
       socket.emit("restart", this.gameId);
-      this.$router.push("/lobby/" + this.gameId);
+      this.$router.push("/host/" + this.gameId);
     },
     playAgain: function () {
       socket.emit("joinGame", {
@@ -89,7 +109,7 @@ export default {
         playerName: this.player.name,
         avatar: this.player.avatar,
       });
-      this.$router.push("/lobby/" + this.gameId);
+      this.$router.push("/join/" + this.gameId);
     },
     getLeaderboard: function () {
       let leaderboard = [...this.playerList]; // coPilot code

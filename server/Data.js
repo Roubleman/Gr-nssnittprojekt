@@ -277,6 +277,16 @@ Data.prototype.createTestGame = function (playingCards) {
   }
 };
 
+Data.prototype.createTestResult = function (gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    game.players[0].points = 20;
+    game.players[1].points = 10;
+    game.players[2].points = 5;
+    console.log("test result created", gameId);
+  }
+};
+
 Data.prototype.recreateLobby = function (gameId) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {

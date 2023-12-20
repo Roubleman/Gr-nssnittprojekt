@@ -345,4 +345,18 @@ export default {
     width: 1.5em;
   }
 }
+
+@media (max-width: 450px) {
+  .explanation {
+    display: none;
+  }
+  .create-setting {
+    width: 80%;
+    font-size: 0.8em;
+  }
+
+  .start-button {
+    width: 70%;
+  }
+}
 </style>

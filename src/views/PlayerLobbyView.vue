@@ -92,7 +92,7 @@ export default {
     });
   },
   beforeDestroy() {
-    window.removeEventListener("beforeunload", this.playerLeaving());
+    window.removeEventListener("beforeunload", this.playerLeaving);
   },
   methods: {
     gameClosed: function () {
