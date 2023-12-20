@@ -11,13 +11,6 @@
     </div>
   </header>
   <ResponsiveNav class="on-top" v-bind:hideNav="hideNav">
-    <button v-on:click="switchLanguage" id="switch_language" class="hover-link">
-      <img
-        class="language-flag"
-        :src="uiLabels.changeLanguageFlag"
-        :alt="uiLabels.changeLanguage"
-      />
-    </button>
     <router-link to="/create/" class="hover-link">
       {{ uiLabels.createHeading }}</router-link
     >
@@ -27,6 +20,13 @@
     <a class="hover-link" href="#" @click.prevent="openRules">{{
       uiLabels.rules
     }}</a>
+    <button v-on:click="switchLanguage" id="switch_language" class="hover-link">
+      <img
+        class="language-flag"
+        :src="uiLabels.changeLanguageFlag"
+        :alt="uiLabels.changeLanguage"
+      />
+    </button>
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
@@ -486,6 +486,9 @@ export default {
   z-index: 100;
   background-color: inherit;
   color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .on-top button {
@@ -500,6 +503,9 @@ export default {
   justify-content: center;
   border: none;
   transition: transform 0.3s ease;
+  font-weight: bold;
+  font-size: 0.8em;
+  height: 3em;
 }
 
 .hover-link:hover {
@@ -514,6 +520,12 @@ export default {
 
 .language-flag:hover {
   transform: scale(1.04);
+}
+
+@media (min-width: 50em) and (max-width: 60em) {
+  .input-boxes {
+    width: 80%;
+  }
 }
 
 @media screen and (max-width: 50em) {
@@ -540,7 +552,7 @@ export default {
   }
 
   .input-boxes {
-    width: 85%;
+    width: 90%;
     font-size: 0.85em;
     padding: 0.5em;
   }
@@ -560,6 +572,7 @@ export default {
     background-color: rgb(73, 114, 73);
     top: inherit;
     border: none;
+    flex-direction: column;
   }
 
   .on-top button {
@@ -569,7 +582,7 @@ export default {
 
   .hover-link {
     color: white;
-    font-size: 1em;
+    font-size: 0.7em;
   }
   .popup {
     max-width: 80%;
