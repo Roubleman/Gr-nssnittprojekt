@@ -588,4 +588,9 @@ export default {
     max-width: 80%;
   }
 }
+
+@media (max-width: 35em) {
+  .avatar-picture {
+  }
+}
 </style>
