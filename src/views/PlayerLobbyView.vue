@@ -167,4 +167,16 @@ export default {
   width: 1.5em;
   height: auto;
 }
+
+@media screen and (max-width: 60em) {
+  #ready_button {
+    width: 13%;
+    min-width: 130px;
+    margin-top: 1em;
+  }
+  .gameSettings {
+    width: 80%;
+    gap: 2em;
+  }
+}
 </style>

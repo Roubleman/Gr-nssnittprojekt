@@ -205,4 +205,19 @@ body {
   width: 1.5em;
   height: auto;
 }
+
+@media screen and (max-width: 60em) {
+  .gameSettings {
+    width: 80%;
+    gap: 2em;
+  }
+  #play_game_button {
+    width: 20%;
+    min-width: 100px;
+  }
+  #scramble_button {
+    width: 20%;
+    min-width: 150px;
+  }
+}
 </style>
