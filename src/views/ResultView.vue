@@ -1,56 +1,58 @@
 <template>
-  <div class="resultMenu">
-    <h1>{{ uiLabels.gameResult }}</h1>
-  </div>
-  <section id="input_wrappers">
-    <section class="playerList">
-      <table class="leaderboard-table">
-        <tr class="leaderboard-grid">
-          <th class="text-center">{{ uiLabels.placement }}</th>
-          <th class="text-center">{{ uiLabels.player }}</th>
-          <th class="text-center">{{ uiLabels.points }}</th>
-        </tr>
-        <tr v-for="(player, index) in leaderboard" :key="index">
-          <td class="text-center medal-cell">
-            <img
-              v-if="index === 0"
-              :src="'/img/goldMedal.png'"
-              class="avatar"
-            />
-            <img
-              v-else-if="index === 1"
-              :src="'/img/silverMedal.png'"
-              class="avatar"
-            />
-            <img
-              v-else-if="index === 2"
-              :src="'/img/bronzeMedal.png'"
-              class="avatar"
-            />
-            <span v-else> {{ index + 1 }}.</span>
-          </td>
-          <td class="text-center">
-            <img :src="player.avatar" class="avatar" /> {{ player.name }}
-            <span v-if="player.isDealer">&#x1f68c;</span>
-          </td>
-          <td class="text-center">{{ player.points }}</td>
-        </tr>
-      </table>
+  <div id="center_vertically">
+    <div class="resultMenu">
+      <h1>{{ uiLabels.gameResult }}</h1>
+    </div>
+    <section id="input_wrappers">
+      <section class="playerList">
+        <table class="leaderboard-table">
+          <tr class="leaderboard-grid">
+            <th class="text-center">{{ uiLabels.placement }}</th>
+            <th class="text-center">{{ uiLabels.player }}</th>
+            <th class="text-center">{{ uiLabels.points }}</th>
+          </tr>
+          <tr v-for="(player, index) in leaderboard" :key="index">
+            <td class="text-center medal-cell">
+              <img
+                v-if="index === 0"
+                :src="'/img/goldMedal.png'"
+                class="avatar"
+              />
+              <img
+                v-else-if="index === 1"
+                :src="'/img/silverMedal.png'"
+                class="avatar"
+              />
+              <img
+                v-else-if="index === 2"
+                :src="'/img/bronzeMedal.png'"
+                class="avatar"
+              />
+              <span v-else> {{ index + 1 }}.</span>
+            </td>
+            <td class="text-center">
+              <img :src="player.avatar" class="avatar" /> {{ player.name }}
+              <span v-if="player.isDealer">&#x1f68c;</span>
+            </td>
+            <td class="text-center">{{ player.points }}</td>
+          </tr>
+        </table>
+      </section>
+      <button v-if="isDealer" v-on:click="startBus" class="bus-button">
+        <label> {{ uiLabels.takeTheBus }}</label>
+      </button>
+      <button v-if="isHost" v-on:click="reStart" class="restart-button">
+        <label> {{ uiLabels.restartGame }}</label>
+      </button>
+      <button
+        v-if="!isHost && newGameExists"
+        v-on:click="playAgain"
+        class="restart-button"
+      >
+        <label> {{ uiLabels.joinRestart }}</label>
+      </button>
     </section>
-    <button v-if="isDealer" v-on:click="startBus" class="bus-button">
-      <label> {{ uiLabels.takeTheBus }}</label>
-    </button>
-    <button v-if="isHost" v-on:click="reStart" class="restart-button">
-      <label> {{ uiLabels.restartGame }}</label>
-    </button>
-    <button
-      v-if="!isHost && newGameExists"
-      v-on:click="playAgain"
-      class="restart-button"
-    >
-      <label> {{ uiLabels.joinRestart }}</label>
-    </button>
-  </section>
+  </div>
   <div>
     <audio id="backgroundAudio" autoplay loop :volume="0.5">
       <source src="/mp3/partyMusic.mp3" type="audio/mp3" />
@@ -89,12 +91,14 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
-    // document.body.style.background =
-    //   "linear-gradient(90deg, rgba(29,36,0,1) 0%, rgba(85,138,47,1) 50%, rgba(29,36,0,1) 100%)";
-    document.body.style.backgroundImage = "/img/resultBackground.svg";
+    document.body.style.backgroundImage = "url(/img/resultBackground.svg)";
+    document.body.style.backgroundSize = "auto 100%";
+    document.body.style.backgroundAttachment = "fixed";
   },
   beforeDestroy() {
-    document.body.style.backgroundColor = null;
+    document.body.style.backgroundImage = null;
+    document.body.style.backgroundSize = null;
+    document.body.style.backgroundAttachment = null;
   },
   created: function () {
     this.gameId = this.$route.params.id;
@@ -179,6 +183,13 @@ body {
   background-color: rgb(233, 233, 223);
   font-size: 1.3em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+#center_vertically {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 #input_wrappers {
@@ -283,16 +294,16 @@ label {
 
 @media (max-width: 450px) {
   .playerList {
-    font-size: 75%;
+    font-size: 100%;
   }
   .restart-button {
     width: 80%;
-    font-size: 60%;
+    font-size: 80%;
   }
 
   .bus-button {
     width: 70%;
-    font-size: 70%;
+    font-size: 90%;
   }
 }
 </style>
