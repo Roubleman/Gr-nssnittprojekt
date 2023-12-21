@@ -38,7 +38,7 @@
     </audio>
   </div>
   <div id="muteButton" @click="toggleSoundMute">
-    {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507" }}
+    {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507;" }}
   </div>
   <button
     id="play_game_button"
@@ -47,7 +47,6 @@
   >
     {{ uiLabels.playGame }}
   </button>
- 
 </template>
 
 <script>
@@ -96,7 +95,19 @@ export default {
       this.hostLeaving();
     });
   },
+  mounted() {
+    //coPilot code so that we have body background with style scoped
+    document.body.style.backgroundImage = "url(/img/lobbyBackground.svg)";
+    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+  },
   beforeDestroy() {
+    window.removeEventListener("beforeunload", this.playerLeaving);
+    document.body.style.backgroundImage = null;
+    document.body.style.backgroundSize = null;
+    document.body.style.backgroundAttachment = null;
+    document.body.style.backgroundPosition = null;
     window.removeEventListener("beforeunload", this.hostLeaving);
   },
   methods: {
@@ -143,8 +154,8 @@ export default {
         this.isSoundMuted = !this.isSoundMuted;
         audioElement.muted = this.isSoundMuted;
       }
+    },
   },
-}
 };
 </script>
 <style scoped>
