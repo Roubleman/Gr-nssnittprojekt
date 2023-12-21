@@ -552,7 +552,7 @@ export default {
   }
 
   .input-boxes {
-    width: 90%;
+    width: 85%;
     font-size: 0.85em;
     padding: 0.5em;
   }
