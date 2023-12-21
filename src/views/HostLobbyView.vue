@@ -31,7 +31,15 @@
       </li>
     </draggable>
   </section>
-
+  <div>
+    <audio id="backgroundAudio" autoplay loop>
+      <source src="/mp3/elevatorMusic.mp3" type="audio/mp3" />
+      Your browser does not support the audio tag.
+    </audio>
+  </div>
+  <div id="muteButton" @click="toggleSoundMute">
+    {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507" }}
+  </div>
   <button
     id="play_game_button"
     v-on:click="playGame"
@@ -39,6 +47,7 @@
   >
     {{ uiLabels.playGame }}
   </button>
+ 
 </template>
 
 <script>
@@ -59,6 +68,7 @@ export default {
       gameId: "inactive game",
       playerList: [],
       gameInfo: {},
+      isSoundMuted: false,
     };
   },
   created: function () {
@@ -126,7 +136,15 @@ export default {
       }
       return true;
     },
+    toggleSoundMute: function () {
+      const audioElement = document.getElementById("backgroundAudio");
+
+      if (audioElement) {
+        this.isSoundMuted = !this.isSoundMuted;
+        audioElement.muted = this.isSoundMuted;
+      }
   },
+}
 };
 </script>
 <style scoped>
@@ -182,7 +200,7 @@ body {
 }
 
 #scramble_button {
-  width: 20%;
+  width: 15%;
   height: 50%;
   background-color: rgb(160, 242, 37);
   font-size: 1.5em;
@@ -217,7 +235,17 @@ body {
   }
   #scramble_button {
     width: 20%;
-    min-width: 150px;
+    min-width: 100px;
   }
+}
+#muteButton {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }
 </style>
