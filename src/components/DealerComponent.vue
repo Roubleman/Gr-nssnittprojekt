@@ -2,7 +2,7 @@
   <header id="dealer_header"></header>
   <section class="scene">
     <button
-      class="dealer-button"
+      class="dealer-button normal_buttons"
       @click="emitHigherLower"
       v-if="higherLower"
       :disabled="guessedCard.points < playingCards[currentCardIndex].points"
@@ -37,6 +37,32 @@
         />
       </template>
     </vue-flip>
+    <button
+      class="dealer-button normal_buttons"
+      @click="emitHigherLower"
+      v-if="higherLower"
+      :disabled="guessedCard.points > playingCards[currentCardIndex].points"
+      :style="{
+        opacity:
+          guessedCard.points < playingCards[currentCardIndex].points ? 1 : 0.5,
+      }"
+    >
+      {{ uiLabels.higher }}
+    </button>
+  </section>
+  <section class="phone-buttons">
+    <button
+      class="dealer-button"
+      @click="emitHigherLower"
+      v-if="higherLower"
+      :disabled="guessedCard.points < playingCards[currentCardIndex].points"
+      :style="{
+        opacity:
+          guessedCard.points > playingCards[currentCardIndex].points ? 1 : 0.5,
+      }"
+    >
+      {{ uiLabels.lower }}
+    </button>
     <button
       class="dealer-button"
       @click="emitHigherLower"
@@ -156,12 +182,32 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-@media screen and (max-width: 50em) {
-  .scene {
-    flex-direction: column-reverse; /* FOR NOW vill helst göra om hela layouten??*/
-    row-gap: 1em;
+.phone_buttons {
+  display: none;
+}
+@media (min-width: 50.0001em) {
+  .phone-buttons {
+    display: none;
   }
 }
 
+@media screen and (max-width: 50em) {
+  .normal_buttons {
+    display: none;
+  }
+
+  .phone_buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .dealer-button {
+    width: 30%;
+    padding: 0;
+    margin-top: 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+}
 </style>
