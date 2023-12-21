@@ -122,7 +122,7 @@
 <script>
 import io from "socket.io-client";
 import deckOfCards from "@/assets/DeckOfCards.json";
-import OneCard from "../components/OneCard.vue";
+import OneCard from "@/components/OneCard.vue";
 import { VueFlip } from "vue-flip";
 
 const socket = io(sessionStorage.getItem("dataServer"));
@@ -322,21 +322,11 @@ body {
   justify-content: center;
   align-items: center;
 }
-.card {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 1em;
-  position: relative;
-  margin-left: 10em;
-  width: calc(100% - 20em);
-}
 .flip-card {
   width: 100%;
   height: 100%;
-  border: 0.08em solid black;
   border-radius: 0.5em;
-  background-image: url("../../public/img/cardback.png");
+  background-image: url("@/img/cardback.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
@@ -402,7 +392,66 @@ body {
   padding-bottom: 1em;
   width: 100%;
   justify-content: center;
-  align-items: center;
-  background-color: rgb(73, 114, 73);
+}
+
+@media screen and (max-width: 50em) {
+  .styled-box {
+    width: 7em;
+    height: auto;
+    margin: 0.75em auto;
+  }
+  body {
+    background-color: rgb(233, 233, 223);
+    font-size: 1.3em;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .grid-container {
+    width: 80%;
+    height: 80%;
+  }
+  .gameInfo {
+    width: 80%;
+  }
+  #cardSelection {
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+
+    position: relative;
+  }
+  .rules {
+    align-self: auto;
+    text-align: left;
+    color: white;
+    width: 15em;
+    border-style: inset;
+    border-color: rgba(252, 16, 48, 0.707);
+    background-color: rgb(73, 114, 73);
+    margin-top: 4.4em;
+    margin-bottom: 0.5em;
+    position: absolute;
+
+    z-index: 100;
+  }
+  .gameInfo {
+    align-self: auto;
+    text-align: left;
+    color: white;
+    width: 15em;
+    border-style: inset;
+    border-color: rgba(252, 16, 48, 0.707);
+    background-color: rgb(73, 114, 73);
+    margin-top: 4.4em;
+    margin-bottom: 0.5em;
+    position: absolute;
+    z-index: 100;
+  }
+  .grid-container {
+    width: 80%;
+    height: 80%;
+  }
+  .card-grid {
+    margin: 80%;
+    display: contents;
+  }
 }
 </style>
