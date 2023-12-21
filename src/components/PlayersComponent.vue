@@ -295,16 +295,6 @@ export default {
 };
 </script>
 <style scoped>
-.selected-card {
-  background-color: white;
-  border: 0.07em solid rgb(95, 95, 95);
-  border-radius: 0.4em;
-  cursor: pointer;
-  transition: transform 0.6s ease;
-  background-color: white;
-  filter: none;
-}
-
 #confirm-button {
   background-color: #4caf50;
   border: 2px solid black;
@@ -379,16 +369,6 @@ export default {
   border-radius: 10px;
   z-index: 1000;
   text-align: center;
-}
-
-#cardSelection {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 1em;
-  position: relative;
-  margin-left: 10em;
-  width: calc(100% - 20em);
 }
 
 .first-card-OneCard {

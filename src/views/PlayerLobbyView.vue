@@ -20,15 +20,22 @@
       </li>
     </section>
   </section>
-
+  <div>
+    <audio id="backgroundAudio" autoplay loop :volume="0.5">
+      <source src="/mp3/elevatorMusic.mp3" type="audio/mp3" />
+      Your browser does not support the audio tag.
+    </audio>
+  </div>
+  <div id="muteButton" @click="toggleSoundMute">
+    {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507;" }}
+  </div>
+  <button></button>
   <button v-if="!player.isReady" id="ready_button" v-on:click="playerIsReady">
     {{ uiLabels.ready }}
   </button>
 </template>
 
 <script>
-// @ is an alias to /src
-
 import { VueDraggableNext } from "vue-draggable-next";
 import io from "socket.io-client";
 const socket = io(sessionStorage.getItem("dataServer"));
@@ -48,6 +55,7 @@ export default {
       playerName: "",
       player: {},
       gameInfo: {},
+      isSoundMuted: false,
     };
   },
   created: function () {
@@ -91,8 +99,19 @@ export default {
       this.playerLeaving();
     });
   },
+  mounted() {
+    //coPilot code so that we have body background with style scoped
+    document.body.style.backgroundImage = "url(/img/lobbyBackground.svg)";
+    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+  },
   beforeDestroy() {
     window.removeEventListener("beforeunload", this.playerLeaving);
+    document.body.style.backgroundImage = null;
+    document.body.style.backgroundSize = null;
+    document.body.style.backgroundAttachment = null;
+    document.body.style.backgroundPosition = null;
   },
   methods: {
     gameClosed: function () {
@@ -111,6 +130,14 @@ export default {
         gameId: this.gameId,
         playerName: this.playerName,
       });
+    },
+    toggleSoundMute: function () {
+      const audioElement = document.getElementById("backgroundAudio");
+
+      if (audioElement) {
+        this.isSoundMuted = !this.isSoundMuted;
+        audioElement.muted = this.isSoundMuted;
+      }
     },
   },
 };
@@ -141,7 +168,16 @@ export default {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
-
+#muteButton {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
 .player-list li {
   list-style-type: none;
   margin: 0.5em;
@@ -166,5 +202,17 @@ export default {
 .avatar {
   width: 1.5em;
   height: auto;
+}
+
+@media screen and (max-width: 60em) {
+  #ready_button {
+    width: 13%;
+    min-width: 130px;
+    margin-top: 1em;
+  }
+  .gameSettings {
+    width: 80%;
+    gap: 2em;
+  }
 }
 </style>

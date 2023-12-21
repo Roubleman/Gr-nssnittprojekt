@@ -31,7 +31,15 @@
       </li>
     </draggable>
   </section>
-
+  <div>
+    <audio id="backgroundAudio" autoplay loop :volume="0.5">
+      <source src="/mp3/elevatorMusic.mp3" type="audio/mp3" />
+      Your browser does not support the audio tag.
+    </audio>
+  </div>
+  <div id="muteButton" @click="toggleSoundMute">
+    {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507;" }}
+  </div>
   <button
     id="play_game_button"
     v-on:click="playGame"
@@ -59,6 +67,7 @@ export default {
       gameId: "inactive game",
       playerList: [],
       gameInfo: {},
+      isSoundMuted: false,
     };
   },
   created: function () {
@@ -86,7 +95,19 @@ export default {
       this.hostLeaving();
     });
   },
+  mounted() {
+    //coPilot code so that we have body background with style scoped
+    document.body.style.backgroundImage = "url(/img/lobbyBackground.svg)";
+    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+  },
   beforeDestroy() {
+    window.removeEventListener("beforeunload", this.playerLeaving);
+    document.body.style.backgroundImage = null;
+    document.body.style.backgroundSize = null;
+    document.body.style.backgroundAttachment = null;
+    document.body.style.backgroundPosition = null;
     window.removeEventListener("beforeunload", this.hostLeaving);
   },
   methods: {
@@ -125,6 +146,14 @@ export default {
         }
       }
       return true;
+    },
+    toggleSoundMute: function () {
+      const audioElement = document.getElementById("backgroundAudio");
+
+      if (audioElement) {
+        this.isSoundMuted = !this.isSoundMuted;
+        audioElement.muted = this.isSoundMuted;
+      }
     },
   },
 };
@@ -182,7 +211,7 @@ body {
 }
 
 #scramble_button {
-  width: 20%;
+  width: 15%;
   height: 50%;
   background-color: rgb(160, 242, 37);
   font-size: 1.5em;
@@ -204,5 +233,30 @@ body {
 .avatar {
   width: 1.5em;
   height: auto;
+}
+
+@media screen and (max-width: 60em) {
+  .gameSettings {
+    width: 80%;
+    gap: 2em;
+  }
+  #play_game_button {
+    width: 20%;
+    min-width: 100px;
+  }
+  #scramble_button {
+    width: 40%;
+    min-width: 100px;
+  }
+}
+#muteButton {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }
 </style>

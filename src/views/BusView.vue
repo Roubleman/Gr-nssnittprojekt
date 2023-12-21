@@ -20,8 +20,11 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard class="card-facing-up" v-bind:card="topCard1" 
-              :cardHeight="20"/>
+              <OneCard
+                class="card-facing-up"
+                v-bind:card="topCard1"
+                :cardHeight="20"
+              />
             </div>
           </template>
         </vue-flip>
@@ -43,8 +46,11 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard class="card-facing-up" v-bind:card="topCard2"
-              :cardHeight="20" />
+              <OneCard
+                class="card-facing-up"
+                v-bind:card="topCard2"
+                :cardHeight="20"
+              />
             </div>
           </template>
         </vue-flip>
@@ -65,8 +71,11 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard class="card-facing-up" v-bind:card="topCard3" 
-              :cardHeight="20"/>
+              <OneCard
+                class="card-facing-up"
+                v-bind:card="topCard3"
+                :cardHeight="20"
+              />
             </div>
           </template>
         </vue-flip>
@@ -87,8 +96,11 @@
 
           <template v-slot:back class="card">
             <div class="card-grid">
-              <OneCard class="card-facing-up" v-bind:card="topCard4" 
-              :cardHeight="20"/>
+              <OneCard
+                class="card-facing-up"
+                v-bind:card="topCard4"
+                :cardHeight="20"
+              />
             </div>
           </template>
         </vue-flip>
@@ -156,6 +168,15 @@ export default {
       this.uiLabels = labels;
     });
   },
+  mounted() {
+    //coPilot code so that we have body background with style scoped
+    document.body.style.backgroundColor = "rgb(29,36,0)";
+    document.body.style.background =
+      "linear-gradient(90deg, rgba(29,36,0,1) 0%, rgba(85,138,47,1) 50%, rgba(29,36,0,1) 100%)";
+  },
+  beforeDestroy() {
+    document.body.style.backgroundColor = null;
+  },
   methods: {
     shuffleCards: function (deck) {
       const shuffledDeck = [...deck];
@@ -193,9 +214,7 @@ export default {
         this.selectedCard.push(card);
         console.log(this.selectedCard);
         this.compare(this.selectedCard);
-      } 
-      
-      
+      }
     },
     checkBlack: function (arr) {
       if (arr.length === 4) {
@@ -317,7 +336,7 @@ body {
   height: 100%;
   border: 0.08em solid black;
   border-radius: 0.5em;
-  background-image: url("../../public/img/cardback.png");
+  background-image: url("/img/cardback.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
@@ -375,12 +394,7 @@ body {
   left: 0px;
   z-index: 100;
 }
-html {
-  background-color: green;
-}
-#background {
-  background-color: green;
-}
+
 #header-style {
   font-size: 1.5rem;
   font-weight: bolder;

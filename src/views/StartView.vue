@@ -170,6 +170,19 @@ export default {
       }
     });
   },
+  mounted() {
+    //coPilot code so that we have body background with style scoped
+    document.body.style.backgroundImage = "url(/img/startBackground.svg)";
+    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+  },
+  beforeDestroy() {
+    document.body.style.backgroundImage = null;
+    document.body.style.backgroundSize = null;
+    document.body.style.backgroundAttachment = null;
+    document.body.style.backgroundPosition = null;
+  },
   methods: {
     switchLanguage: function () {
       if (this.lang === "en") {
@@ -552,7 +565,7 @@ export default {
   }
 
   .input-boxes {
-    width: 90%;
+    width: 85%;
     font-size: 0.85em;
     padding: 0.5em;
   }
