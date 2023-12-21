@@ -51,6 +51,15 @@
       <label> {{ uiLabels.joinRestart }}</label>
     </button>
   </section>
+  <div>
+    <audio id="backgroundAudio" autoplay loop :volume="0.5">
+      <source src="/mp3/partyMusic.mp3" type="audio/mp3" />
+      Your browser does not support the audio tag.
+    </audio>
+  </div>
+  <div id="muteButton" @click="toggleSoundMute">
+    {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507;" }}
+  </div>
 </template>
 
 <script>
@@ -64,6 +73,7 @@ export default {
   name: "ResultView",
   data: function () {
     return {
+      isSoundMuted: false,
       playingCards: DeckOfCards, // ta bort sen när vi inte behöver testa
       lang: localStorage.getItem("lang") || "en",
       playerName: sessionStorage.getItem("playerName"),
@@ -79,9 +89,9 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
-    document.body.style.backgroundColor = "rgb(29,36,0)";
-    document.body.style.background =
-      "linear-gradient(90deg, rgba(29,36,0,1) 0%, rgba(85,138,47,1) 50%, rgba(29,36,0,1) 100%)";
+    // document.body.style.background =
+    //   "linear-gradient(90deg, rgba(29,36,0,1) 0%, rgba(85,138,47,1) 50%, rgba(29,36,0,1) 100%)";
+    document.body.style.backgroundImage = "/img/resultBackground.svg";
   },
   beforeDestroy() {
     document.body.style.backgroundColor = null;
@@ -151,6 +161,14 @@ export default {
       let leaderboard = [...this.playerList]; // coPilot code
       leaderboard.sort((a, b) => a.points - b.points);
       return leaderboard;
+    },
+    toggleSoundMute: function () {
+      const audioElement = document.getElementById("backgroundAudio");
+
+      if (audioElement) {
+        this.isSoundMuted = !this.isSoundMuted;
+        audioElement.muted = this.isSoundMuted;
+      }
     },
   },
 };
@@ -235,6 +253,17 @@ label {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#muteButton {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 @media (max-width: 610px) {

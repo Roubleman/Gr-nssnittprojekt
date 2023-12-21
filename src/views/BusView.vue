@@ -336,7 +336,7 @@ body {
   height: 100%;
   border: 0.08em solid black;
   border-radius: 0.5em;
-  background-image: url("../../public/img/cardback.png");
+  background-image: url("/img/cardback.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;

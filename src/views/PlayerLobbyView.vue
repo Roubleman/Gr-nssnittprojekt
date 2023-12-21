@@ -27,7 +27,7 @@
     </audio>
   </div>
   <div id="muteButton" @click="toggleSoundMute">
-    {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507" }}
+    {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507;" }}
   </div>
 
   <button v-if="!player.isReady" id="ready_button" v-on:click="playerIsReady">
