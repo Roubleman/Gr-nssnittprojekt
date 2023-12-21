@@ -1,14 +1,41 @@
 <template>
   <div class="resultMenu">
-    <h1>{{ uiLabels.gameResult }}: {{ gameId }}</h1>
+    <h1>{{ uiLabels.gameResult }}</h1>
   </div>
   <section id="input_wrappers">
     <section class="playerList">
-      <li v-for="player in leaderboard">
-        {{ player.name }}: {{ uiLabels.numberOfPoints }}
-        {{ player.points }}
-        <span v-if="player.isDealer">&#x1f68c; &#128640; &#128640;</span>
-      </li>
+      <table class="leaderboard-table">
+        <tr class="leaderboard-grid">
+          <th class="text-center">{{ uiLabels.placement }}</th>
+          <th class="text-center">{{ uiLabels.player }}</th>
+          <th class="text-center">{{ uiLabels.points }}</th>
+        </tr>
+        <tr v-for="(player, index) in leaderboard" :key="index">
+          <td class="text-center medal-cell">
+            <img
+              v-if="index === 0"
+              :src="'/img/goldMedal.png'"
+              class="avatar"
+            />
+            <img
+              v-else-if="index === 1"
+              :src="'/img/silverMedal.png'"
+              class="avatar"
+            />
+            <img
+              v-else-if="index === 2"
+              :src="'/img/bronzeMedal.png'"
+              class="avatar"
+            />
+            <span v-else> {{ index + 1 }}.</span>
+          </td>
+          <td class="text-center">
+            <img :src="player.avatar" class="avatar" /> {{ player.name }}
+            <span v-if="player.isDealer">&#x1f68c;</span>
+          </td>
+          <td class="text-center">{{ player.points }}</td>
+        </tr>
+      </table>
     </section>
     <button v-if="isDealer" v-on:click="startBus" class="bus-button">
       <label> {{ uiLabels.takeTheBus }}</label>
@@ -49,6 +76,15 @@ export default {
       isHost: false,
       newGameExists: false,
     };
+  },
+  mounted() {
+    //coPilot code so that we have body background with style scoped
+    document.body.style.backgroundColor = "rgb(29,36,0)";
+    document.body.style.background =
+      "linear-gradient(90deg, rgba(29,36,0,1) 0%, rgba(85,138,47,1) 50%, rgba(29,36,0,1) 100%)";
+  },
+  beforeDestroy() {
+    document.body.style.backgroundColor = null;
   },
   created: function () {
     this.gameId = this.$route.params.id;
@@ -133,9 +169,10 @@ body {
   align-items: center;
 }
 .restart-button {
-  width: 30%;
-  color: black;
-  margin-bottom: 1%;
+  width: 10em;
+  color: white;
+  margin-top: 1em;
+  margin-bottom: 1em;
   background: rgb(73, 114, 73);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -149,15 +186,25 @@ body {
 .bus-button {
   color: rgb(246, 255, 0);
   background: rgb(255, 85, 0);
-  width: 30%;
+  width: 12em;
   cursor: pointer;
+  transition: all 0.3s ease;
   font-size: 1.5em;
   padding: 0.5em 1em;
+  margin-top: 0.5em;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+label {
+  cursor: pointer;
 }
 
 .playerList {
   color: white;
-  width: 15em;
+  width: 25em;
   border-style: inset;
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 1em;
@@ -172,5 +219,51 @@ body {
 }
 .lobbyMenu {
   margin: 25px;
+}
+.avatar {
+  width: 1.3em;
+  height: auto;
+}
+.text-center {
+  text-align: center;
+}
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.medal-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 610px) {
+  .playerList {
+    width: 90%;
+  }
+
+  .restart-button {
+    width: 65%;
+    font-size: 1.2em;
+  }
+  .bus-button {
+    width: 50%;
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 450px) {
+  .playerList {
+    font-size: 75%;
+  }
+  .restart-button {
+    width: 80%;
+    font-size: 60%;
+  }
+
+  .bus-button {
+    width: 70%;
+    font-size: 70%;
+  }
 }
 </style>
