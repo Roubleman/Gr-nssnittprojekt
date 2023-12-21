@@ -234,7 +234,7 @@ body {
     min-width: 100px;
   }
   #scramble_button {
-    width: 20%;
+    width: 40%;
     min-width: 100px;
   }
 }
