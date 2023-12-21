@@ -2,6 +2,16 @@
   <section id="background">
     <header id="header-style">{{ uiLabels.bus }}</header>
     <div class="card-grid">
+      <section class="gameInfo">
+        <li>{{ uiLabels.numberOfPoints }}: {{ this.gameScore }}</li>
+        <li>{{ uiLabels.busInfo1 }}{{ this.selectedCard.length }}</li>
+        <li>{{ uiLabels.busInfo2 }}{{ this.noShuffles }}</li>
+      </section>
+      <section class="rules">
+        <li>{{ uiLabels.rule1 }}</li>
+        <li>{{ uiLabels.rule2 }}</li>
+        <li>{{ uiLabels.rule3 }}</li>
+      </section>
       <section id="cardSelection" vis>
         <vue-flip
           v-model="flipped1"
@@ -104,16 +114,6 @@
             </div>
           </template>
         </vue-flip>
-      </section>
-      <section class="gameInfo">
-        <li>{{ uiLabels.numberOfPoints }}: {{ this.gameScore }}</li>
-        <li>{{ uiLabels.busInfo1 }}{{ this.selectedCard.length }}</li>
-        <li>{{ uiLabels.busInfo2 }}{{ this.noShuffles }}</li>
-      </section>
-      <section class="rules">
-        <li>{{ uiLabels.rule1 }}</li>
-        <li>{{ uiLabels.rule2 }}</li>
-        <li>{{ uiLabels.rule3 }}</li>
       </section>
     </div>
   </section>
@@ -396,53 +396,45 @@ body {
 
 @media screen and (max-width: 50em) {
   .styled-box {
-    width: 7em;
+    width: 80%;
     height: auto;
-    margin: 0.75em auto;
   }
-  body {
-    background-color: rgb(233, 233, 223);
-    font-size: 1.3em;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  }
-  .grid-container {
-    width: 80%;
-    height: 80%;
-  }
-  .gameInfo {
-    width: 80%;
-  }
+
   #cardSelection {
     display: grid;
-    grid-template-columns: repeat(2, 2fr);
-
+    grid-template-columns: repeat(1, 4fr);
+    align-items: center;
     position: relative;
+    gap: 1;
+    margin-top: 80%;
+    position: relative;
+    margin-left: 15%;
+    width: calc(100% - 20em);
   }
   .rules {
     align-self: auto;
     text-align: left;
     color: white;
-    width: 15em;
+    width: 80%;
     border-style: inset;
     border-color: rgba(252, 16, 48, 0.707);
     background-color: rgb(73, 114, 73);
     margin-top: 4.4em;
     margin-bottom: 0.5em;
-    position: absolute;
-
+    position: static;
     z-index: 100;
   }
   .gameInfo {
     align-self: auto;
     text-align: left;
     color: white;
-    width: 15em;
+    width: 80%;
     border-style: inset;
     border-color: rgba(252, 16, 48, 0.707);
     background-color: rgb(73, 114, 73);
     margin-top: 4.4em;
     margin-bottom: 0.5em;
-    position: absolute;
+    position: sticky;
     z-index: 100;
   }
   .grid-container {
@@ -450,8 +442,12 @@ body {
     height: 80%;
   }
   .card-grid {
-    margin: 80%;
     display: contents;
+  }
+  .flip-card {
+    height: 70%;
+    widows: 70%;
+    background-size: 70% 70%;
   }
 }
 </style>
