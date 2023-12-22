@@ -159,9 +159,14 @@ export default {
       flipped2: false,
       flipped3: false,
       flipped4: false,
+      nextStation: null,
+      mindTheGap: null,
+      randStation: null,
     };
   },
   created: function () {
+    this.nextStation = new Audio("public/mp3/nasta.mp3");
+    this.mindTheGap = new Audio("public/mp3/avstandet.mp3");
     this.isDone = false;
     this.distributeDeck();
     socket.on("init", (labels) => {
@@ -188,6 +193,11 @@ export default {
       return shuffledDeck;
     },
     distributeDeck: function () {
+      const path =
+        "public/stations/" +
+        Math.floor(Math.random() * (14 - 0 + 1) + 0) +
+        ".mp3";
+      this.randStation = new Audio(path);
       this.cards = this.shuffleCards(deckOfCards);
       this.flipped1 = false;
       this.flipped2 = false;
@@ -206,6 +216,7 @@ export default {
       this.topCard2 = this.piles[1][0];
       this.topCard3 = this.piles[2][0];
       this.topCard4 = this.piles[3][0];
+
       console.log("Redistributed deck");
       console.log(this.piles);
     },
@@ -250,49 +261,67 @@ export default {
         return false;
       }
     },
+    delay: function (milliseconds) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, milliseconds);
+      });
+    },
     compare: function (selectedCard) {
       this.cardSuit.push(this.selectedCard[this.selectedCard.length - 1].suit);
       console.log(this.cardSuit);
       if (this.cardSuit.length == 4 && this.checkBlack(this.cardSuit)) {
+        this.mindTheGap.play();
         this.isDone = true;
         alert("You won");
       } else if (this.cardSuit.length == 4 && !this.checkBlack(this.cardSuit)) {
-        setTimeout(() => {
+        setTimeout(async () => {
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
           console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
+          this.nextStation.play();
+          await this.delay(1500);
+          this.randStation.play();
         }, 1000);
       } else if (selectedCard.length === 1 && !this.checkRed(this.cardSuit)) {
         console.log(this.checkRed(this.cardSuit));
-        setTimeout(() => {
+        setTimeout(async () => {
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
           console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
+          this.nextStation.play();
+          await this.delay(1500);
+          this.randStation.play();
         }, 1000);
       } else if (selectedCard.length === 2 && !this.checkBlack(this.cardSuit)) {
-        setTimeout(() => {
+        setTimeout(async () => {
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
           console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
+          this.nextStation.play();
+          await this.delay(1500);
+          this.randStation.play();
         }, 1000);
       } else if (selectedCard.length === 3 && !this.checkRed(this.cardSuit)) {
         console.log(this.checkRed(this.cardSuit));
-        setTimeout(() => {
+        setTimeout(async () => {
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
           console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
+          this.nextStation.play();
+          await this.delay(1500);
+          this.randStation.play();
         }, 1000);
       } else {
         console.log("good job");
@@ -326,7 +355,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 0.5em;
-  background-image: url("@/img/cardback.png");
+  background-image: url("public/img/cardback.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
