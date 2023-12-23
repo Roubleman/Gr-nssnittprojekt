@@ -9,15 +9,14 @@
   </div>
   <div class="card-flex" :style="sectionHeight">
     <section
-      v-for="value in graphicDeck"
+      v-for="value in visibleCards"
       :key="value.value"
       style="height: var(--card-section-height)"
     >
       <TransitionGroup name="fade-bounce" mode="out-in">
-        <div v-for="card in value.cards" :key="card.suit + card.value">
+        <div v-for="(card, index) in value.cards" :key="card.suit + card.value">
           <OneCard
             :card="card"
-            v-if="card.isVisible"
             :isClickable="
               isGuesser &&
               canSelectCard &&
@@ -26,14 +25,18 @@
             "
             :cardHeight="this.cardSize"
             v-on:selectedCard="selectCard($event)"
-            :class="{
-              selected: isGuesser && selectedCard === card,
-              blur:
-                shouldBlur &&
-                isGuesser &&
-                card.value === wrongGuessedCard?.value,
-              blurComparison: card.isBlurred,
-            }"
+            :class="[
+              {
+                selected: isGuesser && selectedCard === card,
+                blur:
+                  shouldBlur &&
+                  isGuesser &&
+                  card.value === wrongGuessedCard?.value,
+                blurComparison: card.isBlurred,
+              },
+
+              this.OneCardPlacementY(index),
+            ]"
             class="no-selection OneCard"
           />
         </div>
@@ -147,6 +150,13 @@ export default {
 
     sectionHeight() {
       return { "--card-section-height": this.cardSectionHeight + "em" };
+    },
+
+    visibleCards() {
+      return this.graphicDeck.map((value) => ({
+        ...value,
+        cards: value.cards.filter((card) => card.isVisible),
+      }));
     },
   },
 
@@ -268,6 +278,19 @@ export default {
       this.resetRound();
       this.$emit("newRoundReceived");
     },
+
+    OneCardPlacementY(index) {
+      switch (index) {
+        case 0:
+          return "first-card-OneCard";
+        case 1:
+          return "second-card-OneCard";
+        case 2:
+          return "third-card-OneCard";
+        case 3:
+          return "fourth-card-OneCard";
+      }
+    },
   },
 };
 </script>
@@ -348,20 +371,22 @@ export default {
   text-align: center;
 }
 
-.OneCard:nth-child(1) {
+.first-card-OneCard {
   transform: translate(0, 0);
 }
 
-.OneCard:nth-child(2) {
+.second-card-OneCard {
   transform: translate(0, -6em);
 }
 
-.OneCard:nth-child(3) {
+.third-card-OneCard {
   transform: translate(0, -12em);
 }
-.OneCard:nth-child(4) {
+
+.fourth-card-OneCard {
   transform: translate(0, -18em);
 }
+
 @media screen and (max-width: 50em) {
   /* VILL GÖRA RESPONSIVE NAV(isch) HÄR?? för mer clean interface*/
 }

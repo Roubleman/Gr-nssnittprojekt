@@ -1,5 +1,4 @@
 <template>
-  <!-- LÄGGER IN TRANSITIONS HÄR SEN.-->
   <div class="back-of-card" v-if="card.isFlipped" :style="cssProps">
     <img
       src="/img/cardback.png"
@@ -166,10 +165,9 @@ export default {
       if (this.card.value == "10") {
         return [
           [true, true],
-          [true]
           [true, true],
           [true, true],
-          [true]
+          [true, true],
           [true, true],
         ];
       }
@@ -177,35 +175,35 @@ export default {
       return [];
     },
 
-    flexRow(){
-      let normal_flex_grow = 1
-      let first_last_child_flex_grow = 1
-      let second_child_flex_grow = 1
+    flexRow() {
+      let normal_flex_grow = 1;
+      let first_last_child_flex_grow = 1;
+      let second_child_flex_grow = 1;
 
-      if (this.card.points == 10 || this.card.points == 9){
-         normal_flex_grow = 1
-         first_last_child_flex_grow = 5
-         second_child_flex_grow = 10
+      if (this.card.points == 10 || this.card.points == 9) {
+        normal_flex_grow = 1;
+        first_last_child_flex_grow = 5;
+        second_child_flex_grow = 10;
       }
 
       return {
-        "--suit-row-flex-grow" : normal_flex_grow,
-        "--suit-row-flex-grow-first-last-child" : first_last_child_flex_grow,
-        "--suit-row-flex-grow-second-child" : second_child_flex_grow,
-      }
+        "--suit-row-flex-grow": normal_flex_grow,
+        "--suit-row-flex-grow-first-last-child": first_last_child_flex_grow,
+        "--suit-row-flex-grow-second-child": second_child_flex_grow,
+      };
     },
 
-
     cssProps() {
-    
-      let font_size_multiplier
-      let card_corner_right_margin_top_multiplier
+      let font_size_multiplier;
+      let card_corner_right_margin_top_multiplier;
 
-      if ((this.card.points == 10 || this.card.points == 9) && this.cardHeight <= 5){
-         font_size_multiplier = 0.14
-
-      } else{
-         font_size_multiplier = 0.125
+      if (
+        (this.card.points == 10 || this.card.points == 9) &&
+        this.cardHeight <= 5
+      ) {
+        font_size_multiplier = 0.14;
+      } else {
+        font_size_multiplier = 0.125;
       }
 
       return {
@@ -220,7 +218,7 @@ export default {
         "--card-border-radius": this.cardHeight * 0.05 + "em",
         "--margin-block-suit": -1 * this.cardHeight * 0.02 + "em",
         "--no-suit-width-minus-100": this.cardHeight * 0.5 + "em",
-        "--no-suit-x-translation" : -1*this.cardHeight * 0.50625 + "em",
+        "--no-suit-x-translation": -1 * this.cardHeight * 0.50625 + "em",
       };
     },
   },
@@ -307,11 +305,11 @@ export default {
   width: 50%;
 }
 
-.suit-row:first-child{
+.suit-row:first-child {
   flex-grow: var(--suit-row-flex-grow-first-last-child);
 }
 
-.suit-row:nth-child(2){
+.suit-row:nth-child(2) {
   flex-grow: var(--suit-row-flex-grow-second-child);
 }
 .suit-row:last-child {
@@ -334,9 +332,9 @@ export default {
   color: black;
 }
 
-.no-suit-right { 
+.no-suit-right {
   width: calc(100% - var(--no-suit-width-minus-100));
-  transform: translateX(var(--no-suit-x-translation)); 
+  transform: translateX(var(--no-suit-x-translation));
 }
 
 #ace {
