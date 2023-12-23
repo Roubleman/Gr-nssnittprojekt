@@ -602,8 +602,23 @@ export default {
   }
 }
 
-@media (max-width: 35em) {
-  .avatar-picture {
+@media (max-width: 35.2em) {
+  .avatars {
+    display: grid;
+    grid-template-columns: repeat(5, 3em);
+    justify-items: center;
+    width: 80%;
+  }
+  #avatar_select {
+    padding-bottom: 0;
+  }
+  #avatar_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .explanation {
+    margin: 0.2em;
   }
 }
 </style>
