@@ -160,7 +160,6 @@ export default {
 </script>
 <style scoped>
 #hamburger_icon {
-  cursor: pointer;
   margin-left: 1em;
 }
 
@@ -204,6 +203,7 @@ body {
 .player-list li {
   list-style-type: none;
   margin: 0.5em;
+  cursor: grabbing;
 }
 
 .lobbyMenu {
