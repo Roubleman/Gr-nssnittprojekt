@@ -7,11 +7,13 @@
   <div v-if="isGuesser && this.displayButtonClosed">
     <p>{{ guessComparison }}</p>
   </div>
-  <div class="card-flex" :style="sectionHeight">
+  <div class="card-flex" :style="dynamicCSS">
     <section
       v-for="value in visibleCards"
       :key="value.value"
-      style="height: var(--card-section-height)"
+      :style="{
+        height: calculatedCardSectionHeight(value.cards),
+      }"
     >
       <TransitionGroup name="fade-bounce" mode="out-in">
         <div v-for="(card, index) in value.cards" :key="card.suit + card.value">
@@ -35,7 +37,8 @@
                 blurComparison: card.isBlurred,
               },
 
-              this.OneCardPlacementY(index),
+              OneCardPlacementY(index),
+              changeCardSize(),
             ]"
             class="no-selection OneCard"
           />
@@ -148,9 +151,9 @@ export default {
       }
     },
 
-    sectionHeight() {
+    /*sectionHeight() {
       return { "--card-section-height": this.cardSectionHeight + "em" };
-    },
+    },*/
 
     visibleCards() {
       return this.graphicDeck.map((value) => ({
@@ -158,10 +161,22 @@ export default {
         cards: value.cards.filter((card) => card.isVisible),
       }));
     },
-  },
 
-  beforeMount: function () {
-    window.screen.width < 800 ? (this.cardHeight = 5) : (this.cardHeight = 8);
+    dynamicCSS() {
+      let cardSize = this.cardSize;
+      let cardSectionHeight_Multiplier = 1;
+      if (cardSize < 8) {
+        cardSectionHeight_Multiplier = 0.65;
+      }
+      return {
+        "--first-Y-translation": -1 * this.cardSize * 0.75 + "em",
+        "--second-Y-translation": -1 * this.cardSize * 1.5 + "em",
+        "--third-Y-translation": -1 * this.cardSize * 2.25 + "em",
+        "--card-section-height":
+          this.cardSectionHeight * cardSectionHeight_Multiplier + "em",
+        "--column-gap": this.cardSize * 0.0875 + "em",
+      };
+    },
   },
 
   methods: {
@@ -291,6 +306,24 @@ export default {
           return "fourth-card-OneCard";
       }
     },
+
+    changeCardSize() {
+      this.cardSize = window.innerWidth < 800 ? 5.5 : 8;
+    },
+
+    calculatedCardSectionHeight(cards) {
+      let sectionHeightStartValue = this.cardSize + 1;
+
+      if (cards.length === 1) {
+        return sectionHeightStartValue + "em";
+      }
+      if (cards.length === 2) {
+        return sectionHeightStartValue + 2 + "em";
+      }
+      if (cards.length === 3) {
+        return sectionHeightStartValue + 4 + "em";
+      }
+    },
   },
 };
 </script>
@@ -318,7 +351,7 @@ export default {
   width: 100%;
   flex-flow: row wrap;
   justify-content: center;
-  gap: 1em 0.7em;
+  column-gap: var(--column-gap);
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
@@ -376,18 +409,14 @@ export default {
 }
 
 .second-card-OneCard {
-  transform: translate(0, -6em);
+  transform: translate(0, var(--first-Y-translation));
 }
 
 .third-card-OneCard {
-  transform: translate(0, -12em);
+  transform: translate(0, var(--second-Y-translation));
 }
 
 .fourth-card-OneCard {
-  transform: translate(0, -18em);
-}
-
-@media screen and (max-width: 50em) {
-  /* VILL GÖRA RESPONSIVE NAV(isch) HÄR?? för mer clean interface*/
+  transform: translate(0, var(--third-Y-translation));
 }
 </style>
