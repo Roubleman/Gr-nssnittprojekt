@@ -89,5 +89,6 @@
   "gameEnded": "Spelet är slut!",
   "takeTheBus": "Åk buss!",
   "restartGame": "Starta ett nytt spel med samma regler",
-  "joinRestart": "Gå med i samma spel igen"
+  "joinRestart": "Gå med i samma spel igen",
+  "collapse": "Klicka här"
 }

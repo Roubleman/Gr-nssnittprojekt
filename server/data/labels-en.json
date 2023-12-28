@@ -88,5 +88,6 @@
   "gameEnded": "Game is over!",
   "takeTheBus": "Go on a bus-trip!",
   "restartGame": "Restart game with same rules",
-  "joinRestart": "Join same game again"
+  "joinRestart": "Join same game again",
+  "collapse": "Click here"
 }
