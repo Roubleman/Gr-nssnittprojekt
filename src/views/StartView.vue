@@ -103,7 +103,7 @@
   </section>
   <section style="padding-top: 1em; margin-bottom: 10em">
     <button
-      class="join-button join-button2"
+      class="join-game"
       v-on:click="sendPlayerInfo()"
       :class="{
         joinButtonIsDisabled: !this.inputChecker(),
@@ -118,8 +118,8 @@
 <script>
 import ResponsiveNav from "@/components/ResponsiveNav.vue";
 import io from "socket.io-client";
-sessionStorage.setItem("dataServer", "localhost:3000");
-/*sessionStorage.setItem("dataServer", "SKRIV IN DIN IP-ADRESS:3000"); /*Ta bort kommentaren
+//sessionStorage.setItem("dataServer", "localhost:3000");
+sessionStorage.setItem("dataServer", "172.20.10.2:3000"); /*Ta bort kommentaren
  och gör den ovan till en kommentar för att tillåta andra att connecta
  måste även skriva npm run host för att kunna tillåta andra att connecta*/
 const socket = io(sessionStorage.getItem("dataServer"));
@@ -349,6 +349,30 @@ export default {
 #avatar_select {
   margin-top: -1em;
 }
+
+.join-game {
+  border: 1px solid black;
+  padding: 12px 30px 12px 30px;
+  border-radius: 30px;
+  background-color: green;
+  font-weight: bolder;
+  font-size: 15px;
+  box-shadow: 0px 0px 1px;
+  transform: all 2s ease;
+  transition-duration: 0.3s;
+}
+
+.join-game:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 7px 1px rgb(0, 0, 0);
+  border: 1px solid black;
+}
+
+.join-game:active {
+  transform: translateY(10px);
+  box-shadow: 0px 0px 1px rgb(0, 0, 0);
+}
+
 .join-button {
   color: rgb(73, 114, 73);
   width: 9em;
