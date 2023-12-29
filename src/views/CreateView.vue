@@ -213,7 +213,7 @@ export default {
   width: 40%;
   color: black;
   margin-bottom: 1%;
-  background: rgb(73, 114, 73);
+  /* background: rgb(73, 114, 73); */
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
