@@ -168,6 +168,7 @@ body {
   font-size: 1.3em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
 .gameSettings {
   display: flex;
   flex-direction: row;
@@ -213,20 +214,19 @@ body {
 #scramble_button {
   width: 15%;
   height: 50%;
-  background-color: rgb(160, 242, 37);
   font-size: 1.5em;
 }
 
 #play_game_button {
   width: 10%;
   height: 50%;
-  background-color: rgb(160, 242, 37);
   font-size: 1.5em;
 }
 
 #play_game_button:hover,
 #scramble_button:hover {
   background-color: rgb(62, 172, 28);
+  transform: scale(1.1);
   cursor: pointer;
 }
 

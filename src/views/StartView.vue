@@ -118,8 +118,9 @@
 <script>
 import ResponsiveNav from "@/components/ResponsiveNav.vue";
 import io from "socket.io-client";
-//sessionStorage.setItem("dataServer", "localhost:3000");
-sessionStorage.setItem("dataServer", "172.20.10.2:3000"); /*Ta bort kommentaren
+sessionStorage.setItem("dataServer", "localhost:3000");
+//sessionStorage.setItem("dataServer", "172.20.10.2:3000");
+/*Ta bort kommentaren
  och gör den ovan till en kommentar för att tillåta andra att connecta
  måste även skriva npm run host för att kunna tillåta andra att connecta*/
 const socket = io(sessionStorage.getItem("dataServer"));
@@ -371,54 +372,6 @@ export default {
 .join-game:active {
   transform: translateY(10px);
   box-shadow: 0px 0px 1px rgb(0, 0, 0);
-}
-
-.join-button {
-  color: rgb(73, 114, 73);
-  width: 9em;
-  height: 3em;
-  padding: 0.75em 1em;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  font-size: 1.5em;
-}
-
-.join-button2 {
-  text-decoration: none;
-  padding: 0.5em 1em;
-  border: 1px solid rgba(252, 16, 48, 0.707);
-  box-shadow: 0 0 5px rgba(252, 16, 48, 0.707),
-    0 0 5px rgba(252, 16, 48, 0.707) inset;
-  z-index: 1;
-}
-
-.join-button::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 100%;
-  top: 0;
-  right: 0;
-  z-index: -1;
-  background: rgb(73, 114, 73);
-  box-shadow: 0 0 20px rgb(73, 114, 73);
-  transition: all 0.3s ease;
-}
-
-.join-button:hover {
-  color: #fff;
-}
-
-.join-button:hover::after {
-  left: 0;
-  width: 100%;
-}
-
-.join-button:active {
-  top: 2px;
 }
 
 .joinButtonIsDisabled {

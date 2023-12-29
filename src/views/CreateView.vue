@@ -309,11 +309,14 @@ export default {
 .guess-button {
   font-size: 1.2em;
   width: 1.5em;
+  border-radius: 10px;
+  margin-right: 0.1em;
 }
 
 .guess-button:hover {
   cursor: pointer;
   background-color: rgb(134, 145, 132);
+  transform: scale(1.1);
 }
 
 .fade-enter-active,
