@@ -30,20 +30,7 @@
   </ResponsiveNav>
   <h1>{{ uiLabels.salesPitch }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
-  <div class="overlay" id="rules_popup">
-    <div class="popup">
-      <span class="close_popup" @click="closeRules">&times;</span>
-      <h1>{{ uiLabels.rules }}</h1>
-      <p v-for="text in uiLabels.rulesText">{{ text }}</p>
-    </div>
-  </div>
-  <div class="overlay" id="about_popup">
-    <div class="popup">
-      <span class="close_popup" @click="closeAbout">&times;</span>
-      <h1>{{ uiLabels.about }}</h1>
-      <p v-for="text in uiLabels.aboutText">{{ text }}</p>
-    </div>
-  </div>
+
   <div id="join_info">
     <p>
       {{ uiLabels.joinInfo }}
@@ -92,14 +79,24 @@
           :key="index"
           :src="avatar"
           @click="selectAvatar(index)"
-          :class="
-            this.selectedAvatar === index && !removeButton
-              ? 'high-light-selected'
-              : ''
-          "
+          :class="this.selectedAvatar === index ? 'high-light-selected' : ''"
         />
       </section>
     </section>
+    <div class="overlay" id="rules_popup">
+      <div class="popup">
+        <span class="close_popup" @click="closeRules">&times;</span>
+        <h1>{{ uiLabels.rules }}</h1>
+        <p v-for="text in uiLabels.rulesText">{{ text }}</p>
+      </div>
+    </div>
+    <div class="overlay" id="about_popup">
+      <div class="popup">
+        <span class="close_popup" @click="closeAbout">&times;</span>
+        <h1>{{ uiLabels.about }}</h1>
+        <p v-for="text in uiLabels.aboutText">{{ text }}</p>
+      </div>
+    </div>
   </section>
   <section style="padding-top: 1em; margin-bottom: 10em">
     <button
@@ -332,6 +329,7 @@ export default {
   color: red;
   font-size: 0.8em;
   font-weight: bold;
+  margin-top: 1.5%;
 }
 
 .avatar-picture {
@@ -353,24 +351,20 @@ export default {
 
 .join-game {
   border: 1px solid black;
-  padding: 12px 30px 12px 30px;
-  border-radius: 30px;
-  background-color: green;
+  color: black;
+  padding: 24px 60px 24px 60px;
+  border-radius: 60px;
+  background-color: #82f982;
   font-weight: bolder;
-  font-size: 15px;
+  font-size: 40px;
   box-shadow: 0px 0px 1px;
   transform: all 2s ease;
   transition-duration: 0.3s;
-}
-
-.join-game:hover {
-  transform: translateY(-10px);
-  box-shadow: 0px 7px 1px rgb(0, 0, 0);
-  border: 1px solid black;
+  cursor: pointer;
 }
 
 .join-game:active {
-  transform: translateY(10px);
+  transform: translateY(15px);
   box-shadow: 0px 0px 1px rgb(0, 0, 0);
 }
 
@@ -406,13 +400,13 @@ export default {
 }
 
 .popup {
-  z-index: 9999;
+  position: relative;
+  z-index: 1000;
   background: #fff;
   padding: 1em;
   border-radius: 0.5em;
   box-shadow: 0 0 0.7em rgba(0, 0, 0, 0.3);
   text-align: center;
-  position: relative;
   max-width: 60%;
 }
 
@@ -436,16 +430,29 @@ export default {
 }
 
 .input-boxes {
-  color: white;
+  position: relative;
   width: 40em;
   height: 4em;
-  border-style: inset;
-  border-color: rgba(252, 16, 48, 0.707);
-  border-width: 1em;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.44);
   padding-top: 3%;
-  background-color: rgb(73, 114, 73);
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+}
+
+.input-boxes::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.19);
+  border-radius: 16px;
+  backdrop-filter: blur(5.4px);
+  -webkit-backdrop-filter: blur(5.4px);
+  z-index: -1;
 }
 
 .input {
@@ -516,6 +523,11 @@ export default {
   .input-boxes {
     width: 80%;
   }
+  .join-game:hover {
+    transform: translateY(-15px);
+    box-shadow: 0px 10px 1px rgb(0, 0, 0);
+    border: 1px solid black;
+  }
 }
 
 @media screen and (max-width: 50em) {
@@ -577,6 +589,12 @@ export default {
   .popup {
     max-width: 80%;
   }
+  .input-error {
+    color: red;
+    font-size: 0.65em;
+    font-weight: bold;
+    margin-top: 1.5%;
+  }
 }
 
 @media (max-width: 35.2em) {
@@ -589,6 +607,7 @@ export default {
   }
   #avatar_select {
     padding-bottom: 0;
+    margin-top: -0.9em;
   }
   #avatar_box {
     display: flex;
@@ -597,6 +616,15 @@ export default {
   }
   .explanation {
     margin: 0.2em;
+  }
+
+  .join-game {
+    transform: translateY(-15px);
+    box-shadow: 0px 10px 1px rgb(0, 0, 0);
+  }
+  .join-game:active {
+    transform: translateY(15px);
+    box-shadow: 0px 0px 1px rgb(0, 0, 0);
   }
 }
 </style>

@@ -47,7 +47,8 @@
               (Number(card.value) == 4 && i == 1) ||
               (Number(card.value) <= 6 && i == 2) ||
               (Number(card.value) == 7 && i == 3) ||
-              (Number(card.value) >= 8 && i >= 2)
+              (Number(card.value) == 8 && i >= 2) ||
+              (Number(card.value) >= 9 && i >= 3)
                 ? 'rotate-suit'
                 : '',
 
