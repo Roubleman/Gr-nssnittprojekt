@@ -213,7 +213,7 @@ export default {
   width: 40%;
   color: black;
   margin-bottom: 1%;
-  background: rgb(73, 114, 73);
+  /* background: rgb(73, 114, 73); */
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -309,11 +309,14 @@ export default {
 .guess-button {
   font-size: 1.2em;
   width: 1.5em;
+  border-radius: 10px;
+  margin-right: 0.1em;
 }
 
 .guess-button:hover {
   cursor: pointer;
   background-color: rgb(134, 145, 132);
+  transform: scale(1.1);
 }
 
 .fade-enter-active,

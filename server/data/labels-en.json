@@ -18,6 +18,7 @@
   "normalOption": "Normal (x1)",
   "hardcoreOption": "Get drunk fast (x2)",
   "playGame": "Play game",
+  "currentGameSettings": "Current game settings",
   "rulesText": [
   "1. The guesser guesses on a card.",
   "2. The dealer anwsers higher or lower, unless the first guess was correct.",
@@ -27,8 +28,7 @@
   "1 Point = 1 Sip"
 ],
   "aboutText": [
-    "This is a game where you are supposed to get drunk!",
-    "Stay away from being a dealer, unless you want to get hammered!"
+    "This is a game which is based on a drinking game, but it works just as well without alcohol."
   ],
   "lobbyHeader": "Welcome to game:",
   "formTitle": "Player List: ",
@@ -88,5 +88,6 @@
   "gameEnded": "Game is over!",
   "takeTheBus": "Go on a bus-trip!",
   "restartGame": "Restart game with same rules",
-  "joinRestart": "Join same game again"
+  "joinRestart": "Join same game again",
+  "collapse": "Click here"
 }
