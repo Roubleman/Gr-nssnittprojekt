@@ -18,6 +18,7 @@
   "normalOption": "Normal (x1)",
   "hardcoreOption": "Bli full snabbt (x2)",
   "playGame": "Spela",
+  "currentGameSettings": "Aktiva spelinställningar:",
   "rulesText": [
   "1. Den som gissar gissar på kort.", 
   "2. Dealern svarar med högre eller lägre, om inte första gissningen var rätt.", 

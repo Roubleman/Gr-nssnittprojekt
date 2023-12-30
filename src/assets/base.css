@@ -5,7 +5,21 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(233, 233, 223);
   font-size: 1.3em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+button {
+  border: 0.06em solid black;
+  color: white;
+  border-radius: 30px;
+  background-color: rgba(0, 128, 0, 0.50);
+  font-weight: bolder;
+  font-size: 15px;
+  box-shadow: 0px 0px 1px;
+  transform: all 2s ease;
+  transition-duration: 0.3s;
+}
+button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }

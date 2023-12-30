@@ -199,12 +199,9 @@ body {
 }
 .restart-button {
   width: 10em;
-  color: white;
   margin-top: 1em;
   margin-bottom: 1em;
-  background: rgb(73, 114, 73);
-  cursor: pointer;
-  transition: all 0.3s ease;
+  background: rgb(73, 114, 73, 0.5);
   position: relative;
   display: inline-block;
   font-size: 1.5em;
@@ -214,17 +211,11 @@ body {
 
 .bus-button {
   color: rgb(246, 255, 0);
-  background: rgb(255, 85, 0);
+  background: rgb(255, 85, 0, 0.5);
   width: 12em;
-  cursor: pointer;
-  transition: all 0.3s ease;
   font-size: 1.5em;
   padding: 0.5em 1em;
   margin-top: 0.5em;
-}
-
-button:hover {
-  transform: scale(1.1);
 }
 
 label {

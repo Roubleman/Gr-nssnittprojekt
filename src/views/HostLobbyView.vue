@@ -1,18 +1,26 @@
 <template>
   <div class="lobbyMenu">
-    <h1>{{ uiLabels.lobbyHeader }} {{ gameId }}</h1>
+    <h1>
+      {{ uiLabels.lobbyHeader }} <br />
+      {{ gameId }}
+    </h1>
     <br />
   </div>
   <section id="settings_wrapper">
     <h2>{{ uiLabels.currentGameSettings }}</h2>
     <section class="gameSettings">
-      <p>{{ uiLabels.pointsSetting }}: {{ this.gameInfo.pointsSetting }}</p>
-      <p>{{ uiLabels.inputGuesses }}: {{ this.gameInfo.guessesNumber }}</p>
+      <p>
+        {{ uiLabels.pointsSetting }}: <br />
+        {{ this.difficulty }}
+      </p>
+      <p>
+        {{ uiLabels.inputGuesses }}: <br />{{ this.gameInfo.guessesNumber }}
+      </p>
     </section>
   </section>
 
   <section id="input_wrappers">
-    <h2>{{ uiLabels.formTitle }}</h2>
+    <!-- <h2>{{ uiLabels.formTitle }}</h2> -->
     <button id="scramble_button" v-on:click="scramblePlayerOrder">
       {{ uiLabels.scramblePlayerOrder }}
     </button>
@@ -68,6 +76,7 @@ export default {
       playerList: [],
       gameInfo: {},
       isSoundMuted: false,
+      difficulty: "",
     };
   },
   created: function () {
@@ -81,6 +90,17 @@ export default {
       this.playerList = game.players;
       this.gameInfo.pointsSetting = game.pointsSetting;
       this.gameInfo.guessesNumber = game.guessesNumber;
+      switch (this.gameInfo.pointsSetting) {
+        case "easy":
+          this.difficulty = this.uiLabels.easyOption;
+          break;
+        case "normal":
+          this.difficulty = this.uiLabels.normalOption;
+          break;
+        case "hard":
+          this.difficulty = this.uiLabels.hardcoreOption;
+          break;
+      }
     });
 
     socket.on("playerList", (players) => {
@@ -163,18 +183,18 @@ export default {
   margin-left: 1em;
 }
 
-body {
-  background-color: rgb(233, 233, 223);
-  font-size: 1.3em;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
 .gameSettings {
+  color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  border: solid 1px rgba(255, 255, 255, 0.634);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   margin: auto;
   width: 40%;
+  margin-bottom: 1em;
 }
 
 #settings_wrapper {
@@ -206,27 +226,29 @@ body {
   cursor: grabbing;
 }
 
-.lobbyMenu {
-  margin: 25px;
+h1,
+h2 {
+  color: white;
+  text-shadow: 0 0 10px #000000, /* red glow */ 0 0 20px #000000,
+    /* red glow */ 0 0 30px #000000, /* red glow */ 0 0 40px #000000; /* red glow */
 }
 
 #scramble_button {
   width: 15%;
   height: 50%;
-  background-color: rgb(160, 242, 37);
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 #play_game_button {
-  width: 10%;
+  width: 17%;
   height: 50%;
-  background-color: rgb(160, 242, 37);
   font-size: 1.5em;
 }
 
 #play_game_button:hover,
 #scramble_button:hover {
   background-color: rgb(62, 172, 28);
+  transform: scale(1.1);
   cursor: pointer;
 }
 

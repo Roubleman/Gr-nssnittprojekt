@@ -18,6 +18,7 @@
   "normalOption": "Normal (x1)",
   "hardcoreOption": "Get drunk fast (x2)",
   "playGame": "Play game",
+  "currentGameSettings": "Current game settings",
   "rulesText": [
   "1. The guesser guesses on a card.",
   "2. The dealer anwsers higher or lower, unless the first guess was correct.",

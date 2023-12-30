@@ -1,16 +1,21 @@
 <template>
   <div class="lobbyMenu">
-    <h1>{{ uiLabels.lobbyHeader }} {{ gameId }}</h1>
+    <h1>
+      {{ uiLabels.lobbyHeader }} <br />
+      {{ gameId }}
+    </h1>
     <br />
   </div>
-
+  <h2>{{ uiLabels.currentGameSettings }}</h2>
   <section class="gameSettings">
-    <p>{{ uiLabels.pointsSetting }}: {{ this.gameInfo.pointsSetting }}</p>
-    <p>{{ uiLabels.inputGuesses }}: {{ this.gameInfo.guessesNumber }}</p>
+    <p>
+      {{ uiLabels.pointsSetting }}: <br />
+      {{ this.difficulty }}
+    </p>
+    <p>{{ uiLabels.inputGuesses }}: <br />{{ this.gameInfo.guessesNumber }}</p>
   </section>
 
   <section id="input_wrappers">
-    <h2>{{ uiLabels.formTitle }}</h2>
     <section class="player-list">
       <li v-for="(player, index) in playerList" :key="index">
         {{ index + 1 + ". " }}{{ player.name }}
@@ -55,6 +60,7 @@ export default {
       player: {},
       gameInfo: {},
       isSoundMuted: false,
+      difficulty: "",
     };
   },
   created: function () {
@@ -68,6 +74,17 @@ export default {
       this.playerName = this.player.name;
       this.gameInfo.pointsSetting = game.pointsSetting;
       this.gameInfo.guessesNumber = game.guessesNumber;
+      switch (this.gameInfo.pointsSetting) {
+        case "easy":
+          this.difficulty = this.uiLabels.easyOption;
+          break;
+        case "normal":
+          this.difficulty = this.uiLabels.normalOption;
+          break;
+        case "hard":
+          this.difficulty = this.uiLabels.hardcoreOption;
+          break;
+      }
     });
 
     socket.emit("lobbyJoined", this.gameId);
@@ -149,12 +166,24 @@ export default {
 }
 
 .gameSettings {
+  color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  border: solid 1px rgba(255, 255, 255, 0.634);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   margin: auto;
   width: 40%;
+  margin-bottom: 1em;
+}
+
+h1,
+h2 {
+  color: white;
+  text-shadow: 0 0 10px #000000, /* red glow */ 0 0 20px #000000,
+    /* red glow */ 0 0 30px #000000, /* red glow */ 0 0 40px #000000; /* red glow */
 }
 
 .player-list {
