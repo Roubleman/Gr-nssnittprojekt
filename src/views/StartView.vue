@@ -295,7 +295,7 @@ export default {
 
 .explanation {
   font-size: 0.7em;
-  color: lightgreen;
+  color: black;
 }
 
 .navigation-menu {
