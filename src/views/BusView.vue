@@ -192,6 +192,12 @@ export default {
 
       return shuffledDeck;
     },
+    flipBackCards: function () {
+      this.flipped1 = false;
+      this.flipped2 = false;
+      this.flipped3 = false;
+      this.flipped4 = false;
+    },
     distributeDeck: function () {
       const path =
         "public/stations/" +
@@ -199,10 +205,7 @@ export default {
         ".mp3";
       this.randStation = new Audio(path);
       this.cards = this.shuffleCards(deckOfCards);
-      this.flipped1 = false;
-      this.flipped2 = false;
-      this.flipped3 = false;
-      this.flipped4 = false;
+
       this.pile1 = this.cards.slice(0, 13);
       this.pile2 = this.cards.slice(13, 26);
       this.pile3 = this.cards.slice(26, 39);
@@ -275,6 +278,8 @@ export default {
         alert("You won");
       } else if (this.cardSuit.length == 4 && !this.checkBlack(this.cardSuit)) {
         setTimeout(async () => {
+          this.flipBackCards();
+          await this.delay(500);
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
@@ -288,6 +293,8 @@ export default {
       } else if (selectedCard.length === 1 && !this.checkRed(this.cardSuit)) {
         console.log(this.checkRed(this.cardSuit));
         setTimeout(async () => {
+          this.flipBackCards();
+          await this.delay(500);
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
@@ -300,6 +307,8 @@ export default {
         }, 1000);
       } else if (selectedCard.length === 2 && !this.checkBlack(this.cardSuit)) {
         setTimeout(async () => {
+          this.flipBackCards();
+          await this.delay(500);
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
@@ -313,6 +322,8 @@ export default {
       } else if (selectedCard.length === 3 && !this.checkRed(this.cardSuit)) {
         console.log(this.checkRed(this.cardSuit));
         setTimeout(async () => {
+          this.flipBackCards();
+          await this.delay(500);
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
