@@ -26,7 +26,7 @@
     </button>
     <draggable
       v-model="playerList"
-      class="player-list"
+      class="player-list box"
       @end="updatePlayerListOrder"
     >
       <li v-for="(player, index) in playerList" :key="index">
@@ -210,14 +210,11 @@ export default {
 }
 
 .player-list {
-  color: white;
   width: 15em;
-  border-style: inset;
-  border-color: rgba(252, 16, 48, 0.707);
-  border-width: 1em;
-  background-color: rgb(73, 114, 73);
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+  border-color: #000000b6;
+  border-width: 0.25em;
 }
 
 .player-list li {
@@ -229,8 +226,8 @@ export default {
 h1,
 h2 {
   color: white;
-  text-shadow: 0 0 10px #000000, /* red glow */ 0 0 20px #000000,
-    /* red glow */ 0 0 30px #000000, /* red glow */ 0 0 40px #000000; /* red glow */
+  text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
+    0 0 40px #000000;
 }
 
 #scramble_button {

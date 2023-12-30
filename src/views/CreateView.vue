@@ -11,7 +11,7 @@
     <h1 class="heading">{{ uiLabels.createHeading }}</h1>
 
     <section id="global_section">
-      <section class="create-setting">
+      <section class="create-setting box">
         {{ uiLabels.inputGuesses }}: {{ guessesNumber }}
         <button class="guess-button" v-on:click="this.addGuesses">+</button>
         <button class="guess-button" v-on:click="this.removeGuesses">-</button>
@@ -19,7 +19,7 @@
           {{ uiLabels.guessesExplanation }}
         </p>
       </section>
-      <section class="create-setting">
+      <section class="create-setting box">
         {{ uiLabels.pointsSetting }}:
         <select class="input" v-model="pointsSetting">
           <option v-bind:value="'easy'">{{ uiLabels.easyOption }}</option>
@@ -30,14 +30,14 @@
           {{ uiLabels.pointsSettingExplanation }}
         </p>
       </section>
-      <section class="create-setting">
+      <section class="create-setting box">
         {{ uiLabels.inputName }}:
         <input class="input" type="text" v-model="hostName" />
         <p class="explanation">
           {{ uiLabels.nameExplanation }}
         </p>
       </section>
-      <section class="create-setting">
+      <section class="create-setting box">
         {{ uiLabels.inputGameId }}:
         <input
           class="input"
@@ -182,14 +182,9 @@ export default {
 }
 
 .create-setting {
-  color: white;
   width: 40em;
   height: 4em;
-  border-style: inset;
-  border-color: rgba(252, 16, 48, 0.707);
-  border-width: 1em;
   padding-top: 3%;
-  background-color: rgb(73, 114, 73);
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
@@ -303,7 +298,7 @@ export default {
 
 .explanation {
   font-size: 0.7em;
-  color: lightgreen;
+  color: rgb(0, 0, 0);
 }
 
 .guess-button {

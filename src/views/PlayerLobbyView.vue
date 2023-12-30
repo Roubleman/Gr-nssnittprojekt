@@ -16,7 +16,7 @@
   </section>
 
   <section id="input_wrappers">
-    <section class="player-list">
+    <section class="player-list box">
       <li v-for="(player, index) in playerList" :key="index">
         {{ index + 1 + ". " }}{{ player.name }}
         <img :src="player.avatar" class="avatar" />
@@ -182,17 +182,14 @@ export default {
 h1,
 h2 {
   color: white;
-  text-shadow: 0 0 10px #000000, /* red glow */ 0 0 20px #000000,
-    /* red glow */ 0 0 30px #000000, /* red glow */ 0 0 40px #000000; /* red glow */
+  text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
+    0 0 40px #000000;
 }
 
 .player-list {
-  color: white;
   width: 15em;
-  border-style: inset;
-  border-color: rgba(252, 16, 48, 0.707);
-  border-width: 1em;
-  background-color: rgb(73, 114, 73);
+  border-width: 0.25em;
+  border-color: #000000b6;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }

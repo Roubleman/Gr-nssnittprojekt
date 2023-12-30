@@ -37,7 +37,7 @@
     </p>
   </div>
   <section id="input_wrappers">
-    <section class="input-boxes">
+    <section class="input-boxes box">
       <label>
         {{ uiLabels.inputName }}:
         <input
@@ -52,7 +52,7 @@
         <p class="explanation" v-else>{{ uiLabels.nameExplanation }}</p>
       </label>
     </section>
-    <section class="input-boxes">
+    <section class="input-boxes box">
       <label>
         {{ uiLabels.inputGameId }}:
         <input
@@ -70,7 +70,7 @@
         <p class="explanation" v-else>{{ uiLabels.inputGameIdExplanation }}</p>
       </label>
     </section>
-    <section class="input-boxes" id="avatar_box">
+    <section class="input-boxes box" id="avatar_box">
       <p id="avatar_select">{{ uiLabels.selectAvatar }}</p>
       <section class="avatars">
         <img
@@ -433,26 +433,9 @@ export default {
   position: relative;
   width: 40em;
   height: 4em;
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.44);
   padding-top: 3%;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-}
-
-.input-boxes::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(255, 255, 255, 0.19);
-  border-radius: 16px;
-  backdrop-filter: blur(5.4px);
-  -webkit-backdrop-filter: blur(5.4px);
-  z-index: -1;
 }
 
 .input {

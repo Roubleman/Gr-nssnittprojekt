@@ -4,7 +4,7 @@
       <h1>{{ uiLabels.gameResult }}</h1>
     </div>
     <section id="input_wrappers">
-      <section class="playerList">
+      <section class="playerList box">
         <table class="leaderboard-table">
           <tr class="leaderboard-grid">
             <th class="text-center">{{ uiLabels.placement }}</th>
@@ -179,10 +179,11 @@ export default {
 </script>
 
 <style scoped>
-body {
-  background-color: rgb(233, 233, 223);
-  font-size: 1.3em;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+h1,
+h2 {
+  color: white;
+  text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
+    0 0 40px #000000;
 }
 #center_vertically {
   display: flex;
@@ -223,12 +224,8 @@ label {
 }
 
 .playerList {
-  color: white;
   width: 25em;
-  border-style: inset;
-  border-color: rgba(252, 16, 48, 0.707);
-  border-width: 1em;
-  background-color: rgb(73, 114, 73);
+  border-width: 0.3em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
