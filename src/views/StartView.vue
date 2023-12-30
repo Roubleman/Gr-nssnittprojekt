@@ -329,6 +329,7 @@ export default {
   color: red;
   font-size: 0.8em;
   font-weight: bold;
+  margin-top: 1.5%;
 }
 
 .avatar-picture {
@@ -587,6 +588,12 @@ export default {
   }
   .popup {
     max-width: 80%;
+  }
+  .input-error {
+    color: red;
+    font-size: 0.65em;
+    font-weight: bold;
+    margin-top: 1.5%;
   }
 }
 
