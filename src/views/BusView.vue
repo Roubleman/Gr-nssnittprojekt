@@ -423,9 +423,9 @@ body {
   justify-content: center;
 }
 
-@media screen and (max-width: 50em) {
+@media (max-width: 850px) {
   .styled-box {
-    width: 80%;
+    width: 70%;
     height: auto;
   }
 
@@ -434,8 +434,56 @@ body {
     grid-template-columns: repeat(1, 4fr);
     align-items: center;
     position: relative;
-    gap: 1;
-    margin-top: 80%;
+    gap: 1em;
+    margin-top: 70%;
+    position: relative;
+    margin-left: 15%;
+    width: calc(100% - 20em);
+  }
+  .rules {
+    align-self: auto;
+    text-align: left;
+    color: white;
+    width: 70%;
+    border-style: inset;
+    position: static;
+    z-index: 100;
+  }
+  .gameInfo {
+    align-self: auto;
+    text-align: left;
+    color: white;
+    width: 70%;
+    border-style: inset;
+    position: sticky;
+    z-index: 100;
+  }
+  .grid-container {
+    width: 70%;
+    height: 70%;
+  }
+  .card-grid {
+    display: contents;
+  }
+  .flip-card {
+    height: 70%;
+    width: 70%;
+    background-size: 70% 70%;
+  }
+}
+@media (max-width: 450px) {
+  .styled-box {
+    width: 50%;
+    height: auto;
+  }
+
+  #cardSelection {
+    display: grid;
+    grid-template-columns: repeat(1, 4fr);
+    align-items: center;
+    position: relative;
+    gap: 1em;
+    margin-top: 50%;
     position: relative;
     margin-left: 15%;
     width: calc(100% - 20em);
@@ -457,7 +505,7 @@ body {
     align-self: auto;
     text-align: left;
     color: white;
-    width: 80%;
+    width: 50%;
     border-style: inset;
     border-color: rgba(252, 16, 48, 0.707);
     background-color: rgb(73, 114, 73);
@@ -467,15 +515,15 @@ body {
     z-index: 100;
   }
   .grid-container {
-    width: 80%;
-    height: 80%;
+    width: 50%;
+    height: 50%;
   }
   .card-grid {
     display: contents;
   }
   .flip-card {
-    height: 70%;
-    widows: 70%;
+    height: 50%;
+    width: 50%;
     background-size: 70% 70%;
   }
 }
