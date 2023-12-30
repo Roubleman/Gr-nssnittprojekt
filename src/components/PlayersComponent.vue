@@ -381,7 +381,7 @@ export default {
   }
 }
 .selected {
-  border: 2px solid red;
+  outline: 2px solid red;
 }
 
 .blur {
