@@ -48,13 +48,18 @@
   <div id="muteButton" @click="toggleSoundMute">
     {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507;" }}
   </div>
-  <button
-    id="play_game_button"
-    v-on:click="playGame"
-    v-bind:disabled="!allPlayersReady()"
-  >
-    {{ uiLabels.playGame }}
-  </button>
+  <div>
+    <p id="waiting_for_ready" v-if="!allPlayersReady()">
+      {{ uiLabels.waitingForReady }}
+    </p>
+    <button
+      id="play_game_button"
+      v-on:click="playGame"
+      v-if="allPlayersReady()"
+    >
+      {{ uiLabels.playGame }}
+    </button>
+  </div>
 </template>
 
 <script>
@@ -221,6 +226,12 @@ export default {
   list-style-type: none;
   margin: 0.5em;
   cursor: grabbing;
+}
+
+#waiting_for_ready {
+  color: white;
+  font-size: 1.2em;
+  text-align: center;
 }
 
 h1,

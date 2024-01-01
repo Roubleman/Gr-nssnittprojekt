@@ -19,6 +19,7 @@
   "hardcoreOption": "Get drunk fast (x2)",
   "playGame": "Play game",
   "currentGameSettings": "Current game settings",
+  "waitingForReady": "Waiting for players to get ready",
   "rulesText": [
   "1. The guesser guesses on a card.",
   "2. The dealer answers higher or lower, unless the first guess was correct.",

@@ -362,8 +362,8 @@ export default {
     display: none;
   }
   .create-setting {
-    width: 80%;
-    font-size: 0.8em;
+    width: 85%;
+    font-size: 0.85em;
   }
 
   .start-button {
