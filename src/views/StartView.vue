@@ -115,8 +115,8 @@
 <script>
 import ResponsiveNav from "@/components/ResponsiveNav.vue";
 import io from "socket.io-client";
-//sessionStorage.setItem("dataServer", "localhost:3000");
-sessionStorage.setItem("dataServer", "192.168.0.155:3000");
+// sessionStorage.setItem("dataServer", "localhost:3000");
+sessionStorage.setItem("dataServer", "192.168.1.195:3000"); /*OBS, Pontus Ip*/
 /*Ta bort kommentaren
  och gör den ovan till en kommentar för att tillåta andra att connecta
  måste även skriva npm run host för att kunna tillåta andra att connecta*/
@@ -443,7 +443,7 @@ export default {
 }
 
 .high-light-selected {
-  scale: calc(1.5);
+  scale: calc(1.6);
   margin-left: 1em;
   margin-right: 1em;
 }

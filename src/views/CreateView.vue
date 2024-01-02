@@ -179,6 +179,7 @@ export default {
   height: 3em;
   width: 60em;
   position: relative;
+  padding-top: 1em;
 }
 
 .create-setting {
