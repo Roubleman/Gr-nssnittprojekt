@@ -81,6 +81,7 @@
   "rule3": "First card needs to be red",
   "busInfo1": "Current guess in round:",
   "busInfo2": "Number of shuffles:",
+  "busGameDone": "Congratulation, you won and got:",
   "playerGuessedWrong": "The player guessed wrong, the correct card and points given are:",
   "guessHigher": "Guess a higher card!",
   "guessLower": "Guess a lower card",
@@ -90,5 +91,6 @@
   "takeTheBus": "Go on a bus-trip!",
   "restartGame": "Restart game with same rules",
   "joinRestart": "Join same game again",
-  "collapse": "Click here"
+  "collapse": "Click here",
+  "playAgain": "Play again!"
 }
