@@ -125,7 +125,7 @@
       </section>
       <section class="gameDone" v-bind:hidden="!this.isDone">
         <div id="back_button_div">
-          <button class="back-button back-button2" @click="this.startBus()">
+          <button class="back-button back-button2" @click="this.refreshPage()">
             {{ uiLabels.playAgain }}
           </button>
           <div id="back_button_div">
@@ -214,9 +214,8 @@ export default {
 
       return shuffledDeck;
     },
-    startBus: function () {
-      this.$router.push("/");
-      this.$router.push("/bus/");
+    refreshPage: function () {
+      location.reload();
     },
     flipBackCards: function () {
       this.flipped1 = false;
