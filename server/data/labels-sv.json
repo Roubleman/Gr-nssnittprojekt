@@ -82,6 +82,7 @@
   "rule3": "Första kortet ska vara rött",
   "busInfo1": "Antal gissningar denna runda",
   "busInfo2": "Antal blandningar:",
+  "busGameDone": "Grattis du vann of fick:",
   "playerGuessedWrong": "Spelaren gissade fel, rätt kort och deras poäng är:",
   "guessLower": "Gissa på lägre kort",
   "guessHigher": "Gissa på ett högre kort",
@@ -91,5 +92,6 @@
   "takeTheBus": "Åk buss!",
   "restartGame": "Starta ett nytt spel med samma regler",
   "joinRestart": "Gå med i samma spel igen",
-  "collapse": "Klicka här"
+  "collapse": "Klicka här",
+  "playAgain": "Spela igen!"
 }
