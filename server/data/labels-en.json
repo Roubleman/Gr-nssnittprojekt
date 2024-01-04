@@ -32,7 +32,14 @@
     " If you want to play this as a drinking game, 1 Point = 1 Sip."
   ],
   "aboutText": [
-    "This is a game which is based on a drinking game, but it works just as well without alcohol."
+    "Welcome to our online game! Whether you're hosting a virtual gathering or just looking for some entertainment, our game adds a unique touch to your experience.",
+    "",
+    "Features:",
+    "- Online Multiplayer: Play with friends or join existing games.",
+    "- Customizable Rules: Tailor the game settings to your preferences.",
+    "- Leaderboard: Compete and see who comes out on top.",
+    "",
+    "Get ready to enjoy our unique online game. Join the fun and let the games begin!"
   ],
   "lobbyHeader": "Welcome to game:",
   "formTitle": "Player List: ",
