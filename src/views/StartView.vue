@@ -256,7 +256,9 @@ export default {
       socket.emit("checkName", { gameId: this.id, playerName: this.name });
     },
     checkGameId: function () {
-      socket.emit("checkGameId", this.id);
+      if (this.id.length > 3) {
+        socket.emit("checkGameId", this.id);
+      }
     },
 
     sendPlayerInfo: function () {
@@ -286,7 +288,6 @@ export default {
   color: white;
   padding-top: 0.2em;
 }
-
 
 .explanation {
   font-size: 0.7em;
@@ -355,7 +356,7 @@ export default {
   color: black;
   padding: 24px 60px 24px 60px;
   border-radius: 60px;
-  background-color: #009E60;
+  background-color: #009e60;
   font-weight: bolder;
   font-size: 40px;
   box-shadow: 0px 0px 1px;
