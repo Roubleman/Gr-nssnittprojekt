@@ -1,13 +1,11 @@
 <template>
   <div>
     <div id="back_button_div">
-      <button
-        class="back-button"
-        @click="this.$router.push({ path: '/' })"
-      >
-      <span class="back-button-text-one"> {{ uiLabels.backToHomepage  }}</span>
-      <span class="back-button-text-two"> <img src="../../img/left-chevron.png" alt="prutt"></span>
-
+      <button class="back-button" @click="this.$router.push({ path: '/' })">
+        <span class="back-button-text-one"> {{ uiLabels.backToHomepage }}</span>
+        <span class="back-button-text-two">
+          <img src="../../img/left-chevron.png" alt="prutt"
+        /></span>
       </button>
     </div>
     <h1 class="heading">{{ uiLabels.createHeading }}</h1>
@@ -40,7 +38,7 @@
         </p>
       </section>
       <section class="create-setting box">
-        {{ uiLabels.inputGameId }}:
+        {{ uiLabels.createGameId }}:
         <input
           class="input"
           type="text"
@@ -66,7 +64,7 @@
               startButtonIsDisabled: !this.checkValues() || !gameIdAvailable,
             }"
           >
-          {{ uiLabels.startGame }}
+            {{ uiLabels.startGame }}
           </button>
         </transition>
       </section>
@@ -220,9 +218,8 @@ export default {
   font-size: 1.5em;
   padding: 0.5em 1em;
   z-index: 1;
-  background-color: #009E60;
+  background-color: #009e60;
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
-
 }
 
 .start-button:hover {
@@ -230,7 +227,6 @@ export default {
   border: 1px solid rgb(255, 255, 255);
   box-shadow: 0 5px 5px silver, 0 0 5px silver inset;
 }
-
 
 .start-button:active {
   top: 2px;
@@ -284,7 +280,6 @@ export default {
 .back-button:hover .back-button-text-two {
   top: 50%;
 }
-
 
 .explanation {
   font-size: 0.7em;

@@ -4,7 +4,9 @@
       {{ uiLabels.lobbyHeader }} <br />
       {{ gameId }}
     </h1>
-    <br />
+    <button class="hover-link rules-button" @click.prevent="openRules">
+      {{ uiLabels.rules }}
+    </button>
   </div>
   <section id="settings_wrapper">
     <h2>{{ uiLabels.currentGameSettings }}</h2>
@@ -31,7 +33,8 @@
     >
       <li v-for="(player, index) in playerList" :key="index">
         {{ index + 1 + ". " }}{{ player.name }}
-        <!-- <span v-if="player.isHost">&#x1F451;</span> -->
+        <span v-if="index == 1">&#127199;</span>
+        <span v-if="index == 2">&#9072;</span>
         <img :src="player.avatar" class="avatar" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
         <span id="hamburger_icon">&#9776;</span>
@@ -59,6 +62,13 @@
     >
       {{ uiLabels.playGame }}
     </button>
+  </div>
+  <div class="overlay" id="rules_popup">
+    <div class="popup">
+      <span class="close_popup" @click="closeRules">&times;</span>
+      <h1>{{ uiLabels.rules }}</h1>
+      <p v-for="text in uiLabels.rulesText">{{ text }}</p>
+    </div>
   </div>
 </template>
 
@@ -116,9 +126,8 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
-    window.addEventListener("beforeunload", () => {
-      this.hostLeaving();
-    });
+    this.hostLeaving = this.hostLeaving.bind(this);
+    window.addEventListener("beforeunload", this.hostLeaving);
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
@@ -128,12 +137,15 @@ export default {
     document.body.style.backgroundSize = "cover";
   },
   beforeDestroy() {
-    window.removeEventListener("beforeunload", this.playerLeaving);
     document.body.style.backgroundImage = null;
     document.body.style.backgroundSize = null;
     document.body.style.backgroundAttachment = null;
     document.body.style.backgroundPosition = null;
     window.removeEventListener("beforeunload", this.hostLeaving);
+  },
+  beforeRouteLeave(to, from, next) {
+    window.removeEventListener("beforeunload", this.hostLeaving);
+    next();
   },
   methods: {
     hostLeaving: function () {
@@ -144,6 +156,27 @@ export default {
         playerList: this.playerList,
         gameId: this.gameId,
       });
+    },
+    openRules: function () {
+      this.hideNav = true;
+      const rulesPopup = document.getElementById("rules_popup");
+      rulesPopup.style.display = "flex";
+      this.removeButton = true;
+
+      rulesPopup.addEventListener("click", this.closeRulesOutside);
+    },
+    closeRules: function () {
+      const rulesPopup = document.getElementById("rules_popup");
+      rulesPopup.style.display = "none";
+
+      rulesPopup.removeEventListener("click", this.closeRulesOutside);
+      this.removeButton = false;
+    },
+    closeRulesOutside: function (event) {
+      const rulesPopup = document.getElementById("rules_popup");
+      if (event.target === rulesPopup) {
+        this.closeRules(); // Call your existing closeRules function
+      }
     },
     playGame: function () {
       socket.emit("startGame", this.gameId);
@@ -184,8 +217,41 @@ export default {
 };
 </script>
 <style scoped>
+.popup {
+  position: relative;
+  z-index: 1000;
+  background: #fff;
+  padding: 1em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.7em rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 60%;
+}
+
+.close_popup {
+  cursor: pointer;
+  position: absolute;
+  top: 2%;
+  right: 3.5%;
+}
 #hamburger_icon {
   margin-left: 1em;
+}
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  align-items: center;
+  justify-content: center;
+}
+
+.rules-button {
+  height: 2em;
+  width: 7em;
 }
 
 .gameSettings {

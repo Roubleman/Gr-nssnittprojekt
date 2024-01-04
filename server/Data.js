@@ -41,6 +41,7 @@ Data.prototype.createGame = function (
     game.pointsSetting = pointsSetting;
     game.guessesNumber = guessesNumber;
     game.deckOfCards = deckOfCards;
+    game.gameStarted = false;
     player.name = hostName;
     player.isHost = true;
     player.points = 0;
@@ -69,6 +70,13 @@ Data.prototype.checkGameId = function (gameId) {
     return true;
   }
   return false;
+};
+
+Data.prototype.isGameStarted = function (gameId) {
+  const game = this.games[gameId];
+  if (typeof game !== "undefined") {
+    return game.gameStarted;
+  }
 };
 
 Data.prototype.joinGame = function (gameId, playerName, avatar) {
@@ -140,6 +148,7 @@ Data.prototype.removeGame = function (gameId) {
 Data.prototype.initializeGame = function (gameId) {
   const game = this.games[gameId];
   if (typeof game !== "undefined") {
+    game.gameStarted = true;
     game.dealerIndex = 0;
     game.guesserIndex = 1;
     game.errorsRemaining = game.guessesNumber;
