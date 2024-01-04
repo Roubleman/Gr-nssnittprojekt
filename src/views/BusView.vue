@@ -473,19 +473,19 @@ body {
   text-align: center;
 }
 .back-button {
-  width: 20%;
+  width: 40%;
   color: black;
-  padding-top: 2%;
-  background: rgb(73, 114, 73);
+  margin-bottom: 1%;
+  /* background: rgb(73, 114, 73); */
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   display: inline-block;
   font-size: 1.5em;
   padding: 0.5em 1em;
-  margin-left: 1em;
-  margin-top: 1em;
   z-index: 1;
+  background-color: #009e60;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
 }
 
 .back-button::after {
@@ -503,15 +503,9 @@ body {
 
 .back-button:hover {
   color: whitesmoke;
-  border: 1px solid rgb(6, 75, 6);
-  box-shadow: 0 0 5px rgb(160, 242, 37), 0 0 5px rgb(160, 242, 37);
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 0 5px 5px silver, 0 0 5px silver inset;
 }
-
-.back-button:hover::after {
-  left: 0;
-  width: 100%;
-}
-
 .back-button:active {
   top: 2px;
 }
@@ -522,11 +516,8 @@ body {
     height: auto;
   }
   .back-button {
-    display: none;
-    margin: 0;
-    padding: 0;
-    border: none;
-    box-sizing: border-box;
+    width: 80%;
+    height: 60%;
   }
 
   #cardSelection {
@@ -625,6 +616,9 @@ body {
     height: 50%;
     width: 50%;
     background-size: 70% 70%;
+  }
+  .back-button {
+    height: 70%;
   }
 }
 </style>
