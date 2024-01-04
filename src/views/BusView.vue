@@ -379,21 +379,15 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1em;
-  margin-top: 10em;
+  margin-top: 6em;
   justify-content: center;
-}
-.scene {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 li {
   list-style: none;
   margin-left: 5px;
 }
 .flip-card {
-  width: 100%;
-  height: 100%;
+  size: 100%, 100%;
   border-radius: 1em;
   background-image: url("public/img/cardback.png");
   background-repeat: no-repeat;
@@ -408,13 +402,9 @@ li {
   height: inherit;
   width: inherit;
 }
-.grid-container {
-  width: 100%;
-  height: 100%;
-}
 
 .card-grid {
-  margin: 5px;
+  margin: auto;
   display: contents;
 }
 .card-facing-up {
@@ -464,18 +454,6 @@ li {
   width: 100%;
   justify-content: center;
 }
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #000;
-  border-radius: 10px;
-  z-index: 1000;
-  text-align: center;
-}
 .back-button {
   width: 40%;
   color: black;
@@ -520,15 +498,16 @@ li {
   }
 
   #cardSelection {
-    grid-template-columns: repeat(1, 4fr);
-    width: 70%;
+    grid-template-columns: auto;
+    width: 60%;
     margin: auto;
   }
+
   .rules {
     align-self: left;
     text-align: start;
     color: white;
-    width: 70%;
+    width: 80%;
     border-style: inset;
     border-radius: 10px;
     position: static;
@@ -538,26 +517,23 @@ li {
     align-self: left;
     text-align: start;
     color: white;
-    width: 70%;
+    width: 80%;
     border-style: inset;
     border-radius: 10px;
     position: sticky;
     z-index: 100;
   }
   .card-grid {
+    size: auto, auto;
     display: contents;
-  }
-  .flip-card {
-    height: 20%;
-    width: 20%;
-    background-size: 70% 70%;
   }
 }
 @media (max-width: 450px) {
   #cardSelection {
-    grid-template-columns: repeat(1, 4fr);
+    width: 50%;
     margin: auto;
   }
+
   .rules {
     align-self: left;
     text-align: start;
@@ -578,12 +554,8 @@ li {
   }
 
   .card-grid {
+    width: auto;
     display: contents;
-  }
-  .flip-card {
-    height: 10%;
-    width: 10%;
-    background-size: 10% 10%;
   }
 
   .back-button {
