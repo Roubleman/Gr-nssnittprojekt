@@ -31,12 +31,23 @@
     " Vill man spela detta som en dryckeslek så är 1 Poäng = 1 Klunk"
   ],
   "aboutText": [
-    "Det här är ett spel som baseras på en dryckeslek, men fungerar utmärkt att spela utan alkohol också."
-  ],
+    
+      "Välkommen till vårt onlinespel! Oavsett om du arrangerar en virtuell sammankomst eller bara söker underhållning, ger vårt spel en unik touch till din upplevelse.",
+      "",
+      "Funktioner:",
+      "- Online Multiplayer: Spela med vänner eller delta i befintliga spel.",
+      "- Anpassningsbara regler: Skräddarsy spelinställningarna efter dina preferenser.",
+      "- Topplista: Tävla och se vem som går segrande ur striden.",
+      "",
+      "Gör dig redo att njuta av vårt onlinespel. Var med och ha roligt – låt spelen börja!"
+    ],
+  
   "lobbyHeader": "Välkommen till spel:",
   "formTitle": "Spelarlista: ",
   "scramblePlayerOrder": "Slumpa ordning!",
   "ready": "Klar!",
+  "dealer": "Delare",
+  "guesser": "Gissare",
   "gameClosed": "Spelet stängde på grund av att värden lämnade, pröva att gå med i ett nytt eller skapa ett eget",
   "inputError": "Spelet finns inte eller namnet är upptaget, pröva igen",
   "gameResult": "Slutligt resultat",

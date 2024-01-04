@@ -60,6 +60,9 @@
     <p>{{ displayPopup.message }} {{ guessComparison }}</p>
     <button @click="closePopup">Close</button>
   </div>
+  <div v-if="waitingPopup" class="popup" :class="{ waiting: true }">
+    <p>Waiting for the dealer to check...</p>
+  </div>
 </template>
 
 <script>
@@ -97,6 +100,7 @@ export default {
       displayButtonClosed: false,
       waitingForDealer: false,
       cardSize: 8,
+      waitingPopup: false,
     };
   },
   updated() {
@@ -130,6 +134,7 @@ export default {
       );
       if (this.dealerChecked && this.isGuesser) {
         popupData.isVisible = true;
+        this.waitingPopup = false;
       } else {
         popupData.isVisible = false;
       }
@@ -265,6 +270,7 @@ export default {
         this.shouldBlur = true;
         this.isConfirmed = false;
         this.selectedCard = null;
+        this.waitingPopup = true;
       } else if (data.result === "correctGuess") {
         this.$emit("correctGuess");
         // this.DisplayPopup.isVisible = false;
@@ -282,6 +288,7 @@ export default {
       this.displayButtonClosed = false;
       this.waitingForDealer = false;
       this.selectedCard = null;
+      this.waitingPopup = false;
       //Reset blurcomparison
       this.graphicDeck.forEach((value) => {
         value.cards.forEach((card) => {
@@ -365,7 +372,20 @@ export default {
   animation: fade-bounce 1s ease-in-out reverse;
   position: absolute;
 }
-
+@keyframes fade-bounce-leave {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
 @keyframes fade-bounce {
   0% {
     opacity: 0;
@@ -385,7 +405,9 @@ export default {
 }
 
 .blur {
-  filter: blur(2px);
+  filter: blur(2px) brightness(70%);
+  transition: filter 0.3s;
+  border: 2px solid red;
 }
 .blurComparison {
   filter: blur(2px);
@@ -394,6 +416,19 @@ export default {
 .popup {
   position: fixed;
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 10px;
+  z-index: 1000;
+  text-align: center;
+}
+
+.waitingPopup {
+  position: fixed;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
