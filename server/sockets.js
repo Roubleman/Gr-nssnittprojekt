@@ -19,6 +19,10 @@ function sockets(io, socket, data) {
     socket.emit("gameIdChecked", data.checkGameId(gameId));
   });
 
+  socket.on("isGameStarted", function (gameId) {
+    socket.emit("gameStarted", data.isGameStarted(gameId));
+  });
+
   socket.on("createTestGame", function (playingCards) {
     //ta bort sen när vi inte behöver testa
     data.createTestGame(playingCards);
@@ -89,15 +93,6 @@ function sockets(io, socket, data) {
     data.fuckTheDealer(d.gameId, d.secondGuess);
     io.to(d.gameId).emit("gameInfo", data.getGame(d.gameId));
   });
-
-  // socket.on("roundOver", function (gameId) {
-  //   let gameStillGoing = data.nextRound(gameId);
-  //   if (gameStillGoing) {
-  //     io.to(gameId).emit("gameUpdate", data.getGame(gameId));
-  //   } else {
-  //     io.to(gameId).emit("gameEnded");
-  //   }
-  // });
 
   socket.on("cardGuessed", function (d) {
     console.log(d);

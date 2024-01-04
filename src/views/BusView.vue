@@ -380,19 +380,21 @@ body {
   grid-template-columns: repeat(4, 1fr);
   gap: 1em;
   margin-top: 10em;
-  position: relative;
-  margin-left: 8em;
-  width: calc(100% - 20em);
+  justify-content: center;
 }
 .scene {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+li {
+  list-style: none;
+  margin-left: 5px;
+}
 .flip-card {
   width: 100%;
   height: 100%;
-  border-radius: 0.5em;
+  border-radius: 1em;
   background-image: url("public/img/cardback.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -422,10 +424,11 @@ body {
   transform: none !important;
 }
 .gameInfo {
-  text-align: left;
+  text-align: start;
   color: white;
   width: 15em;
   border-style: inset;
+  border-radius: 10px;
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 1em;
   background-color: rgb(73, 114, 73);
@@ -437,10 +440,11 @@ body {
   z-index: 100;
 }
 .rules {
-  text-align: left;
+  text-align: start;
   color: white;
   width: 15em;
   border-style: inset;
+  border-radius: 10px;
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 1em;
   background-color: rgb(73, 114, 73);
@@ -476,7 +480,6 @@ body {
   width: 40%;
   color: black;
   margin-bottom: 1%;
-  /* background: rgb(73, 114, 73); */
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -511,112 +514,78 @@ body {
 }
 
 @media (max-width: 850px) {
-  .styled-box {
-    width: 70%;
-    height: auto;
-  }
   .back-button {
     width: 80%;
     height: 60%;
   }
 
   #cardSelection {
-    display: grid;
     grid-template-columns: repeat(1, 4fr);
-    align-items: center;
-    position: relative;
-    gap: 1em;
-    margin-top: 70%;
-    position: relative;
-    margin-left: 15%;
-    width: calc(100% - 20em);
+    width: 70%;
+    margin: auto;
   }
   .rules {
-    align-self: auto;
-    text-align: left;
+    align-self: left;
+    text-align: start;
     color: white;
     width: 70%;
     border-style: inset;
+    border-radius: 10px;
     position: static;
     z-index: 100;
   }
   .gameInfo {
-    align-self: auto;
-    text-align: left;
+    align-self: left;
+    text-align: start;
     color: white;
     width: 70%;
     border-style: inset;
+    border-radius: 10px;
     position: sticky;
     z-index: 100;
-  }
-  .grid-container {
-    width: 70%;
-    height: 70%;
   }
   .card-grid {
     display: contents;
   }
   .flip-card {
-    height: 70%;
-    width: 70%;
+    height: 20%;
+    width: 20%;
     background-size: 70% 70%;
   }
 }
 @media (max-width: 450px) {
-  .styled-box {
-    width: 50%;
-    height: auto;
-  }
-
   #cardSelection {
-    display: grid;
     grid-template-columns: repeat(1, 4fr);
-    align-items: center;
-    position: relative;
-    gap: 1em;
-    margin-top: 50%;
-    position: relative;
-    margin-left: 15%;
-    width: calc(100% - 20em);
+    margin: auto;
   }
   .rules {
-    align-self: auto;
-    text-align: left;
+    align-self: left;
+    text-align: start;
+    text-align: justify left;
+    margin: auto;
     color: white;
     width: 80%;
-    border-style: inset;
-    border-color: rgba(252, 16, 48, 0.707);
-    background-color: rgb(73, 114, 73);
-    margin-top: 4.4em;
-    margin-bottom: 0.5em;
     position: static;
     z-index: 100;
   }
   .gameInfo {
-    align-self: auto;
-    text-align: left;
-    color: white;
-    width: 50%;
-    border-style: inset;
-    border-color: rgba(252, 16, 48, 0.707);
-    background-color: rgb(73, 114, 73);
-    margin-top: 4.4em;
-    margin-bottom: 0.5em;
+    align-self: right;
+    text-align: start;
+    margin: auto;
+    width: 80%;
     position: sticky;
     z-index: 100;
   }
-  .grid-container {
-    width: 50%;
-    height: 50%;
-  }
+
   .card-grid {
     display: contents;
   }
   .flip-card {
-    height: 50%;
-    width: 50%;
-    background-size: 70% 70%;
+    height: 10%;
+    width: 10%;
+    background-size: 10% 10%;
   }
+
   .back-button {
     height: 70%;
   }
