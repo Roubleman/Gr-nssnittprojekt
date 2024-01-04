@@ -29,13 +29,9 @@
     </button>
   </ResponsiveNav>
   <h1 class="highlight">{{ uiLabels.salesPitch }}</h1>
-  <h2 class="highlight">{{ uiLabels.subHeading }}</h2>
+  <h2 class="highlight">{{ uiLabels.joinInfo }}</h2>
 
-  <div id="join_info">
-    <p>
-      {{ uiLabels.joinInfo }}
-    </p>
-  </div>
+
   <section id="input_wrappers">
     <section class="input-boxes box">
       <label>
@@ -115,8 +111,8 @@
 <script>
 import ResponsiveNav from "@/components/ResponsiveNav.vue";
 import io from "socket.io-client";
-// sessionStorage.setItem("dataServer", "localhost:3000");
-sessionStorage.setItem("dataServer", "192.168.1.195:3000"); /*OBS, Pontus Ip*/
+sessionStorage.setItem("dataServer", "localhost:3000");
+/*sessionStorage.setItem("dataServer", "192.168.1.195:3000"); /*OBS, Pontus Ip*/
 /*Ta bort kommentaren
  och gör den ovan till en kommentar för att tillåta andra att connecta
  måste även skriva npm run host för att kunna tillåta andra att connecta*/
