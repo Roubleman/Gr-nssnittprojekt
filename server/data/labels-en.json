@@ -1,5 +1,5 @@
 {
-  "salesPitch": "Get drunk. Online. Easy.",
+  "salesPitch": "Predict, Play and Win",
   "subHeading": "Fun for all ages",
   "invite": "Invite participants with this link:",
   "joinGame": "Join game",
@@ -9,6 +9,7 @@
   "about": "About",
   "createHeading": "Create game",
   "inputGameId": "Lobby code",
+  "createGameId": "Create lobby code",
   "rules": "Rules",
   "startGame": "Start game",
   "inputName": "Input your player name",
@@ -29,7 +30,7 @@
     " * If you guess right on the first attempt, the dealer gets 6 points, and if you guess right on the second attempt, the dealer gets 3 points.",
     "The person who is the dealer when the deck of cards runs out loses.",
     " If you want to play this as a drinking game, 1 Point = 1 Sip."
-],
+  ],
   "aboutText": [
     "This is a game which is based on a drinking game, but it works just as well without alcohol."
   ],

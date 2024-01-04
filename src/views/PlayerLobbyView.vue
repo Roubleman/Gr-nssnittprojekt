@@ -120,9 +120,9 @@ export default {
       this.uiLabels = labels;
     });
 
-    window.addEventListener("beforeunload", () => {
-      this.playerLeaving();
-    });
+    this.playerLeaving = this.playerLeaving.bind(this);
+
+    window.addEventListener("beforeunload", this.playerLeaving);
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
@@ -137,6 +137,10 @@ export default {
     document.body.style.backgroundSize = null;
     document.body.style.backgroundAttachment = null;
     document.body.style.backgroundPosition = null;
+  },
+  beforeRouteLeave(to, from, next) {
+    window.removeEventListener("beforeunload", this.playerLeaving);
+    next();
   },
   methods: {
     gameClosed: function () {

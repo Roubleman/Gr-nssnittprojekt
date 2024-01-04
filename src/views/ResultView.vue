@@ -1,5 +1,5 @@
 <template>
-    <header class="header">
+  <header class="header">
     <div class="logo" @click="backToHomepage">
       <span id="clubs"> &clubs; </span>
       Card Guessr
@@ -67,7 +67,7 @@
     </audio>
   </div>
   <div id="muteButton" @click="toggleSoundMute">
-    {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507;" }}
+    {{ !isSoundMuted ? "&#x1F50A;" : "&#x1F507;" }}
   </div>
 </template>
 
@@ -186,7 +186,6 @@ export default {
 </script>
 
 <style scoped>
-
 .header {
   background-color: #076032;
   width: 100%;
@@ -321,8 +320,8 @@ label {
     font-size: 90%;
   }
 
-  .header{
-    display:none;
+  .header {
+    display: none;
   }
 }
 </style>
