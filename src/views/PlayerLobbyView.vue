@@ -1,6 +1,6 @@
 <template>
   <div class="lobbyMenu">
-    <h1>
+    <h1 class="highlight">
       {{ uiLabels.lobbyHeader }} <br />
       {{ gameId }}
     </h1>
@@ -32,7 +32,7 @@
     </audio>
   </div>
   <div id="muteButton" @click="toggleSoundMute">
-    {{ isSoundMuted ? "&#x1F50A;" : "&#x1F507;" }}
+    {{ !isSoundMuted ? "&#x1F50A;" : "&#x1F507;" }}
   </div>
   <button v-if="!player.isReady" id="ready_button" v-on:click="playerIsReady">
     {{ uiLabels.ready }}
@@ -117,7 +117,7 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
-    document.body.style.backgroundImage = "url(/img/lobbyBackground.svg)";
+    document.body.style.backgroundImage = "url(/img/rainbow-vortex.svg)";
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundSize = "cover";
@@ -179,12 +179,12 @@ export default {
   margin-bottom: 1em;
 }
 
-h1,
+/* h1,
 h2 {
   color: white;
   text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
     0 0 40px #000000;
-}
+} */
 
 .player-list {
   width: 15em;

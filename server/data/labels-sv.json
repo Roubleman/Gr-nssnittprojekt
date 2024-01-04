@@ -21,13 +21,13 @@
   "currentGameSettings": "Aktiva spelinställningar:",
   "waitingForReady": "Väntar på att alla spelare ska bli redo",
   "rulesText": [
-  "1. Den som gissar gissar på kort.", 
-  "2. Dealern svarar med högre eller lägre, om inte första gissningen var rätt.", 
-  "3. Den som gissar får gissa en till gång, stämmer gissningen får dealern dricka. Om gissningen var fel får den som gissade dricka så många klunkar som skillnaden från det rätta kortet.",
-  "4. Kortleken skickas vidare efter ett antal felaktiga gissningar.",
-  "5. Den som är dealer när hela kortleken ligger på bordet får åka på en liten resa...",
-  "1 Poäng = 1 Klunk"
-],
+    "1. Den som gissar gissar på kort.",
+    "2. Dealern svarar med högre eller lägre, om inte första gissningen var rätt.",
+    "3. Den som gissar får gissa en till gång, stämmer gissningen får dealern dricka. Om gissningen var fel får den som gissade dricka så många klunkar som skillnaden var från det rätta kortet.",
+    "4. Kortleken skickas vidare efter ett antal felaktiga gissningar.",
+    "5. Den som är dealer när hela kortleken ligger på bordet får åka på en liten resa...",
+    "1 Poäng = 1 Klunk"
+  ],
   "aboutText": [
     "Det här är ett spel som baseras på en dryckeslek, men fungerar utmärkt att spela utan alkohol också."
   ],
@@ -82,6 +82,7 @@
   "rule3": "Första kortet ska vara rött",
   "busInfo1": "Antal gissningar denna runda",
   "busInfo2": "Antal blandningar:",
+  "busGameDone": "Grattis du vann of fick:",
   "playerGuessedWrong": "Spelaren gissade fel, rätt kort och deras poäng är:",
   "guessLower": "Gissa på lägre kort",
   "guessHigher": "Gissa på ett högre kort",
@@ -91,5 +92,6 @@
   "takeTheBus": "Åk buss!",
   "restartGame": "Starta ett nytt spel med samma regler",
   "joinRestart": "Gå med i samma spel igen",
-  "collapse": "Klicka här"
+  "collapse": "Klicka här",
+  "playAgain": "Spela igen!"
 }
