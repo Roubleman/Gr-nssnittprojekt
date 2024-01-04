@@ -4,7 +4,9 @@
       {{ uiLabels.lobbyHeader }} <br />
       {{ gameId }}
     </h1>
-    <br />
+    <button class="hover-link rules-button" @click.prevent="openRules">
+      {{ uiLabels.rules }}
+    </button>
   </div>
   <h2>{{ uiLabels.currentGameSettings }}</h2>
   <section class="gameSettings">
@@ -37,6 +39,13 @@
   <button v-if="!player.isReady" id="ready_button" v-on:click="playerIsReady">
     {{ uiLabels.ready }}
   </button>
+  <div class="overlay" id="rules_popup">
+    <div class="popup">
+      <span class="close_popup" @click="closeRules">&times;</span>
+      <h1>{{ uiLabels.rules }}</h1>
+      <p v-for="text in uiLabels.rulesText">{{ text }}</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -159,6 +168,27 @@ export default {
         audioElement.muted = this.isSoundMuted;
       }
     },
+    openRules: function () {
+      this.hideNav = true;
+      const rulesPopup = document.getElementById("rules_popup");
+      rulesPopup.style.display = "flex";
+      this.removeButton = true;
+
+      rulesPopup.addEventListener("click", this.closeRulesOutside);
+    },
+    closeRules: function () {
+      const rulesPopup = document.getElementById("rules_popup");
+      rulesPopup.style.display = "none";
+
+      rulesPopup.removeEventListener("click", this.closeRulesOutside);
+      this.removeButton = false;
+    },
+    closeRulesOutside: function (event) {
+      const rulesPopup = document.getElementById("rules_popup");
+      if (event.target === rulesPopup) {
+        this.closeRules(); // Call your existing closeRules function
+      }
+    },
   },
 };
 </script>
@@ -189,6 +219,39 @@ h2 {
   text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
     0 0 40px #000000;
 } */
+.popup {
+  position: relative;
+  z-index: 1000;
+  background: #fff;
+  padding: 1em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.7em rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 60%;
+}
+
+.close_popup {
+  cursor: pointer;
+  position: absolute;
+  top: 2%;
+  right: 3.5%;
+}
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  align-items: center;
+  justify-content: center;
+}
+
+.rules-button {
+  height: 2em;
+  width: 7em;
+}
 
 .player-list {
   width: 15em;

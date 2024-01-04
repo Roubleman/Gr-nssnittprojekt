@@ -4,7 +4,9 @@
       {{ uiLabels.lobbyHeader }} <br />
       {{ gameId }}
     </h1>
-    <br />
+    <button class="hover-link rules-button" @click.prevent="openRules">
+      {{ uiLabels.rules }}
+    </button>
   </div>
   <section id="settings_wrapper">
     <h2>{{ uiLabels.currentGameSettings }}</h2>
@@ -60,6 +62,13 @@
     >
       {{ uiLabels.playGame }}
     </button>
+  </div>
+  <div class="overlay" id="rules_popup">
+    <div class="popup">
+      <span class="close_popup" @click="closeRules">&times;</span>
+      <h1>{{ uiLabels.rules }}</h1>
+      <p v-for="text in uiLabels.rulesText">{{ text }}</p>
+    </div>
   </div>
 </template>
 
@@ -148,6 +157,27 @@ export default {
         gameId: this.gameId,
       });
     },
+    openRules: function () {
+      this.hideNav = true;
+      const rulesPopup = document.getElementById("rules_popup");
+      rulesPopup.style.display = "flex";
+      this.removeButton = true;
+
+      rulesPopup.addEventListener("click", this.closeRulesOutside);
+    },
+    closeRules: function () {
+      const rulesPopup = document.getElementById("rules_popup");
+      rulesPopup.style.display = "none";
+
+      rulesPopup.removeEventListener("click", this.closeRulesOutside);
+      this.removeButton = false;
+    },
+    closeRulesOutside: function (event) {
+      const rulesPopup = document.getElementById("rules_popup");
+      if (event.target === rulesPopup) {
+        this.closeRules(); // Call your existing closeRules function
+      }
+    },
     playGame: function () {
       socket.emit("startGame", this.gameId);
       this.$router.push("/game/" + this.gameId);
@@ -187,8 +217,41 @@ export default {
 };
 </script>
 <style scoped>
+.popup {
+  position: relative;
+  z-index: 1000;
+  background: #fff;
+  padding: 1em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.7em rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 60%;
+}
+
+.close_popup {
+  cursor: pointer;
+  position: absolute;
+  top: 2%;
+  right: 3.5%;
+}
 #hamburger_icon {
   margin-left: 1em;
+}
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  align-items: center;
+  justify-content: center;
+}
+
+.rules-button {
+  height: 2em;
+  width: 7em;
 }
 
 .gameSettings {
