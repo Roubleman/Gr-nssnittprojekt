@@ -31,7 +31,8 @@
     >
       <li v-for="(player, index) in playerList" :key="index">
         {{ index + 1 + ". " }}{{ player.name }}
-        <!-- <span v-if="player.isHost">&#x1F451;</span> -->
+        <span v-if="index == 1">&#127199;</span>
+        <span v-if="index == 2">&#9072;</span>
         <img :src="player.avatar" class="avatar" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
         <span id="hamburger_icon">&#9776;</span>
@@ -116,7 +117,7 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
-    this.playerLeaving = this.playerLeaving.bind(this);
+    this.hostLeaving = this.hostLeaving.bind(this);
     window.addEventListener("beforeunload", this.hostLeaving);
   },
   mounted() {
