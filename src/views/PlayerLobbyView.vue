@@ -75,6 +75,11 @@ export default {
   created: function () {
     this.gameId = this.$route.params.id;
 
+    socket.emit("pageLoaded", this.lang);
+    socket.on("init", (labels) => {
+      this.uiLabels = labels;
+    });
+
     socket.emit("getGameInfo", this.gameId);
 
     socket.on("gameInfo", (game) => {
@@ -113,11 +118,6 @@ export default {
 
     socket.on("gameStarted", () => {
       this.$router.push("/game/" + this.gameId);
-    });
-
-    socket.emit("pageLoaded", this.lang);
-    socket.on("init", (labels) => {
-      this.uiLabels = labels;
     });
 
     this.playerLeaving = this.playerLeaving.bind(this);

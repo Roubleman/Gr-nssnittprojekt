@@ -37,6 +37,8 @@
   "formTitle": "Spelarlista: ",
   "scramblePlayerOrder": "Slumpa ordning!",
   "ready": "Klar!",
+  "dealer": "Delare",
+  "guesser": "Gissare",
   "gameClosed": "Spelet stängde på grund av att värden lämnade, pröva att gå med i ett nytt eller skapa ett eget",
   "inputError": "Spelet finns inte eller namnet är upptaget, pröva igen",
   "gameResult": "Slutligt resultat",
