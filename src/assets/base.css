@@ -27,7 +27,7 @@ button {
 }
 button:hover {
   transform: scale(1.1);
-  cursor: pointer;
+  cursor: pointer;  
 }
 .box {
   border-radius: 16px;

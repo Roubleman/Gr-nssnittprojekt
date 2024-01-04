@@ -117,7 +117,7 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
-    document.body.style.backgroundImage = "url(/img/lobbyBackground.svg)";
+    document.body.style.backgroundImage = "url(/img/rainbow-vortex.svg)";
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundSize = "cover";

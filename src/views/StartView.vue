@@ -115,8 +115,8 @@
 <script>
 import ResponsiveNav from "@/components/ResponsiveNav.vue";
 import io from "socket.io-client";
-// sessionStorage.setItem("dataServer", "localhost:3000");
-sessionStorage.setItem("dataServer", "192.168.1.195:3000"); /*OBS, Pontus Ip*/
+sessionStorage.setItem("dataServer", "localhost:3000");
+//sessionStorage.setItem("dataServer", "192.168.1.195:3000"); /*OBS, Pontus Ip*/
 /*Ta bort kommentaren
  och gör den ovan till en kommentar för att tillåta andra att connecta
  måste även skriva npm run host för att kunna tillåta andra att connecta*/
@@ -170,7 +170,7 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
-    document.body.style.backgroundImage = "url(/img/startBackground.svg)";
+    document.body.style.backgroundImage = "url(/img/subtle-prism.svg)";
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundSize = "cover";
@@ -273,7 +273,7 @@ export default {
 </script>
 <style scoped>
 .header {
-  background-color: rgb(73, 114, 73);
+  background-color: #076032;
   width: 100%;
   display: grid;
   grid-template-columns: 2em auto;
@@ -317,6 +317,12 @@ export default {
 .switch-language-button {
   width: 80%;
   object-fit: cover;
+  border: none;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px;
+}
+.switch-language-button:hover {
+  transform: scale(1);
 }
 
 .language-flag {
@@ -354,7 +360,7 @@ export default {
   color: black;
   padding: 24px 60px 24px 60px;
   border-radius: 60px;
-  background-color: #82f982;
+  background-color: #009E60;
   font-weight: bolder;
   font-size: 40px;
   box-shadow: 0px 0px 1px;
@@ -500,6 +506,14 @@ export default {
 
 .language-flag:hover {
   transform: scale(1.04);
+}
+
+@media (min-width: 60em) {
+  .join-game:hover {
+    transform: translateY(-15px);
+    box-shadow: 0px 10px 1px rgb(0, 0, 0);
+    border: 1px solid black;
+  }
 }
 
 @media (min-width: 50em) and (max-width: 60em) {

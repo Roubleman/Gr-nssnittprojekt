@@ -2,10 +2,12 @@
   <div>
     <div id="back_button_div">
       <button
-        class="back-button back-button2"
+        class="back-button"
         @click="this.$router.push({ path: '/' })"
       >
-        {{ uiLabels.backToHomepage }}
+      <span class="back-button-text-one"> {{ uiLabels.backToHomepage  }}</span>
+      <span class="back-button-text-two"> <img src="../../img/left-chevron.png" alt="prutt"></span>
+
       </button>
     </div>
     <h1 class="heading">{{ uiLabels.createHeading }}</h1>
@@ -64,7 +66,7 @@
               startButtonIsDisabled: !this.checkValues() || !gameIdAvailable,
             }"
           >
-            {{ uiLabels.startGame }}
+          {{ uiLabels.startGame }}
           </button>
         </transition>
       </section>
@@ -104,7 +106,7 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
-    document.body.style.backgroundImage = "url(/img/createBackground.svg)";
+    document.body.style.backgroundImage = "url(/img/radiant-gradient.svg)";
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundSize = "cover";
@@ -180,6 +182,7 @@ export default {
   width: 60em;
   position: relative;
   padding-top: 1em;
+  padding-left: 1.5em;
 }
 
 .create-setting {
@@ -217,31 +220,17 @@ export default {
   font-size: 1.5em;
   padding: 0.5em 1em;
   z-index: 1;
-}
+  background-color: #009E60;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
 
-.start-button::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 100%;
-  top: 0;
-  right: 0;
-  z-index: -1;
-  background: rgb(2, 102, 49);
-  box-shadow: 0 0 20px rgb(207, 207, 207);
-  transition: all 0.3s ease;
 }
 
 .start-button:hover {
   color: whitesmoke;
-  border: 1px solid rgb(6, 75, 6);
-  box-shadow: 0 0 5px rgb(160, 242, 37), 0 0 5px rgb(160, 242, 37) inset;
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 0 5px 5px silver, 0 0 5px silver inset;
 }
 
-.start-button:hover::after {
-  left: 0;
-  width: 100%;
-}
 
 .start-button:active {
   top: 2px;
@@ -254,48 +243,48 @@ export default {
 }
 
 .back-button {
-  width: 20%;
-  color: black;
-  padding-top: 2%;
-  background: rgb(73, 114, 73);
+  width: 10em;
+  height: 50px;
+  background: linear-gradient(to top, #01247e, #194b97, #2d5ba0);
+  color: #fff;
+  border-radius: 20px;
   cursor: pointer;
-  transition: all 0.3s ease;
   position: relative;
-  display: inline-block;
-  font-size: 1.5em;
-  padding: 0.5em 1em;
-  margin-left: 1em;
-  margin-top: 1em;
-  z-index: 1;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 }
 
-.back-button::after {
-  content: "";
+.back-button span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: top 0.5s;
+}
+
+.back-button-text-one {
   position: absolute;
-  width: 0;
-  height: 100%;
-  top: 0;
-  left: 50%;
-  z-index: -1;
-  background: rgb(2, 102, 49);
-  box-shadow: 0 0 20px rgb(207, 207, 207);
-  transition: all 0.3s ease;
-}
-
-.back-button:hover {
-  color: whitesmoke;
-  border: 1px solid rgb(6, 75, 6);
-  box-shadow: 0 0 5px rgb(160, 242, 37), 0 0 5px rgb(160, 242, 37);
-}
-
-.back-button:hover::after {
-  left: 0;
   width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
 }
 
-.back-button:active {
-  top: 2px;
+.back-button-text-two {
+  position: absolute;
+  width: 100%;
+  top: 150%;
+  left: 0;
+  transform: translateY(-50%);
 }
+
+.back-button:hover .back-button-text-one {
+  top: -100%;
+}
+
+.back-button:hover .back-button-text-two {
+  top: 50%;
+}
+
 
 .explanation {
   font-size: 0.7em;

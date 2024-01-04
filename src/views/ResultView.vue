@@ -91,7 +91,7 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
-    document.body.style.backgroundImage = "url(/img/resultBackground.svg)";
+    document.body.style.backgroundImage = "url(/img/dragon-scales.svg)";
     document.body.style.backgroundSize = "auto 100%";
     document.body.style.backgroundAttachment = "fixed";
   },
