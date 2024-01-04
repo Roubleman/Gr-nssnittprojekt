@@ -1,5 +1,5 @@
 <template>
-    <header class="header highlight">
+    <header class="header">
     <div class="logo" @click="backToHomepage">
       <span id="clubs"> &clubs; </span>
       Card Guessr
@@ -190,6 +190,8 @@ export default {
 .header {
   background-color: #076032;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
@@ -198,7 +200,8 @@ export default {
   font-size: 2.5rem;
   color: white;
   padding-top: 0.2em;
-  cursor:pointer;
+  cursor: pointer;
+  width: auto;
 }
 
 #clubs {
