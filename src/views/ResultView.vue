@@ -1,7 +1,7 @@
 <template>
   <div id="center_vertically">
     <div class="resultMenu">
-      <h1>{{ uiLabels.gameResult }}</h1>
+      <h1 class="highlight">{{ uiLabels.gameResult }}</h1>
     </div>
     <section id="input_wrappers">
       <section class="playerList box">
@@ -179,12 +179,6 @@ export default {
 </script>
 
 <style scoped>
-h1,
-h2 {
-  color: white;
-  text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
-    0 0 40px #000000;
-}
 #center_vertically {
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
 <template>
   <div class="lobbyMenu">
-    <h1>
+    <h1 class="highlight">
       {{ uiLabels.lobbyHeader }} <br />
       {{ gameId }}
     </h1>
@@ -234,12 +234,12 @@ export default {
   text-align: center;
 }
 
-h1,
+/* h1,
 h2 {
   color: white;
   text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
     0 0 40px #000000;
-}
+} */
 
 #scramble_button {
   width: 15%;
