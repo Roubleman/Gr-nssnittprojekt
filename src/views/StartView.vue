@@ -28,8 +28,8 @@
       />
     </button>
   </ResponsiveNav>
-  <h1>{{ uiLabels.salesPitch }}</h1>
-  <h2>{{ uiLabels.subHeading }}</h2>
+  <h1 class="highlight">{{ uiLabels.salesPitch }}</h1>
+  <h2 class="highlight">{{ uiLabels.subHeading }}</h2>
 
   <div id="join_info">
     <p>
@@ -497,6 +497,8 @@ export default {
 #switch_language {
   transform: none;
   transition: transform 0.3s ease;
+  border-width: 0px;
+  box-shadow: none;
 }
 
 .language-flag:hover {

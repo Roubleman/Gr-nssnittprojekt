@@ -12,7 +12,11 @@ body {
   margin: 0;
   padding: 0;
   font-size: 1.3em;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.highlight {
+  color: white;
+  text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
+    0 0 40px #000000;
 }
 button {
   border: 0.06em solid black;
