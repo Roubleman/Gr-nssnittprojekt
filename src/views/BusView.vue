@@ -1,24 +1,29 @@
 <template>
   <section id="background">
     <header id="header-style">{{ uiLabels.bus }}</header>
+    <h1 v-bind:hidden="!this.isDone">
+      {{ uiLabels.busGameDone }} {{ this.gameScore }}
+      {{ uiLabels.numberOfPoints }}
+    </h1>
     <div class="card-grid">
-      <section class="gameInfo">
+      <section class="gameInfo" v-bind:hidden="this.isDone">
         <li>{{ uiLabels.numberOfPoints }}: {{ this.gameScore }}</li>
         <li>{{ uiLabels.busInfo1 }}{{ this.selectedCard.length }}</li>
         <li>{{ uiLabels.busInfo2 }}{{ this.noShuffles }}</li>
       </section>
-      <section class="rules">
+      <section class="rules" v-bind:hidden="this.isDone">
         <li>{{ uiLabels.rule1 }}</li>
         <li>{{ uiLabels.rule2 }}</li>
         <li>{{ uiLabels.rule3 }}</li>
       </section>
-      <section id="cardSelection" vis>
+      <section id="cardSelection">
         <vue-flip
           v-model="flipped1"
           class="flip-card"
           :width="cardWidth"
           :height="cardHeight"
           v-on:click="addToSelected(topCard1), (flipped1 = true)"
+          v-bind:hidden="this.isDone"
         >
           <template v-slot:front class="card">
             <img
@@ -45,6 +50,7 @@
           :width="cardWidth"
           :height="cardHeight"
           v-on:click="addToSelected(topCard2), (flipped2 = true)"
+          v-bind:hidden="this.isDone"
         >
           <template v-slot:front class="card">
             <img
@@ -70,6 +76,7 @@
           :width="cardWidth"
           :height="cardHeight"
           v-on:click="addToSelected(topCard3), (flipped3 = true)"
+          v-bind:hidden="this.isDone"
         >
           <template v-slot:front class="card">
             <img
@@ -95,6 +102,7 @@
           :width="cardWidth"
           :height="cardHeight"
           v-on:click="addToSelected(topCard4), (flipped4 = true)"
+          v-bind:hidden="this.isDone"
         >
           <template v-slot:front class="card">
             <img
@@ -114,6 +122,21 @@
             </div>
           </template>
         </vue-flip>
+      </section>
+      <section class="gameDone" v-bind:hidden="!this.isDone">
+        <div id="back_button_div">
+          <button class="back-button back-button2" @click="this.startBus()">
+            {{ uiLabels.playAgain }}
+          </button>
+          <div id="back_button_div">
+            <button
+              class="back-button back-button2"
+              @click="this.$router.push({ path: '/' })"
+            >
+              {{ uiLabels.backToHomepage }}
+            </button>
+          </div>
+        </div>
       </section>
     </div>
   </section>
@@ -151,7 +174,6 @@ export default {
       cardHeight: "20em",
       lang: localStorage.getItem("lang") || "en",
       uiLabels: {},
-      playerScore: {},
       playingCards: [],
       gameScore: 0,
       noShuffles: 0,
@@ -191,6 +213,10 @@ export default {
       }
 
       return shuffledDeck;
+    },
+    startBus: function () {
+      this.$router.push("/");
+      this.$router.push("/bus/");
     },
     flipBackCards: function () {
       this.flipped1 = false;
@@ -273,9 +299,11 @@ export default {
       this.cardSuit.push(this.selectedCard[this.selectedCard.length - 1].suit);
       console.log(this.cardSuit);
       if (this.cardSuit.length == 4 && this.checkBlack(this.cardSuit)) {
-        this.mindTheGap.play();
-        this.isDone = true;
-        alert("You won");
+        setTimeout(async () => {
+          this.mindTheGap.play();
+          await this.delay(3000);
+          this.isDone = true;
+        });
       } else if (this.cardSuit.length == 4 && !this.checkBlack(this.cardSuit)) {
         setTimeout(async () => {
           this.flipBackCards();
@@ -426,18 +454,80 @@ body {
 }
 
 #header-style {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bolder;
   padding-top: 2em;
   padding-bottom: 1em;
   width: 100%;
   justify-content: center;
 }
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 10px;
+  z-index: 1000;
+  text-align: center;
+}
+.back-button {
+  width: 20%;
+  color: black;
+  padding-top: 2%;
+  background: rgb(73, 114, 73);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  font-size: 1.5em;
+  padding: 0.5em 1em;
+  margin-left: 1em;
+  margin-top: 1em;
+  z-index: 1;
+}
+
+.back-button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  z-index: -1;
+  background: rgb(2, 102, 49);
+  box-shadow: 0 0 20px rgb(207, 207, 207);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  color: whitesmoke;
+  border: 1px solid rgb(6, 75, 6);
+  box-shadow: 0 0 5px rgb(160, 242, 37), 0 0 5px rgb(160, 242, 37);
+}
+
+.back-button:hover::after {
+  left: 0;
+  width: 100%;
+}
+
+.back-button:active {
+  top: 2px;
+}
 
 @media (max-width: 850px) {
   .styled-box {
     width: 70%;
     height: auto;
+  }
+  .back-button {
+    display: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
   }
 
   #cardSelection {
