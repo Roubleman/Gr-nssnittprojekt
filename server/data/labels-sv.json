@@ -9,6 +9,7 @@
   "about": "Om oss",
   "createHeading": "Skapa spel",
   "inputGameId": "Lobbykod",
+  "createGameId": "Skriv din lobbykod",
   "rules": "Regler",
   "startGame": "Starta spel",
   "inputName": "Skriv ditt spelar namn",
@@ -18,7 +19,6 @@
   "normalOption": "Normal (x1)",
   "hardcoreOption": "Bli full snabbt (x2)",
   "playGame": "Spela",
-  "currentGameSettings": "Aktiva spelinställningar:",
   "waitingForReady": "Väntar på att alla spelare ska bli redo",
   "rulesText": [
     "1. En person börjar som 'Dealer' och tittar på det översta kortet i en kortlek.",
