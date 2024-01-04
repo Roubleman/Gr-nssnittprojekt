@@ -32,9 +32,9 @@
       @end="updatePlayerListOrder"
     >
       <li v-for="(player, index) in playerList" :key="index">
+        <span class="info" v-if="index == 0">{{ uiLabels.dealer }}:</span>
+        <span class="info" v-if="index == 1">{{ uiLabels.guesser }}:</span>
         {{ index + 1 + ". " }}{{ player.name }}
-        <span v-if="index == 1">&#127199;</span>
-        <span v-if="index == 2">&#9072;</span>
         <img :src="player.avatar" class="avatar" />
         <span v-if="player.isReady && !player.isHost">&check;</span>
         <span id="hamburger_icon">&#9776;</span>
@@ -97,6 +97,11 @@ export default {
   created: function () {
     this.gameId = this.$route.params.id;
 
+    socket.emit("pageLoaded", this.lang);
+    socket.on("init", (labels) => {
+      this.uiLabels = labels;
+    });
+
     socket.emit("getGameInfo", this.gameId);
 
     socket.emit("joinSocket", this.gameId);
@@ -122,10 +127,6 @@ export default {
       this.playerList = players;
     });
 
-    socket.emit("pageLoaded", this.lang);
-    socket.on("init", (labels) => {
-      this.uiLabels = labels;
-    });
     this.hostLeaving = this.hostLeaving.bind(this);
     window.addEventListener("beforeunload", this.hostLeaving);
   },
@@ -266,6 +267,10 @@ export default {
   margin: auto;
   width: 40%;
   margin-bottom: 1em;
+}
+
+.info {
+  font-size: 0.7em;
 }
 
 #settings_wrapper {

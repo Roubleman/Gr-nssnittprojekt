@@ -709,6 +709,7 @@ h4 {
   border-width: 0.8em;
   background-color: rgb(73, 114, 73);
   margin: 1.5em auto;
+  border-radius: 10px;
 }
 
 .styled-box {
@@ -720,6 +721,7 @@ h4 {
   border-style: inset;
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 0.8em;
+  border-radius: 10px;
   background-color: rgb(73, 114, 73);
   margin: 1.5em auto;
 }
