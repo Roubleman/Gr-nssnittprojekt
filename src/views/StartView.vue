@@ -28,8 +28,8 @@
       />
     </button>
   </ResponsiveNav>
-  <h1>{{ uiLabels.salesPitch }}</h1>
-  <h2>{{ uiLabels.subHeading }}</h2>
+  <h1 class="highlight">{{ uiLabels.salesPitch }}</h1>
+  <h2 class="highlight">{{ uiLabels.subHeading }}</h2>
 
   <div id="join_info">
     <p>
@@ -170,7 +170,7 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
-    document.body.style.backgroundImage = "url(/img/startBackground.svg)";
+    document.body.style.backgroundImage = "url(/img/subtle-prism.svg)";
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundSize = "cover";
@@ -273,7 +273,7 @@ export default {
 </script>
 <style scoped>
 .header {
-  background-color: rgb(73, 114, 73);
+  background-color: #076032;
   width: 100%;
   display: grid;
   grid-template-columns: 2em auto;
@@ -287,11 +287,6 @@ export default {
   padding-top: 0.2em;
 }
 
-.logo img {
-  height: 2.5rem;
-  vertical-align: bottom;
-  margin-right: 0.5rem;
-}
 
 .explanation {
   font-size: 0.7em;
@@ -317,6 +312,12 @@ export default {
 .switch-language-button {
   width: 80%;
   object-fit: cover;
+  border: none;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px;
+}
+.switch-language-button:hover {
+  transform: scale(1);
 }
 
 .language-flag {
@@ -354,7 +355,7 @@ export default {
   color: black;
   padding: 24px 60px 24px 60px;
   border-radius: 60px;
-  background-color: #82f982;
+  background-color: #009E60;
   font-weight: bolder;
   font-size: 40px;
   box-shadow: 0px 0px 1px;
@@ -489,17 +490,27 @@ export default {
 }
 
 .hover-link:hover {
-  color: rgb(73, 114, 73);
+  color: whitesmoke;
   transform: scale(1.2);
 }
 
 #switch_language {
   transform: none;
   transition: transform 0.3s ease;
+  border-width: 0px;
+  box-shadow: none;
 }
 
 .language-flag:hover {
   transform: scale(1.04);
+}
+
+@media (min-width: 60em) {
+  .join-game:hover {
+    transform: translateY(-15px);
+    box-shadow: 0px 10px 1px rgb(0, 0, 0);
+    border: 1px solid black;
+  }
 }
 
 @media (min-width: 50em) and (max-width: 60em) {

@@ -1,7 +1,14 @@
 <template>
+    <header class="header highlight">
+    <div class="logo" @click="backToHomepage">
+      <span id="clubs"> &clubs; </span>
+      Card Guessr
+      <span id="hearts"> &hearts; </span>
+    </div>
+  </header>
   <div id="center_vertically">
     <div class="resultMenu">
-      <h1>{{ uiLabels.gameResult }}</h1>
+      <h1 class="highlight">{{ uiLabels.gameResult }}</h1>
     </div>
     <section id="input_wrappers">
       <section class="playerList box">
@@ -91,7 +98,7 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
-    document.body.style.backgroundImage = "url(/img/resultBackground.svg)";
+    document.body.style.backgroundImage = "url(/img/dragon-scales.svg)";
     document.body.style.backgroundSize = "auto 100%";
     document.body.style.backgroundAttachment = "fixed";
   },
@@ -179,12 +186,29 @@ export default {
 </script>
 
 <style scoped>
-h1,
-h2 {
-  color: white;
-  text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
-    0 0 40px #000000;
+
+.header {
+  background-color: #076032;
+  width: 100%;
 }
+
+.logo {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 2.5rem;
+  color: white;
+  padding-top: 0.2em;
+  cursor:pointer;
+}
+
+#clubs {
+  color: black;
+}
+
+#hearts {
+  color: red;
+}
+
 #center_vertically {
   display: flex;
   flex-direction: column;
@@ -292,6 +316,10 @@ label {
   .bus-button {
     width: 70%;
     font-size: 90%;
+  }
+
+  .header{
+    display:none;
   }
 }
 </style>
