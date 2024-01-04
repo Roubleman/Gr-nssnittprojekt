@@ -116,9 +116,8 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
-    window.addEventListener("beforeunload", () => {
-      this.hostLeaving();
-    });
+    this.playerLeaving = this.playerLeaving.bind(this);
+    window.addEventListener("beforeunload", this.hostLeaving);
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
@@ -128,12 +127,15 @@ export default {
     document.body.style.backgroundSize = "cover";
   },
   beforeDestroy() {
-    window.removeEventListener("beforeunload", this.playerLeaving);
     document.body.style.backgroundImage = null;
     document.body.style.backgroundSize = null;
     document.body.style.backgroundAttachment = null;
     document.body.style.backgroundPosition = null;
     window.removeEventListener("beforeunload", this.hostLeaving);
+  },
+  beforeRouteLeave(to, from, next) {
+    window.removeEventListener("beforeunload", this.hostLeaving);
+    next();
   },
   methods: {
     hostLeaving: function () {

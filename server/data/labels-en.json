@@ -9,6 +9,7 @@
   "about": "About",
   "createHeading": "Create game",
   "inputGameId": "Lobby code",
+  "createGameId": "Create lobby code",
   "rules": "Rules",
   "startGame": "Start game",
   "inputName": "Input your player name",
@@ -21,13 +22,13 @@
   "currentGameSettings": "Current game settings",
   "waitingForReady": "Waiting for players to get ready",
   "rulesText": [
-  "1. The guesser guesses on a card.",
-  "2. The dealer answers higher or lower, unless the first guess was correct.",
-  "3. The guesser gets to guess one more time, if the guess is correct, the dealer drinks. If the guess was wrong, the guesser drinks sips corresponding to the difference from the correct card.",
-  "4. The dealer is swapped after a certain amount of wrong guesses.",
-  "5. The player who is the dealer when the entire deck is on the table has to go for a little trip...",
-  "1 Point = 1 Sip"
-],
+    "1. The guesser guesses on a card.",
+    "2. The dealer answers higher or lower, unless the first guess was correct.",
+    "3. The guesser gets to guess one more time, if the guess is correct, the dealer drinks. If the guess was wrong, the guesser drinks sips corresponding to the difference from the correct card.",
+    "4. The dealer is swapped after a certain amount of wrong guesses.",
+    "5. The player who is the dealer when the entire deck is on the table has to go for a little trip...",
+    "1 Point = 1 Sip"
+  ],
   "aboutText": [
     "This is a game which is based on a drinking game, but it works just as well without alcohol."
   ],

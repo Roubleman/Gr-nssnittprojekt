@@ -164,6 +164,11 @@ export default {
     socket.on("gameIdChecked", (checkBool) => {
       this.gameIdExists = !checkBool;
       if (this.gameIdExists) {
+        socket.emit("isGameStarted", this.id);
+      }
+    });
+    socket.on("gameStarted", (checkBool) => {
+      if (!checkBool) {
         this.checkName();
       }
     });
