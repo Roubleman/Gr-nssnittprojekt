@@ -287,11 +287,6 @@ export default {
   padding-top: 0.2em;
 }
 
-.logo img {
-  height: 2.5rem;
-  vertical-align: bottom;
-  margin-right: 0.5rem;
-}
 
 .explanation {
   font-size: 0.7em;
@@ -495,7 +490,7 @@ export default {
 }
 
 .hover-link:hover {
-  color: rgb(73, 114, 73);
+  color: whitesmoke;
   transform: scale(1.2);
 }
 

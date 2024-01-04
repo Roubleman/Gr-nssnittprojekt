@@ -1,4 +1,11 @@
 <template>
+    <header class="header highlight">
+    <div class="logo" @click="backToHomepage">
+      <span id="clubs"> &clubs; </span>
+      Card Guessr
+      <span id="hearts"> &hearts; </span>
+    </div>
+  </header>
   <div id="center_vertically">
     <div class="resultMenu">
       <h1>{{ uiLabels.gameResult }}</h1>
@@ -179,6 +186,29 @@ export default {
 </script>
 
 <style scoped>
+
+.header {
+  background-color: #076032;
+  width: 100%;
+}
+
+.logo {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 2.5rem;
+  color: white;
+  padding-top: 0.2em;
+  cursor:pointer;
+}
+
+#clubs {
+  color: black;
+}
+
+#hearts {
+  color: red;
+}
+
 h1,
 h2 {
   color: white;
@@ -292,6 +322,10 @@ label {
   .bus-button {
     width: 70%;
     font-size: 90%;
+  }
+
+  .header{
+    display:none;
   }
 }
 </style>
