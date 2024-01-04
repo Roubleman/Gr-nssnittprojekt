@@ -571,14 +571,14 @@ export default {
   .on-top {
     height: 95%;
     z-index: 100;
-    background-color: rgb(73, 114, 73);
+    background-color: #076032;
     top: inherit;
     border: none;
     flex-direction: column;
   }
 
   .on-top button {
-    background-color: rgb(73, 114, 73);
+    background-color: #076032;
     border: none;
   }
 
