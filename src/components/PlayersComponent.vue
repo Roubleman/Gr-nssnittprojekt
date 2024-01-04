@@ -365,7 +365,20 @@ export default {
   animation: fade-bounce 1s ease-in-out reverse;
   position: absolute;
 }
-
+@keyframes fade-bounce-leave {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
 @keyframes fade-bounce {
   0% {
     opacity: 0;
@@ -385,7 +398,9 @@ export default {
 }
 
 .blur {
-  filter: blur(2px);
+  filter: blur(2px) brightness(70%);
+  transition: filter 0.3s;
+  border: 2px solid red;
 }
 .blurComparison {
   filter: blur(2px);
