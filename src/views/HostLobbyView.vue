@@ -350,8 +350,10 @@ h2 {
     min-width: 100px;
   }
   .popup {
+    max-height: 90%;
     font-size: 15px;
     max-width: 85%;
+    overflow: auto;
   }
 }
 #muteButton {

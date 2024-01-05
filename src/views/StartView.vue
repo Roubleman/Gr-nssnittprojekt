@@ -625,9 +625,6 @@ export default {
     color: white;
     font-size: 0.7em;
   }
-  .popup {
-    max-width: 80%;
-  }
   .input-error {
     color: red;
     font-size: 0.65em;
@@ -635,8 +632,10 @@ export default {
     margin-top: 1.5%;
   }
   .popup {
+    max-height: 90%;
     font-size: 15px;
     max-width: 85%;
+    overflow: auto;
   }
 }
 
