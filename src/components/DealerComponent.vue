@@ -34,6 +34,8 @@
           class="card-facing-up"
           v-bind:card="playingCards[currentCardIndex]"
           :cardHeight="20"
+          :isMobile="this.isMobile"
+          :class="[mobileCheck()]"
         />
       </template>
     </vue-flip>
@@ -99,6 +101,9 @@ export default {
     emitHigherLower() {
       this.$emit("dealerCheck");
     },
+    mobileCheck() {
+      this.isMobile = window.innerWidth < 800 ? true : false;
+    }
   },
 
   data() {
@@ -107,6 +112,7 @@ export default {
       topCard: null,
       cardWidth: "13.2em",
       cardHeight: "20em",
+      isMobile: false,
     };
   },
 };
