@@ -60,7 +60,11 @@
     <p>{{ displayPopup.message }} {{ guessComparison }}</p>
     <button @click="closePopup">Close</button>
   </div>
-  <div v-if="waitingPopup" class="popup" :class="{ waiting: true }">
+  <div
+    v-if="waitingPopup && secondGuess"
+    class="popup"
+    :class="{ waiting: true }"
+  >
     <p>Waiting for the dealer to check...</p>
   </div>
 </template>
@@ -82,6 +86,7 @@ export default {
     dealerChecked: Boolean,
     newRound: Boolean,
     cardSectionHeight: Number,
+    secondGuess: Boolean,
   },
   components: {
     OneCard,
@@ -108,6 +113,7 @@ export default {
       this.handleNewRound();
     }
   },
+
   computed: {
     newRoundReceived() {
       this.resetRound();
@@ -127,11 +133,7 @@ export default {
         type: "wrongGuess",
         message: this.uiLabels.wrongGuessPopup,
       };
-      console.log(
-        "dealerChecked, isGuesser: ",
-        this.dealerChecked,
-        this.isGuesser
-      );
+
       if (this.dealerChecked && this.isGuesser) {
         popupData.isVisible = true;
         this.waitingPopup = false;

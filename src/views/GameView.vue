@@ -76,6 +76,7 @@
       v-bind:uiLabels="this.uiLabels"
       v-bind:graphicDeck="this.graphicDeck"
       v-bind:newRound="this.newRound"
+      v-bind:secondGuess="this.secondGuess"
       :cardSectionHeight="this.cardSectionHeight"
     >
     </Player>
@@ -721,9 +722,9 @@ h4 {
   border-style: inset;
   border-color: rgba(252, 16, 48, 0.707);
   border-width: 0.8em;
-  border-radius: 10px;
   background-color: rgb(73, 114, 73);
   margin: 1.5em auto;
+  border-radius: 10px;
 }
 
 .name-display {
