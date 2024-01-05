@@ -104,5 +104,6 @@
   "restartGame": "Restart game with same rules",
   "joinRestart": "Join same game again",
   "collapse": "Click here",
-  "playAgain": "Play again!"
+  "playAgain": "Play again!",
+  "waitingForDealer": "Waiting for the dealer to check..."
 }
