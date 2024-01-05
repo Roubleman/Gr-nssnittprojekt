@@ -66,7 +66,7 @@
     class="popup"
     :class="{ waiting: true }"
   >
-    <p>Waiting for the dealer to check...</p>
+    <p>{{ uiLabels.waitingForDealer }}</p>
   </div>
 </template>
 

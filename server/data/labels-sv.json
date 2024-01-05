@@ -106,5 +106,6 @@
   "restartGame": "Starta ett nytt spel med samma regler",
   "joinRestart": "Gå med i samma spel igen",
   "collapse": "Klicka här",
-  "playAgain": "Spela igen!"
+  "playAgain": "Spela igen!",
+  "waitingForDealer": "Väntar på dealer..."
 }
