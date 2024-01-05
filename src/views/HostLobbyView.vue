@@ -349,6 +349,10 @@ h2 {
     width: 40%;
     min-width: 100px;
   }
+  .popup {
+    font-size: 15px;
+    max-width: 85%;
+  }
 }
 #muteButton {
   position: fixed;

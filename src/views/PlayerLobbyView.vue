@@ -306,5 +306,9 @@ h2 {
     width: 80%;
     gap: 2em;
   }
+  .popup {
+    font-size: 15px;
+    max-width: 85%;
+  }
 }
 </style>
