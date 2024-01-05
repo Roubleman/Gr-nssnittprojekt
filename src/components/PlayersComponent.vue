@@ -29,6 +29,7 @@
         <div v-for="(card, index) in value.cards" :key="card.suit + card.value">
           <OneCard
             :card="card"
+            :isMobile="this.isMobile"
             :isClickable="
               isGuesser &&
               canSelectCard &&
@@ -107,6 +108,7 @@ export default {
       waitingForDealer: false,
       cardSize: 8,
       waitingPopup: false,
+      isMobile: false,
     };
   },
   updated() {
@@ -319,6 +321,7 @@ export default {
 
     changeCardSize() {
       this.cardSize = window.innerWidth < 800 ? 5.5 : 8;
+      this.isMobile = window.innerWidth < 800 ? true : false;
     },
 
     calculatedCardSectionHeight(cards) {

@@ -299,7 +299,7 @@ h2 {
 @media screen and (max-width: 60em) {
   #ready_button {
     width: 13%;
-    min-width: 130px;
+    min-width: 155px;
     margin-top: 1em;
   }
   .gameSettings {
