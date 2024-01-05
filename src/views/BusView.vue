@@ -244,14 +244,10 @@ export default {
       this.topCard2 = this.piles[1][0];
       this.topCard3 = this.piles[2][0];
       this.topCard4 = this.piles[3][0];
-
-      console.log("Redistributed deck");
-      console.log(this.piles);
     },
     addToSelected: function (card) {
       if (!this.selectedCard.includes(card)) {
         this.selectedCard.push(card);
-        console.log(this.selectedCard);
         this.compare(this.selectedCard);
       }
     },
@@ -296,7 +292,6 @@ export default {
     },
     compare: function (selectedCard) {
       this.cardSuit.push(this.selectedCard[this.selectedCard.length - 1].suit);
-      console.log(this.cardSuit);
       if (this.cardSuit.length == 4 && this.checkBlack(this.cardSuit)) {
         setTimeout(async () => {
           this.mindTheGap.play();
@@ -310,7 +305,6 @@ export default {
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
-          console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
           this.nextStation.play();
@@ -318,14 +312,12 @@ export default {
           this.randStation.play();
         }, 1000);
       } else if (selectedCard.length === 1 && !this.checkRed(this.cardSuit)) {
-        console.log(this.checkRed(this.cardSuit));
         setTimeout(async () => {
           this.flipBackCards();
           await this.delay(500);
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
-          console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
           this.nextStation.play();
@@ -339,7 +331,6 @@ export default {
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
-          console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
           this.nextStation.play();
@@ -347,14 +338,12 @@ export default {
           this.randStation.play();
         }, 1000);
       } else if (selectedCard.length === 3 && !this.checkRed(this.cardSuit)) {
-        console.log(this.checkRed(this.cardSuit));
         setTimeout(async () => {
           this.flipBackCards();
           await this.delay(500);
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
-          console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
           this.nextStation.play();
@@ -362,7 +351,6 @@ export default {
           this.randStation.play();
         }, 1000);
       } else {
-        console.log("good job");
       }
     },
   },
