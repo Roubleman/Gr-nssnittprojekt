@@ -61,7 +61,7 @@
     </section>
   </div>
   <div>
-    <audio id="backgroundAudio" autoplay loop :volume="0.5">
+    <audio id="backgroundAudio" autoplay loop :volume="0.3">
       <source src="/mp3/partyMusic.mp3" type="audio/mp3" />
       Your browser does not support the audio tag.
     </audio>
