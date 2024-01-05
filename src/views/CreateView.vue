@@ -12,48 +12,60 @@
 
     <section id="global_section">
       <section class="create-setting box">
-        {{ uiLabels.inputGuesses }}: {{ guessesNumber }}
-        <button class="guess-button" v-on:click="this.addGuesses">+</button>
-        <button class="guess-button" v-on:click="this.removeGuesses">-</button>
-        <p class="explanation">
-          {{ uiLabels.guessesExplanation }}
-        </p>
+        <div>
+          {{ uiLabels.inputGuesses }}:
+          <span id="guesses_number">{{ guessesNumber }}</span
+          ><br />
+          <button class="guess-button" v-on:click="this.addGuesses">+</button>
+          <button class="guess-button" v-on:click="this.removeGuesses">
+            -
+          </button>
+          <p class="explanation">
+            {{ uiLabels.guessesExplanation }}
+          </p>
+        </div>
       </section>
       <section class="create-setting box">
-        {{ uiLabels.pointsSetting }}:
-        <select class="input" v-model="pointsSetting">
-          <option v-bind:value="'easy'">{{ uiLabels.easyOption }}</option>
-          <option v-bind:value="'normal'">{{ uiLabels.normalOption }}</option>
-          <option v-bind:value="'hard'">{{ uiLabels.hardcoreOption }}</option>
-        </select>
-        <p class="explanation">
-          {{ uiLabels.pointsSettingExplanation }}
-        </p>
+        <div>
+          {{ uiLabels.pointsSetting }}: <br />
+          <select class="input" v-model="pointsSetting">
+            <option v-bind:value="'easy'">{{ uiLabels.easyOption }}</option>
+            <option v-bind:value="'normal'">{{ uiLabels.normalOption }}</option>
+            <option v-bind:value="'hard'">{{ uiLabels.hardcoreOption }}</option>
+          </select>
+          <p class="explanation">
+            {{ uiLabels.pointsSettingExplanation }}
+          </p>
+        </div>
       </section>
       <section class="create-setting box">
-        {{ uiLabels.inputName }}:
-        <input class="input" type="text" v-model="hostName" />
-        <p class="explanation">
-          {{ uiLabels.nameExplanation }}
-        </p>
+        <div>
+          {{ uiLabels.inputName }}:
+          <input class="input" type="text" v-model="hostName" />
+          <p class="explanation">
+            {{ uiLabels.nameExplanation }}
+          </p>
+        </div>
       </section>
       <section class="create-setting box">
-        {{ uiLabels.createGameId }}:
-        <input
-          class="input"
-          type="text"
-          v-model="gameId"
-          v-on:input="
-            gameId = gameId.replace(/\s/g, '');
-            checkId();
-          "
-        />
-        <p id="lobby_code_taken" v-if="!gameIdAvailable">
-          {{ uiLabels.lobbyCodeTaken }}
-        </p>
-        <p class="explanation" v-else>
-          {{ uiLabels.lobbyCodeExplanation }}
-        </p>
+        <div>
+          {{ uiLabels.createGameId }}:
+          <input
+            class="input"
+            type="text"
+            v-model="gameId"
+            v-on:input="
+              gameId = gameId.replace(/\s/g, '');
+              checkId();
+            "
+          />
+          <p id="lobby_code_taken" v-if="!gameIdAvailable">
+            {{ uiLabels.lobbyCodeTaken }}
+          </p>
+          <p class="explanation" v-else>
+            {{ uiLabels.lobbyCodeExplanation }}
+          </p>
+        </div>
       </section>
       <section id="button_section">
         <transition name="fade">
@@ -167,6 +179,10 @@ export default {
   align-self: center;
 }
 
+#guesses_number {
+  font-size: 1.2em;
+}
+
 #global_section {
   display: flex;
   flex-direction: column;
@@ -191,6 +207,9 @@ export default {
   padding-top: 3%;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+}
+.create-setting div {
+  margin-top: -1em;
 }
 .input {
   font-size: 1.2em;
@@ -317,6 +336,9 @@ export default {
   .create-setting {
     width: 90%;
     font-size: 0.8em;
+  }
+  .create-setting div {
+    margin-top: -0.5em;
   }
   .input {
     font-size: 1em;
