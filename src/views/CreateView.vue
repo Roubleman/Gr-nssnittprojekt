@@ -335,6 +335,7 @@ export default {
   }
   #back_button_div {
     height: 0;
+    width: 0;
   }
   .guess-button {
     font-size: 1em;
@@ -349,6 +350,10 @@ export default {
   .create-setting {
     width: 85%;
     font-size: 0.85em;
+  }
+
+  .back-button{
+    width: 0;
   }
 
   .start-button {
