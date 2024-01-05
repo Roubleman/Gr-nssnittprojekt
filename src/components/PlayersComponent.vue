@@ -57,7 +57,7 @@
       </TransitionGroup>
     </section>
   </div>
-
+  <!-- Got some help with structure of popups from chat GPT-3.5 -->
   <div v-if="displayPopup.isVisible" class="popup" :class="displayPopup.type">
     <p>{{ displayPopup.message }} {{ guessComparison }}</p>
     <button @click="closePopup">Close</button>
@@ -130,6 +130,7 @@ export default {
           this.playingCards[this.currentCardIndex].points
       );
     },
+
     displayPopup() {
       const popupData = {
         isVisible: false,
@@ -278,7 +279,6 @@ export default {
         this.waitingPopup = true;
       } else if (data.result === "correctGuess") {
         this.$emit("correctGuess");
-        // this.DisplayPopup.isVisible = false;
         this.isConfirmed = false;
         this.selectedCard = null;
         this.wrongGuessedCard = null;
@@ -320,7 +320,7 @@ export default {
     },
 
     changeCardSize() {
-      this.cardSize = window.innerWidth < 800 ? 5.5 : 8;
+      this.cardSize = window.innerWidth < 800 ? 6 : 8;
       this.isMobile = window.innerWidth < 800 ? true : false;
     },
 
