@@ -120,7 +120,7 @@ export default {
     document.body.style.backgroundImage = "url(/img/radiant-gradient.svg)";
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "center";
-    document.body.style.backgroundSize = "contain";
+    document.body.style.backgroundSize = "cover";
   },
   beforeDestroy() {
     document.body.style.height = null;
