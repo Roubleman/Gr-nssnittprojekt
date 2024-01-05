@@ -31,7 +31,6 @@ function sockets(io, socket, data) {
   socket.on("createTestResult", function (d) {
     data.createTestGame(d.deck);
     data.createTestResult(d.gameId);
-    console.log("createTestResult", d.gameId);
   });
 
   socket.on("createGame", function (d) {
@@ -65,17 +64,11 @@ function sockets(io, socket, data) {
 
   socket.on("lobbyJoined", function (gameId) {
     socket.join(gameId);
-    console.log("lobbyJoined recieved");
     io.to(gameId).emit("playerList", data.getPlayerList(gameId));
   });
 
   socket.on("playerIsReady", function (d) {
     data.playerIsReady(d.gameId, d.playerName);
-    io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
-  });
-
-  socket.on("playerLeft", function (d) {
-    data.removePlayer(d.gameId, d.playerName);
     io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
   });
 
@@ -94,8 +87,15 @@ function sockets(io, socket, data) {
     io.to(d.gameId).emit("gameInfo", data.getGame(d.gameId));
   });
 
+  socket.on("leaveGame", function (d) {
+    data.playerLeavingInGame(d.gameId, d.playerName);
+    io.to(d.gameId).emit("playerLeft", {
+      game: data.getGame(d.gameId),
+      playerName: d.playerName,
+    });
+  });
+
   socket.on("cardGuessed", function (d) {
-    console.log(d);
     io.to(d.gameId).emit("wrongGuess", {
       card: d.card,
       secondGuess: d.secondGuess,

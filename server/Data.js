@@ -161,6 +161,7 @@ Data.prototype.initializeGame = function (gameId) {
     game.players[game.dealerIndex].isDealer = true;
     game.players[game.guesserIndex].isGuesser = true;
     this.shuffleDeck(gameId);
+    console.log("game initialized", gameId);
   }
 };
 
@@ -176,6 +177,7 @@ Data.prototype.nextRound = function (gameId) {
       this.swapDealer(gameId);
     }
     this.swapGuesser(gameId);
+    console.log("next round", gameId);
     return true;
   }
 };
@@ -197,6 +199,7 @@ Data.prototype.swapDealer = function (gameId) {
     }
     game.players[game.dealerIndex].isDealer = true;
     game.errorsRemaining = game.guessesNumber;
+    console.log("dealer swapped", gameId);
   }
 };
 
@@ -210,6 +213,7 @@ Data.prototype.shuffleDeck = function (gameId) {
         game.deckOfCards[i],
       ];
     }
+    console.log("deck shuffled", gameId);
   }
 };
 
@@ -228,6 +232,7 @@ Data.prototype.swapGuesser = function (gameId) {
       game.guesserIndex = 0;
     }
     game.players[game.guesserIndex].isGuesser = true;
+    console.log("guesser swapped", gameId);
   }
 };
 
@@ -245,6 +250,7 @@ Data.prototype.increasePoints = function (gameId, playerName, cardPoint) {
       }
     }
     game.errorsRemaining--;
+    console.log("player points increased");
     return pointsIncrease;
   }
 };
@@ -261,6 +267,7 @@ Data.prototype.fuckTheDealer = function (gameId, secondGuess) {
       }
     }
     game.errorsRemaining = game.guessesNumber;
+    console.log("Dealer points increased");
     return pointsIncrease;
   }
 };
@@ -284,6 +291,7 @@ Data.prototype.createTestGame = function (playingCards) {
     this.removeGame("test");
     this.createTestGame(playingCards);
   }
+  console.log("test game created");
 };
 
 Data.prototype.createTestResult = function (gameId) {
@@ -313,6 +321,7 @@ Data.prototype.recreateLobby = function (gameId) {
         );
       }
     });
+    console.log("lobby recreated", gameId);
   }
 };
 

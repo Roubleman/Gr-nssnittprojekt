@@ -150,7 +150,7 @@ import { VueFlip } from "vue-flip";
 
 const socket = io(sessionStorage.getItem("dataServer"));
 export default {
-  name: "ResultView",
+  name: "BusView",
   components: {
     OneCard,
     "vue-flip": VueFlip,
@@ -187,8 +187,8 @@ export default {
     };
   },
   created: function () {
-    this.nextStation = new Audio("public/mp3/nasta.mp3");
-    this.mindTheGap = new Audio("public/mp3/partyMusic.mp3");
+    this.nextStation = new Audio("/mp3/nasta.mp3");
+    this.mindTheGap = new Audio("/mp3/partyMusic.mp3");
     this.isDone = false;
     this.distributeDeck();
     socket.on("init", (labels) => {
@@ -225,7 +225,7 @@ export default {
     },
     distributeDeck: function () {
       const path =
-        "public/stations/" +
+        "/stations/" +
         Math.floor(Math.random() * (14 - 0 + 1) + 0) +
         ".mp3";
       this.randStation = new Audio(path);
@@ -244,6 +244,9 @@ export default {
       this.topCard2 = this.piles[1][0];
       this.topCard3 = this.piles[2][0];
       this.topCard4 = this.piles[3][0];
+
+      console.log("Redistributed deck");
+      console.log(this.piles);
     },
     addToSelected: function (card) {
       if (!this.selectedCard.includes(card)) {
@@ -351,6 +354,7 @@ export default {
           this.randStation.play();
         }, 1000);
       } else {
+        console.log("good job");
       }
     },
   },
@@ -358,11 +362,6 @@ export default {
 </script>
 
 <style>
-body {
-  background-color: rgb(233, 233, 223);
-  font-size: 1.3em;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
 #cardSelection {
   display: flex;
   grid-template-columns: repeat(4, 1fr);
@@ -370,19 +369,22 @@ body {
   margin-top: 6em;
   justify-content: center;
 }
+
 li {
   list-style: none;
   margin-left: 5px;
 }
+
 .flip-card {
   size: 100%, 100%;
   border-radius: 1em;
-  background-image: url("public/img/cardback.png");
+  background-image: url("/img/cardback.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
   z-index: 1;
 }
+
 .card-image {
   border: 0.175em solid rgb(95, 95, 95);
   border-radius: 1em;
