@@ -8,21 +8,23 @@
       {{ uiLabels.rules }}
     </button>
   </div>
-  <section id="settings_wrapper">
-    <h2>{{ uiLabels.currentGameSettings }}</h2>
+
+  <h2>{{ uiLabels.currentGameSettings }}</h2>
+  <div class="settings-wrapper">
     <section class="gameSettings">
       <p>
         {{ uiLabels.pointsSetting }}: <br />
         {{ this.difficulty }}
       </p>
+    </section>
+    <section class="gameSettings">
       <p>
         {{ uiLabels.inputGuesses }}: <br />{{ this.gameInfo.guessesNumber }}
       </p>
     </section>
-  </section>
+  </div>
 
   <section id="input_wrappers">
-    <!-- <h2>{{ uiLabels.formTitle }}</h2> -->
     <button id="scramble_button" v-on:click="scramblePlayerOrder">
       {{ uiLabels.scramblePlayerOrder }}
     </button>
@@ -163,13 +165,11 @@ export default {
       const rulesPopup = document.getElementById("rules_popup");
       rulesPopup.style.display = "flex";
       this.removeButton = true;
-
       rulesPopup.addEventListener("click", this.closeRulesOutside);
     },
     closeRules: function () {
       const rulesPopup = document.getElementById("rules_popup");
       rulesPopup.style.display = "none";
-
       rulesPopup.removeEventListener("click", this.closeRulesOutside);
       this.removeButton = false;
     },
@@ -263,7 +263,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin: auto;
   width: 40%;
   margin-bottom: 1em;
@@ -273,10 +273,12 @@ export default {
   font-size: 0.7em;
 }
 
-#settings_wrapper {
+.settings-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+  width: 80%;
 }
 
 #input_wrappers {
@@ -304,13 +306,6 @@ export default {
   font-size: 1.2em;
   text-align: center;
 }
-
-/* h1,
-h2 {
-  color: white;
-  text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
-    0 0 40px #000000;
-} */
 
 #scramble_button {
   width: 15%;
