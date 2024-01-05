@@ -25,7 +25,7 @@
         <p
           style="
             margin-block: var(--margin-block-suit);
-            font-size: var(--card-font-size);
+            font-size: var(--suit-size);
           "
         >
           <span
@@ -90,7 +90,7 @@
           style="
             margin-block: 0em;
             margin-top: var(--margin-block-suit);
-            font-size: var(--card-font-size);
+            font-size: var(--suit-size);
           "
         >
           <span
@@ -112,6 +112,7 @@ export default {
     card: Object,
     isClickable: Boolean,
     cardHeight: Number,
+    isMobile: Boolean,
   },
   data: function () {
     return {};
@@ -197,6 +198,8 @@ export default {
     cssProps() {
       let font_size_multiplier;
       let card_corner_right_margin_top_multiplier;
+      let card_ace_size_multiplier = 0.8125;
+      let card_suit_size_multiplier = 0.125;
 
       if (
         (this.card.points == 10 || this.card.points == 9) &&
@@ -207,10 +210,15 @@ export default {
         font_size_multiplier = 0.125;
       }
 
+      if (this.isMobile) {
+        card_ace_size_multiplier = 0.5;
+        card_suit_size_multiplier = 0.09;
+      }
+
       return {
         "--card-height": this.cardHeight + "em",
         "--card-width": this.cardHeight * 0.66 + "em",
-        "--card-ace-size": this.cardHeight * 0.8125 + "em",
+        "--card-ace-size": this.cardHeight * card_ace_size_multiplier + "em",
         "--card-corner-left-margin": this.cardHeight * 0.0375 + "em",
         "--card-corner-right-margin-top": this.cardHeight * 0.7125 + "em",
         "--card-corner-right-margin-right": this.cardHeight * 0.05 + "em",
@@ -220,6 +228,7 @@ export default {
         "--margin-block-suit": -1 * this.cardHeight * 0.02 + "em",
         "--no-suit-width-minus-100": this.cardHeight * 0.5 + "em",
         "--no-suit-x-translation": -1 * this.cardHeight * 0.50625 + "em",
+        "--suit-size": this.cardHeight * card_suit_size_multiplier + "em",
       };
     },
   },
@@ -252,12 +261,6 @@ export default {
   transition: transform 0.6s ease;
   background-color: white;
 }
-
-/*
-.card-border:hover {
-  transform: scale(1.1);
-  box-shadow: 0.1em 0.1em 0.2em 0.1em #888888;
-}*/
 
 .grid-container {
   display: grid;

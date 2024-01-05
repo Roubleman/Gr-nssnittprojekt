@@ -1,10 +1,6 @@
 <template>
   <section id="background">
-    <header id="header-style">{{ uiLabels.bus }}</header>
-    <h1 v-bind:hidden="!this.isDone">
-      {{ uiLabels.busGameDone }} {{ this.gameScore }}
-      {{ uiLabels.numberOfPoints }}
-    </h1>
+    <header id="header-style" v-bind:hidden="this.isDone">{{ uiLabels.bus }}</header>
     <div class="card-grid">
       <section class="gameInfo" v-bind:hidden="this.isDone">
         <li>{{ uiLabels.numberOfPoints }}: {{ this.gameScore }}</li>
@@ -125,6 +121,10 @@
       </section>
       <section class="gameDone" v-bind:hidden="!this.isDone">
         <div id="back_button_div">
+          <h1>
+            {{ uiLabels.busGameDone }} {{ this.gameScore }}
+            {{ uiLabels.numberOfPoints }}
+          </h1>
           <button class="back-button back-button2" @click="this.refreshPage()">
             {{ uiLabels.playAgain }}
           </button>
@@ -188,7 +188,7 @@ export default {
   },
   created: function () {
     this.nextStation = new Audio("public/mp3/nasta.mp3");
-    this.mindTheGap = new Audio("public/mp3/avstandet.mp3");
+    this.mindTheGap = new Audio("public/mp3/partyMusic.mp3");
     this.isDone = false;
     this.distributeDeck();
     socket.on("init", (labels) => {
@@ -244,14 +244,10 @@ export default {
       this.topCard2 = this.piles[1][0];
       this.topCard3 = this.piles[2][0];
       this.topCard4 = this.piles[3][0];
-
-      console.log("Redistributed deck");
-      console.log(this.piles);
     },
     addToSelected: function (card) {
       if (!this.selectedCard.includes(card)) {
         this.selectedCard.push(card);
-        console.log(this.selectedCard);
         this.compare(this.selectedCard);
       }
     },
@@ -296,7 +292,6 @@ export default {
     },
     compare: function (selectedCard) {
       this.cardSuit.push(this.selectedCard[this.selectedCard.length - 1].suit);
-      console.log(this.cardSuit);
       if (this.cardSuit.length == 4 && this.checkBlack(this.cardSuit)) {
         setTimeout(async () => {
           this.mindTheGap.play();
@@ -310,7 +305,6 @@ export default {
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
-          console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
           this.nextStation.play();
@@ -318,14 +312,12 @@ export default {
           this.randStation.play();
         }, 1000);
       } else if (selectedCard.length === 1 && !this.checkRed(this.cardSuit)) {
-        console.log(this.checkRed(this.cardSuit));
         setTimeout(async () => {
           this.flipBackCards();
           await this.delay(500);
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
-          console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
           this.nextStation.play();
@@ -339,7 +331,6 @@ export default {
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
-          console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
           this.nextStation.play();
@@ -347,14 +338,12 @@ export default {
           this.randStation.play();
         }, 1000);
       } else if (selectedCard.length === 3 && !this.checkRed(this.cardSuit)) {
-        console.log(this.checkRed(this.cardSuit));
         setTimeout(async () => {
           this.flipBackCards();
           await this.delay(500);
           this.distributeDeck();
           this.noShuffles += 1;
           this.gameScore += selectedCard.length * 2;
-          console.log(this.gameScore);
           this.selectedCard = [];
           this.cardSuit = [];
           this.nextStation.play();
@@ -362,7 +351,6 @@ export default {
           this.randStation.play();
         }, 1000);
       } else {
-        console.log("good job");
       }
     },
   },
@@ -376,7 +364,7 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 #cardSelection {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(4, 1fr);
   gap: 1em;
   margin-top: 6em;
@@ -498,6 +486,7 @@ li {
   }
 
   #cardSelection {
+    display: grid;
     grid-template-columns: auto;
     width: 60%;
     margin: auto;
@@ -530,6 +519,7 @@ li {
 }
 @media (max-width: 450px) {
   #cardSelection {
+    display: grid;
     width: 50%;
     margin: auto;
   }

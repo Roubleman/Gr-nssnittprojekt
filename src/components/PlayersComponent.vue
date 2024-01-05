@@ -4,6 +4,16 @@
         <button @click="showPopup = false">Close</button>
     </div>-->
 
+  <section>
+    <button
+      v-if="isGuesser && !isConfirmed && canSelectCard"
+      @click="confirmSelection(card)"
+      id="confirm-button"
+    >
+      Confirm
+    </button>
+  </section>
+
   <div v-if="isGuesser && this.displayButtonClosed">
     <p>{{ guessComparison }}</p>
   </div>
@@ -19,6 +29,7 @@
         <div v-for="(card, index) in value.cards" :key="card.suit + card.value">
           <OneCard
             :card="card"
+            :isMobile="this.isMobile"
             :isClickable="
               isGuesser &&
               canSelectCard &&
@@ -47,15 +58,6 @@
     </section>
   </div>
 
-  <section>
-    <button
-      v-if="isGuesser && !isConfirmed && canSelectCard"
-      @click="confirmSelection(card)"
-      id="confirm-button"
-    >
-      Confirm
-    </button>
-  </section>
   <div v-if="displayPopup.isVisible" class="popup" :class="displayPopup.type">
     <p>{{ displayPopup.message }} {{ guessComparison }}</p>
     <button @click="closePopup">Close</button>
@@ -65,7 +67,7 @@
     class="popup"
     :class="{ waiting: true }"
   >
-    <p>Waiting for the dealer to check...</p>
+    <p>{{ uiLabels.waitingForDealer }}</p>
   </div>
 </template>
 
@@ -106,6 +108,7 @@ export default {
       waitingForDealer: false,
       cardSize: 8,
       waitingPopup: false,
+      isMobile: false,
     };
   },
   updated() {
@@ -318,6 +321,7 @@ export default {
 
     changeCardSize() {
       this.cardSize = window.innerWidth < 800 ? 5.5 : 8;
+      this.isMobile = window.innerWidth < 800 ? true : false;
     },
 
     calculatedCardSectionHeight(cards) {
@@ -350,6 +354,8 @@ export default {
   cursor: pointer;
   transition-duration: 0.4s;
   box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  margin-bottom: 0.5em;
 }
 #confirm-button:hover {
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);

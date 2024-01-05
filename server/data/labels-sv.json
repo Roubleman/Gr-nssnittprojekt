@@ -28,7 +28,8 @@
     "5. Om 3 spelare i rad gissar fel på båda sina gissningar blir nästa person daeler.",
     " * Om man gissar rätt på första försöket får dealern 6 poäng och om man gissar rätt på andra försöket får dealern 3 poäng",
     " Den som är dealer när kortleken tar slut förlorar.",
-    " Vill man spela detta som en dryckeslek så är 1 Poäng = 1 Klunk"
+    " Vill man spela detta som en dryckeslek så är 1 Poäng = 1 Klunk",
+    " ** Det här är poängen som används för normal inställning  "
   ],
   "aboutText": [
     "Välkommen till vårt onlinespel! Oavsett om du arrangerar en virtuell sammankomst eller bara söker underhållning, ger vårt spel en unik touch till din upplevelse.",
@@ -107,5 +108,6 @@
   "restartGame": "Starta ett nytt spel med samma regler",
   "joinRestart": "Gå med i samma spel igen",
   "collapse": "Klicka här",
-  "playAgain": "Spela igen!"
+  "playAgain": "Spela igen!",
+  "waitingForDealer": "Väntar på dealer..."
 }
