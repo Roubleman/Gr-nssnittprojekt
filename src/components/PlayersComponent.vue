@@ -320,7 +320,7 @@ export default {
     },
 
     changeCardSize() {
-      this.cardSize = window.innerWidth < 800 ? 5.5 : 8;
+      this.cardSize = window.innerWidth < 800 ? 6 : 8;
       this.isMobile = window.innerWidth < 800 ? true : false;
     },
 
