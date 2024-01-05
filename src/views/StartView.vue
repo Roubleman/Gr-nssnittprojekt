@@ -41,10 +41,12 @@
           v-model="name"
           v-on:input="checkName()"
         />
+        <transition :name ="!nameAvailable ? 'shake' : 'fade'" mode="out-in">
         <p class="input-error" v-if="!nameAvailable">
           {{ uiLabels.nameUnavailable }}
         </p>
         <p class="explanation" v-else>{{ uiLabels.nameExplanation }}</p>
+      </transition>
       </label>
     </section>
     <section class="input-boxes box">
@@ -59,10 +61,12 @@
             checkGameId();
           "
         />
+        <transition :name ="(!gameIdExists && this.id.length > 3) ? 'shake' : 'fade'" mode="out-in">
         <p class="input-error" v-if="!gameIdExists && this.id.length > 3">
           {{ uiLabels.gameIdNotFound }}
         </p>
         <p class="explanation" v-else>{{ uiLabels.inputGameIdExplanation }}</p>
+      </transition>
       </label>
     </section>
     <section class="input-boxes box" id="avatar_box">
@@ -359,7 +363,7 @@ export default {
   background-color: #009e60;
   font-weight: bolder;
   font-size: 40px;
-  box-shadow: 0px 0px 1px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
   transform: all 2s ease;
   transition-duration: 0.3s;
   cursor: pointer;
@@ -504,6 +508,41 @@ export default {
 
 .language-flag:hover {
   transform: scale(1.04);
+}
+
+.shake-enter-active {
+  animation: shaking 0.3s ease;
+}
+
+.fade-leave-active {
+  animation: fade 0.1s ease;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes shaking {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 @media (min-width: 60em) {
