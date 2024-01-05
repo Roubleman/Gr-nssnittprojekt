@@ -377,6 +377,7 @@ export default {
   },
   beforeDestroy() {
     document.body.style.backgroundColor = null;
+    document.body.style.background = null;
   },
   methods: {
     resetNewRound: function () {

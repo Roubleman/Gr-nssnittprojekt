@@ -41,12 +41,12 @@
           v-model="name"
           v-on:input="checkName()"
         />
-        <transition :name ="!nameAvailable ? 'shake' : 'fade'" mode="out-in">
-        <p class="input-error" v-if="!nameAvailable">
-          {{ uiLabels.nameUnavailable }}
-        </p>
-        <p class="explanation" v-else>{{ uiLabels.nameExplanation }}</p>
-      </transition>
+        <transition :name="!nameAvailable ? 'shake' : 'fade'" mode="out-in">
+          <p class="input-error" v-if="!nameAvailable">
+            {{ uiLabels.nameUnavailable }}
+          </p>
+          <p class="explanation" v-else>{{ uiLabels.nameExplanation }}</p>
+        </transition>
       </label>
     </section>
     <section class="input-boxes box">
@@ -61,12 +61,17 @@
             checkGameId();
           "
         />
-        <transition :name ="(!gameIdExists && this.id.length > 3) ? 'shake' : 'fade'" mode="out-in">
-        <p class="input-error" v-if="!gameIdExists && this.id.length > 3">
-          {{ uiLabels.gameIdNotFound }}
-        </p>
-        <p class="explanation" v-else>{{ uiLabels.inputGameIdExplanation }}</p>
-      </transition>
+        <transition
+          :name="!gameIdExists && this.id.length > 3 ? 'shake' : 'fade'"
+          mode="out-in"
+        >
+          <p class="input-error" v-if="!gameIdExists && this.id.length > 3">
+            {{ uiLabels.gameIdNotFound }}
+          </p>
+          <p class="explanation" v-else>
+            {{ uiLabels.inputGameIdExplanation }}
+          </p>
+        </transition>
       </label>
     </section>
     <section class="input-boxes box" id="avatar_box">
@@ -174,12 +179,14 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
+    document.body.style.height = "auto";
     document.body.style.backgroundImage = "url(/img/subtle-prism.svg)";
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundSize = "cover";
   },
   beforeDestroy() {
+    document.body.style.height = null;
     document.body.style.backgroundImage = null;
     document.body.style.backgroundSize = null;
     document.body.style.backgroundAttachment = null;
@@ -620,14 +627,17 @@ export default {
     color: white;
     font-size: 0.7em;
   }
-  .popup {
-    max-width: 80%;
-  }
   .input-error {
     color: red;
     font-size: 0.65em;
     font-weight: bold;
     margin-top: 1.5%;
+  }
+  .popup {
+    max-height: 90%;
+    font-size: 15px;
+    max-width: 85%;
+    overflow: auto;
   }
 }
 

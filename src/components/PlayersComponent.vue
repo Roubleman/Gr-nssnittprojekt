@@ -4,6 +4,16 @@
         <button @click="showPopup = false">Close</button>
     </div>-->
 
+  <section>
+    <button
+      v-if="isGuesser && !isConfirmed && canSelectCard"
+      @click="confirmSelection(card)"
+      id="confirm-button"
+    >
+      Confirm
+    </button>
+  </section>
+
   <div v-if="isGuesser && this.displayButtonClosed">
     <p>{{ guessComparison }}</p>
   </div>
@@ -48,15 +58,6 @@
     </section>
   </div>
 
-  <section>
-    <button
-      v-if="isGuesser && !isConfirmed && canSelectCard"
-      @click="confirmSelection(card)"
-      id="confirm-button"
-    >
-      Confirm
-    </button>
-  </section>
   <div v-if="displayPopup.isVisible" class="popup" :class="displayPopup.type">
     <p>{{ displayPopup.message }} {{ guessComparison }}</p>
     <button @click="closePopup">Close</button>
@@ -353,6 +354,8 @@ export default {
   cursor: pointer;
   transition-duration: 0.4s;
   box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  margin-bottom: 0.5em;
 }
 #confirm-button:hover {
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);

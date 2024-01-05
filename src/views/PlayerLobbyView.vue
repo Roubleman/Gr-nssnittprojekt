@@ -306,5 +306,11 @@ h2 {
     width: 80%;
     gap: 2em;
   }
+  .popup {
+    max-height: 90%;
+    font-size: 15px;
+    max-width: 85%;
+    overflow: auto;
+  }
 }
 </style>
