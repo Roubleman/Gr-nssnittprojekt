@@ -1,10 +1,6 @@
 <template>
   <section id="background">
-    <header id="header-style">{{ uiLabels.bus }}</header>
-    <h1 v-bind:hidden="!this.isDone">
-      {{ uiLabels.busGameDone }} {{ this.gameScore }}
-      {{ uiLabels.numberOfPoints }}
-    </h1>
+    <header id="header-style" v-bind:hidden="this.isDone">{{ uiLabels.bus }}</header>
     <div class="card-grid">
       <section class="gameInfo" v-bind:hidden="this.isDone">
         <li>{{ uiLabels.numberOfPoints }}: {{ this.gameScore }}</li>
@@ -125,6 +121,10 @@
       </section>
       <section class="gameDone" v-bind:hidden="!this.isDone">
         <div id="back_button_div">
+          <h1>
+            {{ uiLabels.busGameDone }} {{ this.gameScore }}
+            {{ uiLabels.numberOfPoints }}
+          </h1>
           <button class="back-button back-button2" @click="this.refreshPage()">
             {{ uiLabels.playAgain }}
           </button>
@@ -188,7 +188,7 @@ export default {
   },
   created: function () {
     this.nextStation = new Audio("public/mp3/nasta.mp3");
-    this.mindTheGap = new Audio("public/mp3/avstandet.mp3");
+    this.mindTheGap = new Audio("public/mp3/partyMusic.mp3");
     this.isDone = false;
     this.distributeDeck();
     socket.on("init", (labels) => {
