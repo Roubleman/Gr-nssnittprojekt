@@ -299,6 +299,9 @@ export default {
 
 #create_route {
   color: inherit;
+  text-decoration: none;
+  border-bottom: 2px solid currentColor;
+  color: rgb(120, 226, 120);
 }
 
 .header {
