@@ -376,7 +376,7 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 #cardSelection {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(4, 1fr);
   gap: 1em;
   margin-top: 6em;
@@ -498,6 +498,7 @@ li {
   }
 
   #cardSelection {
+    display: grid;
     grid-template-columns: auto;
     width: 60%;
     margin: auto;
@@ -530,6 +531,7 @@ li {
 }
 @media (max-width: 450px) {
   #cardSelection {
+    display: grid;
     width: 50%;
     margin: auto;
   }
