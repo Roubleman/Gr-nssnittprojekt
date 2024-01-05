@@ -710,6 +710,7 @@ h4 {
   border-width: 0.8em;
   background-color: rgb(73, 114, 73);
   margin: 1.5em auto;
+  border-radius: 10px;
 }
 
 .styled-box {
@@ -723,6 +724,7 @@ h4 {
   border-width: 0.8em;
   background-color: rgb(73, 114, 73);
   margin: 1.5em auto;
+  border-radius: 10px;
 }
 
 .name-display {
