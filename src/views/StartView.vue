@@ -29,7 +29,15 @@
     </button>
   </ResponsiveNav>
   <h1 class="highlight">{{ uiLabels.salesPitch }}</h1>
-  <h2 class="highlight">{{ uiLabels.joinInfo }}</h2>
+  <h2 class="highlight" id="desktop_create">
+    {{ uiLabels.joinInfo }} {{ uiLabels.createANewOne }}
+  </h2>
+  <h2 class="highlight" id="mobile_create">
+    {{ uiLabels.joinInfo }}
+    <router-link id="create_route" to="/create">
+      {{ uiLabels.createANewOne }}</router-link
+    >
+  </h2>
 
   <section id="input_wrappers">
     <section class="input-boxes box">
@@ -227,7 +235,7 @@ export default {
     closeRulesOutside: function (event) {
       const rulesPopup = document.getElementById("rules_popup");
       if (event.target === rulesPopup) {
-        this.closeRules(); // Call your existing closeRules function
+        this.closeRules();
       }
     },
     openAbout: function () {
@@ -248,7 +256,7 @@ export default {
     closeAboutOutside: function (event) {
       const aboutPopup = document.getElementById("about_popup");
       if (event.target === aboutPopup) {
-        this.closeAbout(); // Call your existing closeRules function
+        this.closeAbout();
       }
     },
     inputChecker: function () {
@@ -285,6 +293,14 @@ export default {
 };
 </script>
 <style scoped>
+#mobile_create {
+  display: none;
+}
+
+#create_route {
+  color: inherit;
+}
+
 .header {
   background-color: #076032;
   width: 100%;
@@ -572,6 +588,12 @@ export default {
 }
 
 @media screen and (max-width: 50em) {
+  #desktop_create {
+    display: none;
+  }
+  #mobile_create {
+    display: block;
+  }
   .hover-link:hover {
     color: black;
   }
