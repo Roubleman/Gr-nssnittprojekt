@@ -9,13 +9,19 @@
     </button>
   </div>
   <h2>{{ uiLabels.currentGameSettings }}</h2>
-  <section class="gameSettings">
-    <p>
-      {{ uiLabels.pointsSetting }}: <br />
-      {{ this.difficulty }}
-    </p>
-    <p>{{ uiLabels.inputGuesses }}: <br />{{ this.gameInfo.guessesNumber }}</p>
-  </section>
+  <div class="settings-wrapper">
+    <section class="gameSettings">
+      <p>
+        {{ uiLabels.pointsSetting }}: <br />
+        {{ this.difficulty }}
+      </p>
+    </section>
+    <section class="gameSettings">
+      <p>
+        {{ uiLabels.inputGuesses }}: <br />{{ this.gameInfo.guessesNumber }}
+      </p>
+    </section>
+  </div>
 
   <section id="input_wrappers">
     <section class="player-list box">
@@ -207,18 +213,20 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin: auto;
   width: 40%;
   margin-bottom: 1em;
 }
 
-/* h1,
-h2 {
-  color: white;
-  text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000,
-    0 0 40px #000000;
-} */
+.settings-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+  width: 80%;
+}
+
 .popup {
   position: relative;
   z-index: 1000;
