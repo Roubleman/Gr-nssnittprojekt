@@ -31,17 +31,16 @@
     " Vill man spela detta som en dryckeslek så är 1 Poäng = 1 Klunk"
   ],
   "aboutText": [
-    
-      "Välkommen till vårt onlinespel! Oavsett om du arrangerar en virtuell sammankomst eller bara söker underhållning, ger vårt spel en unik touch till din upplevelse.",
-      "",
-      "Funktioner:",
-      "- Online Multiplayer: Spela med vänner eller delta i befintliga spel.",
-      "- Anpassningsbara regler: Skräddarsy spelinställningarna efter dina preferenser.",
-      "- Topplista: Tävla och se vem som går segrande ur striden.",
-      "",
-      "Gör dig redo att njuta av vårt onlinespel. Var med och ha roligt – låt spelen börja!"
-    ],
-  
+    "Välkommen till vårt onlinespel! Oavsett om du arrangerar en virtuell sammankomst eller bara söker underhållning, ger vårt spel en unik touch till din upplevelse.",
+    "",
+    "Funktioner:",
+    "- Online Multiplayer: Spela med vänner eller delta i befintliga spel.",
+    "- Anpassningsbara regler: Skräddarsy spelinställningarna efter dina preferenser.",
+    "- Topplista: Tävla och se vem som går segrande ur striden.",
+    "",
+    "Gör dig redo att njuta av vårt onlinespel. Var med och ha roligt – låt spelen börja!"
+  ],
+
   "lobbyHeader": "Välkommen till spel:",
   "formTitle": "Spelarlista: ",
   "scramblePlayerOrder": "Slumpa ordning!",
@@ -60,9 +59,11 @@
   "dealerHeader": "Du är dealer!",
   "playerHeader": "Din tur att gissa!",
   "spectatorHeader": "Du är spektator!",
+  "playerLeft": " har lämnat spelet",
   "currentDealer": "Dealer",
   "currentGuesser": "Den som gissar",
   "currentGameSettings": "Spelinställningar:",
+  "leaveGameConfirm": "Är du säker att du vill lämna spelet?",
   "player": "Spelare",
   "points": "Poäng",
   "avatar": "Avatar",

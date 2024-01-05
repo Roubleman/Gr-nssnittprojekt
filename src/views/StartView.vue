@@ -170,12 +170,14 @@ export default {
   },
   mounted() {
     //coPilot code so that we have body background with style scoped
+    document.body.style.height = "auto";
     document.body.style.backgroundImage = "url(/img/subtle-prism.svg)";
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundSize = "cover";
   },
   beforeDestroy() {
+    document.body.style.height = null;
     document.body.style.backgroundImage = null;
     document.body.style.backgroundSize = null;
     document.body.style.backgroundAttachment = null;

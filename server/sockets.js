@@ -74,11 +74,6 @@ function sockets(io, socket, data) {
     io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
   });
 
-  socket.on("playerLeft", function (d) {
-    data.removePlayer(d.gameId, d.playerName);
-    io.to(d.gameId).emit("playerList", data.getPlayerList(d.gameId));
-  });
-
   socket.on("hostLeft", function (gameId) {
     data.removeGame(gameId);
     io.to(gameId).emit("gameEnded");
@@ -92,6 +87,14 @@ function sockets(io, socket, data) {
   socket.on("fuckTheDealer", function (d) {
     data.fuckTheDealer(d.gameId, d.secondGuess);
     io.to(d.gameId).emit("gameInfo", data.getGame(d.gameId));
+  });
+
+  socket.on("leaveGame", function (d) {
+    data.playerLeavingInGame(d.gameId, d.playerName);
+    io.to(d.gameId).emit("playerLeft", {
+      game: data.getGame(d.gameId),
+      playerName: d.playerName,
+    });
   });
 
   socket.on("cardGuessed", function (d) {
