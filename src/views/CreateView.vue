@@ -4,7 +4,7 @@
       <button class="back-button" @click="this.$router.push({ path: '/' })">
         <span class="back-button-text-one"> {{ uiLabels.backToHomepage }}</span>
         <span class="back-button-text-two">
-          <img src="../../img/left-chevron.png" alt="prutt"
+          <img src="../../img/left-chevron.png" alt="Homepage"
         /></span>
       </button>
     </div>
@@ -120,7 +120,7 @@ export default {
     document.body.style.backgroundImage = "url(/img/radiant-gradient.svg)";
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "center";
-    document.body.style.backgroundSize = "contain";
+    document.body.style.backgroundSize = "cover";
   },
   beforeDestroy() {
     document.body.style.height = null;
@@ -181,7 +181,11 @@ export default {
 
 #guesses_number {
   font-size: 1.2em;
+  margin-left: 0.3em;
+  text-shadow: 1px 2px 5px rgb(0, 0, 0);
+  color: white;
 }
+
 
 #global_section {
   display: flex;
@@ -359,6 +363,7 @@ export default {
   }
   #back_button_div {
     height: 0;
+    width: 0;
   }
   .guess-button {
     font-size: 1em;
@@ -373,6 +378,10 @@ export default {
   .create-setting {
     width: 85%;
     font-size: 0.85em;
+  }
+
+  .back-button{
+    width: 0;
   }
 
   .start-button {
