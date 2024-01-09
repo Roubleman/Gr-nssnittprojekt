@@ -726,6 +726,10 @@ h4 {
   background-color: rgb(73, 114, 73);
   margin: 1.5em auto;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .name-display {
