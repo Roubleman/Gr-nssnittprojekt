@@ -128,7 +128,7 @@
             <transition name="bounce-fade">
               <OneCard
                 :card="latestMessage.card"
-                :cardHeight="5"
+                :cardHeight="6"
                 class="no-selection"
               ></OneCard>
             </transition>
@@ -145,7 +145,7 @@
         <OneCard
           v-if="Object.keys(popup.card).length > 0"
           :card="popup.card"
-          :cardHeight="5"
+          :cardHeight="6"
           class="no-selection padding-bottom"
         ></OneCard>
       </div>
