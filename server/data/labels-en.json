@@ -30,7 +30,7 @@
     " * If you guess right on the first attempt, the dealer gets 6 points, and if you guess right on the second attempt, the dealer gets 3 points (**).",
     "The person who is the dealer when the deck of cards runs out loses.",
     " If you want to play this as a drinking game, 1 Point = 1 Sip.",
-    " ** Dessa poäng används för standard spelinställningen, men kan ändras i inställningarna."
+    " ** These settings are set to standard, but can be customized when you create a game."
   ],
   "aboutText": [
     "Welcome to our online game! Whether you're hosting a virtual gathering or just looking for some entertainment, our game adds a unique touch to your experience.",
